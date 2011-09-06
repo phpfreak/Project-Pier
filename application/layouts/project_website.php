@@ -12,8 +12,8 @@
 <?php echo stylesheet_tag('project_website.css') ?> 
 <?php echo stylesheet_tag('jquery/jquery-ui-1.8.6.custom.css') ?> 
 <?php echo meta_tag('content-type', 'text/html; charset=utf-8', true) ?> 
-    <link rel="Shortcut Icon" href="<?php echo ROOT_URL.'/favicon.ico' ?>" type="image/x-icon" />
-    <link rel="alternate" title="<?php echo lang('recent activities feed') ?>" type="application/rss+xml" href="<?php echo logged_user()->getRecentActivitiesFeedUrl(active_project()) ?>" />
+    <link rel="Shortcut Icon" href="<?php echo ROOT_URL.'favicon.ico' ?>" type="image/x-icon" />
+    <link rel="alternate" title="<?php echo lang('recent activities feed') ?>" type="application/rss+xml" href="<?php echo externalUrl(logged_user()->getRecentActivitiesFeedUrl(active_project())) ?>" />
 <?php add_javascript_to_page('pp.js') ?>
 <?php add_javascript_to_page('jquery.min.js') ?>
 <?php add_javascript_to_page('jquery-ui.min.js') ?>
@@ -21,12 +21,13 @@
   </head>
   <body>
 <script>
-//$.datepicker.setDefaults($.datepicker.regional[<?php echo 'nl'; //lang('language_code') ?>]);
 $(function() {
   $('input.datepicker').datepicker({
+    dateFormat: '<?php echo lang('input date format') ?>',
     showOn: 'button',
     buttonImage: '<?php echo get_image_url('icons/calendar.png'); ?>',
     buttonImageOnly: true,
+    constrainInput: false,
     onClose: function(dateText,picker) {
       $('#startdate_day').val( dateText.split(/\//)[1] );
     }

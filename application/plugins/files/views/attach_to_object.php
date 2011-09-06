@@ -13,7 +13,7 @@
 <?php tpl_display(get_template_path('form_errors')) ?>
   <div class="hint"><?php echo lang('attach files to object desc', $attach_to_object->getObjectUrl(), clean($attach_to_object->getObjectName())) ?></div>
   <div>
-    <?php echo radio_field('attach[what]', array_var($attach_data, 'what') == 'existing_file', array('value' => 'existing_file', 'id' => 'attachFormExistingFile', 'onclick' => 'App.modules.attachToObjectForm.toggleAttachForms()')) ?> <label for="attachFormExistingFile" class="checkbox"><?php echo lang('attach existing file') ?></label>
+    <?php echo radio_field('attach[what]', array_var($attach_data, 'what') == 'existing_file', array('value' => 'existing_file', 'id' => 'attachFormExistingFile' )) ?> <label for="attachFormExistingFile" class="checkbox"><?php echo lang('attach existing file') ?></label>
   </div>
   
   <div id="attachFormExistingFileControls">
@@ -24,7 +24,7 @@
   </div>
   
   <div>
-    <?php echo radio_field('attach[what]', array_var($attach_data, 'what') <> 'existing_file', array('value' => 'new_file', 'id' => 'attachFormNewFile', 'onclick' => 'App.modules.attachToObjectForm.toggleAttachForms()')) ?> <label for="attachFormNewFile" class="checkbox"><?php echo lang('upload and attach') ?></label>
+    <?php echo radio_field('attach[what]', array_var($attach_data, 'what') <> 'existing_file', array('value' => 'new_file', 'id' => 'attachFormNewFile' )) ?> <label for="attachFormNewFile" class="checkbox"><?php echo lang('upload and attach') ?></label>
   </div>
   
   <div id="attachFormNewFileControls">

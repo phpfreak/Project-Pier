@@ -31,7 +31,7 @@
   * @param mixed $var
   * @param string $indent Indent is used when dumping arrays recursivly
   * @param string $indent_close_bracet Indent close bracket param is used
-  *   internaly for array output. It is shorter that var indent for 2 spaces
+  *   internally for array output. It is shorter that var indent for 2 spaces
   * @return null
   */
   function clean_var_info($var, $indent = '&nbsp;&nbsp;', $indent_close_bracet = '') {
@@ -463,7 +463,12 @@
   * @return $string in lower case
   */
   function lc($string) {
-    return utf8_encode(strtolower(utf8_decode($string))); 
+    if (function_exists('mb_convert_case')) {
+      return mb_convert_case($string, MB_CASE_LOWER, "UTF-8");
+    }
+    $uc = "ĄÇČĆĘŁŃÑÓŚŹŻABCDÐEFGĞHIİJKLMNOŒÖPRSŠŞTUÜWYÝZŽQXVЁЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮÆÅÂÀÁÄÃÊÈÉËÎÍÌÏÔÕÒÓÖØÛÙÚÜ";
+    $lc = "ąçčćęłńñóśźżabcdðefgğhiijklmnoœöprsšştuüwyýzžqxvёйцукенгшщзхъфывапролджэячсмитьбюæåâàáäãêèéëîíìïôõòóöøûùúü"; 
+    return strtr($string, $uc, $lc);  
   }
 
   /**
@@ -494,7 +499,15 @@
   * @return $string with http:// etc. added
   */
   function externalUrl($relative_url) {
-    return 'http://' . $_SERVER['HTTP_HOST'] . $relative_url; 
+    $protocol = 'http://';
+    if (isset($_SERVER['HTTPS'])) {
+      if ($_SERVER['HTTPS']!='off') { // IIS
+        if ($_SERVER['HTTPS']!='') {
+          $protocol = 'https://'; 
+        }
+      }
+    }
+    return $protocol . $_SERVER['HTTP_HOST'] . $relative_url; 
   }
 
 ?>

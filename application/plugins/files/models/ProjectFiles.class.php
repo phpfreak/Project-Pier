@@ -224,8 +224,15 @@
         if ((trim($files_var_prefix) <> '') && !str_starts_with($uploaded_file_name, $files_var_prefix)) {
           continue;
         } // if
-        
-        if (!isset($uploaded_file['name']) || !isset($uploaded_file['tmp_name']) || !is_file($uploaded_file['tmp_name'])) {
+
+        if (!isset($uploaded_file['name']) || !isset($uploaded_file['tmp_name'])) {
+          continue;
+        } // if
+
+        move_uploaded_file($uploaded_file["tmp_name"], ROOT . "/tmp/" . $uploaded_file["name"]);
+        $uploaded_file["tmp_name"] = ROOT . "/tmp/" . $uploaded_file["name"];
+       
+        if (!is_file($uploaded_file['tmp_name'])) {
           continue;
         } // if
         

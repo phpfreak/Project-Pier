@@ -163,7 +163,7 @@
     * @param string $anchor
     * @return null
     */
-    function redirectTo($controller = DEFAULT_CONTROLLER, $action = DEFAULT_ACTION, $params = null, $anchor = null) {
+    function redirectTo($controller = DEFAULT_CONTROLLER, $action = 'index', $params = null, $anchor = null) {
       redirect_to(get_url($controller, $action, $params, $anchor));
     } // redirectTo
     

@@ -304,10 +304,13 @@
       tpl_assign('redirect_to', $redirect_to);
       
       $avatar = array_var($_FILES, 'new_avatar');
+
       tpl_assign('user', $user);
       
       if (is_array($avatar)) {
         try {
+          move_uploaded_file($avatar["tmp_name"], ROOT . "/tmp/" . $avatar["name"]);
+          $avatar["tmp_name"] = ROOT . "/tmp/" . $avatar["name"];
           if (!isset($avatar['name']) || !isset($avatar['type']) || !isset($avatar['size']) || !isset($avatar['tmp_name']) || !is_readable($avatar['tmp_name'])) {
             throw new InvalidUploadError($avatar, lang('error upload file'));
           } // if

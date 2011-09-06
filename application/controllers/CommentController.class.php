@@ -47,6 +47,12 @@
       
       $comment = new Comment();
       $comment_data = array_var($_POST, 'comment');
+      if (!is_array($comment_data)) {
+        $comment_data = array(
+          'text' => '',
+          'is_private' => config_option('default_private', false),
+        ); // array
+      } // if
       
       tpl_assign('comment_form_object', $object);
       tpl_assign('comment', $comment);
@@ -92,7 +98,7 @@
           } // if
           
           DB::commit();
-
+$xx = 0;
           // Try to send notification on comments other than Messages (messages already managed by subscription)          
           if (!($comment->getObject() instanceof ProjectMessage)) {
             // Try to send notifications but don't break submission in case of an error
@@ -104,19 +110,21 @@
               foreach ($project_companies as $project_company) {
                 $company_users = $project_company->getUsersOnProject(active_project());
                 if (is_array($company_users)) {
-                  foreach ($company_users as $company_user) {                
-                    $notify_people[] = $company_user;                 
+                  foreach ($company_users as $company_user) {
+                    if ((array_var($comment_data, 'notify_company_' . $project_company->getId()) == 'checked') || (array_var($comment_data, 'notify_user_' . $company_user->getId()))) {
+                      $notify_people[] = $company_user;
+                    } // if
                   } // if
                 } // if
               } // if
-              //notify
+$xx = count($notify_people);
               Notifier::newOtherComment($comment, $notify_people); // send notification email...
             } catch(Exception $e) {                  
               Logger::log("Error: Notification failed, " . $e->getMessage(), Logger::ERROR);
             } // try
           } // if
           
-          flash_success(lang('success add comment'));
+          flash_success(lang('success add comment', $xx));
           
           $redirect_to = $comment->getViewUrl();
           if (!is_valid_url($redirect_to)) {

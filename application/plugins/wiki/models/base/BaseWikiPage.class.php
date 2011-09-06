@@ -11,7 +11,7 @@
  */
 Abstract Class BaseWikiPage extends ProjectDataObject {
 	
-	protected $project;
+  protected $project;
 	
   /**
    * Taken from Project links plugin
@@ -21,51 +21,45 @@ Abstract Class BaseWikiPage extends ProjectDataObject {
    * @param mixed $args
    * @return
    */
-	function __call($method, $args) {
-			//If we have a getter or setter call
-      if( preg_match('/(set|get)(_)?/', $method, $type) ) {
-  			
-	    	//Get the name of the column it wants to get / set
-      	$col = substr(strtolower(preg_replace('([A-Z])', '_$0', $method)), 4);
-  			
-        if($type[1] == 'get') {
-        	
-					//If we want to get a value
-					return $this->getColumnValue($col);
-					  
-        } elseif($type[1] == 'set' && count($args)) {
-        	//Else if we want to set a value, and we have an arguement
-          return $this->setColumnValue($col, $args[0]);
-          
-        }// if
-      } //if
-      
+  function __call($method, $args) {
+    //If we have a getter or setter call
+    if( preg_match('/(set|get)(_)?/', $method, $type) ) {
+      //Get the name of the column it wants to get / set
+      $col = substr(strtolower(preg_replace('([A-Z])', '_$0', $method)), 4);
+      if($type[1] == 'get') {
+        //If we want to get a value
+        return $this->getColumnValue($col);
+      } elseif($type[1] == 'set' && count($args)) {
+        //Else if we want to set a value, and we have an arguement
+        return $this->setColumnValue($col, $args[0]);
+      }// if
+    } //if
+    
       // me no understand!
       return false;
-		} //__call
+  } //__call
 	
 
-	/**
+  /**
     * Return manager instance
     *
     * @access protected
     * @param void
     * @return ProjectLinks 
     */
-    function manager() 
-		{
-      if (!instance_of($this->manager, 'Wiki')) {
-        $this->manager = Wiki::instance();
-      }
-      return $this->manager;
-    } // manager
+  function manager() {
+    if (!instance_of($this->manager, 'Wiki')) {
+      $this->manager = Wiki::instance();
+    }
+    return $this->manager;
+  } // manager
     
   /**
    * This function saves the wiki page 
    *
    * @return void
    */
-	function save()
+  function save()
   {
 		if(instance_of($this->new_revision, 'Revision')){
 			
@@ -104,6 +98,6 @@ Abstract Class BaseWikiPage extends ProjectDataObject {
 			return false;
 		} 		
 	}//save
-} 
+  } 
 
 ?>

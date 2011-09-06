@@ -43,11 +43,12 @@ CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."wiki_pages` (
   `project_id` int(10) unsigned default NULL,
   `project_sidebar` tinyint(1) unsigned default '0',
   `project_index` tinyint(1) unsigned default '0',
+  `publish` tinyint(1) unsigned default '0',
   `locked` tinyint(1) default '0',
   `locked_by_id` int(10) unsigned default NULL,
   `locked_on` datetime default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`)
-) TYPE=InnoDB  DEFAULT CHARSET=".DB_CHARSET;
+);";
     // create table wiki_pages
     DB::execute($sql);
     $sql = "
@@ -62,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."wiki_revisions` (
   `created_by_id` int(10) unsigned default NULL,
   `log_message` varchar(255) default NULL,
   PRIMARY KEY  (`id`)
-) TYPE=InnoDB  DEFAULT CHARSET=".DB_CHARSET;
+);";
     // create table wiki_revisions
     DB::execute($sql);
   }

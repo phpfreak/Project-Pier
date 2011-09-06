@@ -11,7 +11,7 @@
   trace(__FILE__, 'begin');
   define('FILE_STORAGE_FILE_SYSTEM', 'fs');
   define('FILE_STORAGE_MYSQL', 'mysql');
-  define('TOKEN_COOKIE_NAME', 'pp086b2' . TABLE_PREFIX);
+  define('TOKEN_COOKIE_NAME', 'pp087' . TABLE_PREFIX);
   //$installation_root = config_option('installation_root', dirname($_SERVER['PHP_SELF']) );
   $path=$_SERVER['PHP_SELF'];
   $path=substr($path, 0, strpos($path, 'index.php'));
@@ -55,7 +55,7 @@
     Env::executeAction('access', 'complete_installation');    
   // Other type of error? We need to break here
   }  catch(Exception $e) {
-    trace(__FILE__, '- catch '.$e.__toString());
+    trace(__FILE__, '- catch '.$e);
     if (Env::isDebugging()) {
       Env::dumpError($e);
     } else {

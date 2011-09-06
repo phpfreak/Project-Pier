@@ -46,6 +46,9 @@
     * @return array
     */
     function getSearchConditions($search_for, Project $project, $include_private = false) {
+      if (logged_user()->isAdministrator()) {
+        return DB::prepareString('MATCH (`content`) AGAINST (? IN BOOLEAN MODE)', array($search_for));
+      }
       if ($include_private) {
         return DB::prepareString('MATCH (`content`) AGAINST (? IN BOOLEAN MODE) AND `project_id` = ?', array($search_for, $project->getId()));
       } else {

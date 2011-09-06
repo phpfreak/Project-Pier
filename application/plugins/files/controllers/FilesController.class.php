@@ -464,6 +464,9 @@
         try {
           DB::beginWork();
           $uploaded_file = array_var($_FILES, 'file_file');
+          // move uploaded file to folder where I can read and write
+          move_uploaded_file($uploaded_file["tmp_name"], ROOT . "/tmp/" . $uploaded_file["name"]);
+          $uploaded_file["tmp_name"] = ROOT . "/tmp/" . $uploaded_file["name"];
           $file->setFromAttributes($file_data);
           
           if (!logged_user()->isMemberOfOwnerCompany()) {

@@ -27,6 +27,13 @@
     <?php echo label_tag(lang('due date'), null, true) ?>
     <?php echo pick_date_widget('milestone_due_date', array_var($milestone_data, 'due_date')) ?>
   </div>
+
+<?php if (logged_user()->getProjectPermission($milestone->getProject(), 'milestones-edit_goal')) { ?>
+  <div>
+    <?php echo label_tag(lang('goal'), 'milestoneFormGoal') ?>
+    <?php echo input_field('milestone[goal]', array_var($milestone_data, 'goal'), array('class' => 'short', 'id' => 'milestoneFormGoal')) ?>
+  </div>
+<?php } // if ?>
   
 <?php if (logged_user()->isMemberOfOwnerCompany()) { ?>
   <div class="formBlock">

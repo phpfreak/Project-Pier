@@ -17,6 +17,7 @@
     */
     function __construct() {
       $this->setName('VEVENT');
+      $this->setValidComponents('VALARM');
       $this->setValidProperties(
         'CLASS', 
         'CREATED', 
@@ -48,7 +49,17 @@
         'RELATED', 
         'RESOURCES', 
         'RDATE', 
-        'RRULE', 
+        'RRULE',
+        'ACTION',
+        'ATTACH',
+        'ATTENDEE',
+        'DESCRIPTION',
+        'DURATION',
+        'REPEAT',
+        'SUMMARY', 
+        'TRIGGER',
+        'BEGIN',
+        'END',       
         'X-PROP'
       ); // setValidProperties
     } // __construct

@@ -209,6 +209,7 @@
     */
     function getProjectPermission(Project $project, $permission, $default = false) {
       trace(__FILE__,"getProjectPermission($permission, $default)");
+      if (is_null($project)) return false;
       static $valid_permissions;
       if (!isset($valid_permissions)) {
         trace(__FILE__,"getProjectPermission($permission, $default):getPermissionsText()");

@@ -54,11 +54,16 @@
       <ul>
         <li>
           <label for="loginLanguage"><?php echo lang('language'); ?></label><select name="loginLanguage" id="loginLanguage">
+            <option value="da_dk">Dansk</option>
             <option value="de_de">Deutsch</option>
             <option selected="selected" value="en_us">English (U.S.)</option>
             <option value="es_es">Español</option>
             <option value="fr_fr">Français</option>
+            <option value="is_is">Islenska</option>
+            <option value="it_it">Italiano</option>
             <option value="nl_nl">Nederlands</option>
+            <option value="no_nb">Norsk Bokmål</option>
+            <option value="ru_ru">Russian</option>
           </select>
         </li>
         <li>
@@ -93,6 +98,37 @@
   </div>
   <div style="clear:both"></div>
   <div id="welcome_text"><?php echo config_option('installation_welcome_text', ''); ?></div>
+  <div id="changes"><h3>Changes to standard 0.8.6</h3>
+  <div id="language_packs"><h4>Language packs</h4>
+  <ol>
+  <li>Danish language by Michael Hansen Buur <a href=/pp086addons/language/da_dk_0_8_6.zip>Download</a></li>
+  <li>Icelandic language by Björn Guðmundsson <a href=/pp086addons/language/is_is_0_8_6.zip>Download</a></li>
+  <li>Italian language by Marco Torresendi <a href=/pp086addons/language/it_it_0_8_6.zip>Download</a></li>
+  <li>Norwegian language by Egil Hansen <a href=/pp086addons/language/no_nb_0_8_6.zip>Download</a></li>
+  <li>Russian language by Alexander Selifonov <a href=/pp086addons/language/ru_ru_0_8_6.zip>Download</a></li>
+  </ol>
+  <div id="patches"><h4>Patches</h4>
+  <ol>
+  <li>Global search <a href=http://www.projectpier.org/node/130>Details</a> <a href=/pp086patches/130-global-search.zip>Download</a></li>
+  <li>Wiki pages sorted <a href=http://www.projectpier.org/node/1915#comment-5043>Details</a> <a href=/pp086patches/1915-wiki-ordering.zip>Download</a></li>
+  <li>Log icons <a href=https://github.com/dbernar1/Project-Pier/tree/master/public/assets/themes/marine/images/logtypes>Download page</a></li>
+  <li>Error clicking tags <a href=http://www.projectpier.org/node/2044>Details</a> <a href=/pp086patches/2044-error-clicking-tags.zip>Download</a></li>
+  <li>Search form <a href=http://www.projectpier.org/node/2047>Details</a> <a href=/pp086patches/2047-search-form.zip>Download</a></li>
+  <li>Crashed message comments display <a href=http://www.projectpier.org/node/2048>Details</a> <a href=/pp086patches/2048-private-comments-overlap.zip>Download</a></li>
+  <li>Lowercase accented characters <a href=http://www.projectpier.org/node/2053>Details</a> <a href=/pp086patches/2053-lowercase.zip>Download</a></li>
+  <li>Tickets change localized <a href=http://www.projectpier.org/node/2054>Details</a> <a href=/pp086patches/2054-ticket-change-localized.zip>Download</a></li>
+  <li>Localized expand collapse <a href=http://www.projectpier.org/node/2064>Details</a> <a href=/pp086patches/2064-localized-expand-collapse.zip>Download</a></li>
+  <li>Short tags getText() <a href=http://www.projectpier.org/node/2103>Details</a> <a href=/pp086patches/2058-missing-icons-for-logtypes.zip>Download</a></li>
+  <li>kampPro broken layout tasks <a href=http://www.projectpier.org/node/2107>Details</a> <a href=/pp086patches/2107-kampPro-broken-layout-tasks.zip>Download</a></li>
+  <li>Sidebar Css <a href=http://www.projectpier.org/node/2167>Details</a> <a href=/pp086patches/2167-sidebar-size.zip>Download</a></li>
+  <li>Tickets <a href=http://www.projectpier.org/node/2180>Details</a> <a href=/pp086patches/2180-tickets.zip>Download</a></li>
+  <li>Google Maps <a href=http://www.projectpier.org/node/2186>Details</a> <a href=/pp086patches/2186-postalcode-google-map.zip>Download</a></li>
+  <li>Download all tasks <a href=http://www.projectpier.org/node/2205>Details</a> <a href=/pp086patches/2205-download-all-tasks.zip>Download</a></li>
+  <li>Milestone progress, hide private items <a href=http://www.projectpier.org/node/2220>Details</a> <a href=/pp086patches/2220-milestone-progress-hide-private.zip>Download</a></li>
+  <li>Project progress <a href=http://www.projectpier.org/node/2224>Details</a> <a href=/pp086patches/2224-project-progress.zip>Download</a></li>
+  <li>Dates translated <a href=http://www.projectpier.org/node/672>Details</a> <a href=/pp086patches/672-dates-translated.zip>Download</a></li>
+  </ol>
+  </div>
 </div>
 
 <?php if (isset($login_data) && is_array($login_data) && count($login_data)) { ?>

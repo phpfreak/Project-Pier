@@ -211,8 +211,9 @@ Class WikiController extends ApplicationController {
 			//Set the Id for this project
 			$page->setProjectId(active_project()->getId());
 			$page->setProjectIndex((logged_user()->isMemberOfOwnerCompany() ? $data['project_index'] : 0));
-			$page->setProjectSidebar((logged_user()->isMemberOfOwnerCompany() ? $data['project_sidebar'] : 0));
+			$page->setPublish((logged_user()->isMemberOfOwnerCompany() ? $data['publish'] : 0));
 			
+			$page->setProjectSidebar((logged_user()->isMemberOfOwnerCompany() ? $data['project_sidebar'] : 0));
 			//Make a new revision of this page
 			$revision = $page->makeRevision();
 			
@@ -301,6 +302,7 @@ Class WikiController extends ApplicationController {
 			
 			$page->setProjectIndex($data['project_index']);
 			$page->setProjectSidebar($data['project_sidebar']);
+			$page->setPublish($data['publish']);
 			
 			//Set the users ID
 			$revision->setCreatedById(logged_user()->getId());

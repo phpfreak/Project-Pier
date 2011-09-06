@@ -19,13 +19,19 @@
     * @param Angie_Feed $feed
     * @return string
     */
+
     function render(Angie_Feed $feed) {
-      $result  = "<rss version=\"2.0\">\n<channel>\n";
+      $result  = "<rss version=\"2.0\">\n";
+      //$result  = "<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n";
+      $result .= "<channel>\n";
+      $feed_url = externalUrl(clean($feed->getLink()));
+      //$result .= "<atom:link href=\"$feed_url\" rel=\"self\" type=\"application/rss+xml\" />\n";
       $result .= '<title>' . clean($feed->getTitle()) . "</title>\n";
-      $result .= '<link>' . clean($feed->getLink()) . "</link>\n";
+      $result .= '<link>' . $feed_url . "</link>\n";
       if ($description = trim($feed->getDescription())) {
-        $result .= '<description>' . clean($description) . "</description>\n";
+        $description = "empty";
       } // if
+      $result .= '<description>' . clean($description) . "</description>\n";
       if ($language = trim($feed->getLanguage())) {
         $result .= '<language>' . clean($language) . "</language>\n";
       } // if
@@ -47,10 +53,13 @@
     private function renderItem(Angie_Feed_Item $item) {
       $result  = "<item>\n";
       $result .= '<title>' . clean($item->getTitle()) . "</title>\n";
-      $result .= '<link>' . clean($item->getLink()) . "</link>\n";
+      $link = externalUrl(clean($item->getLink()));
+      $result .= '<link>' . $link . "</link>\n";
+      //$result .= '<guid>' . $link . "</guid>\n";
       if ($description = trim($item->getDescription())) {
-        $result .= '<description>' . clean($description) . "</description>\n";
+        $description = "empty";
       } // if
+      $result .= '<description>' . clean($description) . "</description>\n";
       
       $author = $item->getAuthor();
       if ($author instanceof Angie_Feed_Author) {
@@ -59,7 +68,7 @@
       
       $pubdate = $item->getPublicationDate();
       if ($pubdate instanceof DateTimeValue) {
-        $result .= '<pubdate>' . $pubdate->toRSS() . "</pubdate>\n";
+        $result .= '<pubDate>' . $pubdate->toRSS() . "</pubDate>\n";
       } // if
       
       $result .= '</item>';

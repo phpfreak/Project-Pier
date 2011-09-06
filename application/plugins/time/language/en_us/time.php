@@ -52,6 +52,9 @@
     'report by task' => 'Report by task',
     'time spent on project' => 'Time Spent on Project',
     'hour(s)' => 'hour(s)',
+    'times error changing status' => 'There was an error changing the status of one of your items.',
+    'times items successfully marked' => 'Items successfully marked as %s',
+    'times time spent on task' => 'Time spent on task %s',
   );
 
 ?>

@@ -1,0 +1,71 @@
+/** Message display **/
+
+.message .block .header {
+  font-size: 150%;
+  padding-bottom: 5px;
+}
+
+.message .messageDetails {
+  border: 1px solid #e8e8e8;
+  background: #f8f8f8;
+  padding: 2px 5px;
+}
+
+.message .messageDetails .private {
+  margin-top: 4px;
+}
+
+.message h1, .message h2, .message h3 {
+  font-weight: normal;
+  border-bottom: 1px solid #ccc;
+}
+
+.message h1 {
+  font-size: 2em;
+}
+
+.message h2 {
+  font-size: 1.5em;
+}
+
+.message h3 {
+  font-size: 1.1em;
+  text-decoration: none;
+}
+
+.message .messageText {
+  padding: 10px;
+  line-height: 150%;
+  font-size: 11px;
+}
+
+.message .messageSeparator {
+  text-align: center;
+  font-size: 9px;
+  font-weight: bolder;
+}
+
+.message .objectFilesTitle span, .message .messageCommentCount span, .message .messageTags span {
+  color: #333;
+  font-weight: bolder;
+}
+
+.message .messageOptions {
+  margin-top: 10px;
+}
+
+.message .messageComment {
+  margin: 10px 10px;
+}
+
+.message .messageCommentHead {
+  font-weight: bolder;
+  font-size: 90%;
+}
+
+.message .messageCommentBody {
+  border: 1px solid #ccc;
+  border-width: 1px 0;
+  padding: 10px;
+  background: white;
+}

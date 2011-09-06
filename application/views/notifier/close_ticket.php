@@ -1,5 +1,5 @@
 ------------------------------------------------------------
- <?php echo lang('dont reply warning') ?> 
+<?php echo lang('do not reply warning') ?> 
 ------------------------------------------------------------
 
 <?php echo lang('ticket closed', $ticket->getSummary(), $ticket->getProject()->getName()) ?>. 

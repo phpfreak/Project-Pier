@@ -295,3 +295,8 @@ color:blue;
 background:none;
 }
 
+.hidden  { 
+ position: relative; 
+ display: none; 
+ left: -999em; 
+} 

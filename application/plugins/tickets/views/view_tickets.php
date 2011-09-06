@@ -21,7 +21,7 @@
           <?php echo clean($ticket->getCategory()->getName()) ?>
 <?php } // if{ ?>
     </td>
-    <td><?php echo $ticket->getCreatedBy()->getDisplayName() ?></td>
+    <td><?php if (!is_null($ticket->getCreatedBy())) echo $ticket->getCreatedBy()->getDisplayName() ?></td>
     <td>
 <?php if($ticket->getAssignedTo()) { ?>
           <?php echo clean($ticket->getAssignedTo()->getObjectName()) ?>

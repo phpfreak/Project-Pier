@@ -38,7 +38,7 @@
   </div>
   <div>
     <?php echo label_tag(lang('send notification'), 'sendNotification', true) ?>
-    <?php echo checkbox_field('task[send_notification]', true, array_var($task_data, 'send_notification')) ?>
+    <?php echo checkbox_field('task[send_notification]', array_var($task_data, 'send_notification'), array_var($task_data, 'send_notification')) ?>
   </div>
   
   <?php echo submit_button($task->isNew() ? lang('add task') : lang('edit task')) ?>

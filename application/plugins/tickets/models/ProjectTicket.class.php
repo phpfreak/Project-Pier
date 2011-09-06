@@ -447,7 +447,7 @@
     // ---------------------------------------------------
     //  Operations
     // ---------------------------------------------------
-    
+
     /**
     * Complete this ticket and check if we need to complete the list
     *

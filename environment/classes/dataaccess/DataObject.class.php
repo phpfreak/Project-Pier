@@ -619,7 +619,7 @@
               
           // Get SQL
           $sql = $this->getInsertQuery();
-          if (!DB::execute($this->getInsertQuery())) {
+          if (!DB::execute($sql)) {
             return false;
           } // if
             
@@ -792,6 +792,7 @@
   	  
   	  // NULL!
   	  if (is_null($value)) {
+            if ($type == DATA_TYPE_BOOLEAN) return false;
   	    return null;
   	  } // if
   	  

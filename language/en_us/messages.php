@@ -83,7 +83,7 @@
     'success edit message' => 'Message %s has been updated successfully',
     'success deleted message' => 'Message \'%s\' and all of its comments have been deleted successfully',
     
-    'success add comment' => 'Comment has been posted successfully',
+    'success add comment' => 'Comment has been posted successfully %s',
     'success edit comment' => 'Comment has been updated successfully',
     'success delete comment' => 'Comment has been delete successfully',
     

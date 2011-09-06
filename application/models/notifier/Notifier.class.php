@@ -254,9 +254,9 @@
       
       $recipients = array();
       foreach ($all_subscribers as $subscriber) {
-        if ($subscriber->getId() == $comment->getCreatedById()) {
-          continue; // skip comment author
-        } // if
+        //if ($subscriber->getId() == $comment->getCreatedById()) {
+        //  continue; // skip comment author
+        //} // if
         
         if ($comment->isPrivate()) {
           if ($subscriber->isMemberOfOwnerCompany()) {
@@ -389,9 +389,9 @@
       
       $recipients = array();
       foreach ($people as $subscriber) {
-        if ($subscriber->getId() == $comment->getCreatedById()) {
-          continue; // skip comment author
-        } // if
+        //if ($subscriber->getId() == $comment->getCreatedById()) {
+        //  continue; // skip comment author
+        //} // if
         
         if ($comment->isPrivate()) {
           if ($subscriber->isMemberOfOwnerCompany()) {

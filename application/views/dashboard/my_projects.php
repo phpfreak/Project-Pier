@@ -21,6 +21,7 @@
 <?php if ($show_icon) { ?>
     <div class="projectLogo"><img src="<?php echo $project->getLogoUrl() ?>" alt="<?php echo $project->getName() ?>" /></div>
 <?php } // if ?>
+<?php $this->assign('project', $project); $this->includeTemplate(get_template_path('view_progressbar', 'project')); ?>
   <div class="header"><h2><a href="<?php echo $project->getOverviewUrl() ?>"><?php echo clean($project->getName()) ?></a></h2></div>
   <div class="content">
 <?php if (trim($project->getDescription())) { ?>

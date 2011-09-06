@@ -17,7 +17,7 @@ $(document).ready(function() {
   // toggles the slickbox on clicking the noted link 
   $('#messageFormAdditionalTextLink').click(function() {
     $('#messageFormAdditionalText').slideToggle(400);
-    $(this).text($(this).text() == 'Expand' ? 'Collapse' : 'Expand');
+    $(this).text($(this).text() == '<?php echo lang('expand') ?>' ? '<?php echo lang('collapse') ?>' : '<?php echo lang('expand') ?>' );
     return false;
   });
 });
@@ -90,33 +90,18 @@ $(document).ready(function() {
     <?php echo project_object_tags_widget('message[tags]', active_project(), array_var($message_data, 'tags'), array('id' => 'messageFormTags', 'class' => 'long')) ?>
   </fieldset>
 <?php } // if ?>
-<?php if ($message->isNew()) { ?>
-  <fieldset id="emailNotification">
-    <legend><?php echo lang('email notification') ?></legend>
-    <p><?php echo lang('email notification desc') ?></p>
-<?php foreach (active_project()->getCompanies() as $company) { ?>
-
-<?php if (is_array($users = $company->getUsersOnProject(active_project())) && count($users)) { ?>
-    <div class="companyDetails">
-      <div class="companyName"><?php echo checkbox_field('message[notify_company_' . $company->getId() . ']', array_var($message_data, 'notify_company_' . $company->getId()), array('id' => 'notifyCompany' . $company->getId(), 'onclick' => 'App.modules.addMessageForm.emailNotifyClickCompany(' . $company->getId() . ')')) ?> <label for="notifyCompany<?php echo $company->getId() ?>" class="checkbox"><?php echo clean($company->getName()) ?></label></div>
-      <div class="companyMembers">
-        <ul>
-<?php foreach ($users as $user) { ?>
-          <li><?php echo checkbox_field('message[notify_user_' . $user->getId() . ']', array_var($message_data, 'notify_user_' . $user->getId()), array('id' => 'notifyUser' . $user->getId(), 'onclick' => 'App.modules.addMessageForm.emailNotifyClickUser(' . $company->getId() . ', ' . $user->getId() . ')')) ?> <label for="notifyUser<?php echo $user->getId() ?>" class="checkbox"><?php echo clean($user->getDisplayName()) ?></label></li>
-<?php } // foreach ?>
-        </ul>
-      </div>
-    </div>
-<?php } // if ?>
-<?php } // foreach ?>
-  </fieldset>
+<?php if ($message->isNew()) { 
+  $this->assign('project', active_project());
+  $this->assign('object', $message);
+  $this->assign('post_data_name', 'message');
+  $this->assign('post_data', $message_data);
+  $this->includeTemplate(get_template_path('select_receivers', 'notifier'));
+?>
 <?php if (function_exists('files_activate')) { ?>   
-<?php if ($message->canAttachFile(logged_user(), active_project())) { ?>
+<?php if ($message->canAttachFile(logged_user(), $project)) { ?>
   <?php echo render_attach_files() ?>
 <?php } // if ?>
 <?php } // if ?>
-
 <?php } // if ?>
-  
   <?php echo submit_button($message->isNew() ? lang('add message') : lang('edit message')) ?>
 </form>

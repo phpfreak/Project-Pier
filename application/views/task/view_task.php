@@ -11,6 +11,11 @@
   $options = array();
   if($task->canEdit(logged_user())) $options[] = '<a href="' . $task->getEditUrl() . '">' . lang('edit') . '</a>';
   if($task->canDelete(logged_user())) $options[] = '<a href="' . $task->getDeleteUrl() . '">' . lang('delete') . '</a>';
+  if (plugin_active('time')) {
+    if(ProjectTime::canAdd(logged_user(), active_project())) {
+      $options[] = '<a href="' . get_url('time', 'add', array( 'task' => $task->getId() ) ) . '">' . lang('add time') . '</a>';
+    }
+  }
   if($task->canChangeStatus(logged_user())) {
     if ($task->isOpen()) {
       $options[] = '<a href="' . $task->getCompleteUrl() . '">' . lang('mark task as completed') . '</a>';

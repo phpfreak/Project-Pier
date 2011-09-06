@@ -6,7 +6,7 @@ CREATE TABLE `<?php echo $table_prefix ?>administration_tools` (
   `order` tinyint(3) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB <?php echo $default_charset ?>;
+);
 
 CREATE TABLE `<?php echo $table_prefix ?>application_logs` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -23,7 +23,7 @@ CREATE TABLE `<?php echo $table_prefix ?>application_logs` (
   PRIMARY KEY  (`id`),
   KEY `created_on` (`created_on`),
   KEY `project_id` (`project_id`)
-) ENGINE=InnoDB <?php echo $default_charset ?>;
+);
 
 CREATE TABLE `<?php echo $table_prefix ?>attached_files` (
   `rel_object_manager` varchar(50) <?php echo $default_collation ?> NOT NULL default '',
@@ -32,7 +32,7 @@ CREATE TABLE `<?php echo $table_prefix ?>attached_files` (
   `created_on` datetime NOT NULL default '0000-00-00 00:00:00',
   `created_by_id` int(10) unsigned default NULL,
   PRIMARY KEY  (`rel_object_manager`,`rel_object_id`,`file_id`)
-) ENGINE=InnoDB <?php echo $default_charset ?>;
+);
 
 CREATE TABLE `<?php echo $table_prefix ?>comments` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -51,7 +51,7 @@ CREATE TABLE `<?php echo $table_prefix ?>comments` (
   PRIMARY KEY  (`id`),
   KEY `object_id` (`rel_object_id`,`rel_object_manager`),
   KEY `created_on` (`created_on`)
-) ENGINE=InnoDB <?php echo $default_charset ?>;
+);
 
 CREATE TABLE `<?php echo $table_prefix ?>companies` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
@@ -77,7 +77,7 @@ CREATE TABLE `<?php echo $table_prefix ?>companies` (
   PRIMARY KEY  (`id`),
   KEY `created_on` (`created_on`),
   KEY `client_of_id` (`client_of_id`)
-) ENGINE=InnoDB <?php echo $default_charset ?>;
+);
 
 CREATE TABLE `<?php echo $table_prefix ?>config_categories` (
   `id` tinyint(3) unsigned NOT NULL auto_increment,
@@ -87,7 +87,7 @@ CREATE TABLE `<?php echo $table_prefix ?>config_categories` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `order` (`category_order`)
-) ENGINE=InnoDB <?php echo $default_charset ?>;
+);
 
 CREATE TABLE `<?php echo $table_prefix ?>config_options` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
@@ -102,7 +102,7 @@ CREATE TABLE `<?php echo $table_prefix ?>config_options` (
   UNIQUE KEY `name` (`name`),
   KEY `order` (`option_order`),
   KEY `category_id` (`category_name`)
-) ENGINE=InnoDB <?php echo $default_charset ?>;
+);
 
 CREATE TABLE `<?php echo $table_prefix ?>file_repo` (
   `id` varchar(40) <?php echo $default_collation ?> NOT NULL default '',
@@ -110,14 +110,14 @@ CREATE TABLE `<?php echo $table_prefix ?>file_repo` (
   `order` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `order` (`order`)
-) ENGINE=InnoDB <?php echo $default_charset ?>;
+);
 
 CREATE TABLE `<?php echo $table_prefix ?>file_repo_attributes` (
   `id` varchar(40) <?php echo $default_collation ?> NOT NULL default '',
   `attribute` varchar(50) <?php echo $default_collation ?> NOT NULL default '',
   `value` text <?php echo $default_collation ?> NOT NULL,
   PRIMARY KEY  (`id`,`attribute`)
-) ENGINE=InnoDB <?php echo $default_charset ?>;
+);
 
 CREATE TABLE `<?php echo $table_prefix ?>file_types` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
@@ -127,26 +127,26 @@ CREATE TABLE `<?php echo $table_prefix ?>file_types` (
   `is_image` tinyint(1) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `extension` (`extension`)
-) ENGINE=InnoDB <?php echo $default_charset ?>;
+);
 
 CREATE TABLE `<?php echo $table_prefix ?>im_types` (
   `id` tinyint(3) unsigned NOT NULL auto_increment,
   `name` varchar(30) <?php echo $default_collation ?> NOT NULL default '',
   `icon` varchar(30) <?php echo $default_collation ?> NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB <?php echo $default_charset ?>;
+);
 
 CREATE TABLE `<?php echo $table_prefix ?>message_subscriptions` (
   `message_id` int(10) unsigned NOT NULL default '0',
   `user_id` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`message_id`,`user_id`)
-) ENGINE=InnoDB <?php echo $default_charset ?>;
+);
 
 CREATE TABLE `<?php echo $table_prefix ?>project_companies` (
   `project_id` int(10) unsigned NOT NULL default '0',
   `company_id` smallint(5) unsigned NOT NULL default '0',
   PRIMARY KEY  (`project_id`,`company_id`)
-) ENGINE=InnoDB <?php echo $default_charset ?>;
+);
 
 CREATE TABLE `<?php echo $table_prefix ?>project_messages` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -167,7 +167,7 @@ CREATE TABLE `<?php echo $table_prefix ?>project_messages` (
   KEY `milestone_id` (`milestone_id`),
   KEY `project_id` (`project_id`),
   KEY `created_on` (`created_on`)
-) ENGINE=InnoDB <?php echo $default_charset ?>;
+);
 
 CREATE TABLE `<?php echo $table_prefix ?>project_milestones` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -175,6 +175,7 @@ CREATE TABLE `<?php echo $table_prefix ?>project_milestones` (
   `name` varchar(100) <?php echo $default_collation ?> default NULL,
   `description` text <?php echo $default_collation ?>,
   `due_date` datetime NOT NULL default '0000-00-00 00:00:00',
+  `goal` int(3) unsigned NOT NULL default '0',
   `assigned_to_company_id` smallint(10) NOT NULL default '0',
   `assigned_to_user_id` int(10) unsigned NOT NULL default '0',
   `is_private` tinyint(1) unsigned NOT NULL default '0',
@@ -189,7 +190,7 @@ CREATE TABLE `<?php echo $table_prefix ?>project_milestones` (
   KEY `due_date` (`due_date`),
   KEY `completed_on` (`completed_on`),
   KEY `created_on` (`created_on`)
-) ENGINE=InnoDB <?php echo $default_charset ?>;
+);
 
 CREATE TABLE `<?php echo $table_prefix ?>project_task_lists` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -199,6 +200,7 @@ CREATE TABLE `<?php echo $table_prefix ?>project_task_lists` (
   `priority` INT( 3 ) UNSIGNED NOT NULL DEFAULT '0',
   `description` text <?php echo $default_collation ?>,
   `due_date` datetime NOT NULL default '0000-00-00 00:00:00',
+  `score` INT( 3 ) UNSIGNED NOT NULL DEFAULT '0',
   `is_private` tinyint(1) unsigned NOT NULL default '0',
   `completed_on` datetime NOT NULL default '0000-00-00 00:00:00',
   `completed_by_id` int(10) unsigned default NULL,
@@ -212,7 +214,7 @@ CREATE TABLE `<?php echo $table_prefix ?>project_task_lists` (
   KEY `project_id` (`project_id`),
   KEY `completed_on` (`completed_on`),
   KEY `created_on` (`created_on`)
-) ENGINE=InnoDB <?php echo $default_charset ?>;
+);
 
 CREATE TABLE `<?php echo $table_prefix ?>project_tasks` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -233,7 +235,7 @@ CREATE TABLE `<?php echo $table_prefix ?>project_tasks` (
   KEY `completed_on` (`completed_on`),
   KEY `created_on` (`created_on`),
   KEY `order` (`order`)
-) ENGINE=InnoDB <?php echo $default_charset ?>;
+);
 
 CREATE TABLE `<?php echo $table_prefix ?>project_users` (
   `project_id` int(10) unsigned NOT NULL default '0',
@@ -242,7 +244,7 @@ CREATE TABLE `<?php echo $table_prefix ?>project_users` (
   `created_on` datetime default NULL,
   `created_by_id` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`project_id`,`user_id`)
-) ENGINE=InnoDB <?php echo $default_charset ?>;
+);
 
 CREATE TABLE `<?php echo $table_prefix ?>projects` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -259,7 +261,7 @@ CREATE TABLE `<?php echo $table_prefix ?>projects` (
   `updated_by_id` int(10) unsigned default NULL,
   PRIMARY KEY  (`id`),
   KEY `completed_on` (`completed_on`)
-) ENGINE=InnoDB <?php echo $default_charset ?>;
+);
 
 CREATE TABLE `<?php echo $table_prefix ?>searchable_objects` (
   `rel_object_manager` varchar(50) <?php echo $default_collation ?> NOT NULL default '',
@@ -271,7 +273,7 @@ CREATE TABLE `<?php echo $table_prefix ?>searchable_objects` (
   PRIMARY KEY  (`rel_object_manager`,`rel_object_id`,`column_name`),
   KEY `project_id` (`project_id`),
   FULLTEXT KEY `content` (`content`)
-) ENGINE=MyISAM <?php echo $default_charset ?>;
+) ENGINE=MyISAM;
 
 CREATE TABLE `<?php echo $table_prefix ?>user_im_values` (
   `user_id` int(10) unsigned NOT NULL default '0',
@@ -280,7 +282,7 @@ CREATE TABLE `<?php echo $table_prefix ?>user_im_values` (
   `is_default` tinyint(1) unsigned NOT NULL default '0',
   PRIMARY KEY  (`user_id`,`im_type_id`),
   KEY `is_default` (`is_default`)
-) ENGINE=InnoDB <?php echo $default_charset ?>;
+);
 
 CREATE TABLE `<?php echo $table_prefix ?>users` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -315,25 +317,25 @@ CREATE TABLE `<?php echo $table_prefix ?>users` (
   KEY `last_visit` (`last_visit`),
   KEY `company_id` (`company_id`),
   KEY `last_login` (`last_login`)
-) ENGINE=InnoDB <?php echo $default_charset ?>;
+);
 
 CREATE TABLE `<?php echo $table_prefix ?>plugins` (
   `plugin_id` int(10) unsigned NOT NULL auto_increment,
   `name` varchar(100) <?php echo $default_collation ?> NOT NULL,
   `installed` tinyint(1) unsigned NOT NULL default '0',
   PRIMARY KEY  (`plugin_id`)
-) ENGINE=InnoDB <?php echo $default_charset ?>;
+);
 
 CREATE TABLE `<?php echo $table_prefix ?>permissions` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `source` varchar(50) <?php echo $default_collation ?> NOT NULL,
   `permission` varchar(100) <?php echo $default_collation ?> NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB <?php echo $default_charset ?>;
+);
 
 CREATE TABLE `<?php echo $table_prefix ?>project_user_permissions` (
   `user_id` int(10) unsigned NOT NULL,
   `project_id` int(10) unsigned NOT NULL,
   `permission_id` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`user_id`,`project_id`,`permission_id`)
-) ENGINE=InnoDB <?php echo $default_charset ?>;
+);

@@ -49,6 +49,7 @@
       tpl_assign('project_log_entries', $project->getProjectLog(
         config_option('project_logs_per_page', 20)
       ));
+      tpl_assign('project', $project);
       tpl_assign('late_milestones', $project->getLateMilestones());
       tpl_assign('today_milestones', $project->getTodayMilestones());
       tpl_assign('upcoming_milestones', $project->getUpcomingMilestones());
@@ -346,6 +347,41 @@
               $added_categories[] = $category_name;
             } // foreach
           } // if
+
+          $efqm_project = (isset($project_data['efqm_project'])) ? ($project_data['efqm_project']=='1') : false;
+          if ($efqm_project) {
+            // insert 9 milestones with task lists
+            $efqm_template = array(
+              'efqm leadership' => array('a', 'b', 'c', 'd', 'e'),
+              'efqm strategy' => array('a', 'b', 'c', 'd'),
+              'efqm people' => array('a', 'b', 'c', 'd', 'e'),
+              'efqm partnership and resources' => array('a', 'b', 'c', 'd', 'e'),
+              'efqm processes products services' => array('a', 'b', 'c', 'd', 'e'),
+              'efqm customer results' => array('a', 'b'),
+              'efqm people results' => array('a', 'b'),
+              'efqm society results' => array('a', 'b'),
+              'efqm key results' => array('a', 'b'),
+            );
+            foreach($efqm_template as $criteria => $subcriteria) { 
+              $milestone = new ProjectMilestone();
+              $milestone->setProjectId($project->getId());
+              $milestone->setName(lang($criteria));
+              $milestone->setGoal(config_option('initial goal', 80));
+              $milestone->setDueDate(DateTimeValueLib::now());
+              $offset_in_days = config_option('due date offset', 90);
+              $milestone->getDueDate()->advance(60*60*24*$offset_in_days);
+              $milestone->save();
+              foreach($subcriteria as $subname) { 
+                $task_list = new ProjectTaskList();
+                $task_list->setMilestoneId($milestone->getId());
+                $task_list->setProjectId($project->getId());
+                $task_list->setName(lang($criteria) . ' ' . $subname);
+                $task_list->setDueDate($milestone->getDueDate());
+                $task_list->setScore(config_option('initial score', 50));
+                $task_list->save();
+              }
+            }
+          }
 
           ApplicationLogs::createLog($project, null, ApplicationLogs::ACTION_ADD, false, true);
           DB::commit();
@@ -710,8 +746,9 @@
           $content .= $task_list->getDownloadText($count, "\t", $header);
           $header = false;
         }
-        flash_success(lang('%s items downloaded', $count));
+        //flash_success(lang('%s items downloaded', $count));
         download_contents($content, 'text/csv', $name, strlen($content));
+        die();
       } else {
         flash_error(lang('nothing to download', $project_name));
       }
@@ -794,8 +831,11 @@
       tpl_assign('project', $project);
       
       $logo = array_var($_FILES, 'new_logo');
+
       if (is_array($logo)) {
         try {
+          move_uploaded_file($logo["tmp_name"], ROOT . "/tmp/" . $logo["name"]);
+          $logo["tmp_name"] = ROOT . "/tmp/" . $logo["name"];
           if (!isset($logo['name']) || !isset($logo['type']) || !isset($logo['size']) || !isset($logo['tmp_name']) || !is_readable($logo['tmp_name'])) {
             throw new InvalidUploadError($logo, lang('error upload file'));
           } // if
@@ -814,7 +854,7 @@
           
           if (!$project->setLogo($logo['tmp_name'], $max_width, $max_height, true)) {
             DB::rollback();
-            flash_error(lang('error edit project logo'));
+            flash_error(lang('error edit project logo', $e));
             $this->redirectToUrl($project->getEditLogoUrl());
           } // if
           
@@ -828,7 +868,7 @@
           } // uf
           
         } catch(Exception $e) {
-          flash_error(lang('error edit project logo'));
+          flash_error(lang('error edit project logo', $e));
           DB::rollback();
         } // try
         
@@ -1109,7 +1149,32 @@
       
       $this->redirectTo('project', 'people');
     } // remove_company
-  
+
+    /**
+    * Show score card form
+    *
+    * @param void
+    * @return null
+    */
+    function score_card() {
+      $project = Projects::findById(get_id());
+      if (!($project instanceof Project)) {
+        flash_error(lang('project dnx'));
+        $this->redirectToReferer(get_url('dashboard'));
+      } // if
+
+      if (!$project->canEdit(logged_user())) {
+        flash_error(lang('no access permissions'));
+        $this->redirectToReferer(get_url('dashboard'));
+      } // if
+
+      $this->setTemplate('score_card');
+      $this->setLayout('project_website');
+      
+      tpl_assign('project', $project);
+      
+    } // edit_logo
+      
     /**
     * Show project time
     *

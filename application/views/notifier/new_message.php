@@ -1,5 +1,5 @@
 ------------------------------------------------------------
- <?php echo lang('do not reply warning') ?> 
+<?php echo lang('do not reply warning') ?> 
 ------------------------------------------------------------
 
 <?php echo lang('new message posted', $new_message->getTitle(), $new_message->getProject()->getName()) ?>. 
@@ -20,8 +20,9 @@ if ((!defined('SHOW_MESSAGE_BODY')) or (SHOW_MESSAGE_BODY == true)) {
 
 - <?php echo str_replace('&amp;', '&', externalUrl($new_message->getViewUrl())) ?> 
 
-Company: <?php echo owner_company()->getName() ?>
-Project: <?php echo $new_message->getProject()->getName() ?> 
+<?php echo lang('company') ?>: <?php echo owner_company()->getName() ?> 
+<?php echo lang('project') ?>: <?php echo $new_message->getProject()->getName() ?> 
+<?php echo lang('author') ?>: <?php echo $new_message->getCreatedByDisplayName() ?> 
 
 --
 <?php echo externalUrl(ROOT_URL) ?>

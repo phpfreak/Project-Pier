@@ -68,6 +68,7 @@ return array(
   'wiki page revision log message'      =>  'Revision Log Message',
   'wiki set as index page'              =>  'Set page as index page?',
   'wiki set as sidebar page'            =>  'Set page as sidebar page?',
+  'wiki publish page'                   =>  'Publish page on the public wiki?',
   'wiki page created'                   =>  'Page created',
   );
 

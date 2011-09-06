@@ -184,9 +184,9 @@
           $assigned_tasks = $project->getUsersTasks(logged_user());
           if(is_array($assigned_tasks)) {
             foreach($assigned_tasks as $task) {
-              $todo = new iCalendar_Todo();		   
+              $todo = new iCalendar_Todo();  
               $todo->setPropertyValue('SUMMARY', $project->getName().": ".$task->getText()); 
-              $todo->setPropertyValue('UID', 'TASK'.$task->getId());
+              $todo->setPropertyValue('UID', 'a9idfv00fd99q344o' . rand() . 'cgef733m6bs@google.com');
               $date = $task->getDueDate();
               if (!is_null($date)) {
                 $todo->setPropertyValue('DTSTART', $date->format('Ymd'), array('VALUE' => 'DATE'));
@@ -196,8 +196,18 @@
               $todo->setPropertyValue('PRIORITY', $priority);
               $todo->setPropertyValue('STATUS', "NEEDS-ACTION");
               $todo->setPropertyValue('URL', externalUrl($task->getCompleteUrl()));
+              $todo->setPropertyValue('DESCRIPTION', 'Bla Bla Bla');
+              // seting an alarm
+                $alarm = new iCalendar_Alarm();
+                $alarm->setPropertyValue('ACTION', 'DISPLAY');
+                $alarm->setPropertyValue('TRIGGER', '-P7D');
+                $alarm->setPropertyValue('DESCRIPTION', $project->getName().": ".$task->getText());
+                $todo->addComponent($alarm);
+              // end alarm
               $calendar->addComponent($todo);
+              
             }
+
           }
         }
       }      
@@ -209,15 +219,21 @@
           
           if (!$milestone->isCompleted()) {
             $event = new iCalendar_Event();
-            
             $date = $milestone->getDueDate();
             $event->setPropertyValue('DTSTART', $date->format('Ymd'), array('VALUE' => 'DATE'));
             $date->advance(24 * 60 * 60);
             $event->setPropertyValue('DTEND', $date->format('Ymd'), array('VALUE' => 'DATE'));
-            $event->setPropertyValue('UID', 'MILESTONE'.$milestone->getId());
+            $event->setPropertyValue('UID', 'a9idfv00fd99q344o' . rand() . 'cgef733m6bs@google.com');
             $event->setPropertyValue('SUMMARY', $milestone->getName() . ' (' . $milestone->getProject()->getName() . ')');
             $event->setPropertyValue('DESCRIPTION', $desc = $milestone->getDescription());
             $event->setPropertyValue('URL', externalUrl($milestone->getViewUrl()));
+            // setting an alarm
+                $alarm = new iCalendar_Alarm();
+                $alarm->setPropertyValue('ACTION', 'DISPLAY');
+                $alarm->setPropertyValue('TRIGGER', '-P7D');
+                $alarm->setPropertyValue('DESCRIPTION', $milestone->getName() . ' (' . $milestone->getProject()->getName() . ')');
+                $event->addComponent($alarm);
+            // end alarm
             /* pre_var_dump($desc); */
             
             $calendar->addComponent($event);

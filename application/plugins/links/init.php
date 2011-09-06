@@ -55,7 +55,7 @@
         PRIMARY KEY  (`id`),
         KEY `created_on` (`created_on`),
         KEY `project_id` (`project_id`)
-      ) ENGINE=InnoDB DEFAULT CHARSET=".DB_CHARSET."; ";
+      );";
     // create table
     DB::execute($sql);
   }

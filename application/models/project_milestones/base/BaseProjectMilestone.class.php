@@ -120,6 +120,28 @@
     function setDueDate($value) {
       return $this->setColumnValue('due_date', $value);
     } // setDueDate() 
+
+    /**
+    * Return value of 'goal' field
+    *
+    * @access public
+    * @param void
+    * @return integer
+    */
+    function getGoal() {
+      return $this->getColumnValue('goal');
+    } // getGoal()
+    
+    /**
+    * Set value of 'goal' field
+    *
+    * @access public   
+    * @param integer $value
+    * @return boolean
+    */
+    function setGoal($value) {
+      return $this->setColumnValue('goal', $value);
+    } // setGoal() 
     
     /**
     * Return value of 'assigned_to_company_id' field

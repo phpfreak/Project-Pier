@@ -1,4 +1,12 @@
 <?php
+  include_once 'persian.php';
+
+function utf8_strrev($str, $reverse_numbers = true){
+    $pattern = $reverse_numbers ? '/./us' : '/(\d+)?./us';
+    preg_match_all($pattern, $str, $ar);
+    return join('',array_reverse($ar[0]));
+} 
+
 
   /**
   * Localization class
@@ -200,7 +208,61 @@
         } // foreach
       } // if
     }
-    
+
+  
+    /**
+    * Return language specific formatted date
+    *
+    * @access public
+    * @param $fmt (see date() in php.net)
+    * @param $timestamp 
+    * @return string
+    */
+    function date_lang($fmt, $timestamp = 0) {
+      $jd = unixtojd($timestamp);
+      $pdate = jd_to_persian( $jd );
+      $date_lang = date($fmt, $timestamp);
+      if (strpos($fmt, 'a')!==false) {
+        $a = date('a', $timestamp);  // e.g. am or pm
+        $date_lang = str_replace( $a, lang($a), $date_lang ); 
+      }
+      if (strpos($fmt, 'A')!==false) {
+        $a = date('A', $timestamp);  // e.g. AM or PM
+        $date_lang = str_replace( $a, lang($a), $date_lang ); 
+      }
+      if (strpos($fmt, 'l')!==false) {
+        $l = date('l', $timestamp);  // e.g. Thursday
+        $n = date('N', $timestamp);  // e.g. 1=Monday, ..., 7=Sunday
+        $date_lang = str_replace( $l, lang('weekday full ' . $n), $date_lang ); 
+      }
+      if (strpos($fmt, 'D')!==false) {
+        $d = date('D', $timestamp);  // e.g. Thu
+        $n = date('N', $timestamp);  // e.g. 1=Monday, ..., 7=Sunday
+        $date_lang = str_replace( $d, lang('weekday short ' . $n), $date_lang ); 
+      }
+      if (strpos($fmt, 'M')!==false) {
+        $m = date('M', $timestamp);  // e.g. Feb
+        $n = date('n', $timestamp);  // e.g. 2
+        $date_lang = str_replace( $m, lang('month short ' . $n), $date_lang ); 
+      }
+      if (strpos($fmt, 'F')!==false) {
+        $f = date('F', $timestamp);  // e.g. February
+        $n = date('n', $timestamp);  // e.g. 2
+        $date_lang = str_replace( $f, lang('month full ' . $n), $date_lang ); 
+      }
+      if (strpos($fmt, 'S')!==false) {
+        $s = date('S', $timestamp);  // e.g. st, nd, rd or th
+        $n = 4;
+        if ($s=='st') $n = 1;
+        if ($s=='nd') $n = 2;
+        if ($s=='rd') $n = 3;
+        $date_lang = str_replace( $s, lang('ordinal ' . $n), $date_lang ); 
+      }
+      //return $date_lang . ' reversed Persian=' . utf8_strrev(FormatPersianSmallDate ( $pdate )) . ' Persian=' . FormatPersianSmallDate ( $pdate );
+      //return utf8_strrev(FormatPersianDate ( $pdate ));
+      return $date_lang;
+    } // date_lang
+
     /**
     * Return formatted date
     *
@@ -212,7 +274,7 @@
     function formatDate(DateTimeValue $date, $timezone = 0, $format = NULL) {
       $lang_date_format = $this->langs->get('date format', null);
       $date_format = ($format) ? $format : ( ($lang_date_format) ? $lang_date_format : $this->date_format );
-      return date($date_format, $date->getTimestamp() + ($timezone * 3600));
+      return $this->date_lang($date_format, $date->getTimestamp() + ($timezone * 3600));
     } // formatDate
     
     /**
@@ -228,7 +290,7 @@
     function formatDescriptiveDate(DateTimeValue $date, $timezone = 0, $format = NULL) {
       $lang_date_format = $this->langs->get('descriptive date format', null);
       $date_format = ($format) ? $format : ( ($lang_date_format) ? $lang_date_format : $this->descriptive_date_format );
-      return date($date_format, $date->getTimestamp() + ($timezone * 3600));
+      return $this->date_lang($date_format, $date->getTimestamp() + ($timezone * 3600));
     } // formatDescriptiveDate
     
     /**
@@ -242,7 +304,7 @@
     function formatDateTime(DateTimeValue $date, $timezone = 0) {
       $lang_datetime_format = $this->langs->get('datetime format', null);
       $datetime_format = ($lang_datetime_format) ? $lang_datetime_format : $this->datetime_format;
-      return date($datetime_format, $date->getTimestamp() + ($timezone * 3600));
+      return $this->date_lang($datetime_format, $date->getTimestamp() + ($timezone * 3600));
     } // formatDateTime
     
     /**
@@ -256,8 +318,9 @@
     function formatTime(DateTimeValue $date, $timezone = 0) {
       $lang_time_format = $this->langs->get('time format', null);
       $time_format = ($lang_time_format) ? $lang_time_format : $this->time_format;
-      return date($time_format, $date->getTimestamp() + ($timezone * 3600));
+      return $this->date_lang($time_format, $date->getTimestamp() + ($timezone * 3600));
     } // formatTime
+
     
     // -------------------------------------------------------------
     //  Getters and setters

@@ -29,15 +29,28 @@
  <?php if (trim($company->getAddress2())) { ?>
       <br /><?php echo clean($company->getAddress2()) ?>
  <?php } // if ?>
+ <?php 
+  if ($cc=trim($company->getCountry())) { 
+    if (strpos('br mx it ec il at be bg hr cz dk ee fi fr gf pf tf de gr is lv li lu mc nl an no pl pt ro rs es se ch tr',$cc)) { ?>
+      <br /><?php echo clean($company->getZipcode()) . '  ' . clean($company->getCity()) ?>, <?php echo clean($company->getState()) ?>
+ <?php } else { ?>
       <br /><?php echo clean($company->getCity()) ?>, <?php echo clean($company->getState()) ?> <?php echo clean($company->getZipcode()) ?>
+ <?php } ?>
+ <?php } ?>
+
  <?php if (trim($company->getCountry())) { ?>
       <br /><?php echo clean($company->getCountryName()) ?>
  <?php } // if ?>
  <?php $q = '';  ?>
- <?php $q .= clean($company->getAddress()) . ' ' . clean($company->getAddress2()); ?>
- <?php $q .= clean($company->getZipcode()) . ' ' . clean($company->getCity()); ?>
+ <?php $q .= clean($company->getAddress()); ?>
+ <?php $q .= ' ' . clean($company->getAddress2()); ?>
+ <?php $q .= ' ' . clean($company->getZipcode()) ?>
+ <?php $q .= ' ' . clean($company->getCity()); ?>
+ <?php $q .= ' ' . clean($company->getCountryName()); ?>
  <?php $q = urlencode($q);  ?>
-      <br /><a href="http://maps.google.com/maps?q=<?php echo $q; ?>" target=_blank><?php echo lang('show map') ?></a>
+ <?php $maps_url = config_option('maps_url','http://maps.google.com/maps?q=');  ?>
+ <?php $q = $maps_url . $q;  ?>
+      <br /><a href="<?php echo $q; ?>" target=_blank><?php echo lang('show map') ?></a>
    </div>
 <?php } // if ?>
  

@@ -38,6 +38,12 @@
     <?php echo label_tag(lang('show project desciption in overview')) ?>
     <?php echo yes_no_widget('project[show_description_in_overview]', 'projectFormShowDescriptionInOverview', array_var($project_data, 'show_description_in_overview'), lang('yes'), lang('no')) ?>
   </div>
+<?php if ($project->isNew()) { ?>
+  <div>
+    <?php echo label_tag(lang('efqm project')) ?>
+    <?php echo yes_no_widget('project[efqm_project]', 'projectFormEfqmProject', array_var($project_data, 'efqm_project'), lang('yes'), lang('no')) ?>
+  </div>
+<?php } // if ?>
   
   <?php echo submit_button($project->isNew() ? lang('add project') : lang('edit project')) ?> <a href="<?php echo $project->getOverviewUrl() ?>"><?php echo lang('cancel') ?></a>
 </form>

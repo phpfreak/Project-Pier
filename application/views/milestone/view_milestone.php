@@ -14,6 +14,7 @@
 <?php if ($milestone->isPrivate()) { ?>
     <div class="private" title="<?php echo lang('private milestone') ?>"><span><?php echo lang('private milestone') ?></span></div>
 <?php } // if ?>
+<?php $this->includeTemplate(get_template_path('view_progressbar', 'milestone')); ?>
 
     <div class="header">
 <?php if ($milestone->getAssignedTo() instanceof ApplicationDataObject) { ?>
@@ -31,51 +32,20 @@
     <div class="content">
 <?php if (!is_null($milestone->getDueDate())) { ?>
 <?php if ($milestone->getDueDate()->getYear() > DateTimeValueLib::now()->getYear()) { ?>
-      <div class="dueDate"><span><?php echo lang('due date') ?>:</span> <?php echo format_date($milestone->getDueDate(), null, 0) ?></div>
+      <div class="dueDate messageText"><span><?php echo lang('due date') ?>:</span> <?php echo format_date($milestone->getDueDate(), null, 0) ?></div>
 <?php } else { ?>
-      <div class="dueDate"><span><?php echo lang('due date') ?>:</span> <?php echo format_descriptive_date($milestone->getDueDate(), 0) ?></div>
+      <div class="dueDate messageText"><span><?php echo lang('due date') ?>:</span> <?php echo format_descriptive_date($milestone->getDueDate(), 0) ?></div>
 <?php } // if ?>
 <?php } // if ?>
-      
+
+<?php if ($milestone->getGoal()>0) { ?>
+      <div class="goal"><span><?php echo lang('goal') ?>:</span> <?php echo $milestone->getGoal() ?></div>
+<?php } // if ?>
+
 <?php if ($milestone->getDescription()) { ?>
       <div class="description"><?php echo do_textile($milestone->getDescription()) ?></div>
 <?php } // if ?>
 
-<!-- Milestones -->
-<?php if (!$milestone->hasMessages() && !$milestone->hasTaskLists()) { ?>
-      <p><?php echo lang('empty milestone', $milestone->getAddMessageUrl(), $milestone->getAddTaskListUrl()) ?></p>
-<?php } else { ?>
-<?php if ($milestone->hasMessages()) { ?>
-      <p><?php echo lang('messages') ?>:</p>
-      <ul>
-<?php foreach ($milestone->getMessages() as $message) { ?>
-        <li><a href="<?php echo $message->getViewUrl() ?>"><?php echo clean($message->getTitle()) ?></a>
-<?php if ($message->getCreatedBy() instanceof User) { ?>
-        <span class="desc">(<?php echo lang('posted on by', format_date($message->getUpdatedOn()), $message->getCreatedByCardUrl(), clean($message->getCreatedByDisplayName())) ?>)</span>
-<?php } // if ?>
-<?php } // foreach ?>
-      </ul>
-<?php } // if?>
-
-<!-- Task lists -->
-<?php if ($milestone->hasTaskLists()) { ?>
-      <p><?php echo lang('task lists') ?>:</p>
-      <ul>
-<?php foreach ($milestone->getTaskLists() as $task_list) { ?>
-<?php if ($task_list->isCompleted()) { ?>
-        <li><del datetime="<?php echo $task_list->getCompletedOn()->toISO8601() ?>"><a href="<?php echo $task_list->getViewUrl() ?>" title="<?php echo lang('completed task list') ?>"><?php echo clean($task_list->getName()) ?></a></del></li>
-<?php } else { ?>
-        <li><a href="<?php echo $task_list->getViewUrl() ?>"><?php echo clean($task_list->getName()) ?></a>
-<?php
-        $this->assign('task_list', $task_list); 
-        $this->includeTemplate(get_template_path('view_progressbar', 'task')); 
-?>
-        </li>
-<?php } // if ?>
-<?php } // foreach ?>
-      </ul>
-<?php } // if ?>
-<?php } // if ?>
 <?php if (plugin_active('tags')) { ?>
   <p><span><?php echo lang('tags') ?>:</span> <?php echo project_object_tags($milestone, $milestone->getProject()) ?></p>
 <?php } // if ?>
@@ -83,6 +53,8 @@
   $options = array();
   if ($milestone->canEdit(logged_user())) {
     $options[] = '<a href="' . $milestone->getEditUrl() . '">' . lang('edit') . '</a>';
+    $options[] = '<a href="' . $milestone->getAddMessageUrl() . '">' . lang('add message') . '</a>';
+    $options[] = '<a href="' . $milestone->getAddTaskListUrl() . '">' . lang('add task list') . '</a>';
   }
   if ($milestone->canDelete(logged_user())) {
     $options[] = '<a href="' . $milestone->getDeleteUrl() . '">' . lang('delete') . '</a>';
@@ -96,7 +68,59 @@
   } // if
 ?>
 <?php if (count($options)) { ?>
-      <div class="milestoneOptions"><?php echo implode(' | ', $options) ?></div>
+     <div class="milestoneOptions"><?php echo implode(' | ', $options) ?></div>
+<?php } // if ?>
+
+<!-- Milestones -->
+<?php if (!$milestone->hasMessages() && !$milestone->hasTaskLists()) { ?>
+      <p><?php echo lang('empty milestone', $milestone->getAddMessageUrl(), $milestone->getAddTaskListUrl()) ?></p>
+<?php } else { ?>
+<?php $first = true; ?>
+<?php if ($milestone->hasMessages()) { ?>
+<?php foreach ($milestone->getMessages() as $message) { ?>
+<?php if($message->canView(logged_user())) { ?>
+<?php if($first) { ?>
+<?php $first = false; ?>
+      <p><?php echo lang('messages') ?>:</p>
+      <ul>
+<?php } // if ?>
+        <li><a href="<?php echo $message->getViewUrl() ?>"><?php echo clean($message->getTitle()) ?></a>
+<?php if ($message->getCreatedBy() instanceof User) { ?>
+        <span class="desc">(<?php echo lang('posted on by', format_date($message->getUpdatedOn()), $message->getCreatedByCardUrl(), clean($message->getCreatedByDisplayName())) ?>)</span>
+<?php } // if ?>
+<?php } // if ?>
+<?php } // foreach ?>
+<?php if(!$first) { ?>
+      </ul>
+<?php } // if ?>
+<?php } // if?>
+
+<!-- Task lists -->
+<?php if ($milestone->hasTaskLists()) { ?>
+<?php $first = true; ?>
+<?php foreach ($milestone->getTaskLists() as $task_list) { ?>
+<?php if($task_list->canView(logged_user())) { ?>
+<?php if($first) { ?>
+      <p><?php echo lang('task lists') ?>:</p>
+      <ul>
+<?php $first = false; ?>
+<?php } // if?>
+<?php if ($task_list->isCompleted()) { ?>
+        <li><del datetime="<?php echo $task_list->getCompletedOn()->toISO8601() ?>"><a href="<?php echo $task_list->getViewUrl() ?>" title="<?php echo lang('completed task list') ?>"><?php echo clean($task_list->getName()) ?></a></del></li>
+<?php } else { ?>
+        <li><a href="<?php echo $task_list->getViewUrl() ?>"><?php echo clean($task_list->getName()) ?></a>
+<?php
+        $this->assign('task_list', $task_list); 
+        $this->includeTemplate(get_template_path('view_progressbar', 'task')); 
+?>
+        </li>
+<?php } // if ?>
+<?php } // if ?>
+<?php } // foreach ?>
+<?php if(!$first) { ?>
+      </ul>
+<?php } // if ?>
+<?php } // if ?>
 <?php } // if ?>
     </div>
     

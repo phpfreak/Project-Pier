@@ -5,9 +5,9 @@
 <?php if(isset($application_logs_entries) && is_array($application_logs_entries) && count($application_logs_entries)) { ?>
 <div class="logProjectHeader"><?php echo lang('project').':' ?>
 <?php if ($project_url = $application_logs_project->getObjectUrl()) { ?>
-      <a href="<?= $project_url ?>"><?= $application_logs_project->getName(); ?></a>
+      <a href="<?php echo $project_url ?>"><?php echo $application_logs_project->getName(); ?></a>
 <?php } else { ?>
-      <?= $application_logs_project->getName() ?>
+      <?php echo $application_logs_project->getName() ?>
 <?php } // if ?>
  </div>
  <table class="applicationLogs blank">
@@ -46,9 +46,9 @@
 <?php } // if ?>
     <td class="logDetails">
 <?php if($application_log_entry_url = $application_log_entry->getObjectUrl()) { ?>
-<a href="<?= $application_log_entry_url ?>"><?= $application_log_entry->getText() ?></a>
+<a href="<?php echo $application_log_entry_url ?>"><?php echo $application_log_entry->getText() ?></a>
 <?php } else { ?>
-      <?= $application_log_entry->getText() ?>
+      <?php echo $application_log_entry->getText() ?>
 <?php } // if ?>
     </td>
   </tr>

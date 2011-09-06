@@ -1,5 +1,5 @@
 ------------------------------------------------------------
- <?php echo lang('dont reply warning') ?> 
+<?php echo lang('do not reply warning') ?> 
 ------------------------------------------------------------
 
 <?php echo lang('attached files to ticket', $ticket->getSummary(), $ticket->getProject()->getName()) ?>. 
@@ -22,8 +22,11 @@ if ((!defined('SHOW_TICKET_BODY')) or (SHOW_TICKET_BODY == true)) {
 
 - <?php echo str_replace('&amp;', '&', externalUrl($ticket->getViewUrl())) ?> 
 
-Company: <?php echo owner_company()->getName() ?> 
-Project: <?php echo $ticket->getProject()->getName() ?> 
+<?php echo lang('company') ?>: <?php echo owner_company()->getName() ?> 
+<?php echo lang('project') ?>: <?php echo $ticket->getProject()->getName() ?> 
+<?php echo lang('author') ?>: <?php echo $ticket->getCreatedByDisplayName() ?> 
 
+--
+<?php echo ''.lang('login').': '.externalUrl(ROOT_URL) ?>
 --
 <?php echo externalUrl(ROOT_URL) ?>

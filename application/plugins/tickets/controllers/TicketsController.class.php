@@ -58,7 +58,7 @@
       if(!logged_user()->isMemberOfOwnerCompany()) {
         $conditions .= DB::prepareString(' AND `is_private` = ?', array(0));
       } // if
-      
+    
       if ($closed) {
         $order = '`closed_on` DESC';
       } else {
@@ -237,7 +237,7 @@
           $old_fields = array(
             'summary' => $ticket->getSummary(),
             'priority' => $ticket->getPriority(),
-            'state' => $ticket->getState(),
+            'status' => $ticket->getState(),
             'type' => $ticket->getType(),
             'category' => $ticket->getCategory(),
             'assigned to' => $ticket->getAssignedTo()
@@ -275,7 +275,7 @@
               'summary' => $ticket->getSummary(),
               'priority' => $ticket->getPriority(),
               'type' => $ticket->getType(),
-              'state' => $ticket->getState(),
+              'status' => $ticket->getState(),
               'category' => $ticket->getCategory(),
               'assigned to' => $ticket->getAssignedTo()
             );
@@ -752,6 +752,11 @@
       } // if
       $this->redirectToUrl($ticket->getViewUrl());
     } // unsubscribe
+
+    function print_overview() {
+      flash_success(lang('success printed', $category_names));
+      $this->redirectTo('tickets', 'index');
+    }
 
     /**
     * Display all tickets assigned to this user

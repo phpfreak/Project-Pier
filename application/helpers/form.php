@@ -346,7 +346,8 @@
   function pick_date_widget($name, $value = null, $year_from = null, $year_to = null) {
     $v = $value;
     if ($value instanceof DateTimeValue) {
-      $v = $v->format('m/d/Y');
+      $v = $v->format('d.m.Y');
+      $v = Localization::instance()->formatDate($value, null, null);
     }
 /*
     $month_options = array();

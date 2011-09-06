@@ -1,6 +1,3 @@
 <?php
 
-return array (
-);
-
 ?>

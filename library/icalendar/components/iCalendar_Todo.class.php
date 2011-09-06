@@ -17,6 +17,7 @@
     */
     function __construct() {
       $this->setName('VTODO');
+      $this->setValidComponents('VALARM');
       $this->setValidProperties(
        'CLASS', 
        'COMPLETED', 
@@ -49,7 +50,7 @@
        'RELATED', 
        'RESOURCES', 
        'RDATE', 
-       'RRULE', 
+       'RRULE',
        'X-PROP'
       ); // setValidProperties
     } // __construct

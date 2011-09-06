@@ -102,7 +102,8 @@
     DB::execute('ROLLBACK');
     DB::execute('UNLOCK TABLES');
     DB::execute('SET AUTOCOMMIT=1');
-
+    DB::execute("SET SQL_MODE=''");
+    DB::execute("SET STORAGE_ENGINE=INNODB");  // try to set to INNODB, don't care if it fails
   } catch(Exception $e) {
     if (Env::isDebugging()) {
       Env::dumpError($e);
@@ -121,7 +122,7 @@
   define('TABLE_PREFIX',     DB_PREFIX);
   
   define('PRODUCT_NAME', 'ProjectPier');
-  define('PRODUCT_VERSION', '0.8.6');
+  define('PRODUCT_VERSION', '0.8.7');
   
   define('MAX_SEARCHABLE_FILE_SIZE', 1048576); // if file type is searchable script will load its content into search index. Using this constant you can set the max filesize of the file that will be imported. Noone wants 500MB in search index for single file
   define('SESSION_LIFETIME', 0 + config_option('session_lifetime', 3600) );
@@ -129,8 +130,9 @@
   define('REMEMBER_LOGIN_LIFETIME', 0 + config_option('remember_login_lifetime', 1209600) ); // two weeks is default
   
   // Defaults
-  define('DEFAULT_CONTROLLER', config_option('default_controller', 'dashboard') );
-  //define('DEFAULT_ACTION', config_option('default_action', 'index') );
+  //define('DEFAULT_CONTROLLER', config_option('default_controller', 'dashboard') );
+  define('DEFAULT_CONTROLLER', 'dashboard' );
+  define('DEFAULT_ACTION', config_option('default_action', 'index') );
   define('DEFAULT_ACTION', 'index' );
   define('DEFAULT_THEME', 'default');
   

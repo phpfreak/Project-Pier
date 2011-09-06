@@ -76,6 +76,28 @@
     function setPriority($value) {
       return $this->setColumnValue('priority', $value);
     } // setPriority() 
+
+    /**
+    * Return value of 'score' field
+    *
+    * @access public
+    * @param void
+    * @return integer 
+    */
+    function getScore() {
+      return $this->getColumnValue('score');
+    } // getPriority()
+    
+    /**
+    * Set value of 'score' field
+    *
+    * @access public   
+    * @param integer $value
+    * @return boolean
+    */
+    function setScore($value) {
+      return $this->setColumnValue('score', $value);
+    } // setPriority() 
    
     /**
     * Return value of 'project_id' field

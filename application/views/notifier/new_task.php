@@ -20,8 +20,9 @@ if ((!defined('SHOW_MESSAGE_BODY')) or (SHOW_MESSAGE_BODY == true)) {
 
 - <?php echo str_replace('&amp;', '&', externalUrl($new_task->getViewUrl())) ?> 
 
-Company: <?php echo owner_company()->getName() ?> 
-Project: <?php echo $new_task->getProject()->getName() ?> 
+<?php echo lang('company') ?>: <?php echo owner_company()->getName() ?> 
+<?php echo lang('project') ?>: <?php echo $new_task->getProject()->getName() ?> 
+<?php echo lang('author') ?>: <?php echo $new_task->getCreatedByDisplayName() ?> 
 
 --
 <?php echo externalUrl(ROOT_URL) ?>

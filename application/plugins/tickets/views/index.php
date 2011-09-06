@@ -18,6 +18,7 @@
 ?>
 <?php if(isset($tickets) && is_array($tickets) && count($tickets)) { ?>
 <div id="tickets">
+  <a href=<?php echo get_url('tickets', 'print_overview') ?> ><?php echo lang('print overview') ?> </a>  
   <div id="messagesPaginationTop"><?php echo advanced_pagination($tickets_pagination, get_url('tickets', 'index', $options_pagination)) ?></div>
 <?php
   $this->assign('tickets', $tickets);

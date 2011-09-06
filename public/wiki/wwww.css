@@ -1,0 +1,32 @@
+ul {
+  float: left;
+  filter:alpha(opacity=90);
+  -moz-opacity:.90;
+  opacity:.90;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  z-index: 3000 !important;
+  width: 240px;
+}
+
+ul#index li {
+    text-align: left;
+    float: left;
+    list-style: none;
+    padding: 3px 10px 3px 25px;
+    margin: 5px;
+    background: url(list.gif) 5px 5px no-repeat;
+}
+
+li .project_name {
+  margin-left: 10px;
+  color: #ccc;
+}
+
+#content {
+  xfloat: right;
+  position: absolute;
+  left: 250px;
+}

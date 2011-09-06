@@ -61,7 +61,7 @@
       
       if (!$milestone->canView(logged_user())) {
         flash_error(lang('no access permissions'));
-        $this->redirectToReferer(get_url('milestone'));
+        $this->redirectToReferer(get_url('milestone', 'index'));
       } // if
       
       tpl_assign('milestone', $milestone);
@@ -79,7 +79,7 @@
       
       if (!ProjectMilestone::canAdd(logged_user(), active_project())) {
         flash_error(lang('no access permissions'));
-        $this->redirectToReferer(get_url('milestone'));
+        $this->redirectToReferer(get_url('milestone', 'index'));
       } // if
       
       $milestone_data = array_var($_POST, 'milestone');
@@ -87,6 +87,7 @@
         $milestone_data = array(
           'due_date' => DateTimeValueLib::now(),
           'is_private' => config_option('default_private', false),
+          'send_notification' => config_option('send_notification_default', false),
         ); // array
       } // if
       $milestone = new ProjectMilestone();
@@ -132,7 +133,7 @@
           } // try
           
           flash_success(lang('success add milestone', $milestone->getName()));
-          $this->redirectTo('milestone');
+          $this->redirectTo('milestone', 'index');
           
         } catch(Exception $e) {
           DB::rollback();
@@ -159,7 +160,7 @@
       
       if (!$milestone->canEdit(logged_user())) {
         flash_error(lang('no access permissions'));
-        $this->redirectToReferer(get_url('milestone'));
+        $this->redirectToReferer(get_url('milestone', 'index'));
       }
       
       $milestone_data = array_var($_POST, 'milestone');
@@ -167,11 +168,13 @@
         $tag_names = plugin_active('tags') ? $milestone->getTagNames() : '';
         $milestone_data = array(
           'name'        => $milestone->getName(),
+          'goal'        => $milestone->getGoal(),
           'due_date'    => $milestone->getDueDate(),
           'description' => $milestone->getDescription(),
           'assigned_to' => $milestone->getAssignedToCompanyId() . ':' . $milestone->getAssignedToUserId(),
           'tags'        => is_array($tag_names) ? implode(', ', $tag_names) : '',
           'is_private'  => $milestone->isPrivate(),
+          'send_notification' => config_option('send_notification_default', false),
         ); // array
       } // if
       
@@ -230,7 +233,7 @@
           } // try
           
           flash_success(lang('success edit milestone', $milestone->getName()));
-          $this->redirectTo('milestone');
+          $this->redirectTo('milestone', 'index');
           
         } catch(Exception $e) {
           DB::rollback();
@@ -252,12 +255,12 @@
       $milestone = ProjectMilestones::findById(get_id());
       if (!($milestone instanceof ProjectMilestone)) {
         flash_error(lang('milestone dnx'));
-        $this->redirectTo('milestone');
+        $this->redirectTo('milestone', 'index');
       } // if
       
       if (!$milestone->canDelete(logged_user())) {
         flash_error(lang('no access permissions'));
-        $this->redirectToReferer(get_url('milestone'));
+        $this->redirectToReferer(get_url('milestone', 'index'));
       } // if
       
       $delete_data = array_var($_POST, 'deleteMilestone');
@@ -293,10 +296,10 @@
           flash_error(lang('error delete milestone'));
         } // try
 
-        $this->redirectTo('milestone');
+        $this->redirectTo('milestone', 'index');
       } else {
         flash_error(lang('error delete milestone'));
-        $this->redirectTo('milestone');
+        $this->redirectTo('milestone', 'index');
       }
     } // delete
     
@@ -311,12 +314,12 @@
       $milestone = ProjectMilestones::findById(get_id());
       if (!($milestone instanceof ProjectMilestone)) {
         flash_error(lang('milestone dnx'));
-        $this->redirectTo('milestone');
+        $this->redirectTo('milestone', 'index');
       } // if
       
       if (!$milestone->canChangeStatus(logged_user())) {
         flash_error(lang('no access permissions'));
-        $this->redirectToReferer(get_url('milestone'));
+        $this->redirectToReferer(get_url('milestone', 'index'));
       } // if
       
       try {
@@ -350,12 +353,12 @@
       $milestone = ProjectMilestones::findById(get_id());
       if (!($milestone instanceof ProjectMilestone)) {
         flash_error(lang('milestone dnx'));
-        $this->redirectTo('milestone');
+        $this->redirectTo('milestone', 'index');
       } // if
       
       if (!$milestone->canChangeStatus(logged_user())) {
         flash_error(lang('no access permissions'));
-        $this->redirectToReferer(get_url('milestone'));
+        $this->redirectToReferer(get_url('milestone', 'index'));
       } // if
       
       try {
@@ -399,7 +402,7 @@
         tpl_assign('month', $month);
       } else {
         flash_error(lang('id missing'));
-        $this->redirectToReferer(get_url('milestone'));
+        $this->redirectToReferer(get_url('milestone', 'index'));
       }
       tpl_assign('milestones', $project->getMilestonesByMonth($year, $month));
       tpl_assign('task_lists', $project->getTaskListsByMonth($year, $month));

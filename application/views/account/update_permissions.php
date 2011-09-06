@@ -40,7 +40,7 @@
     $('.selectall').click(function() {
       var checked_status = this.checked;
       var prefix = this.id;
-      $('input[id^="'+(prefix)+'"]').each(function() {
+      $('input[id^="'+(prefix)+'-"]').each(function() {
         this.checked = checked_status;
       });
     });

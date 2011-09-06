@@ -116,6 +116,7 @@
       // ---------------------------------------------------
       if ($this->haveInnoDbSupport()) {
         $this->printMessage('InnoDB storage engine is supported');
+        @mysql_query("SET STORAGE_ENGINE='INNODB'", $this->database_connection);
       } else {
         $this->printMessage('InnoDB storage engine is not supported, this is okay for low volume installations');
       } // if
@@ -134,6 +135,7 @@
       tpl_assign('table_prefix', $database_prefix);
       
       @mysql_query("SET NAMES '$database_charset'", $this->database_connection);
+      @mysql_query("SET SQL_MODE=''", $this->database_connection);
       tpl_assign('default_collation', 'collate utf8_unicode_ci');
       tpl_assign('default_charset', 'DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci');
       

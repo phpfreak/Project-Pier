@@ -74,7 +74,7 @@ class Wiki extends BaseWiki {
 	function getPagesList(Project $project)
 	{
 
-		$sql = 'SELECT p.id, r.name FROM ' . Wiki::instance()->getTableName(true) . ' AS p, ' . Revisions::instance()->getTableName(true) . ' AS r WHERE p.project_id = ' . $project->getId() . ' AND p.id = r.page_id AND r.revision = p.revision'; 
+		$sql = 'SELECT p.id, r.name FROM ' . Wiki::instance()->getTableName(true) . ' AS p, ' . Revisions::instance()->getTableName(true) . ' AS r WHERE p.project_id = ' . $project->getId() . ' AND p.id = r.page_id AND r.revision = p.revision ORDER BY 2'; 
 		$return = array();
 		
 		foreach(((array) DB::executeAll($sql)) as $page){

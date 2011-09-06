@@ -1129,7 +1129,7 @@
     'task assigned' => 'Task "%s" has been assigned to you',
     'task assigned to you' => 'A task has been assigned to you',
     'task dnx' => 'Die gesuchte Aufgabe gibt es nicht.',
-    'task download header' => 'Project	Task List	Status	Description	Id	Status	Info	Assigned to	Task
+    'task download header' => 'Project	Task List	Status	Description	Id	Status	Info	Assigned to	Task
 ',
     'task list' => 'Aufgabenliste',
     'task list dnx' => 'Die gesuchte Aufgabenliste gibt es nicht.',

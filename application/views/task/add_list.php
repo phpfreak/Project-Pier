@@ -31,6 +31,13 @@
     <?php echo label_tag(lang('priority'), 'taskListFormPriority') ?>
     <?php echo input_field('task_list[priority]', array_var($task_list_data, 'priority'), array('class' => 'short', 'id' => 'taskListFormPriority')) ?>
   </div>
+
+<?php if (logged_user()->getProjectPermission($task_list->getProject(), 'tasks-edit_score')) { ?>
+  <div>
+    <?php echo label_tag(lang('score'), 'taskListFormScore') ?>
+    <?php echo input_field('task_list[score]', array_var($task_list_data, 'score'), array('class' => 'short', 'id' => 'taskListFormScore')) ?>
+  </div>
+<?php } // if ?>
       
   <div>
     <?php echo label_tag(lang('description'), 'taskListFormDescription') ?>

@@ -47,8 +47,11 @@
   <table class="properties">
     <tr>
       <th><span class="bold"><?php echo lang('reported by'); ?>:</span></th>
+<?php if (is_null($ticket->getCreatedBy())) { ?>
+      <td><?php echo $ticket->getCreatedByDisplayName(); ?></td>
+<?php } else { ?>
       <td><a href="<?php echo $ticket->getCreatedBy()->getCardUrl(); ?>"><?php echo $ticket->getCreatedByDisplayName(); ?></a></td>
-
+<?php } ?>
       <th><span class="bold"><?php echo lang('edit by'); ?>:</span></th>
       <td>
 <?php if ($ticket->getUpdated()) { ?>

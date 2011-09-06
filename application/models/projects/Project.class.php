@@ -1494,7 +1494,7 @@
         ); // array
         return get_url('project', 'search', $params);
       } else {
-        return ROOT_URL . '/index.php';
+        return ROOT_URL . 'index.php';
       } // if
     } // getSearchUrl
     
@@ -1578,7 +1578,7 @@
     * @return string
     */
     function getTagUrl($tag_name) {
-      return get_url('tag', 'project_tag', array('tag' => $tag_name, 'active_project' => $this->getId()));
+      return get_url('tags', 'project_tag', array('tag' => $tag_name, 'active_project' => $this->getId()));
     } // getTagUrl
 
     /**

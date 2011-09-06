@@ -6,7 +6,7 @@
   * @version 1.0
   * @http://www.projectpier.org/
   */
-  class TagController extends ApplicationController {
+  class TagsController extends ApplicationController {
   
     /**
     * Construct the TagController

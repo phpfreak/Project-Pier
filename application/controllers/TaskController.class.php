@@ -64,6 +64,7 @@
       $download_type = 'text/csv';
       $download_contents = $task_list->getDownloadText($task_count, "\t", true);
       download_contents($download_contents, $download_type, $download_name, strlen($download_contents));
+      die();
     }
     
     /**
@@ -234,6 +235,7 @@
         $task_list_data = array(
           'name' => $task_list->getName(),
           'priority' => $task_list->getPriority(),
+          'score' => $task_list->getScore(),
           'description' => $task_list->getDescription(),
           'due_date' => $task_list->getDueDate(),
           'milestone_id' => $task_list->getMilestoneId(),
@@ -620,7 +622,8 @@
           'text' => $task->getText(),
           'due_date' => $task->getDueDate(),
           'task_list_id' => $task->getTaskListId(),
-          'assigned_to' => $task->getAssignedToCompanyId() . ':' . $task->getAssignedToUserId()
+          'assigned_to' => $task->getAssignedToCompanyId() . ':' . $task->getAssignedToUserId(),
+          'send_notification' => config_option('send_notification_default', '0')
         ); // array
       } // if
       

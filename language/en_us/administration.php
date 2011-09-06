@@ -57,6 +57,15 @@
     'config option name installation_welcome_logo' => 'Logo on login page',
     'config option name installation_welcome_text' => 'Text on login page',
     'config option name installation_base_language' => 'Base language (also for login page)',
+    'config option name dashboard action index' => 'Overview',
+    'config option name dashboard action my_projects' => 'My Projects',
+    'config option name dashboard action my_tasks' => 'My tasks',
+    'config option name dashboard action my_projects_by_name' => 'My Projects - ordered by name',
+    'config option name dashboard action my_projects_by_priority' => 'My Projects - ordered by priority',
+    'config option name dashboard action my_projects_by_milestone' => 'My Projects - ordered by milestone',
+    'config option name dashboard action my_tasks_by_name' => 'My Tasks - ordered by name',
+    'config option name dashboard action my_tasks_by_priority' => 'My Tasks - ordered by priority',
+    'config option name dashboard action my_tasks_by_milestone' => 'My Tasks - ordered by milestone',
 
     // LDAP authentication support
     'config option name ldap_domain' => 'LDAP domain',
@@ -95,7 +104,7 @@
 
     'config option name session_lifetime' => 'Session lifetime',
     'config option name default_controller' => 'Default main page',
-    'config option name default_action' => 'Default subpage',
+    'config option name default_action' => 'Page to show after login',
 
     'config option name logs_show_icons' => 'Show icons in the application log',
     'config option name default_private' => 'Default setting for private option',

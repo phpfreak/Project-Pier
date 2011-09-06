@@ -46,6 +46,8 @@ trace(__FILE__,'begin');
   echo yes_no_widget('wiki[project_index]', 'wikiFormIndex', $page->getProjectIndex(), lang('yes'), lang('no'));
   echo label_tag(lang('wiki set as sidebar page'), 'wikiFormSidebarYes');
   echo yes_no_widget('wiki[project_sidebar]', 'wikiFormSidebar', $page->getProjectSidebar(), lang('yes'), lang('no'));
+  echo label_tag(lang('wiki publish page'), 'wikiFormPublishYes');
+  echo yes_no_widget('wiki[publish]', 'wikiFormPublish', $page->getPublish(), lang('yes'), lang('no'));
 ?>
 </div>
 

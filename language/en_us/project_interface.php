@@ -76,7 +76,7 @@
     'expand additional text' => 'Expand',
     'collapse additional text' => 'Collapse',
     'email notification' => 'Email notification',
-    'email notification desc' => 'Notify selected people about this message via email',
+    'email notification desc' => 'Notify selected people about this via email',
     
     'subscribers desc' => 'Subscribers will receive an email notification whenever someone (except themselves) posts a comment on this message',
     'admins can post comments on locked objects desc' => '<strong>Comments are locked</strong>, but you as administrator still have the permissions to post comments. Note that if you expect replies from your clients and non-admin users you need to unlock comments for this object <i>(set the "Enable comments" option to "Yes")</i>.',

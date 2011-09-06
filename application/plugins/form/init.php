@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `{$tp}project_forms` (
   `is_enabled` tinyint(1) unsigned NOT NULL default '0',
   `order` smallint(6) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) TYPE=InnoDB  DEFAULT CHARSET=".DB_CHARSET;
+);";
     // create table wiki_pages
     DB::execute($sql);
   }

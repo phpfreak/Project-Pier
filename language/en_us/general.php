@@ -115,6 +115,7 @@
     'total' => 'Total',
     'demo only' => 'Demonstration purposes only',
     'use gravatar' => 'Use 50x50 avatar from gravatar.com',
+    'avatar from gravatar' => 'Avatar from gravatar.com',
     'hide options' => 'Hide options',
     'hide' => 'Hide',
     'language' => 'Language',
@@ -198,7 +199,8 @@
     'PM' => 'PM',
 
     'datetime format' => 'M d, Y H:i',
-    'date format' => 'M d, Y',
+    'date format' => 'M d, Y',           // PHP format 
+    'input date format' => 'M d, yy',    // jQuery format
     'descriptive date format' => 'l, F j',
     'time format' => 'H:i',
     'address format' => 'h s, z p',      // h=house number, s=street, z=zip/postal code, p=place

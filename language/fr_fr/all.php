@@ -1129,7 +1129,7 @@
     'task assigned' => 'La tâche "%s" vous a été assignée',
     'task assigned to you' => 'Une tâche vous a été assignée',
     'task dnx' => 'Requested task does not exist',
-    'task download header' => 'Projet	Liste des tâches	Statut	Description	Id	Statut	Info	Assignée à	Tâche
+    'task download header' => 'Projet	Liste des tâches	Statut	Description	Id	Statut	Info	Assignée à	Tâche
 ',
     'task list' => 'Liste de tâches',
     'task list dnx' => 'Requested task list does not exist',

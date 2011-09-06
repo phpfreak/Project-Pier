@@ -25,10 +25,10 @@
 <div class="taskList">
 <div class="block" id="taskList<?php echo $task_list->getId() ?>">
   <div class="header"><a href="<?php echo $task_list->getViewUrl() ?>"><?php echo clean($task_list->getName()) ?></a>
-<?php $this->includeTemplate(get_template_path('view_progressbar', 'task')); ?>
 <?php if ($task_list->isPrivate()) { ?>
     <div class="private" title="<?php echo lang('private task list') ?>"><span><?php echo lang('private task list') ?></span></div>
 <?php } // if ?>
+<?php $this->includeTemplate(get_template_path('view_progressbar', 'task')); ?>
   </div>
 <?php if (!is_null($task_list->getDueDate())) { ?>
 <?php if ($task_list->getDueDate()->getYear() > DateTimeValueLib::now()->getYear()) { ?>
@@ -36,6 +36,9 @@
 <?php } else { ?>
       <div class="dueDate"><span><?php echo lang('due date') ?>:</span> <?php echo format_descriptive_date($task_list->getDueDate(), 0) ?></div>
 <?php } // if ?>
+<?php } // if ?>
+<?php if ($task_list->getScore()>0) { ?>
+      <div class="score"><span><?php echo lang('score') ?>:</span> <?php echo $task_list->getScore() ?></div>
 <?php } // if ?>
 <?php if ($task_list->getDescription()) { ?>
   <div class="desc"><?php echo (do_textile($task_list->getDescription())) ?></div>
@@ -95,7 +98,7 @@
     </table>
   </div>
 <?php } else { ?>
-  <?php echo lang('no open task in task list') ?>
+  <?php //echo lang('no open task in task list') ?>
 <?php } // if ?>
 <?php if (is_array($task_list->getCompletedTasks())) { ?>
   <div class="completedTasks">

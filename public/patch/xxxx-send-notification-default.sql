@@ -1,0 +1,1 @@
+INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('features', 'send_notification_default', '0', 'BoolConfigHandler', 0, 0, 'Default setting for Send notification option');
