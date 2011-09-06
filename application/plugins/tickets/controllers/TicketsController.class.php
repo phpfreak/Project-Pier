@@ -56,7 +56,7 @@
       $closed = (boolean) array_var($_GET, 'closed', false);
       $conditions = DB::prepareString('`closed_on` '.($closed ? '>' : '=').' ? and `project_id` = ?', array(EMPTY_DATETIME, active_project()->getId()));
       if(!logged_user()->isMemberOfOwnerCompany()) {
-        $conditions .= DB::prepareString(' AND `is_private` = ?', array(0));
+        $conditions .= DB::prepareString(' AND `is_private` = ?', array(0) );
       } // if
     
       if ($closed) {
@@ -773,6 +773,21 @@
       //$this->setSidebar(get_template_path('index_sidebar', 'tickets'));
     } // my_tickets
   
+    /**
+    * Download tickets as attachment
+    *
+    * @access public
+    * @param void
+    * @return null
+    */
+    function download() {
+      $this->canGoOn();
+     
+      $download_type = isset($_REQUEST['content_type']) ? $_REQUEST['content_type'] : 'text/csv';
+      $download = ProjectTickets::getDownload(active_project(), $download_type);
+      download_contents($download['content'], $download['type'], $download['name'], strlen($download['content']));
+      die();
+    }
 
   
   } // TicketsController

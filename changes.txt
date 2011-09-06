@@ -4,33 +4,50 @@ ProjectPier Change Log
 ~~~~~~~~~~~~~~~~~~~~~~
 
 ---------------------------------------
-Version 0.8.7 March 30 2011 (stable)
+Version 0.8.7 April 5 2011 (beta)
 ---------------------------------------
 
 Features:
 
+- Added   (datetime)  - Footer shows date, time, timezone and [week] PP is working in.  
 - Added   (date fmt)  - Added language item 'input date format' to control date input format.  
 - Added   (send not.) - Configuration option for default of Send notification (see Features).
+- Added   (projects)  - Support for subprojects. 
 - Added   (tasks)     - Add Time link to quickly add time if time plugin active. 
 - Added   (theme)     - Redbase. 
 - Added   (time)      - Initialize to task from Add Time link and default description. 
+- Added   (tickets)   - Download all tickets. 
 - Added   (wiki)      - Public wiki including page publish option. 
 - Added   (Node 130)  - Global search for administrators. 
 - Added   (Node 1198) - Comments on task list and file support selecting recipients of notifications. 
 - Added   (Node 2157) - Dropdown configuration option for selecting action after login. 
+- Added   (Node 2201) - Notification alarm with iCalendar subscription
 - Added   (Node 2220) - Progress bar for milestones. 
 - Added   (Node 2224) - Progress bar for projects. 
+- Added   (Node 2242) - Notification alarm with iCalendar subscription
+- Added   (Node 2300) - Option to hide application logs from user interface. 
 - Changed (Node 1915) - Wiki pages are ordered by name in the side bar. 
+- Changed (Node 2279) - Page header uses H1 and H2 tags. 
+- Changed (login)     - Language options are now in sync with installed languages. 
+- Changed (login)     - Theme options are now in sync with installed themes. 
+- Changed (php)       - Short open tags are off now (used to be on). 
 - Changed (tasks)     - Suppress progress bar when empty.  
 - Changed (tasks)     - Suppress 0 task comment in sidebar when 0 tasks.  
 - Changed (time)      - Moved text from code to language file.  
+- Changed (notifier)  - Clicking company checkbox selects all recipients.  
+- Changed (notifier)  - Recipients are shown in alphabetical order.  
 - Changed (notifier)  - Fixed almost all views to use proper language elements.  
 - Removed (Node 2213) - add_comment.php.
 
 Issues:
+
 - Fixed   (install)   - Initial data had SQL missing for login page message and logo.
+- Fixed   (upload)    - Failed upload logo and avatar when no image functions present now gives a proper message.
+- Fixed   (time)      - Error when done date was empty.
 - Fixed   (Node 672)  - Dates not translated.
+- Fixed   (Node 1369) - No more double entries in iCalendar
 - Fixed   (Node 1490) - Upload fails when system upload directory not accessible.
+- Fixed   (Node 2026) - rss: outlook receives duplicate items
 - Fixed   (Node 2044) - Error when clicking tags.
 - Fixed   (Node 2047) - Search form.
 - Fixed   (Node 2048) - Private comments overlap.

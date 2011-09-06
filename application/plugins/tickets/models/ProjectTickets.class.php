@@ -108,6 +108,39 @@
       return get_url('tickets', 'index', $options);
     } // getIndexUrl
 
+    /**
+    * Return index page
+    *
+    * @param string $order_by
+    * @param integer $page
+    * @return string
+    */
+    static function getDownload($project, $content_type = 'text/csv') {
+      $name = $project->getName() . '-tickets-' . time() . '.txt';
+      $content = '';
+      $tickets = self::getProjectTickets($project, logged_user()->isMemberOfOwnerCompany());
+      foreach($tickets as $ticket) {
+        $content .= $ticket->getId() . "\t";
+        $content .= $ticket->getSummary() . "\t";
+        $content .= lang($ticket->getType()) . "\t";
+        $content .= lang($ticket->getState()) . "\t";
+        if ($ticket->getCategory()) {
+          $content .= lang($ticket->getCategory()->getName());
+        }
+        $content .= "\t";
+        if ($ticket->getCreatedBy()) {
+          $content .= clean($ticket->getCreatedBy()->getDisplayName());
+        }
+        $content .= "\t";
+        if($ticket->getAssignedTo()) { 
+          $content .= clean($ticket->getAssignedTo()->getObjectName());
+        }
+        $content .= "\n";
+      }
+      return array('content' => $content, 'type' => $content_type, 'name' => $name);
+    } // getIndexUrl
+
+
   } // ProjectTickets 
 
 ?>

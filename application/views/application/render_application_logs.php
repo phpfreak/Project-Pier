@@ -35,7 +35,7 @@
       $trclass = "$trclass $objtype"; 
 ?>
   <tr class="<?php echo $trclass ?>">
-    <td class="logBy"><?php echo render_action_taken_on_by($application_log_entry); ?></td>
+    <td class="logTakenOnBy"><?php echo render_action_taken_on_by($application_log_entry); ?></td>
 <?php if (config_option('logs_show_icons')) { ?>
     <td class="logTypeIcon"><img src="<?php echo image_url('logtypes/' . strtolower($application_log_entry->getRelObjectManager()) . '.gif') ?>" alt="<?php echo $application_log_entry->getObjectTypeName() ?>" title="<?php echo $application_log_entry->getObjectTypeName() ?>" /></td>
 <?php } else { ?>

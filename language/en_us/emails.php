@@ -16,8 +16,10 @@
     'user password reset' => 'Your password has been reset. New password is \'%s\'.',
     
     'do not reply warning' => 'THIS IS A NOTIFICATION. DO NOT REPLY TO THIS EMAIL.',
-    'new message posted' => 'New message "%s" has been posted in the "%s" project',
+    'new message posted' => 'New message "%s" has been posted in project "%s"',
+    'new file posted' => 'New file "%s" has been posted in project "%s"',
     'view new message' => 'View that message',
+    'view new file' => 'View that file',
     
     'new comment posted' => 'New comment on "%s" has been posted',
     'view new comment' => 'View that comment',

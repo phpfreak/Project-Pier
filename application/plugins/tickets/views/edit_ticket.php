@@ -54,7 +54,9 @@
 <?php } ?>
       <th><span class="bold"><?php echo lang('edit by'); ?>:</span></th>
       <td>
-<?php if ($ticket->getUpdated()) { ?>
+<?php if (is_null($ticket->getUpdatedBy())) { ?>
+      <td><?php echo $ticket->getUpdatedByDisplayName(); ?></td>
+<?php } else { ?>
         <?php echo lang('updated on by', format_datetime($ticket->getUpdatedOn()), $ticket->getUpdatedBy()->getCardUrl(), $ticket->getUpdatedByDisplayName(), lang($ticket->getUpdated())); ?>
 <?php } // if?>
       </td>
@@ -132,7 +134,7 @@
 <h2><?php echo lang('history') ?></h2>
 <?php if(isset($changes) && is_array($changes) && count($changes)) { ?>
 <div id="changelog">
-  <table>
+  <table class="applicationLogs">
     <tr>
       <th><?php echo lang('field') ?></th>
       <th><?php echo lang('old value') ?></th>
@@ -144,11 +146,11 @@
     <tr>
       <td><?php echo lang($change->getType()) ?></td>
 <?php if ($change->dataNeedsTranslation()) { ?>
-      <td><?php echo lang($change->getFromData()) ?></td>
-      <td><?php echo lang($change->getToData()) ?></td>
+      <td class="oldValue"><?php echo lang($change->getFromData()) ?></td>
+      <td class="newValue"><?php echo lang($change->getToData()) ?></td>
 <?php } else { ?>
-      <td><?php echo $change->getFromData() ?></td>
-      <td><?php echo $change->getToData() ?></td>
+      <td class="oldValue"><?php echo $change->getFromData() ?></td>
+      <td class="newValue"><?php echo $change->getToData() ?></td>
 <?php } // if ?>
       <td><?php echo $change->getCreatedByDisplayName() ?></td>
       <td><?php echo format_datetime($change->getCreatedOn()) ?></td>

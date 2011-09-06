@@ -6,7 +6,7 @@
     <ul>
 <?php foreach ($online_users as $user) { ?>
 <?php if (logged_user()->canSeeUser($user)) { ?>
-      <li><a href="<?php echo $user->getCardUrl() ?>"><?php echo clean($user->getDisplayName()) ?></a> <span class="desc">(<?php echo clean($user->getCompany()->getName()) ?>)</span></li>
+      <li><a href="<?php echo $user->getCardUrl() ?>"><?php echo clean($user->getDisplayName()) ?></a> <span class="desc">(<?php echo clean($user->getCompanyDisplayName()) ?>)</span></li>
 <?php } // if ?>
 <?php } // foreach ?>
     </ul>

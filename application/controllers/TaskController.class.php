@@ -896,6 +896,25 @@
       
       $this->redirectToUrl($redirect_to);
     } // open_task
+
+    /**
+    * Reopen completed project task
+    *
+    * @access public
+    * @param void
+    * @return null
+    */
+    function edit_score() {
+      $task = ProjectTasks::findById(get_id());
+      if (!($task instanceof ProjectTask)) {
+        flash_error(lang('task dnx'));
+        //$this->redirectTo('task');
+      } // if
+      
+      include '../views/editscore.html';
+      
+    } // open_task
+
   
   } // TaskController
 

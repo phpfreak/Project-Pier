@@ -1,1 +1,4 @@
 AddDefaultCharset utf-8
+# Uncommenting the following lines may generare an Internal Server Error
+# php_value upload_max_filesize 16M
+# php_value post_max_size 16M

@@ -27,19 +27,15 @@
     $this->assign('task_list', $task_list);
     $option_attributes = $task_list->getId() == $time->getTaskListId() ? array('selected' => 'selected') : null;
     $options[] = option_tag(clean($task_list->getName()), $task_list->getId(), $option_attributes);
-    if(is_array($task_list->getOpenTasks())) {
-      foreach($task_list->getOpenTasks() as $task) {
+    if(is_array($task_list->getTasks())) {
+      foreach($task_list->getTasks() as $task) {
         $option_attributes = $task->getId() == $time->getTaskId() ? array('selected' => 'selected') : null;
-        $name = clean($task->getText());
-        $name = explode("\n", $name, 1);
-        $name = $name[0];
-        if (strlen($name)>47) {
-          $name = substr($name, 0, 47) . '...';
-        }
+        $name = $task->getObjectName();
+        $state = $task->isCompleted() ? lang('completed') : lang('open');
         if($task->getAssignedTo()) {
-          $options[] = option_tag('- ' . clean($task->getAssignedTo()->getObjectName()) . ':' . $name, 'task_' . $task->getId(), $option_attributes);
+          $options[] = option_tag('- ' . clean($task->getAssignedTo()->getObjectName()) . ": $name - ($state)", 'task_' . $task->getId(), $option_attributes);
         } else {
-          $options[] = option_tag('- ' . $name, 'task_' . $task->getId(), $option_attributes);
+          $options[] = option_tag("- $name - ($state)", 'task_' . $task->getId(), $option_attributes);
         }
       }
     }

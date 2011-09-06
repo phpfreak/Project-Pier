@@ -32,10 +32,11 @@
     <?php echo input_field('task_list[priority]', array_var($task_list_data, 'priority'), array('class' => 'short', 'id' => 'taskListFormPriority')) ?>
   </div>
 
-<?php if (logged_user()->getProjectPermission($task_list->getProject(), 'tasks-edit_score')) { ?>
+<?php if ((logged_user()->getProjectPermission($task_list->getProject(), 'tasks-edit_score') && (config_option('enable_efqm')=='yes'))) { ?>
   <div>
     <?php echo label_tag(lang('score'), 'taskListFormScore') ?>
     <?php echo input_field('task_list[score]', array_var($task_list_data, 'score'), array('class' => 'short', 'id' => 'taskListFormScore')) ?>
+    <?php echo '<a href="' . get_url('task', 'edit_score') . '">' . lang('edit score') . '</a>' ?>
   </div>
 <?php } // if ?>
       

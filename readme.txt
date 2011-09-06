@@ -2,13 +2,13 @@
 Version
 ~~~~~~~
 
-This is version 0.8.6 - Enjoy!
+This is version 0.8.7 - Enjoy!
 
 ~~~~~~~~~~~~~~~~~~~
 STABLE
 ~~~~~~~~~~~~~~~~~~~
 
-This software is STABLE, that means it can be used for your projects.
+This software is BETA, that means it can not be used for your projects.
 
 ~~~~~~~~~~~~~~
 Reporting Bugs
@@ -18,14 +18,14 @@ It is absolutely critical for you to report any bugs you find with this software
 If you don't, they can not be fixed. If you find a bug please 
 check the bug tracker to make sure it's not already known.  If you are certain 
 you have discovered a NEW bug, please log it into the bug tracker located
-at http://www.projectpier.org/project/issues/ under version 0.8.6.
+at http://www.projectpier.org/project/issues/ under version 0.8.7.
 
 If you have NOT found any bugs, we need to hear that too!  
 Please let us know what type of system you are using and the extent of your 
 testing.  Please include the OS, Apache, PHP and MySQL versions and/or the name of
 the web hosting provider the testing was performed on.  A new forum has been setup
 specifically to gather and discuss this format, it is located at 
-http://www.projectpier.org/forum/development/086
+http://www.projectpier.org/forum/development/087
 
 ~~~~~~~~~~~~~~~~~~~
 System requirements
@@ -38,13 +38,14 @@ ProjectPier is not PHP4 compatible.
 	
 Recommended configuration:
 	
-: PHP 5.1 or greater
+: PHP 5.2 or greater
 : MySQL 4.1 or greater with InnoDB support (see notes below)
 : Apache 2.0 or greater
         
 If you do not have these installed on a server or your personal computer, 
 you can visit the sites below to learn more about how to download and install
 them.  They are all licensed under various compatible Open Source licenses.	
+
 : PHP    : http://www.php.net/
 : MySQL  : http://www.mysql.com/
 : Apache : http://www.apache.org/
@@ -113,6 +114,13 @@ SethZora - for his remarks, ideas and testing
 Kemie - for fixing the Marine theme
 jokoe - for the French translation
 visor7 - for the Spanish translation
+aselfonov - for the Russian translation
+rzelnik - for the Redbase theme
+keep_organized - for his ideas on time
+mato - for the Italian translation
+egil - for the Norwegian translation
+bjorngudmundson - for the Icelandic translation
+mhansen - for the Danish translation
 
 ~~~~~~~~~~~~~~~~~
 About ProjectPier

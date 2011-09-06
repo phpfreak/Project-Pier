@@ -274,6 +274,52 @@
         } // try
       } // if
     } // tool_mass_mailer
+
+    function system_info() {
+      trace(__FILE__,'system_info()');
+      $tool = AdministrationTools::getByName('system_info');
+      if (!($tool instanceof AdministrationTool)) {
+        flash_error(lang('administration tool dnx', 'system_info'));
+        $this->redirectTo('administration', 'tools');
+      } // if
+            
+      tpl_assign('tool', $tool);
+    } // phpinfo
+
+
+    function browse_log() {
+      trace(__FILE__,'browse_log()');
+      $tool = AdministrationTools::getByName('browse_log');
+      if (!($tool instanceof AdministrationTool)) {
+        flash_error(lang('administration tool dnx', 'browse_log'));
+        $this->redirectTo('administration', 'tools');
+      } // if
+            
+      tpl_assign('tool', $tool);
+
+      $pos = isset($_GET['pos']) ? 0 + $_GET['pos'] : -1;
+      $dir = isset($_GET['dir']) ? $_GET['dir'] : 'up';
+
+      $lines = array();
+      $handle = fopen("cache/log.php", "r");
+      //$handle = fopen("AdministrationController.class.php", "r");
+      if ($handle) {
+        if ($pos<0) {
+          fseek($handle,0,SEEK_END); // Seek to the end
+          $pos = ftell($handle);
+        }
+        $pos = ($dir=='up') ? $pos - 4096 : $pos;  
+        fseek($handle,$pos,SEEK_SET); // Seek to the position
+        $lines = explode( "\n", fread($handle, 4096) ); 
+        $pos=ftell($handle);
+        fclose($handle);
+      }
+      //$lines = array( "aaaaa", "bbbbbb" );
+      tpl_assign('pos', $pos);
+      tpl_assign('lines', $lines);
+
+    } // browse_log
+
     
     function plugins() {
       trace(__FILE__,'plugins()');

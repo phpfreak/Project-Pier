@@ -6,9 +6,11 @@ table.applicationLogs {
 
 table.applicationLogs th {
   background: transparent;
-  border-bottom: 1px solid #333;
-  padding-right: 10px;
-	}
+  border-bottom: 1px solid #A10E0E;
+  font-size: 1.0em;
+  xpadding-right: 10px;
+  xmargin-right: 2px;
+}
 
 table.applicationLogs tr.logToday {
   background: #f9ffeb;
@@ -25,16 +27,31 @@ table.applicationLogs tr.logOlder {
 table.applicationLogs td {
   border-bottom: 1px dotted #c8dbc2;
   padding: 5px;
-	}
+}
 
 table.applicationLogs td.logTypeIcon {
-  width: 65px;
-  padding-left: 10px;
+  width: 68px;
+  xpadding-left: 10px;
 }
 
 table.applicationLogs .logProject, table.applicationLogs .logTakenOnBy {
   text-align: right;
-  
+}
+
+div .logProjectHeader {
+  font-weight: bold;
+  font-size: 1.2em;
+  padding: 5px;
+  background: #A10E0E;
+  color: #ffffff;
+}
+
+div .logProjectHeader a {
+  color: #ffffff;
+}
+
+div .logProjectHeader a:hover {
+  background: #B81010;
 }
 
 table.applicationLogs .logProject {
@@ -42,6 +59,26 @@ table.applicationLogs .logProject {
 }
 
 table.applicationLogs .logTakenOnBy {
-  width: 150px;
-  padding-right: 10px;
+  xwidth: 150px;
+  xpadding-right: 10px;
+}
+
+table.applicationLogs .logTakenOn {
+  width: 62px;
+}
+
+table.applicationLogs .logBy {
+  width: 100px !important;
+}
+
+table.applicationLogs .logDetails {
+  width: 300px;
+}
+
+#tickets .tickets_header {
+  font-weight: bold;
+  font-size: 1.2em;
+  padding: 5px;
+  background: #A10E0E;
+  color: #ffffff;
 }

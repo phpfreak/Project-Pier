@@ -48,10 +48,11 @@
   } // if
   trace(__FILE__,'task lists: end');
 
-  $thisMonth = gmmktime(0, 0, 0, $month, 1, $year);
+  $thisMonth = gmmktime(0, 0, 0, $month, 2, $year, 0);
+  //echo date('Y m d H i s', $thisMonth);
   $prevMonth = strtotime('-1 month', $thisMonth);
   $nextMonth = strtotime('+1 month', $thisMonth);
-  $daysInMonth = gmdate('d', strtotime('+1 month -1 day', $thisMonth));
+  $daysInMonth = gmdate('t', $thisMonth);
   $firstDayOfWeek = config_option('calendar_first_day_of_week', 1);
   $daysInWeek = 7; // in case you live on another planet...
   $lastDayOfWeek = 8;

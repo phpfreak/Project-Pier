@@ -37,6 +37,20 @@ body  {
  font-weight: normal;
 }
 
+#header h2  {
+ border: 0;
+ float: left;
+ margin: 0 5px 0 0;
+ padding: 10px 0 10px 10px;
+ max-width: 332px;
+}
+
+#header h2 a  {
+ border: 0;
+ font-weight: normal;
+}
+
+
 #systemNotices  {
  margin: 0 auto;
  padding: 10px 0;

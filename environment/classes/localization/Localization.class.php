@@ -1,5 +1,5 @@
 <?php
-  include_once 'persian.php';
+include_once 'persian.php';
 
 function utf8_strrev($str, $reverse_numbers = true){
     $pattern = $reverse_numbers ? '/./us' : '/(\d+)?./us';
@@ -165,14 +165,13 @@ function utf8_strrev($str, $reverse_numbers = true){
       $this->loadLanguageFiles($locale_dir);
 
       // load every plugin language files
-      // TODO: do this during plugin activation
       $dirs = get_dirs(PLUGINS_DIR,false);
       foreach ($dirs as $plugin_dir) {
         $locale_dir = PLUGINS_DIR.'/'.$plugin_dir.'/language/' . $locale;
         if (is_dir($locale_dir)) {
           $this->loadLanguageFiles($locale_dir);
         } else {
-          $locale_dir = PLUGINS_DIR.'/'.$plugin_dir.'/language/en_us';
+          //$locale_dir = PLUGINS_DIR.'/'.$plugin_dir.'/language/en_us';
           if (is_dir($locale_dir)) {
             $this->loadLanguageFiles($locale_dir);
           } // if

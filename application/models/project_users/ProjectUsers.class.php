@@ -26,6 +26,7 @@
       if (trim($additional_conditions) <> '') {
         $sql .= " AND ($additional_conditions)";
       }
+      $sql .= " ORDER BY ($users_table.`display_name`)";
       
       $rows = DB::executeAll($sql);
       if (is_array($rows)) {

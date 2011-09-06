@@ -4,7 +4,7 @@
   if (isset($closed) && $closed) $options_pagination['closed'] = true;
 ?>
 <?php if(isset($tickets) && is_array($tickets) && count($tickets)) { ?>
-<div id="tickets">
+<div id="tickets" class="dashboard">
   <?php if (isset($tickets_pagination)): ?>
   <div id="ticketsPaginationTop"><?php echo advanced_pagination($tickets_pagination, get_url('tickets', 'index', $options_pagination)) ?></div>
   <?php endif ?>

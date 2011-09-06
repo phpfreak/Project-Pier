@@ -128,6 +128,34 @@
     } // newMessage
 
     /**
+    * Send new message notification to the list of users ($people)
+    *
+    * @param ProjectFile $file New file
+    * @param array $people
+    * @return boolean
+    * @throws NotifierConnectionError
+    */
+    static function newFile(ProjectFile $file, $people) {
+      if (!is_array($people) || !count($people)) {
+        return; // nothing here...
+      } // if
+      
+      tpl_assign('new_file', $file);
+      
+      $recipients = array();
+      foreach ($people as $user) {
+        $recipients[] = self::prepareEmailAddress($user->getEmail(), $user->getDisplayName());
+      } // foreach
+      
+      return self::sendEmail(
+        $recipients,
+        self::prepareEmailAddress($file->getCreatedBy()->getEmail(), $file->getCreatedByDisplayName()),
+        $file->getProject()->getName() . ' - ' . $file->getFilename(),
+        tpl_fetch(get_template_path('new_file', 'notifier'))
+      ); // send
+    } // newFile
+
+    /**
     * Send ticket notification to the list of users ($people)
     *
     * @param ProjectTicket $ticket New ticket

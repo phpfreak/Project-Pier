@@ -14,6 +14,7 @@
       <li><a href="<?php echo get_url('administration', 'projects') ?>"><?php echo lang('projects') ?></a></li>
       <li><a href="<?php echo get_url('administration', 'configuration') ?>"><?php echo lang('configuration') ?></a></li>
       <li><a href="<?php echo get_url('administration', 'plugins') ?>"><?php echo lang('plugins') ?></a></li>
+      <li><a href="<?php echo get_url('administration', 'tools') ?>"><?php echo lang('administration tools') ?></a></li>
       <li><a href="<?php echo get_url('administration', 'upgrade') ?>"><?php echo lang('upgrade') ?></a></li>
     </ul>
     <ul style="float: left; width: 12em;">

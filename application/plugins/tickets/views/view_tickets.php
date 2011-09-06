@@ -2,18 +2,18 @@
 <?php if (isset($ticketsheader)) { echo "<div class=\"tickets_header\">$ticketsheader</div>"; } ?>
 <table width="100%" cellpadding="2" border="0">
   <tr bgcolor>
-    <td width="40"><?php echo lang("ticket") ?></td>
-    <td><?php echo lang("summary") ?></td>
-    <td width="95"><?php echo lang("type") ?></td>
-    <td width="60"><?php echo lang("state") ?></td>
-    <td width="115"><?php echo lang("category") ?></td>
-    <td width="60" align="center"><?php echo ucfirst(lang("created by")) ?></td>
-    <td width="60" align="center"><?php echo lang("assigned to") ?></td>
+    <th width="40"><?php echo lang("ticket") ?></td>
+    <th><?php echo lang("summary") ?></td>
+    <th width="95"><?php echo lang("type") ?></td>
+    <th width="60"><?php echo lang("state") ?></td>
+    <th width="115"><?php echo lang("category") ?></td>
+    <th width="60" align="center"><?php echo ucfirst(lang("created by")) ?></td>
+    <th width="60" align="center"><?php echo lang("assigned to") ?></td>
   </tr>
 <?php foreach($tickets as $ticket) { ?>
   <tr class="<?php echo $ticket->getPriority(); ?>">
     <td><div><a href="<?php echo $ticket->getViewUrl() ?>"><?php echo $ticket->getId() ?></a></div></td>
-    <td><?php echo $ticket->getSummary() ?></td>
+    <td class="summary"><?php echo $ticket->getSummary() ?></td>
     <td><?php echo lang($ticket->getType()) ?></td>
     <td><?php echo lang($ticket->getState()) ?></td>
     <td>

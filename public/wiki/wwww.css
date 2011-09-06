@@ -1,4 +1,6 @@
-ul {
+@import '../assets/themes/redbase/stylesheets/project_website.css';
+
+xul {
   float: left;
   filter:alpha(opacity=90);
   -moz-opacity:.90;
@@ -11,7 +13,7 @@ ul {
   width: 240px;
 }
 
-ul#index li {
+xul#index li {
     text-align: left;
     float: left;
     list-style: none;
@@ -20,12 +22,12 @@ ul#index li {
     background: url(list.gif) 5px 5px no-repeat;
 }
 
-li .project_name {
+xli .project_name {
   margin-left: 10px;
   color: #ccc;
 }
 
-#content {
+x#content {
   xfloat: right;
   position: absolute;
   left: 250px;

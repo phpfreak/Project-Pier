@@ -38,11 +38,14 @@
 <?php if ($comment->columnExists('comments_enabled') && !$comment->getCommentsEnabled() && logged_user()->isAdministrator()) { ?>
 <p class="error"><?php echo lang('admins can post comments on locked objects desc') ?></p>
 <?php } // if ?>
+<?php if ($comment_form_object->canAttachFile(logged_user(), active_project())) { ?>
+  <?php echo render_attach_files() ?>
+<?php } // if ?>
 <?php 
   $this->assign('project', active_project());
   $this->assign('object', $comment);
   $this->assign('post_data_name', 'comment_data');
-  $this->assign('post_data', $comment);
+  $this->assign('post_data', $comment_data);
   $this->includeTemplate(get_template_path('select_receivers', 'notifier'));
 ?>
    

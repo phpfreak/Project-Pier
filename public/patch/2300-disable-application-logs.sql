@@ -1,0 +1,1 @@
+INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('features', 'display_application_logs', '0', 'BoolConfigHandler', 0, 0, 'Display application logs');

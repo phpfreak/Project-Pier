@@ -38,6 +38,9 @@
     'milestone assigned to' => 'Assigned to %s',
     'project started on' => 'Started on',
 
+    'parent project' => 'Parent project',
+    'subprojects' => 'Subprojects',
+
     'projects copy new name' => '%s (copy)',
     'projects copy source' => 'Project to copy',
     'projects copy details' => 'Copy details',

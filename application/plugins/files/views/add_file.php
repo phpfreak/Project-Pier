@@ -88,6 +88,13 @@
       <p><?php echo lang('upload file desc', format_filesize(get_max_upload_size())) ?></p>
     </div>
   </div>
+<?php 
+  $this->assign('project', active_project());
+  $this->assign('object', $file);
+  $this->assign('post_data_name', 'file');
+  $this->assign('post_data', $file_data);
+  $this->includeTemplate(get_template_path('select_receivers', 'notifier'));
+?>
   <?php echo submit_button(lang('save')) ?> <a href="<?php echo get_url('files') ?>"><?php echo lang('cancel') ?></a>
 <?php } else { // if ?>
   <?php echo submit_button(lang('save')) ?> <a href="<?php echo $file->getDetailsUrl() ?>"><?php echo lang('cancel') ?></a>

@@ -436,7 +436,7 @@
       $file_data = array_var($_POST, 'file');
       if (!is_array($file_data)) {
         $file_data = array(
-          'is_private' => config_option('default_private', false),
+          'is_private' => config_option('default_private', false)
         ); // array
       } // if
       
@@ -463,10 +463,11 @@
       if (is_array(array_var($_POST, 'file'))) {
         try {
           DB::beginWork();
+
           $uploaded_file = array_var($_FILES, 'file_file');
           // move uploaded file to folder where I can read and write
-          move_uploaded_file($uploaded_file["tmp_name"], ROOT . "/tmp/" . $uploaded_file["name"]);
-          $uploaded_file["tmp_name"] = ROOT . "/tmp/" . $uploaded_file["name"];
+          move_uploaded_file($uploaded_file['tmp_name'], ROOT . '/tmp/' . $uploaded_file['name']);
+          $uploaded_file['tmp_name'] = ROOT . '/tmp/' . $uploaded_file['name'];
           $file->setFromAttributes($file_data);
           
           if (!logged_user()->isMemberOfOwnerCompany()) {
@@ -487,11 +488,34 @@
           
           ApplicationLogs::createLog($file, active_project(), ApplicationLogs::ACTION_ADD);
           DB::commit();
+
+          // Try to send notifications but don't break submission in case of an error
+          // define all the users to be notified - here all project users, from all companies.
+          // Restrictions if comment is private is taken into account in newOtherComment()
+          try {
+            $notify_people = array();
+            $project_companies = active_project()->getCompanies();
+            foreach ($project_companies as $project_company) {
+              $company_users = $project_company->getUsersOnProject(active_project());
+              if (is_array($company_users)) {
+                foreach ($company_users as $company_user) {
+                  if ((array_var($file_data, 'notify_company_' . $project_company->getId()) == 'checked') || (array_var($file_data, 'notify_user_' . $company_user->getId()))) {
+                    $notify_people[] = $company_user;
+                  } // if
+                } // if
+              } // if
+            } // if
+
+            Notifier::newFile($file, $notify_people); // send notification email...
+          } catch(Exception $e) {                  
+            Logger::log("Error: Notification failed, " . $e->getMessage(), Logger::ERROR);
+          } // try
           
           flash_success(lang('success add file', $file->getFilename()));
           $this->redirectToUrl($file->getDetailsUrl());
         } catch(Exception $e) {
           DB::rollback();
+
           tpl_assign('error', $e);
           tpl_assign('file', new ProjectFile()); // reset file
           

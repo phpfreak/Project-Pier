@@ -42,11 +42,11 @@
           <td class="milestoneText">
 <?php $assigned_to = $assigned_milestone->getAssignedTo() ?>
 <?php if ($assigned_to instanceof Company) { ?>
-            <span class="assignedTo"><?php echo clean($assigned_to->getName()) ?>:</span> 
+            <span class="assignedTo"><?php echo clean($assigned_to->getName()) ?> | </span> 
 <?php } elseif ($assigned_to instanceof User) { ?>
-            <span class="assignedTo"><?php echo clean($assigned_to->getDisplayName()) ?>:</span> 
+            <span class="assignedTo"><?php echo clean($assigned_to->getDisplayName()) ?> | </span> 
 <?php } else { ?>
-            <span class="assignedTo"><?php echo lang('anyone') ?>:</span> 
+            <span class="assignedTo"><?php echo lang('anyone') ?> | </span> 
 <?php } // if ?>
             <a href="<?php echo $assigned_milestone->getViewUrl() ?>"><?php echo clean($assigned_milestone->getName()) ?></a> - 
 <?php if ($assigned_milestone->isUpcoming()) { ?>
@@ -71,12 +71,15 @@
           <td class="taskText">
 <?php $assigned_to = $assigned_task->getAssignedTo() ?>
 <?php if ($assigned_to instanceof Company) { ?>
-            <span class="assignedTo"><?php echo clean($assigned_to->getName()) ?>:</span>
-<?php } elseif ($assigned_to instanceof User) { ?>
-            <span class="assignedTo"><?php echo clean($assigned_to->getDisplayName()) ?>:</span>
+            <span class="assignedTo"><?php echo clean($assigned_to->getName()) ?></span>
+<?php } elseif ($assigned_to instanceof User) { ?> 
+            <span class="assignedTo"><?php echo clean($assigned_to->getDisplayName()) ?></span>
 <?php } else { ?>
-            <span class="assignedTo"><?php echo lang('anyone') ?>:</span>
+            <span class="assignedTo"><?php echo lang('anyone') ?></span>
 <?php } // if ?>
+<?php
+$taskDueDate = $assigned_task->getDueDate(); if (!is_null($taskDueDate)) echo ' | '.lang('due date').': <strong>'.format_date($taskDueDate).'</strong>';
+?>
             <?php echo do_textile($assigned_task->getText()) ?> 
 <?php if ($assigned_task->getTaskList() instanceof ProjectTaskList) { ?>
             (<?php echo lang('in') ?> <a href="<?php echo $assigned_task->getTaskList()->getViewUrl() ?>"><?php echo clean($assigned_task->getTaskList()->getName()) ?></a>)

@@ -23,13 +23,13 @@
     <th>Date</th>
     <th>Name</th>
     <th>Details</th>
+    <th>Task</th>
     <th>Hours</th>
-    <th></th>
+    <th>Actions</th>
   </tr>
 
 <?php
   foreach($times as $time) {
-
     $this->assign('time', $time);
 ?>
 
@@ -42,10 +42,14 @@
 <?php } // if ?>
 
     <td class="timeDate">
+<?php if(is_null($time->getDoneDate())) { ?>
+  <?php echo '-'; ?>
+<?php } else { ?>
 <?php if($time->getDoneDate()->getYear() > DateTimeValueLib::now()->getYear()) { ?>
   <?php echo format_date($time->getDoneDate(), null, 0) ?>
 <?php } else { ?>
   <?php echo format_descriptive_date($time->getDoneDate(), 0) ?>
+<?php } // if ?>
 <?php } // if ?>
 		</td>
 		<td class="timeUser">
@@ -55,6 +59,16 @@
 		</td>
     <td class="timeDetails">
 			<a href="<?php echo $time->getViewUrl() ?>"><?php echo clean($time->getName()) ?></a>
+    </td>
+    <td class="timeTaskDetails">
+<?php
+      $task = ProjectTasks::findById($time->getTaskId());
+      if ($task instanceof ProjectTask) {
+?>
+			<a href="<?php echo $task->getViewUrl() ?>"><?php echo clean($task->getObjectName()) ?></a>
+      <?php } else { // if ?>
+            &nbsp;
+      <?php } // if ?>
     </td>
     <td class="timeHours"><?php echo $time->getHours() ?></td>
 		<td class="timeEdit">

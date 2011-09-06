@@ -11,6 +11,7 @@
   if(ProjectTicket::canAdd(logged_user(), active_project())) {
     add_page_action(lang('add ticket'), get_url('tickets', 'add_ticket'));  
   }
+  add_page_action(lang('download'), get_url('tickets', 'download'));  
   add_stylesheet_to_page('project/tickets.css');
 
   $options_pagination = array('page' => '#PAGE#');
@@ -18,7 +19,6 @@
 ?>
 <?php if(isset($tickets) && is_array($tickets) && count($tickets)) { ?>
 <div id="tickets">
-  <a href=<?php echo get_url('tickets', 'print_overview') ?> ><?php echo lang('print overview') ?> </a>  
   <div id="messagesPaginationTop"><?php echo advanced_pagination($tickets_pagination, get_url('tickets', 'index', $options_pagination)) ?></div>
 <?php
   $this->assign('tickets', $tickets);

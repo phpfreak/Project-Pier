@@ -60,6 +60,7 @@
     'administration tool dnx' => 'Administration tool "%s" does not exists',
     'about to delete' => 'You are about to delete',
     'about to move' => 'You are about to move',
+    'no image functions' => 'No image functions (install GD library)',
     
     // Success
     'success add project' => 'Project %s has been added successfully',

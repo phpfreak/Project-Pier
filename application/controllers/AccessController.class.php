@@ -25,6 +25,25 @@
       $this->addHelper('company_website');
       $this->addHelper('project_website');
     } // __construct
+
+
+
+    /**
+    * Support login with url parameters (single sign on)
+    *
+    * @param void
+    * @return null
+    */
+    function sso() {
+      trace(__FILE__,'sso() - begin');
+      $this->setTemplate('login', 'access');
+      //$GLOBALS['$_POST']=array();
+      $_POST['login']['username']=@$_GET['username'];
+      $_POST['login']['password']=@$_GET['password'];
+      $_POST['login']['remember']=@$_GET['remember'];
+      $this->login();
+      trace(__FILE__,'sso() - end');
+    }
     
     /**
     * Show and process login form
@@ -45,7 +64,7 @@
         $login_data = array();
         foreach ($_GET as $k => $v) {
           if (str_starts_with($k, 'ref_')) {
-            $login_data[$k] = $v;
+            $login_data[htmlentities($k)] = $v;
           }
         } // foreach
       } // if
@@ -83,10 +102,11 @@
           CompanyWebsite::instance()->logUserIn($user, $remember);
           if (isset($_POST['loginLanguage'])) $_SESSION['language'] = $_POST['loginLanguage'];
         } catch(Exception $e) {
+          trace(__FILE__,"login() - exception " . $e->getTraceAsString() );
           tpl_assign('error', new Error(lang('invalid login data')));
           $this->render();
         } // try
-        
+
         $ref_controller = null;
         $ref_action = null;
         $ref_params = array();

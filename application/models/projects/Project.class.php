@@ -15,6 +15,25 @@
     protected $is_taggable = true;
     
     // ---------------------------------------------------
+    //  Projects
+    // ---------------------------------------------------
+    
+    /**
+    * Cache of all subprojects
+    *
+    * @var array
+    */
+    private $all_subprojects;
+    
+    /**
+    * Cached array of subprojects that user can access. If user is member of owner company
+    * $all_subprojects will be used (members of owner company can browse all subprojects)
+    *
+    * @var array
+    */
+    private $subprojects;
+    
+    // ---------------------------------------------------
     //  Messages
     // ---------------------------------------------------
     
@@ -312,6 +331,57 @@
     */
     private $all_times;
 
+    // ---------------------------------------------------
+    //  Milestones
+    // ---------------------------------------------------
+    
+    /**
+    * Return parent project
+    *
+    * @access public
+    * @param void
+    * @return Project or NULL
+    */
+    function getParent() {
+      return Projects::findById($this->getParentId());
+    } // getTaskList
+
+    /**
+    * Return all milestones, don't filter them by is_private stamp based on users permissions
+    *
+    * @param void
+    * @return array
+    */
+    function getAllSubprojects() {
+      if (is_null($this->all_subprojects)) {
+        $this->all_subprojects = Projects::findAll(array(
+          'conditions' => array('`parent_id` = ?', $this->getId()),
+          'order' => 'name'
+        )); // findAll
+      } // if
+      return $this->all_subprojects;
+    } // getAllSubprojects
+    
+    /**
+    * Return subprojects
+    *
+    * @access public
+    * @param void
+    * @return array
+    */
+    function getSubprojects() {
+      if (logged_user()->isMemberOfOwnerCompany()) {
+        return $this->getAllSubprojects();
+      }
+      if (is_null($this->subprojects)) {
+        $this->subprojects = Projects::findAll(array(
+          // 'conditions' => array('`parent_id` = ? AND `is_private` = ?', $this->getId(), 0),
+          'conditions' => array('`parent_id` = ?', $this->getId()),
+          'order' => 'name'
+        )); // findAll
+      } // if
+      return $this->subprojects;
+    } // getSubprojects
     
     // ---------------------------------------------------
     //  Messages
@@ -1178,7 +1248,7 @@
       
       return ProjectTasks::findAll(array(
         'conditions' => array('`task_list_id` IN (?) AND ((`assigned_to_user_id` = ? AND `assigned_to_company_id` = ?) OR (`assigned_to_user_id` = ? AND `assigned_to_company_id` = ?) OR (`assigned_to_user_id` = ? AND `assigned_to_company_id` = ?)) AND `completed_on` = ?', $task_list_ids, $user->getId(), $user->getCompanyId(), 0, $user->getCompanyId(), 0, 0, EMPTY_DATETIME),
-        'order' => '`created_on`'
+        'order' => '`due_date`'
       )); // findAll
     } // getUsersTasks
     

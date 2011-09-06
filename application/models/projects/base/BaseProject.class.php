@@ -57,6 +57,28 @@
     } // setName() 
 
     /**
+    * Return value of 'parent_id' field
+    *
+    * @access public
+    * @param void
+    * @return string 
+    */
+    function getParentId() {
+      return $this->getColumnValue('parent_id');
+    } // getParent()
+    
+    /**
+    * Set value of 'parent_id' field
+    *
+    * @access public   
+    * @param string $value
+    * @return boolean
+    */
+    function setParentId($value) {
+      return $this->setColumnValue('parent_id', $value);
+    } // setParentId() 
+    
+    /**
     * Return value of 'priority' field
     *
     * @access public

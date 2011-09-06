@@ -132,7 +132,7 @@
   // Defaults
   //define('DEFAULT_CONTROLLER', config_option('default_controller', 'dashboard') );
   define('DEFAULT_CONTROLLER', 'dashboard' );
-  define('DEFAULT_ACTION', config_option('default_action', 'index') );
+  //define('DEFAULT_ACTION', config_option('default_action', 'index') );
   define('DEFAULT_ACTION', 'index' );
   define('DEFAULT_THEME', 'default');
   

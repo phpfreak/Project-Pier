@@ -56,7 +56,7 @@
   <div class="blockContent">
     <ul>
 
-<?php if (active_project()->canEdit(logged_user())) { 
+<?php if (active_project()->canEdit(logged_user()) && (config_option('enable_efqm')=='yes')) { 
       $score_card_url = get_url('project', 'score_card', array(
         'id' => active_project()->getId(),
         'active_project' => active_project()->getId(),

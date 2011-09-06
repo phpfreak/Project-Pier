@@ -1,3 +1,6 @@
 <?php
 
+return array (
+);
+
 ?>

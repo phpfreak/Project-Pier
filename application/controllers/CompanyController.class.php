@@ -382,6 +382,11 @@
         flash_error(lang('company dnx'));
         $this->redirectToReferer(get_url('administration', 'clients'));
       } // if
+
+      if (!function_exists('imagecreatefromjpeg')) {
+        flash_error(lang('no image functions'));
+        $this->redirectTo('dashboard');
+      } // if
       
       tpl_assign('company', $company);
       

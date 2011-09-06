@@ -7,8 +7,8 @@
 <?php echo stylesheet_tag('company_website.css') ?> 
 <?php echo meta_tag('content-type', 'text/html; charset=utf-8', true) ?> 
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
-    <link rel="Shortcut Icon" href="<?php echo ROOT_URL.'/favicon.ico' ?>" type="image/x-icon" />
-    <link rel="alternate" title="<?php echo lang('recent activities feed') ?>" type="application/rss+xml" href="<?php echo logged_user()->getRecentActivitiesFeedUrl() ?>" />
+<?php echo link_tag(ROOT_URL.'favicon.ico', 'rel', 'Shortcut Icon', array("type"=>"image/x-icon")) ?>
+<?php echo link_tag(logged_user()->getRecentActivitiesFeedUrl(), 'rel', 'alternate', array("type"=>"application/rss+xml", "title"=>lang('recent activities feed'))) ?>
 <?php add_javascript_to_page('pp.js') ?>
 <?php add_javascript_to_page('jquery.min.js') ?>
 <?php add_javascript_to_page('jquery.easing.min.js') ?>
@@ -106,7 +106,7 @@
             <?php echo lang('footer copy without homepage', date('Y'), clean(owner_company()->getName())) ?>
 <?php } // if ?>
           </div>
-          <div id="productSignature"><?php echo product_signature() ?><span id="request_duration"><?php printf(' in %.3f seconds', (microtime(true) - $GLOBALS['request_start_time']) ); ?></span></div>
+          <div id="productSignature"><?php echo product_signature() ?><span id="request_duration"><?php printf(' in %.3f seconds', (microtime(true) - $GLOBALS['request_start_time']) ); ?></span> <span id="current_datetime"><?php echo date('c [W]'); ?></span></div>
         </div>
         <!--footer -->
       </div>

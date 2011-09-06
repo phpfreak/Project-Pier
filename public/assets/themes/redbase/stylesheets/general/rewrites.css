@@ -534,7 +534,8 @@ min-height:900px;
 }
 
 BODY #content TABLE.applicationLogs {
-width:630px;
+  width:630px;
+  overflow: auto;
 }
 
 BODY #content TABLE.applicationLogs tr.logToday {

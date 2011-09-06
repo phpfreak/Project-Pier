@@ -50,6 +50,7 @@
         config_option('project_logs_per_page', 20)
       ));
       tpl_assign('project', $project);
+      tpl_assign('subprojects', $project->getSubprojects());
       tpl_assign('late_milestones', $project->getLateMilestones());
       tpl_assign('today_milestones', $project->getTodayMilestones());
       tpl_assign('upcoming_milestones', $project->getUpcomingMilestones());
@@ -780,6 +781,7 @@
       if (!is_array($project_data)) {
         $project_data = array(
           'name' => $project->getName(),
+          'parent_id' => $project->getParentId(),
           'priority' => $project->getPriority(),
           'description' => $project->getDescription(),
           'show_description_in_overview' => $project->getShowDescriptionInOverview()
@@ -823,6 +825,11 @@
       if (!$project->canEdit(logged_user())) {
         flash_error(lang('no access permissions'));
         $this->redirectToReferer(get_url('dashboard'));
+      } // if
+
+      if (!function_exists('imagecreatefromjpeg')) {
+        flash_error(lang('no image functions'));
+        $this->redirectTo('dashboard');
       } // if
 
       $this->setTemplate('edit_logo');

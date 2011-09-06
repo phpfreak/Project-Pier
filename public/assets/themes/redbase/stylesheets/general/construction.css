@@ -46,6 +46,29 @@ body {
   border-top: 1px dotted #ccc;
 }
 
+#header h2 {
+  float: left;
+  margin: 0;
+  padding: 13px 0 10px 10px;
+  border: 0;
+}
+
+#header h2 a {
+  font-weight: normal;
+  font-size: 85% !important;
+  border: 0;
+  font-size: 24px;
+  color: white;
+}
+
+#header h2 a:hover {
+  border: 0;
+  color: #fff;
+  background: transparent;
+  border-bottom: 1px dotted #eee;
+  border-top: 1px dotted #ccc;
+}
+
 #systemNoticesWrapper {
   background: red;
   color: white;
@@ -188,7 +211,7 @@ body {
  margin: 0;
  padding: 0;
  position: absolute;
- width: 12em;
+ xwidth: 12em;
  z-index: 1000 !important;
 }
 
@@ -196,13 +219,14 @@ body {
  background-image: none !important;
  border: 0;
  float: none;
- font-size: 10px;
+ font-size: 11px;
  font-weight: bold;
  color: #FC9;
  list-style: none;
  list-style-image: none !important;
  margin: 0;
  padding: 0;
+ word-wrap: break-word;
 }
 
 * html #account_more_menu ul li, * html #account_more_menu ul li a  {
@@ -231,7 +255,7 @@ body {
  background-image: none !important;
  border: none;
  border-bottom: 1px solid #D8D8D8;
- font-size: 10px;
+ font-size: 11px;
  font-weight: normal;
  height: auto;
  line-height: 1.2em;
@@ -393,6 +417,7 @@ only IE mac will see this*/
 }
 
 #crumbs ul li span {
+  margin: 0 3px;
   font-weight: bolder;
 }
 
@@ -404,7 +429,7 @@ only IE mac will see this*/
 }
 
 #crumbs ul li a:hover {
-	color: #f4f19f;
+  color: #f4f19f;
   text-decoration: none;
   background: transparent;
 }
@@ -441,8 +466,8 @@ only IE mac will see this*/
 
 #outerContentWrapper {
   clear: both;
-  background: #7ccc5c url('../../images/layout/bg_page.png') repeat-x;
-  padding-top: 25px;
+  background: #eee url('../../images/layout/bg_page.png') repeat-x;
+  padding-top: 5px;
 }
 
 #innerContentWrapper {
@@ -475,7 +500,7 @@ only IE mac will see this*/
   float: left;
   width: 530px;
   min-height: 400px;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 /** Sidebar **/
@@ -524,20 +549,21 @@ only IE mac will see this*/
 #page_actions ul li {
   padding-right: 3px;
   display: inline;
-  font-weight: bolder;
-  font-size: 10px;
+  xfont-weight: bolder;
+  font-size: 11px;
 }
 
 #page_actions ul li a {
   border: 0;
-  padding: 0 15px 0 0;
-  color: #637277;
+  padding: 0 13px 0 0;
+  color: black;
   text-decoration: none;
   background: url('../../images/icons/more_down.gif') no-repeat right bottom;
 }
 
 #page_actions ul li a:hover {
-  color: black;
+  background: #eee url('../../images/icons/more_down.gif') no-repeat right bottom;
+  background-color: #fffccc;
 }
 
 /** Footer **/
@@ -559,7 +585,7 @@ only IE mac will see this*/
 
 #productSignature {
   text-align: right;
-  display: none;
+  xdisplay: none;
 }
 
 #listOfRssFeeds {
@@ -709,7 +735,7 @@ div.private span {
 #emailNotification .companyMembers ul {
   margin: 0;
   padding: 0;
-  list-style: none;
+  list-style: none !important;
 }
 
 #emailNotification .companyMembers ul li {

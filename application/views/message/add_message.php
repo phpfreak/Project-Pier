@@ -41,13 +41,8 @@ $(document).ready(function() {
   </div>
   
   <div>
-<?php if (!$message->isNew() && trim($message->getAdditionalText())) { ?>
-    <label for="messageFormAdditionalText"><?php echo lang('additional text') ?>: <span class="desc">- (<?php echo lang('additional message text desc') ?>)</span></label>
-    <?php echo editor_widget('message[additional_text]', array_var($message_data, 'additional_text'), array('id' => 'messageFormAdditionalText')) ?>
-<?php } else { ?>
     <label for="messageFormAdditionalText"><?php echo lang('additional text') ?> (<a id="messageFormAdditionalTextLink" href="#"><?php echo lang('expand additional text') ?></a>): <span class="desc">- <?php echo lang('additional message text desc') ?></span></label>
     <?php echo editor_widget('message[additional_text]', array_var($message_data, 'additional_text'), array('id' => 'messageFormAdditionalText')) ?>
-<?php } // if ?>
   </div>
   
   <fieldset>

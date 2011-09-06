@@ -91,7 +91,7 @@
   define('ADMINISTRATION_TAB_CONFIGURATION', 'config');
   define('ADMINISTRATION_TAB_PLUGINS', 'plugins');
   define('ADMINISTRATION_TAB_TOOLS', 'tools');
-  define('ADMINISTRATION_TAB_UPGRADE', 'upgrade');
+  //define('ADMINISTRATION_TAB_UPGRADE', 'upgrade');
 
   /**
   * Prepare administration tabbed navigation
@@ -132,11 +132,13 @@
       lang('administration tools'),
       get_url('administration', 'tools')
     ));
+/*
     add_tabbed_navigation_item(new TabbedNavigationItem(
       ADMINISTRATION_TAB_UPGRADE,
       lang('upgrade'),
       get_url('administration', 'upgrade')
     ));
+*/
     add_tabbed_navigation_item(new TabbedNavigationItem(
       ADMINISTRATION_TAB_PLUGINS,
       lang('plugins'),

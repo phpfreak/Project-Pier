@@ -3,7 +3,7 @@
   <head>
     <title><?php echo get_page_title() ?></title>
 <?php echo meta_tag('content-type', 'text/html; charset=utf-8', true) ?> 
-<link rel="Shortcut Icon" href="favicon.ico" type="image/x-icon" />
+<?php echo link_tag(ROOT_URL.'favicon.ico', 'rel', 'Shortcut Icon', array("type"=>"image/x-icon")) ?>
 <?php echo render_page_head() ?>
     <style>
       * {

@@ -16,13 +16,7 @@
   if (!defined('ENVIRONMENT_PATH')) define('ENVIRONMENT_PATH', dirname(__FILE__));
   
   // Configure PHP
-  ini_set('short_open_tag', 'on');
-  ini_set('date.timezone', 'GMT');
-  if (function_exists('date_default_timezone_set')) {
-    date_default_timezone_set('GMT');
-  } else {
-    putenv('TZ=GMT');
-  } // if
+  ini_set('short_open_tag', 'off');
 
   if (defined('DEBUG') && DEBUG) {
     //set_time_limit(120);
@@ -31,18 +25,28 @@
   } else {
     ini_set('display_errors', 0);
   } // if
-  
+
+  //$timezone = config_option('timezone', 'GMT');
+  $timezone = 'Europe/Sofia';
+  $timezone = 'America/Anchorage';
+  ini_set('date.timezone', $timezone );
+  if (function_exists('date_default_timezone_set')) {
+    date_default_timezone_set($timezone);
+  } else {
+    putenv("TZ=$timezone");
+  } // if
+
   if (!ini_get('session.auto_start') || (strtolower(ini_get('session.auto_start')) == 'off')) {
     if(!session_id()) session_regenerate_id();
     session_start(); // Start the session
   }
-  
+
   include_once ENVIRONMENT_PATH . '/classes/Env.class.php';
   include_once ENVIRONMENT_PATH . '/constants.php';
   include_once ENVIRONMENT_PATH . '/functions/utf.php';
   include_once ENVIRONMENT_PATH . '/functions/general.php';
   include_once ENVIRONMENT_PATH . '/functions/files.php';
-  
+
   // Remove slashes is magic quotes gpc is on from $_GET, $_POST and $_COOKIE
   fix_input_quotes();
   

@@ -25,6 +25,11 @@
   </div>
 
   <div>
+    <?php echo label_tag(lang('parent project'), 'projectSource', true) ?>
+    <?php echo select_project('project[parent_id]', '', array_var($project_data, 'parent_id'), array('id' => 'projectFormParentId')) ?>
+  </div>
+
+  <div>
     <?php echo label_tag(lang('priority'), 'projectFormPriority') ?>
     <?php echo input_field('project[priority]', array_var($project_data, 'priority'), array('class' => 'short', 'id' => 'projectFormPriority')) ?>
   </div>
@@ -38,7 +43,7 @@
     <?php echo label_tag(lang('show project desciption in overview')) ?>
     <?php echo yes_no_widget('project[show_description_in_overview]', 'projectFormShowDescriptionInOverview', array_var($project_data, 'show_description_in_overview'), lang('yes'), lang('no')) ?>
   </div>
-<?php if ($project->isNew()) { ?>
+<?php if ($project->isNew() && (config_option('enable_efqm')=='yes')) { ?>
   <div>
     <?php echo label_tag(lang('efqm project')) ?>
     <?php echo yes_no_widget('project[efqm_project]', 'projectFormEfqmProject', array_var($project_data, 'efqm_project'), lang('yes'), lang('no')) ?>

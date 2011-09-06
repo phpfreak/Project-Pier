@@ -70,6 +70,8 @@ return array(
   'wiki set as sidebar page'            =>  'Set page as sidebar page?',
   'wiki publish page'                   =>  'Publish page on the public wiki?',
   'wiki page created'                   =>  'Page created',
+
+  'wiki public wiki'                    =>  'Public wiki'
   );
 
 ?>

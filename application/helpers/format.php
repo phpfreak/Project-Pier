@@ -56,7 +56,7 @@
   } // format_datetime
   
   /**
-  * Return formated date
+  * Return formatted date
   *
   * @access public
   * @param DateTimeValue $value If value is not instance of DateTime object new DateTime

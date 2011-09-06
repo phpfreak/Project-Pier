@@ -26,9 +26,9 @@
 
 <?php 
   $this->assign('project', active_project());
-  $this->assign('object', $comment_form_comment);
+  $this->assign('object', $comment_form_object);
   $this->assign('post_data_name', 'comment');
-  $this->assign('post_data', $comment);
+  $this->assign('post_data', $comment_form_comment);
   $this->includeTemplate(get_template_path('select_receivers', 'notifier'));
 ?>
 

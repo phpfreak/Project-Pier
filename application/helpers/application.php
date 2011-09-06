@@ -2,7 +2,7 @@
 
   /**
   * Application helpers. This helpers are injected into the controllers
-  * through ApplicationController constructio so they are available in
+  * through ApplicationController construction so they are available in
   * whole application
   *
   * @http://www.projectpier.org/
@@ -406,6 +406,9 @@
   * @return string
   */
   function render_attach_files($prefix = 'attach_files', $max_controls = 5) {
+    if (!function_exists('files_activate')) {
+      return '';
+    }
     static $ids = array();
     static $js_included = false;
     
@@ -432,12 +435,12 @@
   * @return string
   */
   function render_object_files(ProjectDataObject $object, $can_remove = false) {
-    if (function_exists('files_activate')) {
-      tpl_assign('attached_files_object', $object);
-      tpl_assign('attached_files', $object->getAttachedFiles());
-      return tpl_fetch(get_template_path('list_attached_files', 'files'));
+    if (!function_exists('files_activate')) {
+      return '';
     }
-    return '';
+    tpl_assign('attached_files_object', $object);
+    tpl_assign('attached_files', $object->getAttachedFiles());
+    return tpl_fetch(get_template_path('list_attached_files', 'files'));
   } // render_object_files
   
   /**
@@ -454,9 +457,12 @@
   * @return null
   */
   function render_application_logs($log_entries, $options = null) {
-    tpl_assign('application_logs_entries', $log_entries);
-    tpl_assign('application_logs_show_project_column', array_var($options, 'show_project_column', true));
-    return tpl_fetch(get_template_path('render_application_logs', 'application'));
+    if (config_option('display_application_logs', true)) {
+      tpl_assign('application_logs_entries', $log_entries);
+      tpl_assign('application_logs_show_project_column', array_var($options, 'show_project_column', true));
+      return tpl_fetch(get_template_path('render_application_logs', 'application'));
+    }
+    return '';
   } // render_application_logs
 
   /**
@@ -469,9 +475,12 @@
   * @return null
   */
   function render_project_application_logs($project, $log_entries) {
-    tpl_assign('application_logs_project', $project);
-    tpl_assign('application_logs_entries', $log_entries);
-    return tpl_fetch(get_template_path('render_project_application_logs', 'application'));
+    if (config_option('display_application_logs', true)) {
+      tpl_assign('application_logs_project', $project);
+      tpl_assign('application_logs_entries', $log_entries);
+      return tpl_fetch(get_template_path('render_project_application_logs', 'application'));
+    }
+    return '';
   } // render_application_logs
 
   /**
@@ -488,10 +497,10 @@
     } else { 
       $result =  clean(format_date($application_log_entry->getCreatedOn()));
     } // if
-    $result = "<span class=\"desc\">$result</span></td><td>";
+    $result = "<span class=\"logTakenOn\">$result</span></td><td><span class=\"logBy\">";
     
     $taken_by = $application_log_entry->getTakenBy();
-    return $taken_by instanceof User ? $result . '<a href="' . $taken_by->getCardUrl() . '">' . clean($taken_by->getDisplayName()) . '</a>' : $result;
+    return $taken_by instanceof User ? $result . '<a href="' . $taken_by->getCardUrl() . '">' . clean($taken_by->getDisplayName()) . '</a></span>' : $result . '</span>';
   } // render_action_taken_on
 
 ?>

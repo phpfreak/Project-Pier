@@ -8,6 +8,7 @@ DIV.progressBar
 	z-index: 1;
 	float: right;
 	margin-left: 5px;
+        overflow: hidden !important;
 }
 DIV.progressBarCompleted
 {

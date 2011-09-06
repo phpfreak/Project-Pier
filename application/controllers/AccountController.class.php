@@ -296,6 +296,11 @@
         flash_error(lang('no access permissions'));
         $this->redirectTo('dashboard');
       } // if
+
+      if (!function_exists('imagecreatefromjpeg')) {
+        flash_error(lang('no image functions'));
+        $this->redirectTo('dashboard');
+      } // if
       
       $redirect_to = array_var($_GET, 'redirect_to');
       if ((trim($redirect_to)) == '' || !is_valid_url($redirect_to)) {

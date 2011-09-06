@@ -346,6 +346,19 @@
     function getCompany() {
       return Companies::findById($this->getCompanyId());
     } // getCompany
+
+    /**
+    * Return display name for company of this user.
+    *
+    * @access public
+    * @param void
+    * @return string
+    */
+    function getCompanyDisplayName() {
+      $company = self::getCompany();
+      return is_null($company) ? '' : $company->getName();
+    } // getDisplayName
+
     
     /**
     * Return all projects that this user is member of

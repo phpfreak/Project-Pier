@@ -60,7 +60,7 @@
           'database_name'    => $this->getFromStorage('database_name', 'PP'),
           'database_create'  => $this->getFromStorage('database_create' ),
           'database_charset' => $this->getFromStorage('database_charset', 'utf8'),
-          'database_prefix'  => $this->getFromStorage('database_prefix', 'PP086_'),
+          'database_prefix'  => $this->getFromStorage('database_prefix', 'PP087_'),
         ); // array
       } // if
       tpl_assign('config_form_data', $config_form_data);

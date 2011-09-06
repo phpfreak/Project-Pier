@@ -10,6 +10,10 @@
     'administration tool desc test_mail_settings' => 'Use this simple tool to send test emails to check if the ProjectPier mailer is configured properly',
     'administration tool name mass_mailer' => 'Mass mailer',
     'administration tool desc mass_mailer' => 'Simple tool that lets you send plain text messages to any group of users registered in the system',
+    'administration tool name system_info' => 'System information',
+    'administration tool desc system_info' => 'Simple tool that shows you system details',
+    'administration tool name browse_log' => 'Browse system log',
+    'administration tool desc browse_log' => 'Use this tool to browse the system log and detect errors',
 
     // ---------------------------------------------------
     //  Configuration categories and options
@@ -108,6 +112,10 @@
 
     'config option name logs_show_icons' => 'Show icons in the application log',
     'config option name default_private' => 'Default setting for private option',
+    'config option name send_notification_default' => 'Default setting for Send notification',
+    'config option name enable_efqm' => 'Enable EFQM options',
+    'config option name display_application_logs' => 'Display application logs',
+    'config option desc display_application_logs' => 'If no, logging still occurs but it is not displayed anymore.',
   ); // array
 
 ?>

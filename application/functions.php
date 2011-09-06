@@ -63,7 +63,7 @@
   * @return null
   */
   function __production_error_handler($code, $message, $file, $line) {
-    // Skip non-static method called staticly type of error...
+    // Skip non-static method called statically type of error...
     if ($code == 2048) {
       return;
     } // if
@@ -136,7 +136,7 @@
       $anchor = '#' . $anchor;
     } // if
     
-    return with_slash(ROOT_URL) . 'index.php?' . implode('&amp;', $url_params) . $anchor;
+    return with_slash(ROOT_URL) . 'index.php?' . implode('&', $url_params) . $anchor;
   } // get_url
   
   // ---------------------------------------------------

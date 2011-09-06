@@ -66,14 +66,30 @@
         $result .= '<author>' . clean($author->getEmail()) . ' (' . clean($author->getName()) . ")</author>\n";
       } // if
       
+      $timestamp = NULL;
       $pubdate = $item->getPublicationDate();
       if ($pubdate instanceof DateTimeValue) {
         $result .= '<pubDate>' . $pubdate->toRSS() . "</pubDate>\n";
+        $timestamp = $pubdate->getTimestamp();
       } // if
+      $result .= '<guid>' . $this->buildGuid(clean($item->getLink()), $timestamp) . "</guid>\n";
       
       $result .= '</item>';
       return $result;
     } // renderItem
+
+    /**
+    * Create a guid
+    *
+    * @param string $url
+    * @param int $timestamp
+    * @return string
+    */
+    private function buildGuid($url, $timestamp) {
+      $url = preg_replace('/&amp;\d*&amp;/', '&amp;', $url); // remove non-constant parameter
+      if (!is_null($timestamp)) $url .= "&amp;time_id=" . $timestamp;
+      return $url;
+    }
   
   } // Angie_Feed_Renderer_RSS2
 

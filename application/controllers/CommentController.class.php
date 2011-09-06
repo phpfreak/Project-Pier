@@ -98,7 +98,7 @@
           } // if
           
           DB::commit();
-$xx = 0;
+
           // Try to send notification on comments other than Messages (messages already managed by subscription)          
           if (!($comment->getObject() instanceof ProjectMessage)) {
             // Try to send notifications but don't break submission in case of an error
@@ -117,14 +117,14 @@ $xx = 0;
                   } // if
                 } // if
               } // if
-$xx = count($notify_people);
+
               Notifier::newOtherComment($comment, $notify_people); // send notification email...
             } catch(Exception $e) {                  
               Logger::log("Error: Notification failed, " . $e->getMessage(), Logger::ERROR);
             } // try
           } // if
           
-          flash_success(lang('success add comment', $xx));
+          flash_success(lang('success add comment'));
           
           $redirect_to = $comment->getViewUrl();
           if (!is_valid_url($redirect_to)) {

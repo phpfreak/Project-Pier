@@ -18,6 +18,26 @@
   <div class="content"><?php echo do_textile(active_project()->getDescription()) ?></div>
 </div>
 <?php } // if ?>
+<?php if (active_project()->getParent()) { ?>
+  <div class="block">
+  <div class="header parent">
+    <?php echo lang('parent project') ?>: <a href="<?php echo active_project()->getParent()->getOverviewUrl() ?>"><?php echo clean(active_project()->getParent()->getName()) ?></a>
+ </div>
+ </div>
+<?php } // if ?>
+
+<?php if (isset($subprojects) && is_array($subprojects) && count($subprojects)) { ?>
+<div class="block">
+  <div class="header"><?php echo lang('subprojects') ?></div>
+  <div class="content">
+    <ul>
+<?php foreach ($subprojects as $subproject) { ?>
+    <li><a href="<?php echo $subproject->getOverviewUrl() ?>"><?php echo clean($subproject->getName()) ?></a> <?php $this->includeTemplate(get_template_path('view_progressbar', 'project')); ?></li>
+<?php } // foreach ?>
+    </ul>
+  </div>
+</div>
+<?php } // if ?>
 
 <?php if ($late_milestones || $today_milestones || $upcoming_milestones) { ?>
 <h2><?php echo lang('milestones') ?></h2>

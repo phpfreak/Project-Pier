@@ -6,7 +6,7 @@
     <title><?php echo get_page_title() ?> @ <?php echo clean(owner_company()->getName()) ?></title>
 <?php echo stylesheet_tag('project_website.css') ?> 
 <?php echo meta_tag('content-type', 'text/html; charset=utf-8', true) ?> 
-<link rel="Shortcut Icon" href="<?php echo ROOT_URL.'/favicon.ico' ?>" type="image/x-icon" />
+<?php echo link_tag(ROOT_URL.'favicon.ico', 'rel', 'Shortcut Icon', array("type"=>"image/x-icon")) ?>
 <?php add_javascript_to_page('pp.js') ?>
 <?php add_javascript_to_page('jquery.min.js') ?>
 <?php add_javascript_to_page('jquery.easing.min.js') ?>
@@ -104,7 +104,7 @@
             <?php echo lang('footer copy without homepage', date('Y'), clean(owner_company()->getName())) ?>
 <?php } // if ?>
           </div>
-          <div id="productSignature"><?php echo product_signature() ?><span id="request_duration"><?php printf(' in %.3f seconds', (microtime(true) - $GLOBALS['request_start_time']) ); ?></span></div>
+          <div id="productSignature"><?php echo product_signature() ?><span id="request_duration"><?php printf(' in %.3f seconds', (microtime(true) - $GLOBALS['request_start_time']) ); ?></span> <span id="current_datetime"><?php echo date('c [W]'); ?></span></div>
         </div>
       </div>
       <!-- /content wrapper -->

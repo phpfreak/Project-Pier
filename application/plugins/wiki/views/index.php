@@ -19,6 +19,7 @@
   if($page->canDelete(logged_user(), active_project())  && !$page->isNew()){
     add_page_action(lang('delete wiki page'), $page->getDeleteUrl());
   }
+  add_page_action(lang('wiki public wiki'), externalUrl(ROOT_URL . '/' . PUBLIC_FOLDER . '/wiki'));
 ?>
 <div id="wiki-page-content">
 <?php echo do_textile(wiki_links($revision->getContent())); ?>

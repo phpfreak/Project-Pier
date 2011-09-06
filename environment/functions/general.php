@@ -466,8 +466,8 @@
     if (function_exists('mb_convert_case')) {
       return mb_convert_case($string, MB_CASE_LOWER, "UTF-8");
     }
-    $uc = "ĄÇČĆĘŁŃÑÓŚŹŻABCDÐEFGĞHIİJKLMNOŒÖPRSŠŞTUÜWYÝZŽQXVЁЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮÆÅÂÀÁÄÃÊÈÉËÎÍÌÏÔÕÒÓÖØÛÙÚÜ";
-    $lc = "ąçčćęłńñóśźżabcdðefgğhiijklmnoœöprsšştuüwyýzžqxvёйцукенгшщзхъфывапролджэячсмитьбюæåâàáäãêèéëîíìïôõòóöøûùúü"; 
+    $uc = "ĄÇČĆĘŁŃÑÓŚŹŻABCDÐEFTGĞHIMJKLNOŒÖPRSŠŞUÜWYÝZŽQXVЁЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮÆÅÂÀÁÄÃÊÈÉËÎÍÌÏÔÕÒÓÖØÛÙÚÜİ";
+    $lc = "ąçčćęłńñóśźżabcdðeftgğhimjklnoœöprsšşuüwyýzžqxvёйцукенгшщзхъфывапролджэячсмитьбюæåâàáäãêèéëîíìïôõòóöøûùúüi"; 
     return strtr($string, $uc, $lc);  
   }
 

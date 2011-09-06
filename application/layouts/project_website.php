@@ -12,8 +12,8 @@
 <?php echo stylesheet_tag('project_website.css') ?> 
 <?php echo stylesheet_tag('jquery/jquery-ui-1.8.6.custom.css') ?> 
 <?php echo meta_tag('content-type', 'text/html; charset=utf-8', true) ?> 
-    <link rel="Shortcut Icon" href="<?php echo ROOT_URL.'favicon.ico' ?>" type="image/x-icon" />
-    <link rel="alternate" title="<?php echo lang('recent activities feed') ?>" type="application/rss+xml" href="<?php echo externalUrl(logged_user()->getRecentActivitiesFeedUrl(active_project())) ?>" />
+<?php echo link_tag(ROOT_URL.'favicon.ico', 'rel', 'Shortcut Icon', array("type"=>"image/x-icon")) ?>
+<?php echo link_tag(logged_user()->getRecentActivitiesFeedUrl(), 'rel', 'alternate', array("type"=>"application/rss+xml", "title"=>lang('recent activities feed'))) ?>
 <?php add_javascript_to_page('pp.js') ?>
 <?php add_javascript_to_page('jquery.min.js') ?>
 <?php add_javascript_to_page('jquery-ui.min.js') ?>
@@ -27,10 +27,7 @@ $(function() {
     showOn: 'button',
     buttonImage: '<?php echo get_image_url('icons/calendar.png'); ?>',
     buttonImageOnly: true,
-    constrainInput: false,
-    onClose: function(dateText,picker) {
-      $('#startdate_day').val( dateText.split(/\//)[1] );
-    }
+    constrainInput: false
   });
 });
 </script>
@@ -41,7 +38,8 @@ $(function() {
       <!-- header -->
       <div id="headerWrapper">
         <div id="header">
-          <h1><a href="<?php echo get_url('dashboard') ?>"><?php echo $site_name ?></a> | <a href="<?php echo active_project()->getOverviewUrl() ?>"><?php echo clean(active_project()->getName()) ?></a></h1>
+          <h1><a href="<?php echo get_url('dashboard') ?>"><?php echo $site_name ?></a></h1>
+          <h2><a href="<?php echo active_project()->getOverviewUrl() ?>"><?php echo clean(active_project()->getName()) ?></a></h2>
           <div id="userboxWrapper"><?php echo render_user_box(logged_user()) ?></div>
         </div>
       </div>
@@ -142,7 +140,7 @@ $(function() {
             <?php echo lang('footer copy without homepage', date('Y'), clean(owner_company()->getName())) ?>
 <?php } // if ?>
           </div>
-          <div id="productSignature"><?php echo product_signature() ?><span id="request_duration"><?php printf(' in %.3f seconds', (microtime(true) - $GLOBALS['request_start_time']) ); ?></span></div>
+          <div id="productSignature"><?php echo product_signature() ?><span id="request_duration"><?php printf(' in %.3f seconds', (microtime(true) - $GLOBALS['request_start_time']) ); ?></span> <span id="current_datetime"><?php echo date('c [W]'); ?></span></div>
         </div>
       </div>
       <!-- /content wrapper -->

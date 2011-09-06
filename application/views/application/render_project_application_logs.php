@@ -11,12 +11,14 @@
 <?php } // if ?>
  </div>
  <table class="applicationLogs blank">
+<?php if (config_option('application_log_column_header', false)==true) { ?>
   <tr>
     <th><?php echo lang('application log date column name') ?></th>
     <th><?php echo lang('application log by column name') ?></th>
     <th><?php echo lang('application log type column name') ?></th>
     <th><?php echo lang('application log details column name') ?></th>
   </tr>
+<?php } // if ?>
 <?php $row_count=0; ?>
 <?php foreach($application_logs_entries as $application_log_entry) { ?>
 <?php   $row_count++; ?>
