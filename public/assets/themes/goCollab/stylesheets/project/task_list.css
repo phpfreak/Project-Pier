@@ -1,0 +1,54 @@
+div.taskList {
+  font-size: 110%;
+}
+
+div.taskList .desc {
+  padding: 10px;
+  padding-bottom: 0;
+}
+
+div.taskList .openTasks, .taskList .completedTasks {
+  margin: 10px;
+}
+
+div.taskList td.taskCheckbox {
+  padding-top: 4px;
+}
+
+div.taskList span.assignedTo {
+  font-weight: bolder;
+}
+
+div.taskList .addTask {
+  padding: 10px;
+  background: #e8e8e8;
+}
+
+div.taskList .options {
+  padding: 10px;
+  padding-top: 0;
+}
+
+div.taskList .completedTasks {
+  color: #666;
+  font-size: 90%;
+}
+
+div.taskList .completedTasks td {
+  padding: 0 2px;
+  line-height: 16px;
+}
+
+div.taskList span.taskCompletedOnBy {
+  font-style: italic;
+  color: #333;
+}
+
+div.taskList .taskListTags {
+  margin: 10px;
+  font-size: 90%;
+}
+
+div.taskList .taskListTags span {
+  font-weight: bolder;
+}

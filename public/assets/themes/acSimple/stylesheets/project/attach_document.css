@@ -1,0 +1,5 @@
+#attachFormExistingFileControls, #attachFormNewFileControls {
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  padding: 5px 10px 10px 10px;
+}

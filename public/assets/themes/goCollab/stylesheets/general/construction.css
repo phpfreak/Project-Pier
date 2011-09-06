@@ -1,0 +1,542 @@
+body {
+  text-align: left;
+}
+
+#wrapper {
+  text-align: center;
+}
+
+#squidLogo {
+	float: left;
+	margin: -10px 0 0 0;
+}
+
+#squidLogo[id] {
+	float: left;
+	margin: 0;
+}
+
+#header {
+  width: 780px;
+  margin: 0 auto;
+  padding-top: 10px;
+  text-align: left;
+}
+
+#header h1 {
+  float: left;
+  margin: 0;
+  padding: 13px 0 10px 10px;
+  border: 0;
+}
+
+#header h1 a {
+  font-weight: normal;
+  font-size: 85% !important;
+  border: 0;
+  font-size: 24px;
+  color: white;
+}
+
+#header h1 a:hover {
+  border: 0;
+  color: #fff;
+  background: transparent;
+  border-bottom: 1px dotted #eee;
+  border-top: 1px dotted #ccc;
+}
+
+#systemNoticesWrapper {
+  background: red;
+  color: white;
+  text-align: center;
+}
+
+#systemNotices {
+  margin: 0 auto;
+  padding: 10px 0;
+  width: 760px;
+  text-align: left;
+}
+
+#systemNotices ul {
+  margin: 0;
+  padding: 0 0 0 15px;
+}
+
+#systemNotices a, #systemNotices a:hover {
+  border: 0;
+  color: white;
+  text-decoration: underline;
+}
+
+#userboxWrapper {
+  margin-left: 450px;
+  color: #e68216;
+  font-size: 10px; 
+}
+
+#userbox {
+  padding: 5px 8px;
+  border: 0px solid #ccc;
+  background: #000 url('../../images/layout/bg_userBox.gif') repeat-x;
+}
+
+#userbox a {
+	color: #e68216;
+	text-decoration: none;
+	border-bottom: 0px dotted #e68216;
+}
+
+#userbox a:hover {
+	color: #fff;
+	background: none;
+}
+
+#userbox ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#userbox ul li {
+  display: inline;
+  margin-right: 10px;
+font-size: 115%;
+
+}
+#userbox li img {
+	padding: 0 3px;
+	
+	}
+#userbox ul li a {
+	color: #F19F49;
+	text-decoration: none;
+	border-bottom: 0px dotted #e68216;
+}
+
+#userbox ul li a:hover {
+	color: #F19F49;
+	background: none;
+	border-bottom: 1px dotted #F19F49;
+}
+
+#userbox .PopupMenuWidgetDiv {
+  position: absolute;
+ background: #000 url('../../images/layout/bg_userBox.gif') repeat-x;
+   padding: 10px 10px 15px 10px;
+  width: 140px;
+  border: none;
+  color: #686868;
+}
+
+#userbox .PopupMenuWidgetDiv p {
+  margin: 0;
+  font-weight: bolder;
+}
+
+#userbox .PopupMenuWidgetDiv ul {
+  margin-left: 12px;
+  padding-left: 5px;
+}
+
+#userbox .PopupMenuWidgetDiv ul li {
+  display: list-item;
+  font-weight: normal;
+  list-style: square;
+}
+
+/** Tabs **/
+
+#tabsWrapper {
+  width: 780px;
+  margin: 3px auto 0 auto;
+  text-align: left;
+}
+
+#tabs {
+  float: left;
+}
+
+#tabs ul {
+  margin: 0;
+  padding: 0 10px;
+  list-style: none;
+}
+
+#tabs ul li {
+  margin: 0 1px;
+  float: left;
+  background: black;
+}
+
+#tabs ul li a {
+  border: 0;
+  display: block;
+  padding: 4px 10px 0 10px;
+	margin-bottom: 3px;
+  background: black;
+  text-align: center;
+  color: #6aa94e;
+  font-size: 13px;
+  font-weight: bolder;
+  line-height: 18px;
+  text-decoration: none;
+  font-weight: normal;
+  text-transform: lowercase; 
+}
+
+#tabs ul li a:hover {
+	font-weight: normal;
+  border: 0;
+  color: #fff;
+  text-decoration: none;
+}
+
+#tabs ul li.active {
+  background: url('../../images/layout/tab_active_right.gif') no-repeat top right;
+}
+
+#tabs ul li.active a {
+  /* padding: 0.1em 0.6em; */
+  padding: 4px 10px 0 10px;
+  background: url('../../images/layout/tab_active_left.gif') no-repeat top left;
+  color: white;
+  font-weight: bolder;
+}
+
+#tabs ul li.active a:hover {
+  color: white;
+  text-decoration: none;
+  font-weight: bolder;
+}
+
+/** Crumbs **/
+
+#crumbsWrapper {
+  clear: both;
+  background: #99cc66 url('../../images/layout/gb_crumbLine.gif') repeat-x;
+  margin: 0 auto;
+  float: left;
+  width: 100%;
+}
+
+#crumbsBlock {
+  margin: 0 auto;
+  margin-top: 0px;
+  padding: 0 10px;
+  width: 760px;
+  line-height: 20px;
+  text-align: left;
+}
+    
+#crumbs {
+  float: left;
+}
+
+#crumbs ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#crumbs ul li {
+  display: inline;
+  line-height: 22px;
+  color: #3c622c;
+  font-size: 11px;
+}
+
+#crumbs ul li span {
+  font-weight: bolder;
+}
+
+#crumbs ul li a {
+  margin: 0 3px;
+  border: 0;
+  color: #3c622c;
+  text-decoration: none;
+}
+
+#crumbs ul li a:hover {
+	color: #f4f19f;
+  text-decoration: none;
+  background: transparent;
+}
+
+#searchBox {
+  padding: 1px 0;
+  text-align: right;
+}
+
+#searchBox input {
+  border: 1px solid #6aa94e;
+  font-size: 10px;
+  padding: 1px 1px 1px 4px;
+  width: 100px;
+  background: #99cc66;
+  color: #3c622c;
+}
+
+#searchBox input:focus {
+  background: #f4f19f;
+}
+
+#searchBox button {
+  margin: 0 0 0 3px;
+  border: 1px solid #3c622c;
+  padding: 0;
+  font-size: 10px;
+  color: #ccc;
+  background: #3c622c;
+  height: 16px;
+}
+
+/** Content **/
+
+#outerContentWrapper {
+  clear: both;
+  background: #7ccc5c url('../../images/layout/bg_page.png') repeat-x;
+  padding-top: 25px;
+}
+
+#innerContentWrapper {
+  margin: 0 auto;
+  padding: 0px 0 0 0;
+  width: 760px;
+  text-align: left;
+  border: 1px solid #6aa94e;
+  border-width: 0 1px 1px 1px;
+}
+
+#pageTitle {
+	font-size: 20px;
+	padding: 10px 0 10px 10px;
+	margin: 0;
+	color: #333;
+	font-weight: normal;
+	border-top: 1px solid #6aa94e;
+    background: #eee url('../../images/layout/pg_pageTitle.png') repeat-x ;
+}
+
+#pageContent {
+  padding: 5px 10px 10px 10px;
+  border: 1px solid #999;
+  border-width: 1px 0;
+  background: white;
+}
+
+#content {
+  float: left;
+  width: 530px;
+  min-height: 400px;
+}
+
+/** Sidebar **/
+
+#sidebar {
+  margin-left: 535px;
+  margin-top: 45px;
+  padding: 0 0 0 20px;
+  font-size: 10px;
+}
+
+#sidebar h2 {
+  margin: 10px 0 2px 0;
+  font-size: 12px;
+}
+
+#sidebar .blockContent {
+  margin-bottom: 10px;
+  padding: 0 5px;
+  line-height: 170%;
+}
+
+#sidebar ul {
+	list-style-image: disc;
+	margin-left: 5px;
+	}
+
+#sidebar .listWithDetails li {
+  padding-bottom: 5px;
+}
+
+/** Page actions **/
+
+#page_actions {
+  margin: 5px 0px 20px 0px;
+}
+
+#page_actions ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#page_actions ul li {
+  padding-right: 3px;
+  display: inline;
+  font-weight: bolder;
+  font-size: 10px;
+}
+
+#page_actions ul li a {
+  border: 0;
+  padding: 0 15px 0 0;
+  color: #637277;
+  text-decoration: none;
+  background: url('../../images/icons/more_down.gif') no-repeat right bottom;
+}
+
+#page_actions ul li a:hover {
+  color: black;
+}
+
+/** Footer **/
+
+#footer {
+  clear: both;
+  margin: 10px auto;
+  padding: 0 10px 10px 10px;
+  width: 760px;
+  text-align: left;
+  color: #3c622c;
+  line-height: 130%;
+  font-size: 9px;
+}
+	
+#copy {
+  float: left;
+}
+
+#productSignature {
+  text-align: right;
+  display: none;
+}
+
+#listOfRssFeeds {
+  list-style: none;
+  padding: 0 0 0 4px;
+}
+
+#listOfRssFeeds li {
+  padding-left: 16px;
+  background: url('../../images/icons/feed.gif') no-repeat;
+  line-height: 12px;
+  margin: 2px 0;
+}
+
+/** Helper classes **/
+
+.clear {
+  clear: both;
+  height: 1px;
+  overflow: hidden;
+}
+
+#error, #success {
+  margin: 10px 0;
+  padding: 10px ;
+  font-size: 120%; 0
+  border: 1px solid ;
+  clear: both;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+}
+
+#error {
+  background: #FFB0B0;
+  border-color: red;
+}
+
+#success {
+  background: #bffd81;
+  border-color: #6aae4f;
+  color: #3C622C;
+
+}
+
+/** User card **/
+
+div.card {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+* html div.card {
+  padding-top: 5px;
+}
+
+div.card div.cardIcon {
+  float: left;
+  width: 50px;
+}
+
+div.card div.cardData {
+  margin-left: 60px;
+}
+
+div.card div.cardData h2 {
+  margin-top: 0;
+}
+
+div.card div.cardBlock {
+  margin-bottom: 25px;
+  padding-left: 10px;
+}
+
+div.card div.cardBlock span {
+  font-size: 90%;
+  font-weight: bolder;
+  color: #333;
+}
+
+div.card table {
+  margin-top: 10px;
+}
+
+div.card table, div.card table tr, div.card table td {
+  border: 0;
+}
+
+div.card table tr, div.card table td {
+  padding: 2px;
+}
+
+/** / user card **/
+
+/** Advanced pagination **/
+
+div.advancedPagination {
+  margin: 10px;
+  text-align: right;
+}
+
+div.advancedPagination span {
+  line-height: 20px;
+  font-size: 9px;
+  color: #666;
+  text-transform: uppercase;
+}
+
+div.advancedPagination select {
+  padding: 0;
+}
+
+/** /Advanced pagination **/
+
+/** Private **/
+
+div.private {
+  float: right;
+  height: 9px;
+  width: 37px;
+  overflow: hidden;
+  background: url('../../images/icons/private.gif') no-repeat;
+}
+
+div.private span {
+  display: none;
+}

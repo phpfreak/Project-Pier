@@ -1,0 +1,45 @@
+#milestones .completed, #milestones .today, #milestones .late, #milestones .upcoming #milestones .hint{
+  margin: 5px 0;
+  border: 1px solid #ccc;
+}
+
+#milestones .milestoneHead {
+  padding: 5px 10px;
+}
+
+#milestones .completed .milestoneHead {
+  background: green;
+  color: white;
+}
+
+#milestones .late .milestoneHead, #milestones .today .milestoneHead {
+  background: red;
+  color: white;
+}
+
+#milestones .upcoming .milestoneHead {
+  background: #F7F7F7;
+}
+
+#milestones .assignedTo {
+  font-weight: bolder;
+}
+
+#milestones .milestoneBody {
+  padding: 10px;
+}
+
+#milestones .milestone .dueDate span {
+  font-weight: bolder;
+}
+
+.milestoneOptions {
+  font-size: 9px;
+  color:#000063;
+  text-align: right;
+}
+
+.milestoneOptions a {
+  font-size: 9px;
+  color:#000063;
+}

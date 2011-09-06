@@ -1,0 +1,13 @@
+#projectFormAction table td {
+  vertical-align: middle;
+}
+
+#projectFormAction table td label {
+  padding-right: 5px;
+  font-size: 11px;
+  font-weight: bolder;
+}
+
+#projectFormOptions table td label {
+  padding-right: 5px;
+}

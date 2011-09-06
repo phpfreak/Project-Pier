@@ -1,0 +1,98 @@
+/** Message display **/
+
+.message .block .header {
+  font-size: 150%;
+  padding-bottom: 5px;
+}
+
+.message .messageDetails {
+  border: 1px solid #193F5A;
+  background: #111;
+  padding: 2px 5px;
+}
+
+.message .messageDetails .private {
+  margin-top: 4px;
+}
+
+.message h1, .message h2, .message h3 {
+  font-weight: normal;
+  border-bottom: 1px solid #193F5A;
+}
+
+.message h1 {
+  font-size: 2em;
+}
+
+.message h2 {
+  font-size: 1.5em;
+}
+
+.message h3 {
+  font-size: 1.1em;
+  text-decoration: none;
+}
+
+.message .messageText {
+  padding: 10px;
+  line-height: 150%;
+  font-size: 1.1em;
+}
+
+.message .messageSeparator {
+  text-align: center;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+.message .objectFilesTitle span, .message .messageCommentCount span, .message .messageTags span {
+  color:#fcfcfc;
+  font-weight: bold;
+}
+
+.message .messageOptions {
+  margin-top: 10px;
+}
+
+.message .messageComment {
+  margin: 10px 10px;
+}
+
+.message .messageCommentHead {
+  font-weight: bold;
+  font-size: 100%;
+}
+
+.message .messageCommentBody {
+  border: 1px solid #193F5A;
+  border-width: 1px 0;
+  padding: 10px;
+  background: #111;
+}
+
+/** Add message form **/
+
+#emailNotification .companyDetails {
+  margin: 10px 0;
+  border: 1px dotted #193F5A;
+  padding: 5px 10px;
+}
+
+#emailNotification .companyName label {
+  font-weight: bold;
+}
+
+#emailNotification .companyMembers {
+  padding-top: 5px;
+}
+
+#emailNotification .companyMembers ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#emailNotification .companyMembers ul li {
+  display: inline;
+  padding-right: 5px;
+}

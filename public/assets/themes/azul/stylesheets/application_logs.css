@@ -1,0 +1,40 @@
+table.applicationLogs {
+  width: 530px;
+}
+
+table.applicationLogs th {
+  background: url(../images/layout/th_bg.gif) 0 0 repeat-x;
+  border-bottom: 1px solid #193F5A;
+}
+
+table.applicationLogs tr.logToday {
+  background: #111;
+}
+
+table.applicationLogs tr.logYesterday {
+  background: #111;
+}
+
+table.applicationLogs tr.logOlder {
+  background: #111;
+}
+
+table.applicationLogs td {
+  border-bottom: 1px solid #193F5A;
+}
+
+table.applicationLogs td.logTypeIcon {
+  width: 50px;
+}
+
+table.applicationLogs .logProject, table.applicationLogs .logTakenOnBy {
+  text-align: right;
+}
+
+table.applicationLogs .logProject {
+  width: 100px;
+}
+
+table.applicationLogs .logTakenOnBy {
+  width: 150px;
+}

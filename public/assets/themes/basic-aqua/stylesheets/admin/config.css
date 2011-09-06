@@ -1,0 +1,22 @@
+#configCategoryOptions .configCategoryOtpion {
+  margin: 8px 0;
+  padding: 5px;
+}
+
+#configCategoryOptions label {
+  margin: 0;
+  padding: 0;
+}
+
+#configCategoryOptions .configOptionInfo {
+  float: left;
+  width: 200px;
+}
+
+#configCategoryOptions .configOptionControl {
+  margin-left: 210px;
+}
+
+#configCategoryOptions textarea {
+  width: 300px;
+}

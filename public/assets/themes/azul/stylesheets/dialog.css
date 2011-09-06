@@ -1,0 +1,233 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font: 12px arial, verdana, helvetica, sans-serif;
+  color:#fcfcfc;
+  background: #111;
+  text-align: center;
+  line-height: 150%;
+}
+
+a {
+  color: #A4D2F7;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #fcfcfc;
+}
+
+h1 {
+  margin: 0 0 5px 0;
+  padding: 0 0 5px 5px;
+  color:#fcfcfc;
+  font-size: 20px;
+  border-bottom: 1px solid #193F5A;
+  line-height: 52px;
+}
+
+h2 {
+  margin: 10px 0;
+  color:#fcfcfc;
+  font-size: 1.2em;
+}
+
+p, ul, pre {
+  margin: 8px 0;
+}
+
+ul {
+  padding-left: 20px;
+  list-style: square;
+}
+
+code {
+  padding: 0 2px;
+  font-size: 1.2em;
+  background: #e8e8e8;
+}
+
+pre {
+  border: 1px solid #193F5A;
+  padding: 0 8px;
+  font-size: 1.2em;
+  background: #e8e8e8;
+}
+
+acronym {
+  border-bottom: 1px dotted #193F5A;
+  cursor: help;
+}
+
+/** Form **/
+
+label {
+  margin: 3px 0;
+  font-size: 100%;
+  font-weight: bolder;
+  display: block;
+}
+
+label.checkbox {
+  font-weight: normal;
+  display: inline;
+}
+
+label span.label_required {
+  color: red;
+  font-size: 100%;
+}
+
+input, textarea{
+  border: 1px solid #193F5A;
+  padding: 3px;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 11px;
+  background: white;
+}
+
+input select{
+  border: 1px solid #193F5A;
+  padding: 3px;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 11px;
+  background:none;
+}
+input:hover, textarea:hover, select:hover {
+  border: 1px solid green;
+}
+
+input:focus, textarea:focus, select:focus {
+  border: 1px solid black;
+}
+
+fieldset {
+  margin: 10px 0;
+  padding: 10px;
+  padding-top: 5px;
+  border: 1px solid #193F5A;
+}
+
+fieldset legend {
+  font-size: 100%;
+  font-weight: bolder;
+}
+
+input { width: 200px; }
+input.short { width: 50px; }
+input.medium { width: 150px; }
+input.long { width: 320px; }
+
+input.checkbox {
+  border: 0;
+  width: auto;
+}
+
+textarea {
+  width: 400px;
+  height: 150px;
+}
+
+textarea.short {
+  height: 70px;
+}
+
+
+button.submit {
+  margin-top: 10px;
+}
+
+span.required {
+  color: red;
+  font-size: 100%;
+}
+
+#formErrors {
+  background: red;
+  color: white;
+  padding: 5px 10px;
+}
+
+#formErrors ul li {
+  font-size: 100%;
+}
+
+/** Classes **/
+
+.desc {
+  font-size: 100%;
+  color: #666;
+  font-style: italic;
+}
+
+.bold {
+  font-weight: bolder;
+}
+
+.note {
+  border: 1px solid #193F5A;
+  padding: 0 8px;
+  background: #e8e8e8;
+}
+
+/** Construction **/
+
+#dialog {
+  margin: 100px auto 0 auto;
+  border: 1px solid #193F5A;
+  padding: 0 10px 10px 10px;
+  width: 332px;
+  text-align: left;
+  background: #000000 url('../images/layout/content-back.gif') repeat-x;
+}
+
+#error, #success {
+  margin: 10px 0;
+  padding: 5px 10px;
+  border: 1px solid #193F5A;
+  clear: both;
+  cursor: pointer;
+  text-align: left;
+}
+
+#error {
+  background: #FFB0B0;
+  border-color: red;
+}
+
+#success {
+  background: #90DC90;
+  border-color: green;
+}
+
+/** Login dialog **/
+
+#loginUsernameDiv, #loginPasswordDiv {
+  padding-top: 1px;
+}
+
+#loginUsernameDiv {
+  float: left;
+  width: 170px;
+}
+
+* html #loginUsernameDiv {
+  margin-top: 1px;
+}
+
+#loginPasswordDiv {
+  margin-left: 170px;
+}
+
+#loginSubmit span, #forgotPasswordSubmit span {
+  padding-left: 8px;
+  font-size: 11px;
+}
+
+* html #loginSubmit span, * html #forgotPasswordSubmit span {
+  position: relative;
+  top: -4px;
+}

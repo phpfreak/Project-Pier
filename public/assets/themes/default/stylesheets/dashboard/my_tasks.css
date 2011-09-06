@@ -1,0 +1,23 @@
+#myTasks div.content p {
+  font-weight: bolder;
+}
+
+td.milestoneCheckbox {
+  padding-top: 4px;
+}
+
+td.milestoneText {
+  padding-left: 5px;
+}
+
+td.milestoneText span {
+  font-size: 90%;
+}
+
+td.taskCheckbox {
+  padding-top: 4px;
+}
+
+td.taskText {
+  padding-left: 5px;
+}

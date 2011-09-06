@@ -1,0 +1,527 @@
+body {
+  text-align: left;
+  font-size:80%;
+  font-family:arial,verdana,halvetica,sans-serif;
+  background:#0F2638;
+  border-bottom:30px solid #000;
+  margin:0;
+  padding:0;
+}
+
+#wrapper {
+  text-align: center;
+  background-color: #0F2638;
+}
+
+#headerWrapper {
+	/*background-color: #111111;	*/
+}
+
+#header {
+  width: 780px;
+  margin: 0 auto;
+  padding-top: 10px;
+  text-align: left;
+}
+
+#header h1 {
+  float: left;
+  margin: 0;
+  padding: 10px 0 10px 10px;
+  border: 0;
+}
+
+#header h1 a {
+  font-weight: normal;
+  border: 0;
+  font-size: 1.1em;
+  color:#fcfcfc;
+}
+
+#header h1 a:hover {
+  border: 0;
+  color:#fcfcfc;
+  background: transparent;
+  text-decoration: underline;
+}
+
+#systemNoticesWrapper {
+  background: red;
+  color: white;
+  text-align: center;
+}
+
+#systemNotices {
+  margin: 0 auto;
+  padding: 10px 0;
+  width: 760px;
+  text-align: left;
+}
+
+#systemNotices ul {
+  margin: 0;
+  padding: 0 0 0 15px;
+}
+
+#systemNotices a, #systemNotices a:hover {
+  border: 0;
+  color: white;
+  text-decoration: underline;
+}
+
+#userboxWrapper {
+  margin-left: 500px;
+  color: #fcfcfc;
+  font-size: 1.0em; 
+}
+
+#userbox {
+  padding: 5px 8px;
+  border: 1px solid #193F5A;
+  background: #111;
+}
+
+#userbox ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#userbox ul li {
+  display: inline;
+  margin-right: 10px;
+}
+
+#userbox a:link, #userbox a:visited{
+  color:#B4E4FF;
+}
+
+#userbox a:hover{
+  color:#fcfcfc;
+}
+
+#userbox .PopupMenuWidgetDiv {
+  position: absolute;
+  border: 1px solid #193F5A;
+  background: #000;
+  padding: 5px 10px;
+  width: 140px;
+  color: #fcfcfc;
+}
+
+#userbox .PopupMenuWidgetDiv a:link, #userbox .PopupMenuWidgetDiv a:visited {
+  color: #A4D2F7;
+}
+
+#userbox .PopupMenuWidgetDiv a:hover{
+  color: #fcfcfc;
+}
+
+#userbox .PopupMenuWidgetDiv p {
+  margin: 0;
+  font-weight: bold;
+}
+
+#userbox .PopupMenuWidgetDiv ul {
+  margin-left: 12px;
+  padding-left: 5px;
+}
+
+#userbox .PopupMenuWidgetDiv ul li {
+  display: list-item;
+  font-weight: normal;
+  list-style: square;
+}
+
+/** Tabs **/
+
+#tabsWrapper {
+  width: 780px;
+  margin: 15px auto 0 auto;
+  text-align: left;
+}
+
+#tabs {
+  float: left;
+  padding-bottom:15px;
+}
+
+#tabs ul {
+  margin: 0;
+  padding: 0 10px;
+  list-style: none;
+}
+
+#tabs ul li {
+  margin: 0 3px;
+  float: left;
+  background: url(../../images/layout/tab_right.gif) no-repeat top right;
+}
+
+#tabs ul li a {
+  border:none;
+  display: block;
+  padding: 10px 6px;
+  background: url(../../images/layout/tab_left.gif) no-repeat top left;
+  text-align: center;
+  color: #444;
+  font-weight:bold;
+  font-size: 1.2em;
+  line-height: 18px;
+  text-decoration: none;
+  position:relative;
+}
+
+#tabs ul li a:hover {
+  color: #3073A7;
+  border:none;
+}
+
+#tabs ul li.active {
+  background: url(../../images/layout/tab_active_right.gif) no-repeat top right;
+}
+
+#tabs ul li.active a {
+  padding: 10px 10px;
+  background: url(../../images/layout/tab_active_left.gif) no-repeat top left;
+  color:#fcfcfc;
+}
+
+#tabs ul li.active a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+/** Crumbs **/
+
+#crumbsWrapper {
+  clear: both;
+  background: #000;
+  margin: 0 auto;
+  float: left;
+  width: 100%;
+  border-top:1px solid #193F5A;
+  padding:5px 0;
+}
+
+#crumbsBlock {
+  margin: 0 auto;
+  padding: 0 10px;
+  width: 760px;
+  line-height: 20px;
+  text-align: left;
+}
+    
+#crumbs {
+  float: left;
+}
+
+#crumbs ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#crumbs ul li {
+  display: inline;
+  line-height: 22px;
+  color: white;
+  font-size: 0.9em;
+  font-weight: bold;
+}
+
+#crumbs ul li span {
+  font-weight: normal;
+}
+
+#crumbs ul li a {
+  margin: 0 3px;
+  border: 0;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#crumbs ul li a:hover {
+  text-decoration: underline;
+  background: transparent;
+}
+
+#searchBox {
+  padding: 1px 0;
+  text-align: right;
+}
+
+#searchBox input {
+  border: 1px solid #999;
+  font-size: 1.0em;
+  padding: 1px;
+  width: 100px;
+  background: #fff;
+  color:#333;
+}
+
+#searchBox button {
+  margin: 0 0 0 3px;
+  border: none;
+  padding: 0;
+  font-size: 1.0em;
+  color:#fcfcfc;
+  background: #245377;
+  height: 1.6em;
+  line-height:1.6em;
+}
+
+/** Content **/
+
+.header{
+  font-size:1.2em;
+}
+
+#outerContentWrapper {
+  clear: both;
+  background: #fcfcfc url(../../images/layout/content-outer-back.gif) repeat-x;
+}
+
+#innerContentWrapper {
+  margin: 0 auto;
+  padding: 1px 10px 10px 10px;
+  width: 760px;
+  text-align: left;
+}
+
+#pageTitle {
+  margin-bottom: 8px;
+  color:#333;
+  font-weight: bold;
+  font-size: 1.5em;
+  text-align: left;
+  background-color: transparent;
+  padding-top: 4px;
+}
+
+#pageContent {
+  padding: 5px 10px;
+  /*border: 1px solid #193F5A;
+  border-width: 1px 0;*/
+  border: solid 1px #3A3A3A;
+  background: #122E43 url('../../images/layout/content-back.gif') repeat-x;
+}
+
+#content {
+  float: left;
+  width: 530px;
+  min-height: 400px;
+  color:#fcfcfc;
+}
+
+/** Sidebar **/
+
+#sidebar {
+  margin-left: 535px;
+  padding: 0 10px;
+  font-size: 1.0em;
+  color:#fcfcfc;
+}
+
+#sidebar h2, .sidebarBlock h2 {
+  margin-top: 0;
+  font-size: 1.05em;
+}
+
+#sidebar .blockContent {
+  margin-bottom: 10px;
+  padding: 0 5px;
+  line-height: 120%;
+}
+
+#sidebar .listWithDetails li {
+  padding-bottom: 5px;
+}
+
+/** Page actions **/
+
+#page_actions {
+  height:30px;
+  padding:5px 0;
+}
+
+#page_actions ul {
+  margin: 0;
+  padding: 0 10px;
+  list-style: none;
+}
+
+#page_actions ul li {
+  margin: 0 3px;
+  float: left;
+  padding:0;
+  background: url(../../images/layout/action_right.gif) no-repeat top right;
+}
+
+#page_actions ul li a {
+  border:none;
+  display: block;
+  padding: 0 10px;
+  background: url(../../images/layout/action_left.gif) no-repeat top left;
+  text-align: center;
+  color: #444;
+  font-weight:bold;
+  font-size: 1.0em;
+  line-height:20px;
+  text-decoration: none;
+}
+
+#page_actions ul li a:hover {
+  color: #3073A7;
+  border:none;
+}
+
+/** Footer **/
+
+#footer {
+  clear: both;
+  margin: 0 auto;
+  padding: 0 10px 20px 10px;
+  width: 760px;
+  text-align: left;
+  color: #999;
+  line-height: 130%;
+  font-size: 0.8em;
+  background-color:#fcfcfc;
+}
+
+#footer a:link, #footer a:visited{
+  color:#3073A7;
+}
+
+#footer a:hover{
+  color:#333;
+}
+
+#copy {
+  float: left;
+}
+
+#productSignature {
+  text-align: right;
+}
+
+#listOfRssFeeds {
+  list-style: none;
+  padding: 0 0 0 4px;
+}
+
+#listOfRssFeeds li {
+  padding-left: 16px;
+  background: url(../../images/icons/feed.gif) no-repeat;
+  line-height: 12px;
+  margin: 2px 0;
+}
+
+/** Helper classes **/
+
+.clear {
+  clear: both;
+  height: 1px;
+  overflow: hidden;
+}
+
+#error, #success {
+  margin: 10px 0;
+  padding: 5px 10px;
+  border: 1px solid #193F5A;
+  clear: both;
+  cursor: pointer;
+  text-align: left;
+}
+
+#error {
+  background: #FFB0B0;
+  border-color: red;
+}
+
+#success {
+  background: #90DC90;
+  border-color: green;
+}
+
+/** User card **/
+
+div.card {
+  padding: 10px;
+  border: 1px solid #193F5A;
+}
+
+* html div.card {
+  padding-top: 5px;
+}
+
+div.card div.cardIcon {
+  float: left;
+  width: 50px;
+}
+
+div.card div.cardData {
+  margin-left: 60px;
+}
+
+div.card div.cardData h2 {
+  margin-top: 0;
+}
+
+div.card div.cardBlock {
+  margin-bottom: 25px;
+  padding-left: 10px;
+}
+
+div.card div.cardBlock span {
+  font-size: 100%;
+  font-weight: bold;
+  color:#fcfcfc;
+}
+
+div.card table {
+  margin-top: 10px;
+}
+
+div.card table, div.card table tr, div.card table td {
+  border: 0;
+}
+
+div.card table tr, div.card table td {
+  padding: 2px;
+}
+
+/** / user card **/
+
+/** Advanced pagination **/
+
+div.advancedPagination {
+  margin: 10px;
+  text-align: right;
+}
+
+div.advancedPagination span {
+  line-height: 20px;
+}
+
+div.advancedPagination select {
+  padding: 0;
+}
+
+/** /Advanced pagination **/
+
+/** Private **/
+
+div.private {
+  float: right;
+  height: 9px;
+  width: 37px;
+  overflow: hidden;
+  background: url(../../images/icons/private.gif) no-repeat;
+}
+
+div.private span {
+  display: none;
+}

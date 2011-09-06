@@ -1,0 +1,96 @@
+div.taskList {
+  font-size: 12px;
+}
+
+span.taskTexts a {
+  font-size: 12px;
+  color: #000;
+}
+
+span.taskTexts a:hover {
+  text-decoration: underline;
+}
+
+div.taskList .block{
+  background-color:#F6F6F6;
+  border:1px solid #EEEEEE;
+  font-size: 12px;
+  margin-bottom: 35px;
+}
+
+div.taskList .header{
+  font-size: 20px;
+  font-weight: bold;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  color: #0000cd;
+  border-bottom:1px solid #666666;
+}
+
+div.taskList .desc {
+  padding: 5px;
+  padding-bottom: 0;
+}
+
+div.taskList .openTasks, .taskList .completedTasks {
+  margin: 10px;
+}
+
+div.taskList td.taskCheckbox {
+  padding-top: 4px;
+}
+
+div.taskList span.assignedTo {
+  font-weight: bolder;
+}
+
+div.taskList .addTask {
+  margin-top: 5px;
+  margin-left: 25px;
+  padding: 2px;
+  background: #ddd;
+  font-size: 10px;
+}
+
+div.taskList .options {
+  padding: 10px;
+  padding-top: 0;
+  font-size: 10px;
+  text-align: right;
+}
+
+div.taskList .completedTasks {
+  color: #666;
+  font-size: 10px;
+}
+
+div.taskList .completedTasks td {
+  padding: 0 2px;
+  line-height: 16px;
+}
+
+div.taskList span.taskCompletedOnBy {
+  font-style: italic;
+  color: #999;
+  font-size: 11px;
+}
+
+div.taskList span.taskCompletedOnBy a:hover {
+  text-decoration: underline;
+}
+
+div.taskList .taskListTags {
+  margin: 10px;
+  margin-top: 20px;
+  font-size: 10px;
+  color: #444;
+  font-weight: normal;
+}
+
+div.taskList .taskListTags span {
+  font-weight: bold;
+}
+
+div.taskList span.taskCompletedOnBy a {
+  color: #999;
+}

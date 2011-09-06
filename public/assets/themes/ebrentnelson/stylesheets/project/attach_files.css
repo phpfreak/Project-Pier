@@ -1,0 +1,38 @@
+.attachFiles button.add_button {
+  margin-top: 5px;
+}
+
+.attachFiles button.remove_button {
+  font-size: 10px;
+}
+
+* html .attachFiles button.remove_button {
+  margin-left: 3px;
+}
+
+#attachFormExistingFileControls, #attachFormNewFileControls {
+  padding: 5px 20px;
+}
+
+#attachFormExistingFileControls fieldset, #attachFormNewFileControls fieldset {
+  margin: 0 0 10px 0;
+}
+
+/** Attached files **/
+
+div.objectFiles {
+  font-size: 10px;
+}
+
+div.objectFiles ul li a span {
+  font-weight: bolder;
+}
+
+div.objectFiles div.objectFilesTitle {
+  font-size: 10px;
+}
+
+div.objectFiles div.objectFilesTitle span {
+  font-weight: bolder;
+  color: #333;
+}

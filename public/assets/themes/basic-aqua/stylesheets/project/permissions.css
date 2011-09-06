@@ -1,0 +1,29 @@
+div.projectCompany {
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  padding: 10px;
+  padding-left: 70px;
+  background: #fff url('') no-repeat 10px 10px;
+  min-height: 50px;
+}
+
+* html div.projectCompany {
+  height: 50px;
+}
+
+div.projectCompany .projectCompanyTitle label {
+  font-weight: bolder;
+}
+
+div.projectCompany div.projectCompanyUsers {
+  margin: 10px 0 0 10px;
+}
+
+div.projectCompany div.projectUserPermissions {
+  padding-left: 10px;
+}
+
+div.projectCompany tr.user {
+  border: 1px solid #ccc;
+  border-width: 1px 0;
+}

@@ -1,0 +1,40 @@
+table.applicationLogs {
+  width: 530px;
+}
+
+table.applicationLogs th {
+  background: #000;
+  border-bottom: 1px solid #3A3A3A;
+}
+
+table.applicationLogs tr.logToday {
+  background: #222;
+}
+
+table.applicationLogs tr.logYesterday {
+  background: #222;
+}
+
+table.applicationLogs tr.logOlder {
+  background: #222;
+}
+
+table.applicationLogs td {
+  border-bottom: 1px solid #3A3A3A;
+}
+
+table.applicationLogs td.logTypeIcon {
+  width: 50px;
+}
+
+table.applicationLogs .logProject, table.applicationLogs .logTakenOnBy {
+  text-align: right;
+}
+
+table.applicationLogs .logProject {
+  width: 100px;
+}
+
+table.applicationLogs .logTakenOnBy {
+  width: 150px;
+}

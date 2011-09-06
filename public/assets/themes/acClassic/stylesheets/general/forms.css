@@ -1,0 +1,150 @@
+label {
+  margin: 3px 0;
+  font-size: 90%;
+  font-weight: bolder;
+  display: block;
+}
+
+label.checkbox, label.yes_no {
+  display: inline;
+  position: relative;
+  top: -2px;
+}
+
+* html label.checkbox, * html label.yes_no {
+  top: 1px;
+}
+
+label.yes_no {
+  font-weight: normal;
+}
+
+label span.label_required {
+  color: red;
+}
+
+input, textarea, select {
+  border: 1px solid #ccc;
+  padding: 3px;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 11px;
+  background: white;
+}
+
+select {
+  padding: 1px;
+}
+
+input:hover, textarea:hover, select:hover {
+  border: 1px solid green;
+}
+
+input:focus, textarea:focus, select:focus {
+  border: 1px solid black;
+}
+
+fieldset {
+  margin: 10px 0;
+  padding: 10px;
+  padding-top: 5px;
+  border: 1px solid #ccc;
+}
+
+fieldset legend {
+  font-size: 90%;
+  font-weight: bolder;
+}
+
+input { width: 200px; }
+input.short { width: 50px; }
+input.medium { width: 150px; }
+input.long { width: 400px; }
+input.title { width: 530px; }
+
+input.checkbox, input.yes_no {
+  border: 0;
+  width: auto;
+  background: transparent;
+}
+
+legend label.checkbox {
+  font-weight: bolder;
+}
+
+textarea, textarea.long {
+  width: 400px;
+  height: 150px;
+}
+
+textarea.short {
+  width: 400px;
+  height: 70px;
+}
+
+textarea.comment {
+  width: 488px;
+  height: 150px;
+}
+
+textarea.editor {
+  width: 530px;
+  height: 300px;
+}
+
+button.submit {
+  margin-top: 10px;
+}
+
+span.required {
+  color: red;
+  font-size: 90%;
+}
+
+form div.formBlock {
+  margin: 5px 0 5px 2px;
+  border-left: 5px solid #e8e8e8;
+  padding: 0 0 0 10px;
+}
+
+form div.formBlock label {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+#formErrors {
+  background: red;
+  color: white;
+  padding: 5px 10px;
+}
+
+#formErrors ul li {
+  font-size: 90%;
+}
+
+/** Options block, best to put it into fieldset **/
+
+.objectOption {
+  margin-top: 5px;
+}
+
+.objectOption .optionLabel {
+  float: left;
+  display: block;
+  width: 140px;
+}
+
+.objectOption .optionLabel label {
+  margin: 0;
+  padding: 0;
+}
+
+.objectOption div.optionControl {
+  margin-left: 140px;
+}
+
+.objectOption div.optionDesc {
+  clear: left;
+  font-size: 10px;
+  padding: 0 5px 5px 5px;
+  color: #333;
+}

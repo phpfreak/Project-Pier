@@ -1,0 +1,134 @@
+div.filesOrderAndPagination {
+  border: 1px solid #ccc;
+  padding: 2px 5px;
+  font-size: 10px;
+  min-height: 20px;
+}
+
+div.filesOrder {
+  float: left;
+  line-height: 20px;
+}
+
+div.filesOrder span {
+  font-weight: bolder;
+}
+
+div.filesOrderAndPagination div.advancedPagination {
+  margin: 0;
+}
+
+/** File info **/
+
+div.listedFile {
+  margin: 8px 0;
+  padding: 8px;
+  clear: left;
+}
+
+div.listedFile div.fileIcon {
+  float: left;
+  width: 100px;
+  text-align: center;
+}
+
+div.listedFile div.fileInfo {
+  margin-left: 115px;
+}
+
+div.listedFile div.fileName {
+  padding-bottom: 4px;
+  font-size: 120%;
+  font-weight: bolder;
+}
+
+div.listedFile div.fileDescription p, div.listedFile div.fileDescription ul, div.listedFile div.fileDescription ol {
+  margin: 3px 0;
+}
+
+div.listedFile div.fileLastRevision, div.listedFile div.fileDetails, div.listedFile div.fileTags {
+  font-size: 90%;
+  color: #666;
+}
+
+div.listedFile div.fileOptions {
+  margin-top: 5px;
+}
+
+/** Add / edit file **/
+
+#selectFileControl {
+  float: left;
+  width: 250px;
+}
+
+#selectFolderControl {
+  margin-left: 250px;
+}
+
+#selectFileControl label, #selectFolderControl label {
+  margin-top: 0;
+}
+
+#revisionControls {
+  margin-top: 10px;
+}
+
+#revisionControls label {
+  font-weight: bolder;
+}
+
+/** File details page **/
+
+#fileIcon {
+  float: left;
+  padding: 5px 5px 0 5px;
+  width: 100px;
+  text-align: center;
+}
+
+#fileInfo {
+  margin-left: 115px;
+}
+
+#fileInfo div span.propertyName {
+  font-weight: bolder;
+  color: #555;
+}
+
+div.revision {
+  margin: 5px;
+  padding: 5px 10px;
+}
+
+div.lastRevision {
+  border: 1px solid #E9BE31;
+}
+
+div.revisionName {
+  font-size: 13px;
+  color: #003562;
+  font-weight: bolder;
+}
+
+div.revisionName span {
+  font-weight: normal;
+  color: #333;
+  font-size: 10px;
+}
+
+div.revisionComment {
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-width: 1px 0;
+  padding: 0 8px;
+}
+
+a.downloadLink {
+  font-weight: bolder;
+}
+
+a.downloadLink span {
+  font-weight: normal;
+  font-size: 90%;
+}

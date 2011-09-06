@@ -1,0 +1,313 @@
+/** Reset **/
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, p, blockquote, th, td {
+  margin: 0;
+  padding: 0;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+fieldset, img {
+  border:0;
+}
+
+address, caption, cite, code, dfn, em, strong, th, var {
+  font-style: normal;
+  font-weight: normal;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+caption, th {
+  text-align:left;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size:100%;
+}
+
+q:before, q:after {
+  content:'';
+}
+
+body {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 11px;
+  color: black;
+  background: white;
+  line-height: 150%;
+}
+
+a {
+  color: #003562;
+  text-decoration: none;
+  border-bottom: 1px dotted #ccc;
+}
+
+a:hover {
+  border-bottom: 1px solid #333;
+  color: #BA0101;
+}
+
+em {
+  font-style: italic;
+}
+
+strong {
+  font-weight: bolder;
+}
+
+h1, h2, h3, h4 {
+  margin: 10px 0;
+  color: #003562;
+}
+
+h1 {
+  padding-bottom: 5px;
+  font-size: 200%;
+}
+
+h2 {
+  font-size: 150%;
+}
+
+h3 {
+  font-size: 120%;
+  text-decoration: underline;
+}
+
+p, ul, pre, dl {
+  margin: 8px 0;
+}
+
+ul {
+  padding-left: 20px;
+  list-style: square;
+}
+
+ol {
+  padding-left: 25px;
+  list-style: decimal;
+}
+
+dt {
+  font-weight: bolder;
+}
+
+dd {
+  padding: 8px;
+}
+
+code {
+  padding: 0 2px;
+  font-size: 1.2em;
+  background: #e8e8e8;
+  overflow: auto;
+}
+
+pre {
+  border: 1px solid #003562;
+  padding: 10px;
+  font-size: 1.2em;
+  background: #e8e8e8;
+  overflow: auto;
+}
+
+acronym {
+  border-bottom: 1px dotted #ccc;
+  cursor: help;
+}
+
+table {
+  border: 1px solid #ccc;
+}
+
+th {
+  font-weight: bolder;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 2px;
+  vertical-align: top;
+}
+
+th {
+  background: #e8e8e8;
+  font-size: 90%;
+  padding: 2px 5px;
+}
+
+table.blank {
+  border: 0;
+}
+
+table.blank th, table.blank td {
+  border: 0;
+}
+
+/** Classes **/
+
+.desc {
+  font-size: 90%;
+  color: #666;
+  font-style: italic;
+  font-weight: normal;
+}
+
+.help {
+  border-bottom: 1px dotted #ccc;
+  cursor: help;
+}
+
+.short { width: 30px; }
+.medium { width: 100px; }
+.long { width: 350px; }
+
+.left { text-align: left; }
+.center { text-align: center }
+.right { text-align: right; }
+
+.top { vertical-align: top; }
+.middle { vertical-align: middle; }
+.bottom { vertical-align: bottom; }
+
+.bold { font-weight: bolder; }
+.italic { font-style: italic; }
+.normal {
+  font-weight: normal;
+  font-style: normal;
+}
+
+.error {
+  color: red;
+}
+
+.even {
+  background-color: transparent;
+}
+
+.odd {
+  background-color: #e8e8e8;
+}
+
+.blockHeader {
+  margin-bottom: 5px;
+  padding: 5px 10px;
+  border-bottom: 1px solid #333;
+  font-size: 120%;
+}
+
+.blockHeader h2 {
+  margin: 5px 0;
+  font-size: 17px;
+  font-weight: normal;
+}
+
+.note {
+  border: 1px solid #003562;
+  padding: 0 8px;
+  background: #e8e8e8;
+}
+
+.block, .hint, .important, .success {
+  margin: 10px 0;
+  border: 2px solid #ccc;
+  padding: 5px 10px;
+  font-size: 90%;
+}
+
+.block .header, .hint .header, .important .header, .success .header {
+  padding: 2px 5px;
+  font-weight: bolder;
+  border-bottom: 1px solid #ccc;
+}
+
+.block .content, .hint .content, .important .content, .success .content {
+  padding: 5px;
+  line-height: 150%;
+}
+
+.block .header h2, .hint .header h2, .important .header h2, .success .header h2 {
+  margin: 0 0 5px 0;
+  padding: 0;
+  font-size: 16px;
+  font-weight: bolder;
+}
+
+.block {
+  border-color: #ccc;
+  background-color: #f8f8f8;
+}
+
+.block .header {
+  border-color: #ccc;
+}
+
+.hint {
+  border-color: #E9BE31;
+  background-color: #FFFFCC;
+}
+
+.hint .header {
+  border-color: #E9BE31;
+}
+
+.important {
+  border-color: red;
+  /* background: #FFB0B0; */
+  background-color: #FFBFBF;
+}
+
+.important .header {
+  color: red;
+  border-color: red;
+}
+
+.success {
+  border-color: green;
+  background-color: #90DC90;
+}
+
+.success .header {
+  color: black;
+  border-color: green;
+}
+
+a.blank, a.blank:hover {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+a.checkboxLink, a.checkboxLink:hover {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  height: 12px;
+  width: 12px;
+}
+
+a.checkboxLink img {
+  border: 0;
+}
+
+.assignedTo {
+  font-weight: bolder;
+}
+
+a.selected {
+  background: #ccc;
+}
+
+a.iCalSubscribe {
+  background: url('../../images/icons/icalendar.png') no-repeat;
+  padding: 4px 0 0 20px;
+}

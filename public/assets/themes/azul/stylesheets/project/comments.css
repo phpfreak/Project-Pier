@@ -1,0 +1,24 @@
+#objectComments div.comment {
+  margin: 8px 0;
+  padding: 10px;
+}
+
+#objectComments .commentHead {
+  color:#fcfcfc;
+  font-size: 1.0em;
+}
+
+#objectComments .commentHead a {
+  font-weight: bold;
+}
+
+#objectComments .commentBody {
+  border: 1px solid #193F5A;
+  border-width: 1px 0;
+  padding: 0 10px;
+}
+
+#objectComments .commentUserAvatar {
+  float: left;
+  margin: 10px 10px 10px 0;
+}

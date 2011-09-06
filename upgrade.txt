@@ -1,0 +1,53 @@
+           		
+~~~~~~~~~~~~~~~~~~~~~
+Upgrading ProjectPier
+~~~~~~~~~~~~~~~~~~~~~
+
+General Notice: We are not changing the built-in upgrade checker in ProjectPier for pre-release
+versions of 0.8.  0.8.0-dev and 0.8.0-RC1 and 0.8.0 (the final release) will all be
+considered 0.8 as far as the upgrade checking utility is concerned.  That means that if you
+have installed a pre-release version -dev or -RC1, you will not receive upgrade notification 
+within ProjectPier.
+
+All versions of ProjectPier 0.8 are database compatible with each other and with activeCollab 0.7.1.
+
+There is not an upgrade script for ProjectPier 0.8.  A set of instructions is provided below, but use
+them at your own risk.  Make sure you have backed up all your data (files and database) so that you
+can return to your previous version if necessary.  
+
+When upgrading, do NOT run the installation scripts!
+
+1) Backup your database
+
+2) Backup your installation files (you will need your existing /config/config.php to complete this 
+   installation).
+
+3) Unzip the ProjectPier package to a new directory on your hard drive, then upload to your server, 
+   overwriting the existing activeCollab or ProjectPier installation files.
+
+5) Add the following lines to /config/config.php that you backed up in step 2 (NOT the one you just
+   unzipped, the one you backed up from your existing installation!!)
+   define('SHOW_MESSAGE_BODY', true); 
+   define('SHOW_COMMENT_BODY', true); 
+   define('SHOW_MILESTONE_BODY', true); 
+   define('TOKEN_COOKIE_NAME', '93c65403ce6b695a583e9e4c8c5b25e687283ee8');
+
+   SHOW_MESSAGE_BODY = Set this to true or false, it determines whether to include message text in new 
+                       message notification emails.
+
+   SHOW_COMMENT_BODY = Set this to true or false, it determines whether to include comment text in new 
+                       comment notification emails.
+
+   SHOW_MILESTONE_BODY = Set this to true or false, it determines whether to include milestone text in new
+                         milestone notification emails.
+
+   TOKEN_COOKIE_NAME = set this to any unique string of characters, the exact length is not important.  This
+                       is required, but only used to differentiate between installations when there are
+                       multiple installations on the same server.
+   
+   Change from: define('PRODUCT_VERSION', '0.7.1');
+            to: define('PRODUCT_VERSION', '0.8.0');
+
+6) Upload /config/config.php that you just edited to your server, overwriting the existing file.
+
+7) You should be ready to go now.

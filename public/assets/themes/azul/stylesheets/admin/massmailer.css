@@ -1,0 +1,12 @@
+#massMailer div.massmailercompanyLogo {
+  float: right;
+}
+
+#massMailer div.massmailercompanyLogo img {
+  border: 1px solid #193F5A;
+}
+
+#massMailer div.massmailerRecipeints {
+  padding-top: 5px;
+  padding-left: 10px;
+}

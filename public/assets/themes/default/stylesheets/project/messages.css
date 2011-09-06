@@ -1,0 +1,156 @@
+/** Message display **/
+
+.message .block {
+  font-size: 16px;
+	background-color: #F6F6F6;
+	margin-bottom: 35px;
+}
+			
+
+.message .block .header {
+  font-size: 22px;
+	font-family: "Courier New", Courier, monospace ;
+	font-weight: bold;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  color: #444444;
+  border-bottom: 1px solid #666;
+}
+
+.message .block .header a {
+  color: #444444;
+
+}
+
+.message .block .header a:hover {
+  color: #0000cd;
+}
+
+.message .messageDetails {
+  padding: 2px 5px;
+}
+
+.message .messageDetails .private {
+  margin-top: 4px;
+}
+
+.message h1, .message h2, .message h3 {
+  font-weight: normal;
+}
+
+.message h1 {
+  font-size: 2em;
+}
+
+.message h2 {
+  font-size: 1.5em;
+}
+
+.message h3 {
+  font-size: 1.1em;
+  text-decoration: none;
+	
+}
+
+.message .messageText {
+  padding: 10px 5px 5px 0px;
+  line-height: 150%;
+  font-size: 12px;
+}
+
+.message .messageSeparator {
+  text-align: center;
+  font-size: 9px;
+  font-weight: bolder;
+}
+
+.message .objectFilesTitle span, .message .messageCommentCount span, .message .messageTags span {
+  color: #666;
+  font-weight: bold;
+  font-size: 10px;
+}
+
+.message .messageCommentCount {
+  text-align: left;
+  font-size: 10px;
+  color: #666;
+  line-height: 100%;
+}
+
+.message .messageCommentCount a {
+  text-align: left;
+  font-size: 10px;
+  color: #666;
+}
+
+.message .messageAuthor {
+  text-align: left;
+  font-size: 10px;
+  color: #666;
+  line-height: 100%;
+}
+
+.message .messageTags {
+  text-align: left;
+  font-size: 10px;
+  color: #666;
+}
+
+.message .messageAuthor a {
+  font-size: 10px;
+  color: #006;
+}
+
+.message .messageOptions {
+  text-align: right;
+  margin-top: 10px;
+  color: #666;
+  line-height: 100%;
+}
+
+.message .messageComment {
+  margin: 10px 10px;
+}
+
+.message .messageCommentHead {
+  font-weight: bolder;
+  font-size: 90%;
+}
+
+.message .messageCommentBody {
+  border: 1px dashed #d9e8ff;
+  border-width: 1px 0;
+  padding: 10px;
+  background: white;
+}
+
+.message {
+	background-color: #eeeeee;
+}
+	
+/** Add message form **/
+
+#emailNotification .companyDetails {
+  margin: 10px 0;
+  border: 1px dotted #ccc;
+  padding: 5px 10px;
+}
+
+#emailNotification .companyName label {
+  font-weight: bolder;
+}
+
+#emailNotification .companyMembers {
+  padding-top: 5px;
+}
+
+#emailNotification .companyMembers ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#emailNotification .companyMembers ul li {
+  display: inline;
+  padding-right: 5px;
+}
