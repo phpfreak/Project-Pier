@@ -1,0 +1,160 @@
+/* ticket table display */
+
+#tickets table {
+  font-size:10px;
+  border:0px;
+  border-top: 1px dotted #EEE;
+  background:none;
+}
+
+/** Tickets display **/
+
+#tickets .critical, #tickets_legend .critical {
+  background-color: #ffbaba;
+}
+
+#tickets .major, #tickets_legend .major {
+  background-color: #fcffb1;
+}
+
+#tickets .minor, #tickets_legend .minor {
+  background-color: #d6e7ff;
+}
+
+#tickets .trivial, #tickets_legend .trivial {
+  background-color: #ffffff;
+}
+
+#tickets .tickets_header {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+#tickets_legend {
+  width: 120px;
+}
+
+#tickets_legend .legend {
+  border: 0px;
+  padding: 2px;
+  margin-bottom: 2px;
+}
+
+#tickets_legend ul {
+  list-style: none;
+}
+
+#tickets_legend li .legend {
+  list-style: none;
+}
+
+/* Ticket display */
+#ticket {
+ background: #ffd;
+ border: 0px;
+ margin-top: 1em;
+ padding: .5em 1em;
+ position: relative;
+}
+
+#ticket .properties a {
+  font-size:9px;
+  font-weight:bold;
+  background-color:#DDD;
+  color:#777;
+  padding-left:5px;
+  padding-right:5px;
+  padding-top:1px;
+  padding-bottom:1px;
+  text-decoration:none;
+}
+
+#ticket .properties a:hover{
+  text-decoration:underline;
+}
+
+.commentHead a{
+  font-size:9px;
+  font-weight:bold;
+  background:#DDD;
+  color:#777;
+  padding-left:5px;
+  padding-right:5px;
+  padding-top:1px;
+  padding-bottom:1px;
+  text-decoration:none;  
+}
+
+.commentHead a:hover{
+  text-decoration:underline;
+}
+
+.commentHead span a {
+  font-size:10px;
+  font-weight:normal;
+  background:white;
+}
+
+#ticket table.properties {
+ width: 100%;
+ border:none;
+}
+
+#ticket td, td {
+  border:none;
+}
+
+#ticket td{
+  vertical-align:baseline;
+}
+
+.tickets td{
+  font-size:10px;
+  padding:4px;
+  line-height:125%;
+  border-bottom: 1px dotted #c8dbc2;
+  border-top:none;
+  border-left:none;
+  border-right:none;
+}
+
+#ticket table th{
+  vertical-align:baseline;
+  border:none;
+}
+
+#ticket .bold {
+  font-weight:bold;
+  line-height:150%;
+}
+
+#ticket label{
+  font-weight:normal;
+  font-size:11px;
+  padding:0px;
+  margin:0px;
+}
+
+#ticket .desc{
+  font-size:11px;
+  line-height:125%;
+}
+
+#changelog {
+  width: 630px;
+}
+
+#changelog table {
+  table-layout: fixed;
+  white-space: pre-wrap; /* css-3 */
+  white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+
+#changelog td.oldValue {
+  background: #eee;
+}
+
+#changelog td.newValue {
+  background: #fff;
+}

@@ -3,8 +3,9 @@
   add_stylesheet_to_page('application_logs.css')
 ?>
 <?php if (isset($application_logs_entries) && is_array($application_logs_entries) && count($application_logs_entries)) { ?>
-<div class="logProjectHeader"><?php echo lang('application log events my projects'); ?></div>
-<table class="applicationLogs blank">
+<div class="block">
+<div class="header"><?php echo lang('application log events my projects'); ?></div>
+<div class="content"><table class="applicationLogs blank">
   <tr>
     <th><?php echo lang('application log date column name') ?></th>
     <th><?php echo lang('application log by column name') ?></th>
@@ -41,13 +42,11 @@
 <?php } else { ?>
     <td class="logTypeIcon"><?php echo $application_log_entry->getObjectTypeName(); ?></td>
 <?php } // if ?>
-    <td class="logDetails">
 <?php if ($application_log_entry_url = $application_log_entry->getObjectUrl()) { ?>
-      <a href="<?php echo $application_log_entry_url ?>"><?php echo clean($application_log_entry->getText()) ?></a>
+      <td class="logDetails"><a href="<?php echo $application_log_entry_url ?>"><?php echo clean($application_log_entry->getText()) ?></a></td>
 <?php } else { ?>
-      <?php echo clean($application_log_entry->getText()) ?>
+      <td class="logDetails"><?php echo clean($application_log_entry->getText()) ?></td>
 <?php } // if ?>
-    </td>
 <?php if ($application_logs_show_project_column) { ?>
     <td class="logProject">
 <?php if (($application_log_entry_project = $application_log_entry->getProject()) instanceof Project) { ?>
@@ -57,5 +56,5 @@
 <?php } // if ?>
   </tr>
 <?php } // foreach ?>
-</table>
+</table></div></div>
 <?php } // if ?>

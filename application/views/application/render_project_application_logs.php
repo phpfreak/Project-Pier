@@ -3,14 +3,14 @@
   add_stylesheet_to_page('application_logs.css');
 ?>
 <?php if(isset($application_logs_entries) && is_array($application_logs_entries) && count($application_logs_entries)) { ?>
-<div class="logProjectHeader"><?php echo lang('project').':' ?>
+<div class="block"><div class="header"><?php echo lang('project').':' ?>
 <?php if ($project_url = $application_logs_project->getObjectUrl()) { ?>
       <a href="<?php echo $project_url ?>"><?php echo $application_logs_project->getName(); ?></a>
 <?php } else { ?>
       <?php echo $application_logs_project->getName() ?>
 <?php } // if ?>
  </div>
- <table class="applicationLogs blank">
+<div class="content" style="display:none"><table class="applicationLogs blank">
 <?php if (config_option('application_log_column_header', false)==true) { ?>
   <tr>
     <th><?php echo lang('application log date column name') ?></th>
@@ -46,14 +46,13 @@
 <?php } else { ?>
     <td class="logTypeIcon"><?php echo $application_log_entry->getObjectTypeName(); ?></td>
 <?php } // if ?>
-    <td class="logDetails">
+    
 <?php if($application_log_entry_url = $application_log_entry->getObjectUrl()) { ?>
-<a href="<?php echo $application_log_entry_url ?>"><?php echo $application_log_entry->getText() ?></a>
+<td class="logDetails"><a href="<?php echo $application_log_entry_url ?>"><?php echo $application_log_entry->getText() ?></a></td>
 <?php } else { ?>
-      <?php echo $application_log_entry->getText() ?>
+<td class="logDetails"><?php echo $application_log_entry->getText() ?></td>
 <?php } // if ?>
-    </td>
   </tr>
 <?php } // foreach ?>
- </table>
+ </table></div></div>
 <?php } // if ?>

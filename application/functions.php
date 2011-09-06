@@ -243,6 +243,7 @@
     $controller->setLayout($layout);
     $controller->addHelper('breadcrumbs');
     $controller->addHelper('pageactions');
+    $controller->addHelper('viewoptions');
     $controller->addHelper('tabbednavigation');
     $controller->addHelper('company_website');
     $controller->addHelper('project_website');
@@ -335,7 +336,11 @@
     } // if
     
     $code = "return $manager_class::findById($object_id);";
-    $object = eval($code);
+    try { 
+      $object = eval($code);
+    } catch (Exception $e) {
+      $object = null;
+    }
     
     return $object instanceof DataObject ? $object : null;
   } // get_object_by_manager_and_id
@@ -367,5 +372,35 @@
       }
     }
     return join(' ', $ret);
-  } 
+  }
+ 
+  function make_json_for_ajax_return($result,$messageboard = null,$data = array(),$actionjs = null){
+  	/*
+  	 * result : result function PHP boolean permit to add icon src link icon ok or icon ko to message message board
+  	 * messageboard : message to display in the IHM ajax board (option)
+  	 * data : data to return to browser
+  	 * actionjs : javascript code which can be executed on browser
+  	 * 
+  	 * Return array => [['result'],['messageajaxboard'],['data'],['actionjs']] 
+  	 */
+  	$myarr = array();
+  	$myarr= array(); //init
+  	$myarr['result'] = $result;
+	//image
+  	$img = "ok.gif";
+  	if (!$result) $img = "cancel_gray.gif";
+  	$myarr['messageboard'] = '<img src="' . get_image_url("icons/$img") . '">' . $messageboard;
+  	$myarr['data'] = $data;
+  	$myarr['actionjs'] = $actionjs;
+	/*
+	 * The first two headers prevent the browser 
+	 * from caching the response (a problem with IE and GET requests) 
+	 * and the third sets the correct MIME type for JSON.
+	 */
+	header('Cache-Control: no-cache, must-revalidate');
+	header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+	header('Content-Type: text/html; charset: UTF-8');
+  	
+  	return json_encode($myarr);  	
+  }
 ?>

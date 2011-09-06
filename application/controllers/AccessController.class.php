@@ -244,6 +244,14 @@
           
           $administrator->save();
           
+          // Create the contact for administrator
+          $administrator_contact = new Contact();
+          $administrator_contact->setId(1);
+          $administrator_contact->setCompanyId(1);
+          $administrator_contact->setEmail(array_var($form_data, 'admin_email'));
+          $administrator_contact->setUserId($administrator->getId());
+          $administrator_contact->setDisplayName($administrator->getUsername());
+          
           // Create a company
           $company = new Company();
           $company->setId(1);

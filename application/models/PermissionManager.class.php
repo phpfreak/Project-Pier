@@ -11,15 +11,19 @@
 class PermissionManager {
 
   /** Built-in user permissions **/
+  const CAN_ACCESS_MESSAGES          = 'messages-access';
   const CAN_MANAGE_MESSAGES          = 'messages-manage';
+  const CAN_ACCESS_TASKS             = 'tasks-access';
   const CAN_MANAGE_TASKS             = 'tasks-manage';
   const CAN_MANAGE_MILESTONES        = 'milestones-manage';
+  const CAN_ACCESS_FILES             = 'files-access';
   const CAN_UPLOAD_FILES             = 'files-upload';
   const CAN_MANAGE_FILES             = 'files-manage';
   const CAN_ASSIGN_TO_OWNERS         = 'tasks-assign_to_owner_company';
   const CAN_ASSIGN_TO_OTHER          = 'tasks-assign_to_other_clients';
   const CAN_MANAGE_PROJECTS          = 'projects-manage';
   const CAN_CHANGE_STATUS_MILESTONES = 'milestones-change_status';
+  const CAN_ACCESS_FORMS             = 'forms-access';
   
   function init() {
     if (isset($this) && ($this instanceof PermissionManager)) {
@@ -50,9 +54,9 @@ class PermissionManager {
   *
   */
   function getPermissionsText() {
-    static $instance_permtext;
-    if (is_array($instance_permtext)) {
-      return $instance_permtext;
+    static $instance_permText;
+    if (is_array($instance_permText)) {
+      return $instance_permText;
     }
     $permText = array();
     $permsBySource = Permissions::getPermissionsBySource();
@@ -70,8 +74,9 @@ class PermissionManager {
         }
       } // foreach
     } // foreach
-    $instance_permtext = $permText;
-    return $permText;
+    $instance_permText = $permText;
+    asort($instance_permText);
+    return $instance_permText;
   } //getPermissionsText
 
   /*
@@ -96,7 +101,7 @@ class PermissionManager {
     $permission = Permissions::findOne(array('conditions' => "`source` = '".$source."' and `permission` = '".$name."'"));
     if (isset($permission) && $permission instanceof Permission) {
       $permission->delete();
-      return true; // permission already exists
+      return true; // permission removed
     }
     return false; // permission does not exist
   }
@@ -115,7 +120,7 @@ class PermissionManager {
 	  }
         $permission->delete();
       }
-      return true; // permission already exists
+      return true; // permission source removed
     }
     return false; // permission source does not exist
   }

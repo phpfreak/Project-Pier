@@ -7,15 +7,17 @@
  * @access public
  */
 // add project tab
-  define('PROJECT_TAB_REPORTS', 'Reports');
+  define('PROJECT_TAB_REPORTS', 'reports');
   add_action('add_project_tab', 'reports_add_project_tab');
   
   function reports_add_project_tab() {
-    add_tabbed_navigation_item(new TabbedNavigationItem(
-      PROJECT_TAB_REPORTS,
-      lang('reports'),
-      get_url('reports', 'index')
-    ));
+    if (use_permitted(logged_user(), active_project(), 'reports')) {
+      add_tabbed_navigation_item(
+        PROJECT_TAB_REPORTS,
+        'reports',
+        get_url('reports', 'index')
+      );
+    }
   }
 
 ?>

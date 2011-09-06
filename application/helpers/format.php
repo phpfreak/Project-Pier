@@ -49,10 +49,10 @@
   */
   function format_datetime($value = null, $format = null, $timezone = null) {
     if (is_null($timezone) && function_exists('logged_user') && (logged_user() instanceof User)) {
-      $timezone = logged_user()->getTimezone();
+      $timezone = logged_user()->getContact()->getTimezone();
     } // if
     $datetime = $value instanceof DateTimeValue ? $value : new DateTimeValue($value);
-    return Localization::instance()->formatDateTime($datetime, $timezone);
+    return Localization::instance()->formatDateTime($datetime, $format, $timezone);
   } // format_datetime
   
   /**
@@ -67,7 +67,7 @@
   */
   function format_date($value = null, $format = null, $timezone = null) {
     if (is_null($timezone) && function_exists('logged_user') && (logged_user() instanceof User)) {
-      $timezone = logged_user()->getTimezone();
+      $timezone = logged_user()->getContact()->getTimezone();
     } // if
     $datetime = $value instanceof DateTimeValue ? $value : new DateTimeValue($value);
     return Localization::instance()->formatDate($datetime, $timezone, $format);
@@ -83,7 +83,7 @@
   */
   function format_descriptive_date($value = null, $timezone = null, $format = null) {
     if (is_null($timezone) && function_exists('logged_user') && (logged_user() instanceof User)) {
-      $timezone = logged_user()->getTimezone();
+      $timezone = logged_user()->getContact()->getTimezone();
     } // if
     $datetime = $value instanceof DateTimeValue ? $value : new DateTimeValue($value);
     return Localization::instance()->formatDescriptiveDate($datetime, $timezone, $format);
@@ -101,7 +101,7 @@
   */
   function format_time($value = null, $format = null, $timezone = null) {
     if (is_null($timezone) && function_exists('logged_user') && (logged_user() instanceof User)) {
-      $timezone = logged_user()->getTimezone();
+      $timezone = logged_user()->getContact()->getTimezone();
     } // if
     $datetime = $value instanceof DateTimeValue ? $value : new DateTimeValue($value);
     return Localization::instance()->formatTime($datetime, $timezone);

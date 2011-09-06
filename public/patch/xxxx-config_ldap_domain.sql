@@ -1,0 +1,2 @@
+DELETE FROM `<?php echo $table_prefix ?>config_options` where `category_name`= 'general' AND `name` = 'ldap_domain';
+INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'ldap_domain', '', 'StringConfigHandler', 0, 0, 'Note: %s is replaced with user name. Example 1. %s@example.com . Example 2. uid=%s,dc=example,dc=com');

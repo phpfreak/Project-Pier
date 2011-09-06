@@ -19,7 +19,7 @@
     const SMTP_SECURE_CONNECTION_TLS = 'tls';
     
     /**
-    * Cached value of echange compatible config option
+    * Cached value of exchange compatible config option
     *
     * @var boolean
     */
@@ -72,6 +72,26 @@
       ); // send
     } // newUserAccount
 
+    /**
+    * Send account update notification email to the user whose account has been updated
+    *
+    * @param User $user
+    * @param string $raw_password
+    * @return boolean
+    * @throws NotifierConnectionError
+    */
+    static function updatedUserAccount(User $user, $raw_password) {
+      tpl_assign('updated_account', $user);
+      tpl_assign('raw_password', $raw_password);
+      
+      return self::sendEmail(
+        self::prepareEmailAddress($user->getEmail(), $user->getDisplayName()),
+        self::prepareEmailAddress($user->getUpdatedBy()->getEmail(), $user->getUpdatedByDisplayName()),
+        lang('your account updated'),
+        tpl_fetch(get_template_path('updated_account', 'notifier'))
+      ); // send
+    } // updatedUserAccount
+  
     /**
     * Send new task notification to the list of users ($people)
     *
@@ -232,6 +252,44 @@
     } // attachFilesToTicket
 
     /**
+    * Send some files detached from ticket notification to ticket subscribers
+    *
+    * @param ProjectTicket $ticket
+    * @param array $detached_files Files detached from ticket
+    * @return boolean
+    * @throws NotifierConnectionError
+    */
+    static function detachFilesFromTicket(ProjectTicket $ticket, $detached_files) {
+      $all_subscribers = $ticket->getSubscribers();
+      if (!is_array($all_subscribers)) {
+        return true; // no subscribers
+      } // if
+      
+      $recipients = array();
+      foreach ($all_subscribers as $subscriber) {
+        if ($subscriber->getId() == $ticket->getUpdatedById()) {
+          continue; // skip comment author
+        } // if
+        
+        $recipients[] = self::prepareEmailAddress($subscriber->getEmail(), $subscriber->getDisplayName());
+      } // foreach
+      
+      if (!count($recipients)) {
+        return true; // no recipients
+      } // if
+      
+      tpl_assign('ticket', $ticket);
+      tpl_assign('detached_files', $detached_files);
+      
+      return self::sendEmail(
+        $recipients,
+        self::prepareEmailAddress($ticket->getUpdatedBy()->getEmail(), $ticket->getUpdatedBy()->getDisplayName()),
+        $ticket->getProject()->getName() . ' - ' . $ticket->getSummary(),
+        tpl_fetch(get_template_path('detach_files_ticket', 'notifier'))
+      ); // send
+    } // detachFilesFromTicket
+
+    /**
     * Send new comment notification to ticket subscriber
     *
     * @param TicketComment $comment
@@ -286,7 +344,7 @@
         //  continue; // skip comment author
         //} // if
         
-        if ($comment->isPrivate()) {
+        if ($comment->isPrivate() || $comment->getObject()->isPrivate()) {
           if ($subscriber->isMemberOfOwnerCompany()) {
             $recipients[] = self::prepareEmailAddress($subscriber->getEmail(), $subscriber->getDisplayName());
           } // if
@@ -421,7 +479,7 @@
         //  continue; // skip comment author
         //} // if
         
-        if ($comment->isPrivate()) {
+        if ($comment->isPrivate() || $comment->getObject()->isPrivate()) {
           if ($subscriber->isMemberOfOwnerCompany()) {
             $recipients[] = self::prepareEmailAddress($subscriber->getEmail(), $subscriber->getDisplayName());
           } // if

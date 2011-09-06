@@ -18,19 +18,14 @@
     $project_url = $active_project->getOverviewUrl();
 ?>
 <?php if (is_array($tickets) && count($tickets)) { ?>
-<?php $has_assigned_tickets = true ?>
-  <div class="block">
-    <div class="header"><h2><a href="<?php echo $project_url; ?>"><?php echo clean($active_project->getName()) ?></a></h2></div>
-    <div class="content">
-      <p><a href="<?php echo $active_project->getTicketsUrl() ?>"><?php echo lang('tickets') ?></a>:</p>
-      <div>
 <?php
+  $has_assigned_tickets = true;
+  $project_name = clean($active_project->getName());
+  $tickets_header = "<a href=\"$project_url\">$project_name</a>";
+  $this->assign('ticketsheader', $tickets_header);
   $this->assign('tickets', $tickets);
   $this->includeTemplate(get_template_path('view_tickets', 'tickets'));
 ?>
-      </div>
-    </div>
-  </div>
 <?php } // if ?>
 
 <?php } // foreach ?>

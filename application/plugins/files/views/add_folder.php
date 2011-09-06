@@ -26,7 +26,12 @@
     <?php echo label_tag(lang('name'), 'folderFormName') ?>
     <?php echo text_field('folder[name]', array_var($folder_data, 'name'), array('id' => 'folderFormName')) ?>
   </div>
-  
+
+  <div>
+    <?php echo label_tag(lang('parent folder'), 'folderFormParentFolder', true) ?>
+    <?php echo select_project_folder('folder[parent_id]', active_project(), array_var($folder_data, 'parent_id'), array('parent_id' => 'folderFormParentFolder')) ?>
+  </div>
+   
   <?php echo submit_button($folder->isNew() ? lang('add folder') : lang('edit folder')) ?> <a href="<?php echo get_url('files') ?>"><?php echo lang('cancel') ?></a>
   
 </form>

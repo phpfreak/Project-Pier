@@ -1,0 +1,1 @@
+INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('features', 'login_show_options', '1', 'BoolConfigHandler', 0, 0, 'Show options on the login page');

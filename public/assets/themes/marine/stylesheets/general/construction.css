@@ -1,4 +1,6 @@
 /*[fmt]2A10-1A0B-3*/
+html { height: 101%; } 
+
 body  {
  background-color: #F0F0F0;
  color: #666666;
@@ -77,7 +79,7 @@ body  {
  font-size: 13px;
  margin-bottom: 15px;
  margin-right: 0px;
- width: 540px;
+ xwidth: 540px;
  z-index: 250;
 }
 
@@ -92,24 +94,31 @@ body  {
 }
 
 /*-------------------- general userbox links---------------------*/
-#account_more_menu  {
+#account_more_menu {
  float: right;
  list-style: none;
  margin: 5px 0;
  padding: 0;
 }
 
-#account_more_menu li  {
+#page_menu {
+ float: right;
+ margin: 0px 235px 0px 0px;
+ list-style: none;
+ padding: 0;
+}
+
+#account_more_menu li, #page_menu li  {
  background: #D8D8D8 url(../../images/layout/bg_dropdown.png) repeat-x;
  border: 1px solid #C1C1C1;
  float: left;
  list-style: none;
  margin: 0;
- margin-left: 2px;
+ margin-left: 0px;
  padding: 0 !important;
 }
 
-#account_more_menu li a  {
+#account_more_menu li a, #page_menu li a  {
  background-image: url(../../images/layout/bg_dropdown_arrow.png);
  background-position: top right;
  background-repeat: no-repeat;
@@ -120,7 +129,7 @@ body  {
 }
 
 /*-------------------- submenus---------------------*/
-#account_more_menu ul  {
+#account_more_menu ul, #page_menu ul  {
  background-color: #FFFFFF;
  border: 1px solid #CCCCCC;
  clear: left;
@@ -128,16 +137,16 @@ body  {
 /*height: auto;*/
  left: -999em;
 /*using left instead of display to hide menus because display: none isn't read by screen readers*/
- line-height: 120%;
+ xline-height: 120%;
  list-style: none;
- margin: 0;
+ margin: 0px;
  padding: 0;
  position: absolute;
  width: 12em;
  z-index: 1000 !important;
 }
 
-#account_more_menu ul li  {
+#account_more_menu ul li, #page_menu ul li  {
  background-image: none !important;
  border: none;
  float: none;
@@ -146,6 +155,9 @@ body  {
  list-style-image: none !important;
  margin: 0;
  padding: 0;
+ white-space:pre-wrap;
+ white-space:-moz-pre-wrap !important;
+ word-wrap:break-word;
 }
 
 * html #account_more_menu ul li, * html #account_more_menu ul li a  {
@@ -163,12 +175,12 @@ body  {
 }
 
 /*-------------------- second level links ---------------------*/
-#account_more_menu ul li span  {
+#account_more_menu ul li span, #page_menu ul li span {
  margin: 0;
  padding: 3px 10px !important;
 }
 
-#account_more_menu ul li a  {
+#account_more_menu ul li a, #page_menu ul li a  {
  background-image: none !important;
  border: none;
  border-bottom: 1px solid #D8D8D8;
@@ -180,13 +192,25 @@ body  {
  padding: 3px 10px !important;
 }
 
-#account_more_menu ul li a:hover  {
+#account_more_menu ul li a:hover, #page_menu ul li a:hover  {
  background-color: #E9F2F7;
  color: #0079AF;
  text-decoration: none;
 }
 
-#account_more_menu li:hover ul ul, #account_more_menu li:hover ul ul ul, #account_more_menu li.sfhover ul ul, #account_more_menu li.sfhover ul ul ul  {
+#page_menu ul li a:hover  {
+  left: -100px;
+}
+
+#account_more_menu li:hover ul ul, 
+#account_more_menu li:hover ul ul ul, 
+#account_more_menu li.sfhover ul ul, 
+#account_more_menu li.sfhover ul ul ul  
+{
+ left: -999em;
+}
+
+#page_menu li:hover ul ul, #account_more_menu li:hover ul ul ul, #account_more_menu li.sfhover ul ul, #account_more_menu li.sfhover ul ul ul  {
  left: -999em;
 }
 
@@ -195,11 +219,23 @@ body  {
 /*lists nested under hovered list items*/
 }
 
+#page_menu li:hover ul, #page_menu_menu li li:hover ul, #page_menu_menu li li li:hover ul, #page_menu_menu li.sfhover ul, #page_menu_menu li li.sfhover ul, #page_menu_menu li li li.sfhover ul  {
+ left: auto;
+/*lists nested under hovered list items*/
+}
+
+
 /*-------------------- 1st level  hover---------------------*/
 #account_more_menu li:hover a, #account_more_menu li.sfhover a  {
  background-color: #F8F8F8;
  color: #0079AF;
 }
+
+#page_menu li:hover a, #page_menu li.sfhover a  {
+ background-color: #F8F8F8;
+ color: #0079AF;
+}
+
 
 /*-------------------- second level on hover---------------------*/
 #account_more_menu li li:hover a, #account_more_menu li li.sfhover a  {
@@ -210,6 +246,14 @@ body  {
 #account_more_menu li:hover li a:hover, #account_more_menu li.sfhover li a:hover  {
  background-color: #EEF6FF;
  color: #0079AF;
+}
+
+#account_more_menu li ul li ul li:hover a  {
+ color: #0079AF;
+}
+
+#account_more_menu li:hover ul li ul {
+  left: 100px;
 }
 
 /*-------------------- ie mac fixes ---------------------
@@ -261,7 +305,7 @@ only IE mac will see this*/
  border-bottom: 0;
  float: left;
  list-style: none;
- margin: 0 5px 0 0;
+ margin: 0 -1px 0 0;
 }
 
 #tabs ul li a  {
@@ -394,6 +438,14 @@ only IE mac will see this*/
 #outerContentWrapper  {
  clear: both;
 }
+/*--------------------  View options ---------------------*/
+
+#viewToggle {
+ float: right;
+ margin: 0px 5px 0px 0px;
+ list-style: none;
+ padding: 0;
+}
 
 /*--------------------  Page actions ---------------------*/
 #page_actionsWrapper  {
@@ -496,7 +548,9 @@ only IE mac will see this*/
 
 #sidebar li  {
  padding: 2px 0;
- width:160px;
+ xwidth:160px;
+ white-space:pre-wrap;
+ white-space:-moz-pre-wrap !important;
  word-wrap:break-word;
 }
 
@@ -506,12 +560,21 @@ only IE mac will see this*/
  padding: 0 5px;
 }
 
-#sidebar .blockContent form div a  {
-}
-
 #sidebar .listWithDetails li  {
  padding-bottom: 5px;
- /*[empty]overflow:;*/
+}
+
+#sidebar .listWithDetails li a  {
+ width: 100%;
+ overflow: hidden;
+}
+
+#userPermissions tr {
+  border-bottom: 1px solid #cccccc;
+}
+
+td.projectPermission {
+  vertical-align: middle;
 }
 
 /*--------------------  Footer ---------------------*/
@@ -599,16 +662,20 @@ div.card  {
  padding: 10px;
 }
 
+.favorite { height: 19px; width: 20px; margin: 2px; overflow: hidden; float: right; position: relative; top: -4px; }
+.favorite.off img { position: relative; top: -19px; }
+.favorite.on img { position: relative; top: 0px; }
+
 * html div.card  {
  padding-top: 5px;
 }
 
-div.card div.cardIcon  {
- background: #F5F5F5 url('../../images/logtypes/old.gif') repeat-x top right;
+.icon  {
+ xbackground: #F5F5F5 url('../../images/logtypes/old.gif') repeat-x top right;
  border: 1px solid #E0E0E0;
  float: left;
- margin: 5px;
- padding: 5px;
+ margin: 2px;
+ padding: 2px;
 }
 
 div.card div.cardData  {
@@ -641,11 +708,20 @@ div.card table tr, div.card table td  {
  padding: 2px;
 }
 
-/** / user card *
-* Advanced pagination **/
+/* user card */
+
+/* Advanced pagination **/
+
+#alphabet { width: 100%; text-align: center; }
+#alphabet .letter { margin: 0px 4px;}
+#alphabet .letter .disabled { color: #aaa;}
+
+
 div.advancedPagination  {
- margin: 10px;
- text-align: right;
+ background: url('../../images/logtypes/old.gif') whiteSmoke repeat-x top right;
+ border: 1px solid #E0E0E0;
+ min-height: 20px;
+ padding: 2px 5px;
 }
 
 div.advancedPagination span  {
@@ -670,9 +746,19 @@ div.private span  {
  display: none;
 }
 
-#sidebar .listWithDetails li a  {
- width: 100%;
- overflow: hidden;
- display: inline-block;
-}
+div .icon { float: left; text-align: center; width: 100px; border: 0; }
+div .block { margin-left: 0px; }
 
+.options, .object_options { margin: 2px 5px 4px 5px; }
+.options a, .object_options a { color: #4887A0; }
+
+#links li .block { margin-left: 105px; }
+#links li { list-style-image: none !important; border: 0; }
+#links img { background-image: none !important; border: 0; }
+#links { padding: 0; }
+#links .odd { background-color: transparent; }
+
+#memo{position:fixed;bottom:0px;right:0px;background-color:#FAF9E4;height:150px;width:150px;font-weight: bold;font-size:14px;border:1px solid black;padding:2px;z-index: 9998;filter:alpha(opacity=80);-moz-opacity:0.8;opacity: 0.8;-moz-border-radius:5px;border-radius: 5px;}
+#memo .header{text-align:center;background-color:#FAF9E4; color: black}
+#memo textarea{width:140px;height:110px;margin:0px;background:transparent;border:none;color:black}
+#memo .content { margin-left: 0px; }

@@ -61,6 +61,7 @@
 <?php
 $options = array();
 if ($file->canEdit(logged_user())) $options[] = '<a href="' . $file->getEditUrl() . '">' . lang('edit') . '</a>';
+if ($file->canDelete(logged_user())) $options[] = '<a href="' . $file->getMoveUrl() . '">' . lang('move') . '</a>';
 if ($file->canDelete(logged_user())) $options[] = '<a href="' . $file->getDeleteUrl() . '">' . lang('delete') . '</a>';
 if ($file->canEdit(logged_user())) $options[] = '<a href="' . $file->getAddRevisionUrl() . '">' . lang('files add revision') . '</a>';
 if ($file->canDownload(logged_user())) $options[] = '<a href="' . $file->getDownloadUrl() . '" class="downloadLink">' . lang('download') . ' <span>(' . format_filesize($file->getFilesize()) . ')</span></a>';

@@ -7,17 +7,6 @@
   trace(__FILE__,'stylesheet added');
 ?>
 <?php $this->includeTemplate(get_template_path('project/pageactions')); ?>
-<?php if (trim(active_project()->getDescription()) && active_project()->getShowDescriptionInOverview()) { ?>
-<?php $show_icon = (config_option('files_show_icons', '1') == '1'); ?>
-<div class="hint">
-<?php if ($show_icon) { ?>
-    <div class="projectLogo"><img src="<?php echo active_project()->getLogoUrl() ?>" alt="<?php echo active_project()->getName() ?>" /></div>
-<?php } // if ?>
-<?php $this->includeTemplate(get_template_path('view_progressbar', 'project')); ?>
-  <div class="header"><?php echo clean(active_project()->getName()) ?></div>
-  <div class="content"><?php echo do_textile(active_project()->getDescription()) ?></div>
-</div>
-<?php } // if ?>
 <?php if (active_project()->getParent()) { ?>
   <div class="block">
   <div class="header parent">
@@ -25,7 +14,38 @@
  </div>
  </div>
 <?php } // if ?>
-
+<?php if (trim(active_project()->getDescription()) && active_project()->getShowDescriptionInOverview()) { ?>
+<div id="project">
+<?php $show_icon = (config_option('files_show_icons', '1') == '1'); ?>
+<?php if ($show_icon) { ?>
+ <div class="icon"><img src="<?php echo active_project()->getLogoUrl() ?>" alt="<?php echo active_project()->getName() ?>" /></div>
+<?php } // if ?>
+ <div class="block hint">
+<?php $this->includeTemplate(get_template_path('view_progressbar', 'project')); ?>
+  <div class="header"><?php echo clean(active_project()->getName()) ?></div>
+  <div class="content"><?php echo plugin_manager()->apply_filters('project_description', do_textile(active_project()->getDescription())) ?>
+  <div class="clear"></div>
+  <div id="pageAttachments">
+  <?php
+  if (is_array($page_attachments) && count($page_attachments)) {
+    foreach ($page_attachments as $page_attachment) {
+      tpl_assign('attachment', $page_attachment);
+      if ($page_attachment->getRelObjectManager() != '') {
+        if (file_exists(get_template_path('view_'.$page_attachment->getRelObjectManager(), 'page_attachment'))) {
+          $this->includeTemplate(get_template_path('view_'.$page_attachment->getRelObjectManager(), 'page_attachment'));
+        } else {
+          $this->includeTemplate(get_template_path('view_DefaultObject', 'page_attachment'));
+        }
+      } else {
+        $this->includeTemplate(get_template_path('view_EmptyAttachment', 'page_attachment'));
+      }
+    } // foreach
+  } // if ?>
+  </div></div>
+ </div>
+</div>
+<?php } // if ?>
+<div class="clear"></div>
 <?php if (isset($subprojects) && is_array($subprojects) && count($subprojects)) { ?>
 <div class="block">
   <div class="header"><?php echo lang('subprojects') ?></div>
@@ -44,7 +64,7 @@
 <?php } // if ?>
 
 <?php if ((is_array($late_milestones) && count($late_milestones)) || (is_array($today_milestones) && count($today_milestones))) { ?>
-<div id="lateMilestones" class="important">
+<div id="lateMilestones" class="important block">
   <div class="header"><?php echo lang('late milestones') ?> / <?php echo lang('today milestones') ?></div>
   <div class="content">
     <ul>

@@ -7,6 +7,7 @@
   
   if (owner_company()->canAddClient(logged_user())) {
     add_page_action(lang('add client'), get_url('company', 'add_client'));
+    add_page_action(lang('add contact'), get_url('contacts', 'add'));
   } // if
 
 ?>
@@ -14,17 +15,17 @@
 <table>
   <tr>
     <th><?php echo lang('name') ?></th>
-    <th><?php echo lang('users') ?></th>
+    <th><?php echo lang('contacts') ?></th>
     <th><?php echo lang('options') ?></th>
   </tr>
 <?php foreach ($clients as $client) { ?>
   <tr>
     <td><a href="<?php echo $client->getViewUrl() ?>"><?php echo clean($client->getName()) ?></a></td>
-    <td style="text-align: center"><?php echo $client->countUsers() ?></td>
+    <td style="text-align: center"><?php echo $client->countContacts() ?></td>
 <?php 
   $options = array(); 
-  if ($client->canAddUser(logged_user())) {
-    $options[] = '<a href="' . $client->getAddUserUrl() . '">' . lang('add user') . '</a>';
+  if ($client->canAddContact(logged_user())) {
+    $options[] = '<a href="' . $client->getAddContactUrl() . '">' . lang('add contact') . '</a>';
   } // if
   if ($client->canUpdatePermissions(logged_user())) {
     $options[] = '<a href="' . $client->getUpdatePermissionsUrl() . '">' . lang('permissions') . '</a>';

@@ -10,9 +10,26 @@
         <li><a href="<?php echo get_url('project', 'copy') ?>"><?php echo lang('copy project') ?></a></li>
 <?php } // if ?>
         <li><span><?php echo lang('projects') ?>:</span></li>
+    <?php if(100 > count($_userbox_projects)) { ?>
         <?php foreach($_userbox_projects as $_userbox_project) { ?>
         <li><a href="<?php echo $_userbox_project->getOverviewUrl() ?>"><?php echo clean($_userbox_project->getName()) ?></a></li>
-        <?php } // if ?>
+        <?php } // foreach ?>
+<?php } else { ?>
+        <?php foreach($_userbox_projects as $_userbox_project) { ?>
+<?php $name = clean($_userbox_project->getName()) ?>
+<?php $url = clean($_userbox_project->getOverviewUrl()) ?>
+<?php $first = strtoupper(substr($name,0,1)); ?>
+<?php if (!array_key_exists($index, $first)) $index[$first]=array(); ?> 
+<?php $index[$first][] = array($name, $url); ?>
+        <?php } // foreach ?>
+        <?php foreach($index as $first => $items) { ?>
+<li><a href=#><?php echo $first ?></a><ul>
+          <?php foreach($items as $item) { ?>
+        <li><a href="<?php echo $item[1] ?>"><?php echo $item[0] ?></a></li>
+          <?php } // foreach ?>
+</ul></li>
+        <?php } // foreach ?>
+<?php } // if ?>
 <?php
   // PLUGIN HOOK
   plugin_manager()->do_action('my_projects_dropdown');
@@ -22,7 +39,9 @@
     </li>
     <?php } // if ?>
 
-<?php if((!is_null(active_project())) && isset($_userbox_projects) && is_array($_userbox_projects) && count($_userbox_projects)) { ?>
+<?php if (!is_null(active_project())) { ?>
+<?php if (use_permitted(logged_user(), active_project(), 'tasks')) { ?>
+<?php if (isset($_userbox_projects) && is_array($_userbox_projects) && count($_userbox_projects)) { ?>
     <li><a href="<?php echo get_url('dashboard', 'my_tasks') ?>"><?php echo lang('my tasks') ?></a>
       <ul>
         <li><span><?php echo clean(active_project()->getName()) ?>:</span></li>
@@ -48,13 +67,15 @@
       </ul>
     </li>
 <?php } // if ?>
+<?php } // if ?>
+<?php } // if ?>
 
     <?php if(logged_user()->isAdministrator()) { ?>
     <li><a href="<?php echo get_url('administration') ?>"><?php echo lang('administration') ?></a> 
       <ul>
         <li class="header"><a href="<?php echo get_url('administration', 'company') ?>"><?php echo lang('company') ?></a></li>
         <li><a href="<?php echo get_url('company', 'edit') ?>"><?php echo lang('edit company') ?></a></li>
-        <li><a href="<?php echo owner_company()->getAddUserUrl() ?>"><?php echo lang('add user') ?></a></li>
+        <li><a href="<?php echo owner_company()->getAddContactUrl() ?>"><?php echo lang('add contact') ?></a></li>
         <li class="header"><a href="<?php echo get_url('administration', 'clients') ?>"><?php echo lang('clients') ?></a></li>
         <li><a href="<?php echo get_url('company', 'add_client') ?>"><?php echo lang('add client') ?></a></li>
         <li class="header"><a href="<?php echo get_url('administration', 'projects') ?>"><?php echo lang('projects') ?></a></li>
@@ -78,14 +99,10 @@
 <?php  if (logged_user()->canUpdateProfile(logged_user())) { ?>
         <li><a href="<?php echo logged_user()->getEditProfileUrl() ?>"><?php echo lang('update profile') ?></a></li>
         <li><a href="<?php echo logged_user()->getEditPasswordUrl() ?>"><?php echo lang('change password') ?></a></li>
-        <li><a href="<?php echo logged_user()->getUpdateAvatarUrl() ?>"><?php echo lang('update avatar') ?></a></li>
 <?php  } // if ?>
 <?php  if (logged_user()->canUpdatePermissions(logged_user())) { ?>
         <li><a href="<?php echo logged_user()->getUpdatePermissionsUrl() ?>"><?php echo lang('update permissions') ?></a></li>
 <?php  } // if ?>
-        <li><span><?php echo lang('more') ?>:</span></li>
-        <li><a href="<?php echo get_url('dashboard', 'my_projects') ?>"><?php echo lang('my projects') ?></a></li>
-        <li><a href="<?php echo get_url('dashboard', 'my_tasks') ?>"><?php echo lang('my tasks') ?></a></li>
 <?php
   // PLUGIN HOOK
   plugin_manager()->do_action('my_account_dropdown');

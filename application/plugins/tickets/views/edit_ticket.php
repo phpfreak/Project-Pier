@@ -20,6 +20,7 @@
     }
   }
   add_stylesheet_to_page('project/tickets.css');
+  add_stylesheet_to_page('application_logs.css');
 ?>
 <?php if($ticket->isPrivate()) { ?>
     <div class="private" title="<?php echo lang('private ticket') ?>"><span><?php echo lang('private ticket') ?></span></div>
@@ -53,13 +54,11 @@
       <td><a href="<?php echo $ticket->getCreatedBy()->getCardUrl(); ?>"><?php echo $ticket->getCreatedByDisplayName(); ?></a></td>
 <?php } ?>
       <th><span class="bold"><?php echo lang('edit by'); ?>:</span></th>
-      <td>
 <?php if (is_null($ticket->getUpdatedBy())) { ?>
       <td><?php echo $ticket->getUpdatedByDisplayName(); ?></td>
 <?php } else { ?>
-        <?php echo lang('updated on by', format_datetime($ticket->getUpdatedOn()), $ticket->getUpdatedBy()->getCardUrl(), $ticket->getUpdatedByDisplayName(), lang($ticket->getUpdated())); ?>
+      <td><?php echo lang('updated on by', format_datetime($ticket->getUpdatedOn()), $ticket->getUpdatedBy()->getCardUrl(), $ticket->getUpdatedByDisplayName(), lang($ticket->getUpdated())); ?></td>
 <?php } // if?>
-      </td>
     </tr>
     
     <tr>
@@ -89,7 +88,16 @@
 <?php } else { ?>
       <td><?php echo lang($ticket->getState()); ?></td>
 <?php } // if?>
-	<th><td></td></th>
+      <th><?php echo label_tag(lang('milestone'), 'ticketFormMilestone') ?></th>
+<?php if ($canEdit) { ?>
+      <td><?php echo select_milestone("ticket[milestone_id]", $ticket->getProject(), array_var($ticket_data, 'milestone_id'), array('id' => 'ticketFormMilestone')) ?></td>
+<?php } else { ?>
+<?php if($ticket->getMilestoneId()) { ?>
+      <td><?php echo lang($ticket->getMilestoneId()->getObjectName()); ?></td>
+<?php } else { ?>
+      <td></td>
+<?php } // if?>
+<?php } // if?>
     </tr>
     
     <tr>
@@ -131,10 +139,10 @@
 
 <div id="messageComments"><?php echo render_object_comments($ticket, $ticket->getViewUrl()) ?></div>
 
-<h2><?php echo lang('history') ?></h2>
 <?php if(isset($changes) && is_array($changes) && count($changes)) { ?>
-<div id="changelog">
-  <table class="applicationLogs">
+<div id="changelog" class="block">
+  <h2 class="header"><?php echo lang('history') ?></h2>
+  <table class="applicationLogs content">
     <tr>
       <th><?php echo lang('field') ?></th>
       <th><?php echo lang('old value') ?></th>
@@ -146,11 +154,11 @@
     <tr>
       <td><?php echo lang($change->getType()) ?></td>
 <?php if ($change->dataNeedsTranslation()) { ?>
-      <td class="oldValue"><?php echo lang($change->getFromData()) ?></td>
-      <td class="newValue"><?php echo lang($change->getToData()) ?></td>
+      <td class="oldValue" style="max-width:200px"><?php echo lang($change->getFromData()) ?></td>
+      <td class="newValue" style="max-width:200px"><?php echo lang($change->getToData()) ?></td>
 <?php } else { ?>
-      <td class="oldValue"><?php echo $change->getFromData() ?></td>
-      <td class="newValue"><?php echo $change->getToData() ?></td>
+      <td class="oldValue" style="max-width:200px"><?php echo $change->getFromData() ?></td>
+      <td class="newValue" style="max-width:200px"><?php echo $change->getToData() ?></td>
 <?php } // if ?>
       <td><?php echo $change->getCreatedByDisplayName() ?></td>
       <td><?php echo format_datetime($change->getCreatedOn()) ?></td>

@@ -10,7 +10,11 @@
     add_page_action(lang('add milestone'), get_url('milestone', 'add'));
   } // if
   add_stylesheet_to_page('project/calendar.css');
-
+  $view_image = $view_type=="list" ? "icons/list_on.png" : "icons/list_off.png";
+  add_view_option(lang('list'), get_image_url( $view_image ), get_url('milestone', 'index', array("view" => "list") ));
+  $view_image = $view_type=="card" ? "icons/excerpt_on.png" : "icons/excerpt_off.png";
+  add_view_option(lang('card'), get_image_url( $view_image ), get_url('milestone', 'index', array("view" => "details") ) );
+  add_view_option(lang('calendar'), get_image_url( "icons/calendar_off.png" ), get_url('milestone', 'calendar'));
 ?>
 <div class="calendar">
   <h2><?php echo clean(lang(sprintf('month %u', $month))); ?> <?php echo $year; ?></h2>
@@ -116,10 +120,18 @@
         <ul class="entries">
 <?php
           foreach ($calendar[$dom] as $obj) {
-            printf('<li class="%s"><a href="%s">%s</a></li>'."\n",
-              strtr(lc($obj->getObjectTypeName()), ' ', '_'),
-              $obj->getViewUrl(),
-              clean($obj->getObjectName()));
+            if (use_permitted(logged_user(), active_project(), 'tasks')) {
+              printf('<li class="%s"><a href="%s">%s</a></li>'."\n",
+                strtr(lc($obj->getObjectTypeName()), ' ', '_'),
+                $obj->getViewUrl(),
+                clean($obj->getObjectName())
+              );
+            } else {
+              printf('<li class="%s">%s</li>'."\n",
+                strtr(lc($obj->getObjectTypeName()), ' ', '_'),
+                clean($obj->getObjectName())
+              );
+            }
           }
 ?>
         <ul>

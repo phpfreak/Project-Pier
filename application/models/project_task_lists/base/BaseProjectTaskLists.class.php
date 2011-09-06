@@ -14,7 +14,25 @@
     * @var array
     * @static
     */
-    static private $columns = array('id' => DATA_TYPE_INTEGER, 'milestone_id' => DATA_TYPE_INTEGER, 'project_id' => DATA_TYPE_INTEGER, 'name' => DATA_TYPE_STRING, 'description' => DATA_TYPE_STRING, 'due_date' => DATA_TYPE_DATETIME, 'priority' => DATA_TYPE_INTEGER, 'score' => DATA_TYPE_INTEGER, 'is_private' => DATA_TYPE_BOOLEAN, 'completed_on' => DATA_TYPE_DATETIME, 'completed_by_id' => DATA_TYPE_INTEGER, 'created_on' => DATA_TYPE_DATETIME, 'created_by_id' => DATA_TYPE_INTEGER, 'updated_on' => DATA_TYPE_DATETIME, 'updated_by_id' => DATA_TYPE_INTEGER, 'order' => DATA_TYPE_INTEGER);
+    static private $columns = array(
+      'id' => DATA_TYPE_INTEGER,
+       'milestone_id' => DATA_TYPE_INTEGER,
+       'project_id' => DATA_TYPE_INTEGER, 
+       'name' => DATA_TYPE_STRING, 
+       'description' => DATA_TYPE_STRING, 
+       'start_date' => DATA_TYPE_DATETIME, 
+       'due_date' => DATA_TYPE_DATETIME, 
+       'priority' => DATA_TYPE_INTEGER, 
+       'score' => DATA_TYPE_INTEGER, 
+       'is_private' => DATA_TYPE_BOOLEAN, 
+       'completed_on' => DATA_TYPE_DATETIME, 
+       'completed_by_id' => DATA_TYPE_INTEGER, 
+       'created_on' => DATA_TYPE_DATETIME, 
+       'created_by_id' => DATA_TYPE_INTEGER, 
+       'updated_on' => DATA_TYPE_DATETIME, 
+       'updated_by_id' => DATA_TYPE_INTEGER, 
+       'order' => DATA_TYPE_INTEGER
+    );
   
     /**
     * Construct
@@ -67,7 +85,7 @@
     } // getPkColumns
     
     /**
-    * Return name of first auto_incremenent column if it exists
+    * Return name of first auto_increment column if it exists
     *
     * @access public
     * @param void
@@ -201,7 +219,7 @@
     * because you can't use associative indexing with list() construct
     *
     * @access public
-    * @param array $arguments Query argumens (@see find()) Limit and offset are ignored!
+    * @param array $arguments Query arguments (@see find()) Limit and offset are ignored!
     * @param integer $items_per_page Number of items per page
     * @param integer $current_page Current page number
     * @return array

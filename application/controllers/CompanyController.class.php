@@ -39,7 +39,13 @@
         $this->redirectToReferer(ROOT_URL);
       } // if
       
+      $contacts = $company->getContacts();
+      $active_projects = $company->getActiveProjects();
+      
       tpl_assign('company', $company);
+      tpl_assign('contacts', $contacts);
+      tpl_assign('active_projects', $active_projects);
+      $this->setSidebar(get_template_path('company_card_sidebar', 'company'));
     } // card
     
     /**
@@ -490,6 +496,43 @@
       
       $this->redirectTo('dashboard');
     } // hide_welcome_info
+
+    /**
+    * Toggle favorite status
+    *
+    * @param void
+    * @return null
+    */
+    function toggle_favorite() {
+      if (!logged_user()->isAdministrator()) {
+        flash_error('no access permisssions');
+        $this->redirectToReferer(get_url('dashboard'));
+      }
+
+      $company = Companies::findById(get_id());
+      if (!($company instanceof Company)) {
+        flash_error(lang('company dnx'));
+        $this->redirectToReferer(get_url('administration'));
+      } // if
+      
+      if ($company->isOwner()) {
+        flash_error('no access permissions');
+        $this->redirectToReferer(get_url('dashboard'));
+      } // if
+      
+      $company->setIsFavorite(!$company->isFavorite());
+
+      if (!$company->save()) {
+        flash_error(lang('could not save info'));
+      }
+      
+      $redirect_to = urldecode(array_var($_GET, 'redirect_to'));
+      if ((trim($redirect_to)) == '' || !is_valid_url($redirect_to)) {
+        $redirect_to = $company->getViewUrl();
+      } // if
+      
+      $this->redirectToUrl($redirect_to);
+    } // toggle_favorite
   
   } // CompanyController
 

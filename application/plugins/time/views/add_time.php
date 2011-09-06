@@ -78,3 +78,9 @@
   
   <?php echo submit_button($time->isNew() ? lang('add time') : lang('edit time')) ?>
 </form>
+<?php if (false === $time->isNew()) { ?>
+<br />
+<div>
+  <?php echo render_object_files($time, $time->canEdit(logged_user())) ?>
+</div>
+<?php } ?>

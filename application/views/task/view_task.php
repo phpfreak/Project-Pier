@@ -26,15 +26,22 @@
 ?>
 
 <div id="taskDetails" class="block">
-  <div class="header"><?php echo do_textile($task->getText()) ?></div>
+  <div class="header"><?php echo (do_textile('[' .$task->getId() . '] ' . $task->getText())) ?></div>
   <div class="content">
     <div id="taskInfo">
-<?php if (!is_null($task->getDueDate())) { ?>
-<?php if ($task->getDueDate()->getYear() > DateTimeValueLib::now()->getYear()) { ?>
-      <div class="dueDate"><span><?php echo lang('due date') ?>:</span> <?php echo format_date($task->getDueDate(), null, 0) ?></div>
-<?php } else { ?>
-      <div class="dueDate"><span><?php echo lang('due date') ?>:</span> <?php echo format_descriptive_date($task->getDueDate(), 0) ?></div>
+<?php if (!is_null($task->getStartDate())) { ?>
+<?php   if ($task->getStartDate()->getYear() > DateTimeValueLib::now()->getYear()) { ?>
+      <div class="startDate"><span><?php echo lang('start date') ?>:</span> <?php echo format_date($task->getStartDate(), null, 0) ?></div>
+<?php   } else { ?>
+      <div class="startDate"><span><?php echo lang('start date') ?>:</span> <?php echo format_descriptive_date($task->getStartDate(), 0) ?></div>
+<?php   } // if ?>
 <?php } // if ?>
+<?php if (!is_null($task->getDueDate())) { ?>
+<?php   if ($task->getDueDate()->getYear() > DateTimeValueLib::now()->getYear()) { ?>
+      <div class="dueDate"><span><?php echo lang('due date') ?>:</span> <?php echo format_date($task->getDueDate(), null, 0) ?></div>
+<?php   } else { ?>
+      <div class="dueDate"><span><?php echo lang('due date') ?>:</span> <?php echo format_descriptive_date($task->getDueDate(), 0) ?></div>
+<?php   } // if ?>
 <?php } // if ?>
 	  <?php if($task->getAssignedTo()) { ?>
 	    <div id="taskAssigned"><?php echo lang('milestone assigned to', clean($task->getAssignedTo()->getObjectName())) ?></div>

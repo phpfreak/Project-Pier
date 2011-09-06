@@ -8,20 +8,20 @@
 <?php $counter = 0; ?>
 <?php foreach ($comments as $comment) { ?>
 <?php $counter++; ?>
-  <div class="comment <?php echo $counter % 2 ? 'even' : 'odd';  ?>" id="comment<?php echo $comment->getId() ?>">
+  <div class="comment block <?php echo $counter % 2 ? 'even' : 'odd';  ?>" id="comment<?php echo $comment->getId() ?>">
 <?php if ($comment->isPrivate()) { ?>
     <div class="private" title="<?php echo lang('private comment') ?>"><span><?php echo lang('private comment') ?></span></div>
 <?php } // if ?>
 <?php if ($comment->getCreatedBy() instanceof User) { ?>
-    <div class="commentHead"><span><a href="<?php echo $comment->getViewUrl() ?>" title="<?php echo lang('permalink') ?>">#<?php echo $counter ?></a>:</span> <?php echo lang('comment posted on by', format_datetime($comment->getUpdatedOn()), $comment->getCreatedByCardUrl(), clean($comment->getCreatedByDisplayName())) ?>:</div>
+    <div class="commentHead header"><span><a href="<?php echo $comment->getViewUrl() ?>" title="<?php echo lang('permalink') ?>">#<?php echo $counter ?></a>:</span> <?php echo lang('comment posted on by', format_datetime($comment->getUpdatedOn()), $comment->getCreatedByCardUrl(), clean($comment->getCreatedByDisplayName())) ?>:</div>
 <?php } else { ?>
-    <div class="commentHead"><span><a href="<?php echo $comment->getViewUrl() ?>" title="<?php echo lang('permalink') ?>">#<?php echo $counter ?></a>:</span> <?php echo lang('comment posted on', format_datetime($comment->getUpdatedOn())) ?>:</div>
+    <div class="commentHead header"><span><a href="<?php echo $comment->getViewUrl() ?>" title="<?php echo lang('permalink') ?>">#<?php echo $counter ?></a>:</span> <?php echo lang('comment posted on', format_datetime($comment->getUpdatedOn())) ?>:</div>
 <?php } // if ?>
-    <div class="commentBody">
+    <div class="commentBody content">
 <?php if (($comment->getCreatedBy() instanceof User) && ($comment->getCreatedBy()->hasAvatar())) { ?>
       <div class="commentUserAvatar"><img src="<?php echo $comment->getCreatedBy()->getAvatarUrl() ?>" alt="<?php echo clean($comment->getCreatedBy()->getDisplayName()) ?>" /></div>
 <?php } // if ?>
-      <div class="commentText"><?php echo do_textile($comment->getText()) ?></div>
+      <div class="commentText"><?php echo plugin_manager()->apply_filters('comment_text', do_textile($comment->getText())) ?></div>
       <div class="clear"></div>
       <?php echo render_object_files($comment, $comment->canEdit(logged_user())) ?>
     </div>

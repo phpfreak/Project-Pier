@@ -11,7 +11,7 @@
   trace(__FILE__, 'begin');
   define('FILE_STORAGE_FILE_SYSTEM', 'fs');
   define('FILE_STORAGE_MYSQL', 'mysql');
-  define('TOKEN_COOKIE_NAME', 'pp087' . TABLE_PREFIX);
+  define('TOKEN_COOKIE_NAME', 'pp088' . TABLE_PREFIX);
   //$installation_root = config_option('installation_root', dirname($_SERVER['PHP_SELF']) );
   $path=$_SERVER['PHP_SELF'];
   $path=substr($path, 0, strpos($path, 'index.php'));
@@ -34,10 +34,10 @@
       VersionChecker::check(false);
     } // if
     if (config_option('file_storage_adapter', 'mysql') == FILE_STORAGE_FILE_SYSTEM) {
-      trace(__FILE__, 'CompanyWebsite::init() - use file storage');
+      trace(__FILE__, 'FileRepository::setBackend() - use file storage');
       FileRepository::setBackend(new FileRepository_Backend_FileSystem(FILES_DIR));
     } else {
-      trace(__FILE__, 'CompanyWebsite::init() - use mysql storage');
+      trace(__FILE__, 'FileRepository::setBackend() - use mysql storage');
       FileRepository::setBackend(new FileRepository_Backend_MySQL(DB::connection()->getLink(), TABLE_PREFIX));
     } // if
     

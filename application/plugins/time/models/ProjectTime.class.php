@@ -23,6 +23,13 @@
     protected $is_searchable = true;
     
     /**
+    * Time is file container
+    *
+    * @var boolean
+    */
+    protected $is_file_container = true;
+
+    /**
     * Array of searchable columns
     *
     * @var array
@@ -144,10 +151,10 @@
     * @return boolean
     */
     function canView(User $user) {
-      if(!$user->isProjectUser($this->getProject())) return false;
       if($user->isAdministrator()) return true;
-      if($this->isPrivate() && !$user->isMemberOfOwnerCompany()) return false;
-      return true;
+      if($this->isPrivate() && $user->isMemberOfOwnerCompany()) return true;
+      if($user->isProjectUser($this->getProject())) return true;
+      return false;
     } // canView
     
     /**
@@ -159,8 +166,8 @@
     * @return boolean
     */
     function canAdd(User $user, Project $project) {
-      if(!$user->isProjectUser($project)) return false;
       if($user->isAdministrator()) return true;
+      if(!$user->isProjectUser($project)) return false;
       return $user->getProjectPermission($project, ProjectTime::CAN_MANAGE_TIME);
     } // canAdd
     
@@ -172,14 +179,14 @@
     * @return boolean
     */
     function canEdit(User $user) {
-      if(!$user->isProjectUser($this->getProject())) return false;
       if($user->isAdministrator()) return true;
       if($this->getCreatedById() == $user->getId()) return true;
+      if($user->isProjectUser($this->getProject())) return true;
       return false;
     } // canEdit
     
     /**
-    * Can chagne status of this time
+    * Can change status of this time
     *
     * @access public
     * @param User $user

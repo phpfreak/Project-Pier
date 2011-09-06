@@ -1,8 +1,16 @@
 <?php if (isset($company) && ($company instanceof Company)) { ?>
 <div class="card">
-  <div class="cardIcon"><img src="<?php echo $company->getLogoUrl() ?>" alt="<?php echo clean($company->getName()) ?> logo" /></div>
+  <div class="icon"><img src="<?php echo $company->getLogoUrl() ?>" alt="<?php echo clean($company->getName()) ?> logo" /></div>
   <div class="cardData">
-  
+<?php if (logged_user()->isMemberOfOwnerCompany() && !$company->isOwner()) { ?>
+    <div class="favorite <?php if ($company->isFavorite()) { echo "on"; } else { echo "off"; }?>">
+<?php if (logged_user()->isAdministrator()) { ?>
+      <a href="<?php echo $company->getToggleFavoriteUrl($company->getViewUrl()); ?>"><img src="<?php echo get_image_url("icons/favorite.png"); ?>" title="<?php echo lang('toggle favorite'); ?>" alt="<?php echo lang('toggle favorite'); ?>"/></a>
+<?php } else { ?>
+      <img src="<?php echo get_image_url("icons/favorite.png"); ?>" title="<?php echo ($company->isFavorite() ? lang('favorite') : lang('not favorite')); ?>" alt="<?php echo ($company->isFavorite() ? lang('favorite') : lang('not favorite')); ?>">
+<?php } ?>
+    </div>
+<?php } ?>  
     <h2><?php echo clean($company->getName()) ?></h2>
     
     <div class="cardBlock">
@@ -20,7 +28,6 @@
 <?php } // if ?>
     </div>
     
-
 <?php if ($company->hasAddress()) { ?>
     <h2><?php echo lang('address') ?></h2>
     

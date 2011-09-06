@@ -53,7 +53,7 @@
     } // isToday
     
     /**
-    * Returnst true if this application log was made yesterday
+    * Returns true if this application log entry was made yesterday
     *
     * @param void
     * @return boolean

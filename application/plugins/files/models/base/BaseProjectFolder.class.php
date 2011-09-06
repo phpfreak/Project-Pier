@@ -77,6 +77,49 @@
       return $this->setColumnValue('name', $value);
     } // setName() 
     
+    /**
+    * Return value of 'parent_id' field
+    *
+    * @access public
+    * @param void
+    * @return integer 
+    */
+    function getParentId() {
+      return $this->getColumnValue('parent_id');
+    } // getParentId()
+    
+    /**
+    * Set value of 'parent_id' field
+    *
+    * @access public   
+    * @param integer $value
+    * @return boolean
+    */
+    function setParentId($value) {
+      return $this->setColumnValue('parent_id', $value);
+    } // setParentId() 
+
+    /**
+    * Return value of 'locked_by_id' field
+    *
+    * @access public
+    * @param void
+    * @return integer 
+    */
+    function getLockedById() {
+      return $this->getColumnValue('locked_by_id');
+    } // getLockedById()
+    
+    /**
+    * Set value of 'locked_by_id' field
+    *
+    * @access public   
+    * @param integer $value
+    * @return boolean
+    */
+    function setLockedById($value) {
+      return $this->setColumnValue('locked_by_id', $value);
+    } // setLockedById() 
     
     /**
     * Return manager instance

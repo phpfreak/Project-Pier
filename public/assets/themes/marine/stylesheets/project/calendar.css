@@ -23,6 +23,12 @@
  xfont-weight: bold;
 }
 
+.calendar ul  {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 .calendar td.weekend .date  {
  background-color: #75BAD6;
 }
@@ -45,7 +51,6 @@
 
 .calendar .milestone a  {
  font-weight: bold;
- color: #9DC71D;
 }
 
 .calendar .task_list a  {

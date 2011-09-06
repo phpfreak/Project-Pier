@@ -1,0 +1,24 @@
+#contactsList div.listedContact { margin: 5px 0; padding: 10px; }
+
+#contactsList div.avatar { float: left; width: 50px; height: 50px; margin-right: 10px; text-align: center; border: 1px solid #ccc; }
+#contactsList div.avatar img { width: 50px; height: 50px; }
+
+#contactsList div.favorite { height: 19px; width: 20px; margin: 2px; overflow: hidden; float: right; position: relative; top: -4px; }
+#contactsList div.favorite.off img { position: relative; top: -19px; }
+#contactsList div.favorite.on img { position: relative; top: 0px; }
+
+#contactsList div.contactName { margin-bottom: 10px; font-size: 150%; }
+#contactsList div.contactName a { font-weight: bold; }
+
+#contactsList div.contactDetails { margin-left: 60 }
+#contactsList div.contactInfo, #contactsList div.companyInfo { float: left; margin-right: 55px; font-size: 1em; line-height: normal; color: #666; }
+#contactsList div.contactInfo div span, #contactsList div.companyInfo span { font-style: italic; }
+
+.contactTags span { background: #ffffbb; padding: 2px;}
+.contactTags span a { border-bottom-color: #888800;}
+
+.highlight { background: #ff6;}
+
+#contactsTable { width: 100%; }
+#contactsTable td , #contactsTable th{ height: 2em; vertical-align: middle; border-right: none; border-left: none; }
+#contactsTable tr { border: none;}

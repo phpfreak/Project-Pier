@@ -4,28 +4,32 @@
   add_action('add_project_tab', 'form_add_project_tab');
   function form_add_project_tab() {
     if (logged_user()->isAdministrator()) {
-      add_tabbed_navigation_item(new TabbedNavigationItem(
+      add_tabbed_navigation_item(
         PROJECT_TAB_FORMS,
-        lang('forms'),
+        'forms',
         get_url('form', 'index')
-      ));
+      );
     } // if
   }
  
   // overview page
   add_action('project_overview_page_actions','form_project_overview_page_actions');
   function form_project_overview_page_actions() {
-    if (ProjectForm::canAdd(logged_user(), active_project())) {
-      add_page_action(lang('add form'), get_url('form', 'add'));
+    if (use_permitted(logged_user(), active_project(), 'forms')) {
+      if (ProjectForm::canAdd(logged_user(), active_project())) {
+        add_page_action(lang('add form'), get_url('form', 'add'));
+      } // if
     } // if
   }
 
   // my tasks dropdown
   add_action('my_tasks_dropdown','form_my_tasks_dropdown');
   function form_my_tasks_dropdown() {
-    echo '<li class="header"><a href="'.get_url('form', 'index').'">'.lang('forms').'</a></li>';
-    if (ProjectForm::canAdd(logged_user(), active_project())) {
-      echo '<li><a href="'.get_url('form', 'add').'">'.lang('add form').'</a></li>';
+    if (use_permitted(logged_user(), active_project(), 'forms')) {
+      echo '<li class="header"><a href="'.get_url('form', 'index').'">'.lang('forms').'</a></li>';
+      if (ProjectForm::canAdd(logged_user(), active_project())) {
+        echo '<li><a href="'.get_url('form', 'add').'">'.lang('add form').'</a></li>';
+      } // if
     } // if
   }
   

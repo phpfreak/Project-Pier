@@ -23,7 +23,12 @@
   </div>
 
   <div>
-    <?php echo label_tag(lang('due date'), null, true) ?>
+    <?php echo label_tag(lang('start date'), null, false) ?>
+    <?php echo pick_date_widget('task_list_start_date', array_var($task_list_data, 'start_date')) ?>
+  </div>
+
+  <div>
+    <?php echo label_tag(lang('due date'), null, false) ?>
     <?php echo pick_date_widget('task_list_due_date', array_var($task_list_data, 'due_date')) ?>
   </div>
 
@@ -32,7 +37,7 @@
     <?php echo input_field('task_list[priority]', array_var($task_list_data, 'priority'), array('class' => 'short', 'id' => 'taskListFormPriority')) ?>
   </div>
 
-<?php if ((logged_user()->getProjectPermission($task_list->getProject(), 'tasks-edit_score') && (config_option('enable_efqm')=='yes'))) { ?>
+<?php if ( (config_option('enable_efqm')=='yes') && (logged_user()->getProjectPermission($task_list->getProject(), 'tasks-edit_score')) ) { ?>
   <div>
     <?php echo label_tag(lang('score'), 'taskListFormScore') ?>
     <?php echo input_field('task_list[score]', array_var($task_list_data, 'score'), array('class' => 'short', 'id' => 'taskListFormScore')) ?>
@@ -68,8 +73,9 @@
   <h2><?php echo lang('tasks') ?></h2>
   <table class="blank">
     <tr>
-      <th><?php echo lang('task') ?>:</th>
-      <th><?php echo lang('due date') ?>:</th>
+      <th><?php echo label_tag(lang('description'), null, false); ?></th>
+      <th><?php echo label_tag(lang('start date'), null, false); echo label_tag(lang('due date'), null, false) ?></th>
+      <th><?php echo label_tag(lang('assign to'), null, false) ?></th>
     </tr>
 <?php for ($i = 0; $i < 6; $i++) { ?>
     <tr class="<?php echo $i % 2 ? 'odd' : 'even' ?>">
@@ -77,9 +83,10 @@
         <?php echo textarea_field("task_list[task$i][text]", array_var($task_list_data["task$i"], 'text'), array('class' => 'short')) ?>
       </td>
       <td>
+    <?php echo pick_date_widget("task_list_task{$i}_start_date", array_var($task_list_data["task$i"], 'start_date')) ?>
     <?php echo pick_date_widget("task_list_task{$i}_due_date", array_var($task_list_data["task$i"], 'due_date')) ?>
-  <br /> 
-        <?php echo label_tag(lang('assign to'), null, true) ?>
+      </td>
+      <td>
         <?php echo assign_to_select_box("task_list[task$i][assigned_to]", active_project(), array_var($task_list_data["task$i"], 'assigned_to')) ?>
       </td>
     </tr>

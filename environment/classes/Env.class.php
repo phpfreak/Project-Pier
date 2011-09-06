@@ -23,7 +23,7 @@
     * @return null
     * @throws LibraryDnxError
     */
-    static function useLibrary($library) {
+    static function useLibrary($library, $plugin = null) {
       static $included = array();
       if (isset($included[$library]) && $included[$library]) {
         return;
@@ -35,7 +35,12 @@
       } // if
       
       if (!is_dir($library_path)) {
-        throw new LibraryDnxError($library);
+        if ($plugin) {
+          $library_path = APPLICATION_PATH . "/plugins/$plugin/library/$library/";
+        }
+        if (!is_dir($library_path)) {
+          throw new LibraryDnxError($library);
+        } // if
       } // if
       
       // Call init library file if it exists
@@ -82,8 +87,10 @@
       
       // Check error instance...
       if (!instance_of($error, 'Error')) {
-        print '$error is not valid <i>Error</i> instance!';
-        return;
+        if (!instance_of($error, 'Exception')) {
+          print '$error is not an <i>Error</i> or <i>Exception</i> instance! ' . $error;
+          return;
+        } // if
       } // if
       
       // OK, include template...
@@ -183,6 +190,7 @@
       
       // If we have it include, else throw exception
       if (is_file($helper_file)) {
+        trace(__FILE__,"useHelper($helper, $controller_name) including $helper_file");
         include_once $helper_file;
         return true;
       } // if
@@ -267,10 +275,12 @@
       trace(__FILE__,"getHelperPath($helper, $controller_name)");
       //Look for helper file path into core and plugins directories
       $helper_path=APPLICATION_PATH . "/helpers/$helper.php";
+      trace(__FILE__,"getHelperPath($helper, $controller_name): trying $helper_path");
       if (is_readable($helper_path)) return $helper_path;
       $helper_path_plugin='';
       if ($controller_name) {
       	$helper_path_plugin=APPLICATION_PATH . "/plugins/$controller_name/helpers/$helper.php";
+        trace(__FILE__,"getHelperPath($helper, $controller_name): trying $helper_path_plugin");
         if (file_exists($helper_path_plugin)) return $helper_path_plugin;
       } 
       trace(__FILE__,"getHelperPath($helper, $controller_name) - can not read [$helper_path] or [$helper_path_plugin]");

@@ -21,6 +21,7 @@
 <div id="tickets">
   <div id="messagesPaginationTop"><?php echo advanced_pagination($tickets_pagination, get_url('tickets', 'index', $options_pagination)) ?></div>
 <?php
+  $this->assign('ticketsheader', lang('tickets'));
   $this->assign('tickets', $tickets);
   $this->includeTemplate(get_template_path('view_tickets', 'tickets'));
 ?>

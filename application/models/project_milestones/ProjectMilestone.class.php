@@ -30,6 +30,13 @@
     protected $searchable_columns = array('name', 'description');
     
     /**
+    * Milestones are commentable
+    *
+    * @var boolean
+    */
+    protected $is_commentable = true;
+
+    /**
     * Cached User object of person who completed this milestone
     *
     * @var User
@@ -198,6 +205,33 @@
     function hasMessages() {
       return (boolean) ProjectMessages::count('`milestone_id` = ' . DB::escape($this->getId()));
     } // hasMessages
+    
+    /**
+    * Return all tickets related to this message
+    *
+    * @access public
+    * @param void
+    * @return array
+    */
+    function getTickets() {
+      if (!plugin_active('tickets')) return array();
+      return ProjectTickets::findAll(array(
+        'conditions' => '`milestone_id` = ' . DB::escape($this->getId()),
+        'order' => 'created_on'
+      )); // findAll
+    } // getTickets
+    
+    /**
+    * Returns true if there are tickets in this milestone
+    *
+    * @access public
+    * @param void
+    * @return boolean
+    */
+    function hasTickets() {
+      if (!plugin_active('tickets')) return false;
+      return (boolean) ProjectTickets::count('`milestone_id` = ' . DB::escape($this->getId()));
+    } // hasTickets
     
     /**
     * Return assigned to object. It can be User, Company or nobady (NULL)
@@ -437,7 +471,18 @@
     function getAddTaskListUrl() {
       return get_url('task', 'add_list', array('milestone_id' => $this->getId(), 'active_project' => $this->getProjectId()));
     } // getAddTaskListUrl
-    
+        
+    /**
+    * Return add ticket URL
+    *
+    * @access public
+    * @param void
+    * @return string
+    */
+    function getAddTicketUrl() {
+      return get_url('ticket', 'add', array('milestone_id' => $this->getId(), 'active_project' => $this->getProjectId()));
+    } // getAddTicketUrl
+ 
     // ---------------------------------------------------
     //  System functions
     // ---------------------------------------------------
@@ -501,6 +546,52 @@
     function getObjectUrl() {
       return $this->getViewUrl();
     } // getObjectUrl
+
+    /**
+    * Returns a count of tickets in this milestone by state
+    *
+    * @access public
+    * @param void
+    * @return string
+    */
+    function hasTicketsByState($state) {
+      if (!plugin_active('tickets')) return 0;
+      if ($state == 'open') {
+        $new = ProjectTickets::count('`milestone_id` = ' . DB::escape($this->getId()) . ' AND `state` = ' . DB::escape('new') . '');
+        $open = ProjectTickets::count('`milestone_id` = ' . DB::escape($this->getId()) . ' AND `state` = ' . DB::escape('open') . '');
+        return $new + $open;
+      }
+      else if ($state == 'in_progress') {
+        return ProjectTickets::count('`milestone_id` = ' . DB::escape($this->getId()) . ' AND `state` = ' . DB::escape('pending') . '');
+      }
+      else if ($state == 'resolved') {
+        return ProjectTickets::count('`milestone_id` = ' . DB::escape($this->getId()) . ' AND `state` = ' . DB::escape('closed') . '');
+      }
+      
+    } // hasTicketsByState
+
+    /**
+    * Returns a total count of all tickets.
+    *
+    * @access public
+    * @param void
+    * @return string
+    */
+    function getTotalTicketCount() {
+      if (!plugin_active('tickets')) return 0;
+      return ProjectTickets::count('`milestone_id` = ' . DB::escape($this->getId()));
+    } // getTotalTicketCount
+
+    /**
+    * Returns a percentage value of a certain ticket status.
+    *
+    * @access public
+    * @param void
+    * @return string
+    */
+    function getPercentageByTicketState($state) {
+      return floor(($this->hasTicketsByState($state) / $this->getTotalTicketCount()) * 100);
+    } // getPercentageByTicketState
     
   } // ProjectMilestone 
 

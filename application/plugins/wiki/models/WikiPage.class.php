@@ -31,7 +31,7 @@ Class WikiPage extends BaseWikiPage {
 	function canAdd(User $user, Project $project)
 	{
 		//Is the user an admin, or a member of the owner company?
-		return $user->isAdministrator() || $user->isMemberOfOwnerCompany();
+		return $user->isAdministrator() || $user->isMemberOfOwnerCompany() || $user->isProjectUser(active_project());
 	}// canAdd
 	
   /**
@@ -43,7 +43,7 @@ Class WikiPage extends BaseWikiPage {
 	function canEdit(User $user)
 	{
 		//Is the user a member of the owner company, or an admin?
-		return $user->isAdministrator() || $user->isMemberOfOwnerCompany();
+		return $user->isAdministrator() || $user->isMemberOfOwnerCompany() || $user->isProjectUser(active_project());
 	}// canEdit
 	
   /**
@@ -52,11 +52,33 @@ Class WikiPage extends BaseWikiPage {
    * @param mixed User object
    * @return (bool)
    */
-	function canDelete(User $user)
-	{
-		//Only admins can delete a page
-		return $user->isAdministrator();
-	}// canDelete
+  function canDelete(User $user)
+  {
+    //Only admins can delete a page
+    return $user->isAdministrator();
+  }// canDelete
+
+  /**
+    * Can the user lock this page
+    * 
+    * @param User $user
+    * @return boolean
+    */
+  function canLock(User $user) {
+    // Only admins can lock a page
+    return $user->isAdministrator();
+  } // canLock
+
+  /**
+    * Can the user unlock this page
+    * 
+    * @param User $user
+    * @return boolean
+    */
+  function canUnlock(User $user) {
+    // Only admins can unlock a page
+    return $user->isAdministrator();
+  }
 	
   /**
    * Can the user view this page
@@ -64,44 +86,44 @@ Class WikiPage extends BaseWikiPage {
    * @param mixed $user
    * @return
    */
-	function canView(User $user)
-	{
-		return $user->isProjectUser($this->getProject());
-	}// canView
+  function canView(User $user)
+  {
+    return $user->isProjectUser($this->getProject());
+  }// canView
 	
-	//////////////////////////////////////////
-	//	Urls
-	//////////////////////////////////////////
+  //////////////////////////////////////////
+  //	Urls
+  //////////////////////////////////////////
 	
   /**
    * Get url to the add wiki page
    * 
    * @return string
    */
-	function getAddUrl()
-	{
-		return $this->makeUrl('add', array('active_project' => active_project()->getId()), false);
-	}// getAddUrl
+  function getAddUrl()
+  {
+    return $this->makeUrl('add', array('active_project' => active_project()->getId()), false);
+  }// getAddUrl
 	
   /**
    * Get url to edit this wiki page
    * 
    * @return string
    */
-	function getEditUrl()
-	{
-		return $this->makeUrl('edit');
-	}//getEditUrl
+  function getEditUrl()
+  {
+    return $this->makeUrl('edit');
+  }//getEditUrl
 	
   /**
    * Get url to delete this wiki page
    * 
    * @return string
    */
-	function getDeleteUrl()
-	{
-		return $this->makeUrl('delete');
-	}//getDeleteUrl
+  function getDeleteUrl()
+  {
+    return $this->makeUrl('delete');
+  }//getDeleteUrl
 	
   /**
    * Get url to view page's revision history
@@ -122,6 +144,16 @@ Class WikiPage extends BaseWikiPage {
 	{
 		return $this->makeUrl('view');
 	}// getViewUrl
+
+  /**
+  * Get url to all wiki pages
+  * 
+  * @return string
+  */
+  function getAllPagesUrl() {
+    return $this->makeUrl('all_pages', array('active_project' => active_project()->getId()), false);
+  } // getAllPagesUrl
+  
 	
   /**
    * Generic function to make a url to a wiki page
@@ -288,6 +320,33 @@ Class WikiPage extends BaseWikiPage {
 		return Revisions::instance()->paginate($arguments, $items_per_page, $current_page);
   }// paginate
 
+  //////////////////////////////////////////
+  //	Locking
+  //////////////////////////////////////////
+  /**
+    * Get the user object for the user which locked this page
+    * 
+    * Returns null if user DNX or page is not locked
+    * 
+    * @return
+    */
+  function getLockedByUser() {
+    // Cache the user object
+    static $user = null;
+    return $this->getLocked() ? 
+      // If the page is locked 
+      (($user instanceof User) ? 
+      // If we have cached the user's object
+      $user : 
+      // Else find it and cache it
+      ($user = Users::findById($this->getLockedById()))) :
+      // If the page is not locked, return null	
+      null; 
+ 	} // getLockedByUser
+
+  function isLocked() {
+    return (bool) $this->getColumnValue('locked');
+  } // isLocked
 	
 }
 				

@@ -248,14 +248,14 @@
     * @return null
     */
     function addHelper($helper, $controller_name = null) {
-      trace(__FILE__,"addHelper($helper, $controller_name)");
+      trace(__FILE__,"addHelper($helper, $controller_name) start");
       
       if (!in_array($helper, $this->helpers)) {
         if (Env::useHelper($helper, $controller_name)) {
           $this->helpers[] = $helper;
         } // if
       } // if
-      
+      trace(__FILE__,"addHelper($helper, $controller_name) end");      
       return true;
     } // addHelper
     

@@ -17,12 +17,13 @@
     * @return array
     */
     function getUsersByProject(Project $project, $additional_conditions = null) {
+      $contacts_table = Contacts::instance()->getTableName(true);
       $users_table = Users::instance()->getTableName(true);
-      $project_users_table=  ProjectUsers::instance()->getTableName(true);
+      $project_users_table = ProjectUsers::instance()->getTableName(true);
       
       $users = array();
       
-      $sql = "SELECT $users_table.* FROM $users_table, $project_users_table WHERE ($users_table.`id` = $project_users_table.`user_id` AND $project_users_table.`project_id` = " . DB::escape($project->getId()) . ')';
+      $sql = "SELECT $users_table.* FROM $users_table, $project_users_table, $contacts_table WHERE ($users_table.`id` = $project_users_table.`user_id` AND $contacts_table.`user_id` = $users_table.`id` AND $project_users_table.`project_id` = " . DB::escape($project->getId()) . ')';
       if (trim($additional_conditions) <> '') {
         $sql .= " AND ($additional_conditions)";
       }
@@ -47,8 +48,8 @@
     * @return array
     */
     function getCompanyUsersByProject(Company $company, Project $project) {
-      $users_table = Users::instance()->getTableName(true);
-      return self::getUsersByProject($project, "$users_table.`company_id` = " . DB::escape($company->getId()));
+      $contacts_table = Contacts::instance()->getTableName(true);
+      return self::getUsersByProject($project, "$contacts_table.`company_id` = " . DB::escape($company->getId()));
     } // getCompanyUsersByProject
     
     /**

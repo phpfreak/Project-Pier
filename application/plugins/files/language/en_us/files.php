@@ -7,6 +7,7 @@
     // Files
     'add file' => 'Add file',
     'edit file' => 'Edit file',
+    'move file' => 'Move file',
     'delete file' => 'Delete file',
     
     'add folder' => 'Add folder',
@@ -17,6 +18,7 @@
     'files edit revision' => 'Edit revision %s',
     'delete file revision' => 'Delete revision %s',
     
+    'attach' => 'Attach',
     'attach file' => 'Attach file',
     'attach files' => 'Attach files',
     'attach more files' => 'Attach more files',
@@ -65,6 +67,7 @@
     
     'success add file' => 'File \'%s\' has been added',
     'success edit file' => 'File \'%s\' has been updated',
+    'success move file' => 'File \'%s\' has been moved from project %s to project %s',
     'success delete file' => 'File \'%s\' has been deleted',
     
     'success add revision' => 'Revision %s has been added',
@@ -80,6 +83,7 @@
     'error attach file' => 'Failed to attach file',
 
     'error delete folder' => 'Failed to delete selected folder',
+    'error move file' => 'Failed to move selected file %s',
     'error delete file' => 'Failed to delete selected file',
     'error delete file revision' => 'Failed to delete file revision',
     'error attach file' => 'Failed to attach file(s)',
@@ -114,6 +118,7 @@
     'revisions' => 'Revisions',
     'folder' => 'Folder',
     'folders' => 'Folders',
+    'no folder' => '(no folder)',
     'attached file' => 'Attached file',
     'attached files' => 'Attached files',
     'important file'     => 'Important file',
@@ -121,6 +126,7 @@
     'private file' => 'Private file',
     'attachment' => 'Attachment',
     'attachments' => 'Attachments',
+    'parent folder' => 'Parent Folder',
 
     // source: project_interface.php
 
@@ -138,6 +144,7 @@
     'revisions on file' => '%s revision(s)',
     'order by filename' => 'filename (a-z)',
     'order by posttime' => 'date and time',
+    'order by folder' => 'folder',
     'all files' => 'All files',
     'upload file desc' => 'You can upload files of any type. The max file size you are allowed to upload is %s',
     'file revision info short' => 'Revision #%s <span>(created on %s)</span>',

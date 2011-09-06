@@ -5,6 +5,8 @@
     // Objects
     'user' => 'User',
     'users' => 'Users',
+    'contact' => 'Contact',
+    'contacts' => 'Contacts',
     'member' => 'Member',
     'members' => 'Members',
     'company' => 'Company',
@@ -18,8 +20,11 @@
     'messages' => 'Messages',
     'comment' => 'Comment',
     'comments' => 'Comments',
+    'status update' => 'Status update',
+    'status updates' => 'Status updates',
     'milestone' => 'Milestone',
     'milestones' => 'Milestones',
+    'user account' => 'Account',
     'task' => 'Task',
     'tasks' => 'Tasks',
     'task list' => 'Task list',
@@ -27,9 +32,17 @@
     'message subscribers' => 'Subscribers',
     'configuration category' => 'Configuration category',
     'configuration categories' => 'Configuration categories',
+    'text snippet' => 'Text snippet',
+    'text snippets' => 'Text snippets',
+    'new company' => 'New company',
+    'existing company' => 'Existing company',
+    'memo' => 'My Project Note',
+    'no folders' => 'No folders',
     
     // Variations
     'owner company' => 'Owner company',
+    'favorite company' => 'Favorite company',
+    'favorite companies' => 'Favorite companies',
     
     'open milestone' => 'Open milestone',
     'open milestones' => 'Open milestones',
@@ -46,6 +59,7 @@
     'active projects' => 'Active projects',
     'finished project' => 'Finished project',
     'finished projects' => 'Finished projects',
+    'deleted or unknown' => '***Deleted or unknown***',
     
     'important message'  => 'Important message',
     'important messages' => 'Important messages',
@@ -55,6 +69,8 @@
     'private time' => 'Private time',
     'private task list' => 'Private task lists',
     'private comment' => 'Private comment',  
+
+    'actions' => 'Actions',
   ); // array
 
 ?>

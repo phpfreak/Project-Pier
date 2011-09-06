@@ -3,22 +3,22 @@
   define('PROJECT_TAB_TIME', 'time');
   add_action('add_project_tab', 'times_add_project_tab');
   function times_add_project_tab() {
-    add_tabbed_navigation_item(new TabbedNavigationItem(
+    add_tabbed_navigation_item(
       PROJECT_TAB_TIME,
-      lang('time'),
+      'time',
       get_url('time', 'index')
-    ));
+    );
   }
 
   // add administration tab
   define('ADMINISTRATION_TAB_TIME', 'time');
   add_action('add_administration_tab', 'times_add_administration_tab');
   function times_add_administration_tab() {
-    add_tabbed_navigation_item(new TabbedNavigationItem(
+    add_tabbed_navigation_item(
       ADMINISTRATION_TAB_TIME,
-      lang('time'),
+      'time',
       get_url('administration', 'time')
-    ));
+    );
   }
  
   // overview page

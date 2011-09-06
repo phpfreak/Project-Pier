@@ -1,4 +1,4 @@
-label { display: block; font-size: 12px; font-weight: bold; margin: 3px 0; }
+label { display: block; xfont-size: 12px; font-weight: bold; margin: 3px 0; }
 label.checkbox, label.yes_no { display: inline; position: relative; top: -2px; }
 * html label.checkbox, * html label.yes_no { top: 1px; }
 label.yes_no { font-weight: normal; }
@@ -7,8 +7,8 @@ input, textarea, select{ background-color: #ffffff; background-image: url(../../
 select { padding: 1px; }
 input:hover, textarea:hover, select:hover { border: 1px solid #aaaaaa; }
 input:focus, textarea:focus, select:focus { border: 1px solid #8dbbce; }
-fieldset { border: 1px solid #cccccc; background-color: #f6f8f9margin: 10px 0; padding: 10px; padding-top: 5px; }
-fieldset legend { font-size: 12px; font-weight: bold; }
+fieldset { border: 1px solid #cccccc; background-color: #f6f8f9; margin: 10px 0; padding: 0 5px 5px 5px; }
+fieldset legend { font-weight: bold; }
 input { width: 200px; }
 input.short { width: 50px; }
 input.medium { width: 150px; }

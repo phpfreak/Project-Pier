@@ -18,10 +18,12 @@
     <p><?php echo lang('my projects archive desc') ?></p>
     <ul class="listWithDetails">
 <?php foreach ($finished_projects as $project) { ?>
-      <li>
-        <a href="<?php echo $project->getOverviewUrl() ?>"><?php echo clean($project->getName()) ?></a><br />
-        <span class="desc">(<?php echo lang('completed on by', format_date($project->getCompletedOn()), $project->getCompletedBy()->getCardUrl(), clean($project->getCompletedBy()->getDisplayName())) ?>)</span>
-      </li>
+      <li><a href="<?php echo $project->getOverviewUrl() ?>"><?php echo clean($project->getName()) ?></a>
+<?php if (is_null($project->getCompletedBy())) { ?>
+<span class="desc">(<?php echo lang('completed on by', format_date($project->getCompletedOn()), lang('deleted user') ) ?>)</span></li>
+<?php } else { ?>
+<span class="desc">(<?php echo lang('completed on by', format_date($project->getCompletedOn()), $project->getCompletedBy()->getCardUrl(), clean($project->getCompletedBy()->getDisplayName())) ?>)</span></li>
+<?php } // if ?>
 <?php } // foreach ?>
     </ul>
   </div>

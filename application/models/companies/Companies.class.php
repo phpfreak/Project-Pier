@@ -45,6 +45,18 @@
         'order' => '`name`'
       )); // array
     } // getCompanyClients
+
+    /**
+    * Return favorite companies
+    *
+    * @param void
+    * @return array
+    */
+    static function getFavorites() {
+      return Companies::findAll(array(
+        'conditions' => array('`is_favorite` = ?', 1),
+        'order' => '`id`'));
+    } // getFavorites
     
   } // Companies
 

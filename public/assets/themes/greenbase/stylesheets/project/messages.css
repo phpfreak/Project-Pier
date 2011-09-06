@@ -1,0 +1,156 @@
+/** Message display **/
+
+/* styling of comments happens in comments.css */
+
+.message .block .header {
+  padding-bottom: 5px;
+  margin-top:0px;
+  padding-top:0px;
+}
+
+.message a {
+  font-size:11px;
+  color:#03C;
+}
+
+.message a:hover {
+  color:white;
+}
+
+.header a {
+  font-size:18px;
+  font-weight:bold;
+  color:black;
+  text-decoration:none;
+}
+
+.header a:hover {
+  color:black;
+  text-decoration:underline;
+  background:none;
+}
+
+.message .messageDetails {
+  border: 0px;
+  padding: 2px 0px;
+  padding-top:5px;
+}
+
+.message .messageText {
+  padding: 0px;
+  padding-left:20px;
+  line-height: 150%;
+  font-size: 12px;
+  color:black;
+  padding-bottom:0px;
+}
+
+/* hide the "read more" link */
+.message .messageText a {
+  display:none;
+}
+
+.message {
+  font-size:10px;
+  color:#777;
+}
+
+.message div.objectFiles {
+  color:#777;
+}
+
+.message .messageOptions {
+  margin-top: 0px;
+  padding-left:20px;
+}
+
+.messageOptions{
+  visibility:hidden;
+}
+
+.message:hover .messageOptions a{
+  visibility:visible
+}
+
+.optionDesc{
+  color:#777;
+}
+
+div.private span {
+  display:inline;
+}
+
+.message .content {
+  padding-top:0px;
+}
+
+.message div.messageAuthor {
+  font-size: 9px;
+  text-transform:uppercase;
+  color:#777;
+}
+
+.messageAuthor a {
+  font-size: 9px;
+  color: #777;
+  background: #DDD;
+  font-weight: bold;
+  text-decoration: none;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  text-transform:none;
+}
+
+.messageAuthor a:hover{
+  text-decoration:underline;
+  color:#777;
+}
+
+.messageCommentCount span{
+  font-size:10px;  
+  color:#777;
+  padding-left:20px;
+  padding-bottom:2px;
+  padding-top:0px;
+}
+
+div.private span {
+  display:none;
+}
+
+div.private .commentHead span {
+  display:inline;
+}
+
+div.private span a {
+  display:inline;
+}
+
+.messageTags span {
+  padding-top:2px;
+  padding-bottom:2px;
+  font-size:9px;
+  color:#777;
+  text-transform:uppercase;
+}
+
+.messageTags a {
+  padding-top:2px;
+  padding-bottom:2px;
+  color:#777;
+  font-weight:bold;
+  text-decoration:none;
+}
+
+.messageTags a:hover {
+  text-decoration:underline;
+  background:none;
+  color:#777;
+}
+
+#messageFormTitle{
+  font-size:18px;
+  font-weight:bold;
+}

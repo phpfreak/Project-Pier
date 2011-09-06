@@ -38,7 +38,6 @@
       <table class="blank">
 <?php foreach ($assigned_milestones as $assigned_milestone) { ?>
         <tr>
-          <td class="milestoneCheckbox"><?php echo checkbox_link($assigned_milestone->getCompleteUrl(), false) ?></td>
           <td class="milestoneText">
 <?php $assigned_to = $assigned_milestone->getAssignedTo() ?>
 <?php if ($assigned_to instanceof Company) { ?>
@@ -56,6 +55,7 @@
 <?php } elseif ($assigned_milestone->isToday()) { ?>
             <span><?php echo lang('today') ?></span>
 <?php } // if ?>
+          <td class="milestoneCheckbox"><?php echo checkbox_link($assigned_milestone->getCompleteUrl(), false) ?></td>
           </td>
         </tr>
 <?php } // foreach?>
@@ -67,7 +67,6 @@
       <table class="blank">
 <?php foreach ($assigned_tasks as $assigned_task) { ?>
         <tr>
-          <td class="taskCheckbox"><?php echo checkbox_link($assigned_task->getCompleteUrl(), false, lang('mark task as completed')) ?></td>
           <td class="taskText">
 <?php $assigned_to = $assigned_task->getAssignedTo() ?>
 <?php if ($assigned_to instanceof Company) { ?>
@@ -80,13 +79,16 @@
 <?php
 $taskDueDate = $assigned_task->getDueDate(); if (!is_null($taskDueDate)) echo ' | '.lang('due date').': <strong>'.format_date($taskDueDate).'</strong>';
 ?>
-            <?php echo do_textile($assigned_task->getText()) ?> 
+            <?php echo do_textile('[' .$assigned_task->getId() . '] ' . $assigned_task->getText()) ?>
 <?php if ($assigned_task->getTaskList() instanceof ProjectTaskList) { ?>
             (<?php echo lang('in') ?> <a href="<?php echo $assigned_task->getTaskList()->getViewUrl() ?>"><?php echo clean($assigned_task->getTaskList()->getName()) ?></a>)
+          <div class="options">
              <?php if ($assigned_task->canEdit(logged_user())) { ?>
-                <a href="<?php echo $assigned_task->getEditUrl() ?>" class="blank" title="<?php echo lang('edit task') ?>"><img src="<?php echo icon_url('edit.gif') ?>" alt="" /></a><?php } // if ?>
-             <?php if ($assigned_task->canDelete(logged_user())) { ?><a href="<?php echo $assigned_task->getDeleteUrl() ?>" class="blank" onclick="return confirm('<?php echo lang('confirm delete task') ?>')" title="<?php echo lang('delete task') ?>"><img src="<?php echo icon_url('cancel_gray.gif') ?>" alt="" /></a>
+                <a href="<?php echo $assigned_task->getEditUrl() ?>" class="blank"><?php echo lang('edit task') ?></a>
              <?php } // if ?>
+             <?php if ($assigned_task->canDelete(logged_user())) { ?><a href="<?php echo $assigned_task->getDeleteUrl() ?>" class="blank" onclick="return confirm('<?php echo lang('confirm delete task') ?>')"><?php echo lang('delete task') ?></a><?php } // if ?>
+             <?php if ($assigned_task->canChangeStatus(logged_user()) && $assigned_task->isOpen()) { ?><a href="<?php echo $assigned_task->getCompleteUrl() ?>" class="blank"><?php echo lang('mark task as completed') ?></a><?php } // if ?>
+          </div>
 <?php } // if ?>
           </td>
         </tr>

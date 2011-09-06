@@ -10,7 +10,7 @@
 */
 if ((!defined('SHOW_MILESTONE_BODY')) or (SHOW_MILESTONE_BODY == true)) {
   echo "\n----------------\n";
-  echo $task->getText();
+  echo '[' .$task->getId() . '] ' .$task->getText();
   echo "\n----------------\n\n";
 }
 ?>

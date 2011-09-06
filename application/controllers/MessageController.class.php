@@ -36,10 +36,24 @@
       }
       
       $this->canGoOn();
+      // Gets desired view 'detail' or 'list'
+      // $view_type is from URL, Cookie or set to default: 'list'
+      $view_type = array_var($_GET, 'view', Cookie::getValue('messagesViewType', 'list'));
+      $expiration = Cookie::getValue('remember'.TOKEN_COOKIE_NAME) ? REMEMBER_LOGIN_LIFETIME : null;
+      Cookie::setValue('messagesViewType', $view_type, $expiration);
+      $period_type = array_var($_GET, 'period', Cookie::getValue('messagesPeriodType', 'fresh'));
+      $expiration = Cookie::getValue('remember'.TOKEN_COOKIE_NAME) ? REMEMBER_LOGIN_LIFETIME : null;
+      Cookie::setValue('messagesPeriodType', $period_type, $expiration);
+
+      $archive_condition = ' AND `updated_on` >= (now() - interval 7 day)';
+      if ($period_type == 'archive') {
+        $archive_condition = ' AND `updated_on` < (now() - interval 7 day)';
+      }
+
       $conditions = logged_user()->isMemberOfOwnerCompany() ? 
-        array('`project_id` = ?', active_project()->getId()) :
-        array('`project_id` = ? AND `is_private` = ?', active_project()->getId(), 0);
-      
+        array('`project_id` = ?' . $archive_condition , active_project()->getId()) :
+        array('`project_id` = ? AND `is_private` = ?' . $archive_condition, active_project()->getId(), 0);
+
       list($messages, $pagination) = ProjectMessages::paginate(
         array(
           'conditions' => $conditions,
@@ -49,6 +63,8 @@
         $page
       ); // paginate
       
+      tpl_assign('view_type', $view_type);
+      tpl_assign('period_type', $period_type);
       tpl_assign('messages', $messages);
       tpl_assign('messages_pagination', $pagination);
       tpl_assign('important_messages', active_project()->getImportantMessages());
@@ -91,7 +107,9 @@
     * @return null
     */
     function add() {
+      $this->addHelper('textile');
       $this->setTemplate('add_message');
+      $this->setSidebar(get_template_path('textile_help_sidebar'));
       
       if (!ProjectMessage::canAdd(logged_user(), active_project())) {
         flash_error(lang('no access permissions'));
@@ -99,6 +117,8 @@
       } // if
       
       $message = new ProjectMessage();
+      $message->setProjectId(active_project()->getId());
+
       tpl_assign('message', $message);
       
       $message_data = array_var($_POST, 'message');
@@ -119,7 +139,6 @@
         
         try {
           $message->setFromAttributes($message_data);
-          $message->setProjectId(active_project()->getId());
           
           // Options are reserved only for members of owner company
           if (!logged_user()->isMemberOfOwnerCompany()) {
@@ -198,6 +217,7 @@
     * @return null
     */
     function edit() {
+      $this->addHelper('textile');
       $this->setTemplate('add_message');
       
       $message = ProjectMessages::findById(get_id());
@@ -212,6 +232,8 @@
       } // if
       
       $message_data = array_var($_POST, 'message');
+
+      $this->setSidebar(get_template_path('textile_help_sidebar'));
       if (!is_array($message_data)) {
         $tag_names = plugin_active('tags') ? $message->getTagNames() : '';
         $message_data = array(
@@ -227,6 +249,7 @@
         ); // array
       } // if
       
+      $this->setSidebar(get_template_path('textile_help_sidebar'));
       tpl_assign('message', $message);
       tpl_assign('message_data', $message_data);
       
@@ -305,6 +328,65 @@
       } // if
       $this->redirectToUrl($message->getViewUrl());
     } // update_options
+
+    /**
+    * Move message
+    *
+    * @access public
+    * @param void
+    * @return null
+    */
+    function move() {
+      $this->setTemplate('move_message');
+      
+      $message = ProjectMessages::findById(get_id());
+      if (!($message instanceof ProjectMessage)) {
+        flash_error(lang('message dnx'));
+        $this->redirectTo('message', 'index');
+      } // if
+      
+      if (!$message->canDelete(logged_user(), active_project())) {
+        flash_error(lang('no access permissions'));
+        $this->redirectTo('message', 'index');
+      } // if
+
+      if (($message->getMilestoneId()>0)) {
+        flash_error(lang('unlink from milestone first'));
+        $this->redirectTo('message', 'index');
+      } // if
+      
+      $move_data = array_var($_POST, 'move_data');
+      tpl_assign('message', $message);
+      tpl_assign('move_data', $move_data);
+
+      if (is_array($move_data)) {
+        $target_project_id = $move_data['target_project_id'];
+        $target_project = Projects::findById($target_project_id);
+        if (!($target_project instanceof Project)) {
+          flash_error(lang('project dnx'));
+          $this->redirectToUrl($message->getMoveUrl());
+        } // if
+        if (!$message->canAdd(logged_user(), $target_project)) {
+          flash_error(lang('no access permissions'));
+          $this->redirectToUrl($message->getMoveUrl());
+        } // if
+        try {
+          DB::beginWork();
+          $message->setProjectId($target_project_id);
+          $message->save();
+          ApplicationLogs::createLog($message, active_project(), ApplicationLogs::ACTION_DELETE);
+          ApplicationLogs::createLog($message, $target_project, ApplicationLogs::ACTION_ADD);
+          DB::commit();
+
+          flash_success(lang('success move message', $message->getTitle(), active_project()->getName(), $target_project->getName() ));
+        } catch(Exception $e) {
+          DB::rollback();
+          flash_error(lang('error move message', $e->getMessage()));
+        } // try
+
+        $this->redirectToUrl($message->getViewUrl());
+      }
+    } // move_message
     
     /**
     * Delete specific message

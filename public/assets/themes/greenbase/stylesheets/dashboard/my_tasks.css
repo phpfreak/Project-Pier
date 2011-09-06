@@ -1,0 +1,57 @@
+/* warning : including this file will hide the action block*/
+
+/* hidden things */
+#page_actions{
+  visibility:hidden;
+}
+td.milestoneText, td.milestoneCheckbox {
+  display:none;
+}
+
+#myTasks div.content p {
+  font-weight: normal;
+}
+
+#myTasks .header {
+  padding-top:0px;
+  padding-bottom:10px;
+}
+
+#myTasks .block {
+  margin-bottom:5px;
+  padding-top:10px;
+}
+
+td.taskCheckbox {
+  padding-top: 4px;
+  color:#000;
+}
+
+td.taskText {
+  padding-left: 5px;
+  padding-bottom: 5px;
+}
+
+#userbox li {
+	font-size: 110%;
+}
+
+.taskText p {
+    display:inline;
+}
+
+.taskText img{
+  visibility:hidden;
+}
+
+.taskText:hover img{
+  visibility:visible;
+}
+
+.content p {
+  display:none;
+}
+
+.taskText p {
+  display:inline;
+}

@@ -324,7 +324,7 @@
       $to = str_replace('&amp;', '&', $to);
     } // if
 
-    while (ob_get_level()) ob_end_clean();
+    if(ob_get_level()>0) while(@ob_end_clean());
     header('Location: ' . $to);
     if ($die) {
       session_write_close();

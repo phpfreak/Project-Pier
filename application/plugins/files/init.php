@@ -4,36 +4,40 @@
   define('PROJECT_TAB_FILES', 'files');
   add_action('add_project_tab', 'files_add_project_tab');
   function files_add_project_tab() {
-    add_tabbed_navigation_item(new TabbedNavigationItem(
-      PROJECT_TAB_FILES,
-      lang('files'),
-      get_url('files', 'index')
-    ));
+    if (use_permitted(logged_user(), active_project(), 'files')) {
+      add_tabbed_navigation_item(
+        PROJECT_TAB_FILES,
+        'files',
+        get_url('files', 'index')
+      );
+    }
   }
  
   // overview page
   add_action('project_overview_page_actions','files_project_overview_page_actions');
   function files_project_overview_page_actions() {
-    if (ProjectFile::canAdd(logged_user(), active_project())) {
-      add_page_action(lang('add file'), get_url('files', 'add_file'));
-    } // if
-    if (ProjectFolder::canAdd(logged_user(), active_project())) {
-      add_page_action(lang('add folder'), get_url('files', 'add_folder'));
+    if (use_permitted(logged_user(), active_project(), 'files')) {
+      if (ProjectFile::canAdd(logged_user(), active_project())) {
+        add_page_action(lang('add file'), get_url('files', 'add_file'));
+      } // if
+      if (ProjectFolder::canAdd(logged_user(), active_project())) {
+        add_page_action(lang('add folder'), get_url('files', 'add_folder'));
+      } // if
     } // if
   }
 
   // my tasks dropdown
   add_action('my_tasks_dropdown','files_my_tasks_dropdown');
   function files_my_tasks_dropdown() {
-    //if (logged_user()->getProjectPermission(active_project(), PermissionManager::CAN_MANAGE_FILES)) {
+    if (use_permitted(logged_user(), active_project(), 'files')) {
       echo '<li class="header"><a href="'.get_url('files', 'index').'">'.lang('files').'</a></li>';
-    //} // if
-    if (ProjectFile::canAdd(logged_user(), active_project())) {
-      echo '<li><a href="'.get_url('files', 'add_file').'">'.lang('add file').'</a></li>';
+      if (ProjectFile::canAdd(logged_user(), active_project())) {
+        echo '<li><a href="'.get_url('files', 'add_file').'">'.lang('add file').'</a></li>';
+      } // if
+      if (ProjectFolder::canAdd(logged_user(), active_project())) { 
+        echo '<li><a href="'.get_url('files', 'add_folder').'">'.lang('add folder').'</a></li>';
+      } // if 
     } // if
-    if (ProjectFolder::canAdd(logged_user(), active_project())) { 
-      echo '<li><a href="'.get_url('files', 'add_folder').'">'.lang('add folder').'</a></li>';
-    } // if 
   }
 
   /**
@@ -99,6 +103,7 @@ CREATE TABLE IF NOT EXISTS `{$tp}project_folders` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
   `project_id` int(10) unsigned NOT NULL default '0',
   `name` varchar(50) $cs $co NOT NULL default '',
+  `parent_id` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `project_id` (`project_id`,`name`)
 );

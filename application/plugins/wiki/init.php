@@ -3,11 +3,13 @@
   define('PROJECT_TAB_WIKI', 'wiki');
   add_action('add_project_tab', 'wiki_add_project_tab');
   function wiki_add_project_tab() {
-    add_tabbed_navigation_item(new TabbedNavigationItem(
-      PROJECT_TAB_WIKI,
-      lang('wiki'),
-      get_url('wiki', 'index')
-    ));
+    if (use_permitted(logged_user(), active_project(), 'wiki')) {
+      add_tabbed_navigation_item(
+        PROJECT_TAB_WIKI,
+        'wiki',
+        get_url('wiki', 'index')
+      );
+    } // if
   }
  
   // overview page

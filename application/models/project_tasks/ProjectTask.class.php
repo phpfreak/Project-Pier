@@ -91,7 +91,7 @@
     } // getAssignedTo
     
     /**
-    * Return owner comapny
+    * Return owner company
     *
     * @access public
     * @param void

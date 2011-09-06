@@ -6,8 +6,7 @@
   account_crumbs(lang('index'));
   add_page_action(array(
     lang('update profile')  => logged_user()->getEditProfileUrl(),
-    lang('change password') => logged_user()->getEditPasswordUrl(),
-    lang('update avatar')   => logged_user()->getUpdateAvatarUrl()
+    lang('change password') => logged_user()->getEditPasswordUrl()
   ));
   
   if ($user->canUpdatePermissions(logged_user())) {
@@ -19,5 +18,5 @@
 ?>
 <?php
   $this->assign('user', logged_user());
-  $this->includeTemplate(get_template_path('user_card', 'user'));
+  $this->includeTemplate(get_template_path('contact_card', 'contacts'));
 ?>

@@ -16,6 +16,7 @@
   */
   function render_user_box(User $user) {
     tpl_assign('_userbox_user', $user);
+    tpl_assign('_userbox_contact', $user->getContact());
     tpl_assign('_userbox_projects', $user->getActiveProjects());
     return tpl_fetch(get_template_path('user_box', 'application'));
   } // render_user_box
@@ -66,6 +67,99 @@
   } // select_company
 
   /**
+  * Render select contact box
+  *
+  * @param integer $selected ID of selected contact
+  * @param array $exclude_contacts Array of IDs of contacts that need to be excluded (already attached to project etc)
+  * @param array $attributes Additional attributes
+  * @return string
+  */
+  function select_contact($name, $selected = null, $exclude_contacts = null, $attributes = null) {
+    $grouped_contacts = Contacts::getGroupedByCompany();
+    $all_options = array(option_tag(lang('none'), 0));
+    if (is_array($grouped_contacts)) {
+      foreach ($grouped_contacts as $company_name => $contacts) {
+        if (is_array($contacts) && is_array($contacts['contacts']) && count($contacts['contacts'])) {
+          $options = array();
+          foreach ($contacts['contacts'] as $contact) {
+            if (is_array($exclude_contacts) && in_array($contact->getId(), $exclude_contacts)) {
+              continue;
+            }
+            $contact_name = $contact->getDisplayName();
+            if ($contact->isAdministrator()) {
+              $contact_name .= ' (' . lang('administrator') . ')';
+            }
+            $option_attributes = $contact->getId() == $selected ? array('selected' => 'selected') : null;
+            $options[] = option_tag($contact_name, $contact->getId(), $option_attributes);
+          } // foreach
+          if (count($options)) {
+            $all_options[] = option_tag('', 0); // separator
+            $all_options[] = option_group_tag($company_name, $options);
+          } // if
+        } // if
+      } // foreach
+    } // if
+    return select_box($name, $all_options, $attributes);
+  } // select_contact  
+
+  /**
+  * Render select project user box
+  *
+  * @param string $name Name of the widget
+  * @param Project $project
+  * @param integer $selected ID of selected user
+  * @param array $exclude_users Array of IDs of users that need to be excluded (e.g. already subscribers)
+  * @param array $attributes Additional attributes
+  * @return string
+  */
+  function select_project_user($name, $project = null, $selected = null, $exclude_users = null, $attributes = null) {
+    if (is_null($project)) {
+      $project = active_project();
+    } // if
+    if (!($project instanceof Project)) {
+      throw new InvalidInstanceError('$project', $project, 'Project');
+    } // if
+
+    if (is_array($attributes)) {
+      if (!isset($attributes['class'])) {
+        $attributes['class'] = 'select_project_user';
+      } // if
+    } else {
+      $attributes = array('class' => 'select_project_user');
+    } // if
+
+    $grouped_project_users = $project->getUsers(true);
+    $all_options = array(option_tag(lang('none'), 0));
+    if (is_array($grouped_project_users)) {
+      foreach ($grouped_project_users as $company_id => $users) {
+        $company = Companies::findById($company_id);
+        if (!($company instanceof Company)) {
+          continue;
+        } // if
+        
+        $options = array();
+        if (is_array($users)) {
+          foreach ($users as $user) {
+            if (is_array($exclude_users) && in_array($user->getId(), $exclude_users)) {
+              continue;
+            } // if
+            $option_attributes = ($user->getId() == $selected ? array('selected' => 'selected') : null);
+            $display_name = $user->getDisplayName().($user->getId() == logged_user()->getId() ? ' ('.lang('you').')' : '');
+            $options[] = option_tag($display_name, $user->getId(), $option_attributes);
+            
+          } // foreach
+          if (count($options)) {
+            $all_options[] = option_group_tag($company->getName(), $options);
+          } // if
+          
+        }
+      } // foreach
+    } // if
+    
+    return select_box($name, $all_options, $attributes);
+  } // select_project_user
+  
+  /**
   * Renders select project box
   *
   * @param string $name
@@ -99,7 +193,45 @@
     
     return select_box($name, $options, $attributes);
   } // select_milestone
+
+  /**
+  * Render select assignee box
+  *
+  * @param string $name Name of the widget
+  * @param array $assignees
+  * @param integer $selected ID of selected assignee
+  * @param array $attributes Additional attributes
+  * @return string
+  */
+  function select_assignee($name, $assignees = null, $selected = null, $attributes = null) {
+    if (!is_array($assignees)) {
+      return '';
+    } // if
+
+    if (is_array($attributes)) {
+      if (!isset($attributes['class'])) {
+        $attributes['class'] = 'select_assignee';
+      } // if
+    } else {
+      $attributes = array('class' => 'select_assignee');
+    } // if
+
+    $options = array();
+    $option_attributes = ('all' == $selected ? array('selected' => 'selected') : null);
+    $options[] = option_tag(lang('all'), 'all', $option_attributes);
+    $option_attributes = ('0:0' == $selected ? array('selected' => 'selected') : null);
+    $options[] = option_tag(lang('unassigned'), '0:0', $option_attributes);
+    if (is_array($assignees)) {
+      foreach ($assignees as $assignee) {
+        $option_attributes = ($assignee->getId() == $selected ? array('selected' => 'selected') : null);
+        $display_name = $assignee->getObjectName().($assignee->getId() == logged_user()->getId() ? ' ('.lang('you').')' : '');
+        $options[] = option_tag($display_name, $assignee->getId(), $option_attributes);       
+      } // foreach
+    }
     
+    return select_box($name, $options, $attributes);
+  } // select_assignee
+
   /**
   * Render assign to SELECT
   *
@@ -194,7 +326,8 @@
     if (is_array($milestones)) {
       foreach ($milestones as $milestone) {
         $option_attributes = $milestone->getId() == $selected ? array('selected' => 'selected') : null;
-        $options[] = option_tag($milestone->getName(), $milestone->getId(), $option_attributes);
+        //$options[] = option_tag($milestone->getName(), $milestone->getId(), $option_attributes);
+        $options[] = option_tag($milestone->getName()." (".format_date($milestone->getDueDate()).")", $milestone->getId(), $option_attributes);
       } // foreach
     } // if
     
@@ -267,73 +400,51 @@
     $options = array(option_tag(lang('none'), 0));
     $messages = $project->getMessages();
     if (is_array($messages)) {
-      foreach ($messages as $messages) {
-        $option_attributes = $messages->getId() == $selected ? array('selected' => 'selected') : null;
-        $options[] = option_tag($messages->getTitle(), $messages->getId(), $option_attributes);
+      foreach ($messages as $message) {
+        $option_attributes = $message->getId() == $selected ? array('selected' => 'selected') : null;
+        $options[] = option_tag($message->getTitle(), $message->getId(), $option_attributes);
       } // foreach
     } // if
     
     return select_box($name, $options, $attributes);
   } // select_message
-  
+
   /**
-  * Select a single project file
+  * Return select ticket control
   *
   * @param string $name Control name
   * @param Project $project
-  * @param integer $selected ID of selected file
-  * @param array $exclude_files Array of IDs of files that need to be excluded (already attached to object etc)
-  * @param array $attributes
+  * @param integer $selected ID of selected ticket
+  * @param array $attributes Additional attributes
   * @return string
   */
-  function select_project_file($name, $project = null, $selected = null, $exclude_files = null, $attributes = null) {
+  function select_ticket($name, $project = null, $selected = null, $attributes = null) {
     if (is_null($project)) {
       $project = active_project();
-    } // if
+    }
     if (!($project instanceof Project)) {
       throw new InvalidInstanceError('$project', $project, 'Project');
+    }
+    
+    if (is_array($attributes)) {
+      if (!isset($attributes['class'])) {
+        $attributes['class'] = 'select_ticket';
+      }
+    } else {
+      $attributes = array('class' => 'select_ticket');
     } // if
     
-    $all_options = array(option_tag(lang('none'), 0)); // array of options
-    
-    $folders = $project->getFolders();
-    if (is_array($folders)) {
-      foreach ($folders as $folder) {
-        $files = $folder->getFiles();
-        if (is_array($files)) {
-          $options = array();
-          foreach ($files as $file) {
-            if (is_array($exclude_files) && in_array($file->getId(), $exclude_files)) {
-              continue;
-            }
-            
-            $option_attrbutes = $file->getId() == $selected ? array('selected' => true) : null;
-            $options[] = option_tag($file->getFilename(), $file->getId(), $option_attrbutes);
-          } // if
-          
-          if (count($options)) {
-            $all_options[] = option_tag('', 0); // separator
-            $all_options[] = option_group_tag($folder->getName(), $options);
-          } // if
-        } // if
+    $options = array(option_tag(lang('none'), 0));
+    $tickets = $project->getTickets();
+    if (is_array($tickets)) {
+      foreach ($tickets as $ticket) {
+        $option_attributes = $ticket->getId() == $selected ? array('selected' => 'selected') : null;
+        $options[] = option_tag($ticket->getTitle(), $ticket->getId(), $option_attributes);
       } // foreach
     } // if
     
-    $orphaned_files = $project->getOrphanedFiles();
-    if (is_array($orphaned_files)) {
-      $all_options[] = option_tag('', 0); // separator
-      foreach ($orphaned_files as $file) {
-        if (is_array($exclude_files) && in_array($file->getId(), $exclude_files)) {
-          continue;
-        }
-        
-        $option_attrbutes = $file->getId() == $selected ? array('selected' => true) : null;
-        $all_options[] = option_tag($file->getFilename(), $file->getId(), $option_attrbutes);
-      } // foreach
-    } // if
-    
-    return select_box($name, $all_options, $attributes);
-  } // select_project_file
+    return select_box($name, $options, $attributes);
+  } // select_ticket
   
   /**
   * Return project object tags widget
@@ -398,6 +509,36 @@
   } // render_post_comment_form
   
   /**
+  * Show object comments block in short form
+  * Status updates are just comments displayed in a short form
+  *
+  * @param ProjectDataObject $object Show comments of this object
+  * @return null
+  */
+  function render_object_status_updates(ProjectDataObject $object) {
+    if (!$object->isCommentable()) {
+      return '';
+    }
+    tpl_assign('__comments_object', $object);
+    return tpl_fetch(get_template_path('object_statuses', 'comment'));
+  } // render_object_status_updates
+  
+  /**
+  * Render post comment form for specific project object in short form
+  * Status updates are just comments displayed in a short form
+  *
+  * @param ProjectDataObject $object
+  * @return string
+  */
+  function render_status_update_form(ProjectDataObject $object) {
+    $comment = new Comment();
+    
+    tpl_assign('comment_form_comment', $comment);
+    tpl_assign('comment_form_object', $object);
+    return tpl_fetch(get_template_path('post_status_update_form', 'comment'));
+  } // render_status_update_form
+    
+  /**
   * This function will render the code for file attachment section of the form. Note that 
   * this need to be part of the existing form
   *
@@ -406,7 +547,7 @@
   * @return string
   */
   function render_attach_files($prefix = 'attach_files', $max_controls = 5) {
-    if (!function_exists('files_activate')) {
+    if (!plugin_active('files')) {
       return '';
     }
     static $ids = array();
@@ -435,13 +576,71 @@
   * @return string
   */
   function render_object_files(ProjectDataObject $object, $can_remove = false) {
-    if (!function_exists('files_activate')) {
-      return '';
+    if (plugin_active('files')) {
+      tpl_assign('attached_files_object', $object);
+      tpl_assign('attached_files', $object->getAttachedFiles());
+      return tpl_fetch(get_template_path('list_attached_files', 'files'));
     }
-    tpl_assign('attached_files_object', $object);
-    tpl_assign('attached_files', $object->getAttachedFiles());
-    return tpl_fetch(get_template_path('list_attached_files', 'files'));
+    return '';
   } // render_object_files
+
+  /**
+  * List briefly all files attached to specific object
+  *
+  * @param ProjectDataObject $object
+  * @param boolean $can_remove Logged user can remove attached files
+  * @return string
+  */
+  function render_object_files_brief(ProjectDataObject $object, $can_remove = false) {
+    if (plugin_active('files')) {
+      tpl_assign('attached_files_object', $object);
+      tpl_assign('attached_files', $object->getAttachedFiles());
+      return tpl_fetch(get_template_path('brief_list_attached_files', 'files'));
+    }
+    return '';
+  } // render_object_files
+
+  /**
+  * Render the tags of a specific object
+  *
+  * @param ProjectDataObject $object
+  * @return string
+  */
+  function render_object_tags(ProjectDataObject $object) {
+    if (plugin_active('tags')) {
+      tpl_assign('object', $object);
+      //tpl_assign('tags', $object->getTags());
+      return tpl_fetch(get_template_path('object_tags', 'tags'));
+    }
+    return '';
+  } // render_tags
+
+  /**
+  * Render the options available for the given object
+  *
+  * @param ProjectDataObject $object
+  * @return string
+  */
+  function render_object_options(ProjectDataObject $object, $additional_options = null) {
+    $options = array();
+    if ($object->canEdit(logged_user())) {
+      $options[] = '<a href="' . $object->getEditUrl() . '">' . lang('edit') . '</a>';
+    } // if
+    if ($object->canView(logged_user())) {
+      $options[] = '<a href="' . $object->getViewUrl() . '">' . lang('view') . '</a>';
+    } // if
+    if ($object->canDelete(logged_user())) {
+      $options[] = '<a href="' . $object->getDeleteUrl() . '">' . lang('delete') . '</a>';
+    } // if
+    if (is_array($additional_options)) {
+      $options = array_merge( $options, $additional_options );
+    }
+    if (count($options)) {
+      tpl_assign('options', $options);
+      return tpl_fetch(get_template_path('object_options', 'application'));
+    }
+    return '';
+  } // render_options
   
   /**
   * Render application logs

@@ -1,24 +1,27 @@
 /** Tickets display **/
 
 #tickets .critical, #tickets_legend .critical {
-  background-color: #ffbaba;
+  xbackground-color: #ffbaba;
+  background: #F9EAE4 url('../../images/layout/bg_alert.png') repeat-x top right;
+  height: 100%;
 }
 
 #tickets .major, #tickets_legend .major {
-  background-color: #fcffb1;
+  xbackground-color: #fcffb1;
+  background: #EBF2F6 url('../../images/layout/bg_block.png') repeat-x top right;
+  height: 100%;
 }
 
 #tickets .minor, #tickets_legend .minor {
-  background-color: #d6e7ff;
+  xbackground-color: #d6e7ff;
+  background: #FAFAE0 url('../../images/layout/bg_success.png') repeat-x top right;
+  height: 100%;
 }
 
 #tickets .trivial, #tickets_legend .trivial {
   background-color: #ffffff;
-}
-
-#tickets .tickets_header {
-  font-weight: bold;
-  font-size: 14px;
+  background: #EBF2F6 url('../../images/layout/bg_userbox.png') repeat-x top right;
+  height: 100%;
 }
 
 #tickets_legend {
@@ -32,7 +35,7 @@
 }
 
 #tickets_legend ul {
-  list-style: none;
+  xlist-style: none;
 }
 
 #tickets_legend li .legend {
@@ -49,4 +52,8 @@
 
 #ticket table.properties {
  width: 100%;
+}
+
+#ticket select {
+ width: 145px;
 }

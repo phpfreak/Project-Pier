@@ -1,6 +1,7 @@
 INSERT INTO `<?php echo $table_prefix ?>administration_tools` (`name`, `controller`, `action`, `order`) VALUES ('test_mail_settings', 'administration', 'tool_test_email', 1);
 INSERT INTO `<?php echo $table_prefix ?>administration_tools` (`name`, `controller`, `action`, `order`) VALUES ('mass_mailer', 'administration', 'tool_mass_mailer', 2);
 INSERT INTO `<?php echo $table_prefix ?>administration_tools` (`name`, `controller`, `action`, `order`) VALUES ('system_info', 'administration', 'system_info', 3);
+INSERT INTO `<?php echo $table_prefix ?>administration_tools` (`name`, `controller`, `action`, `order`) VALUES ('browse_log', 'administration', 'browse_log', 4);
 
 INSERT INTO `<?php echo $table_prefix ?>config_categories` (`name`, `is_system`, `category_order`) VALUES ('system', 1, 0);
 INSERT INTO `<?php echo $table_prefix ?>config_categories` (`name`, `is_system`, `category_order`) VALUES ('general', 0, 1);
@@ -24,7 +25,7 @@ INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'upgrade_check_enabled', '0', 'BoolConfigHandler', 0, 0, 'Upgrade check enabled / disabled');
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'file_storage_adapter', 'fs', 'FileStorageConfigHandler', 0, 0, 'What storage adapter should be used? fs or mysql');
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'default_project_folders', 'images\r\ndocuments\r\nother\r\n', 'TextConfigHandler', 0, 3, NULL);
-INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'theme', 'redbase', 'ThemeConfigHandler', 0, 0, NULL);
+INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'theme', 'marine', 'ThemeConfigHandler', 0, 0, NULL);
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'logout_redirect_page', 'default', 'StringConfigHandler', '0', '0', 'Logout Redirect mod by Alex: Redirect to a set page upon logout');
 
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('mailing', 'exchange_compatible', '0', 'BoolConfigHandler', 0, 90, NULL);
@@ -39,7 +40,7 @@ INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('mailing', 'smtp_secure_connection', 'no', 'SecureSmtpConnectionConfigHandler', 0, 25, 'Values: no, ssl, tls');
 
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'ldap_host', '', 'StringConfigHandler', 0, 0, NULL);
-INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'ldap_domain', '', 'StringConfigHandler', 0, 0, NULL);
+INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'ldap_domain', '', 'StringConfigHandler', 0, 0, 'Note: %s is replaced with user name. Example 1. %s@example.com . Example 2. uid=%s,dc=example,dc=com');
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'ldap_secure_connection', 'no', 'SecureLDAPConnectionConfigHandler', 0, 0, 'Values: no, tls');
 
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('features', 'per_project_activity_logs', '0', 'BoolConfigHandler', 0, 0, 'Show recent activity logs per project on the owner company dashboard (like BaseCamp) rather than all mashed together');
@@ -51,6 +52,7 @@ INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('features', 'send_notification_default', '0', 'BoolConfigHandler', 0, 0, 'Default setting for Send notification option');
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('features', 'enable_efqm', '0', 'BoolConfigHandler', 0, 0, 'Enable EFQM options (www.efqm.org)');
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('features', 'display_application_logs', '1', 'BoolConfigHandler', 0, 0, 'Display application logs');
+INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('features', 'login_show_options', '1', 'BoolConfigHandler', 0, 0, 'Show options on the login page');
 
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'installation_root', '/', 'StringConfigHandler', 0, 0, NULL);
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'check_email_unique', '0', 'BoolConfigHandler', 0, 0, 'True if emails should be unique when adding/editing a user');
@@ -61,11 +63,12 @@ INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'default_controller', 'dashboard', 'StringConfigHandler', 0, 25, 'Controller to use after login (future use)');
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'default_action', 'index', 'DefaultDashboardActionConfigHandler', 0, 26, 'Action to perform after login (e.g. show dashboard)');
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('system', 'product_name', 'ProjectPier', 'StringConfigHandler', 1, 0, NULL);
-INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('system', 'product_version', '0.8.6', 'StringConfigHandler', 1, 0, NULL);
+INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('system', 'product_version', '0.8.8', 'StringConfigHandler', 1, 0, NULL);
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('tickets', 'tickets_default_categories', 'information request\r\nchange request\r\nincident report\r\ncomplaint\r\ndefect report\r\ngeneral/other', 'TextConfigHandler', 0, 3, NULL);
-INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'installation_welcome_text', 'Welcome to ProjectPier 0.8.7', 'StringConfigHandler', 0, 11, NULL);
-INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'installation_welcome_logo', '<img src="public/assets/themes/marine/images/logo.gif" style="position: relative; left: 0px; top: 0px;">', 'StringConfigHandler', 0, 10, 'Logo to display above login user/pass');
+INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'installation_welcome_text', 'Welcome to ProjectPier 0.8.8', 'StringConfigHandler', 0, 11, NULL);
+INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'installation_welcome_logo', '<img src="public/assets/themes/marine/images/projectpier-logo.png" style="position: relative; left: 0px; top: 0px;">', 'StringConfigHandler', 0, 10, 'Logo to display above login user/pass');
 
+INSERT INTO `<?php echo $table_prefix ?>file_types` (`id`, `extension`, `icon`, `is_searchable`, `is_image`) VALUES (0, 'xxx', 'unknown.png', 0, 0);
 INSERT INTO `<?php echo $table_prefix ?>file_types` (`extension`, `icon`, `is_searchable`, `is_image`) VALUES ('zip', 'archive.png', 0, 0);
 INSERT INTO `<?php echo $table_prefix ?>file_types` (`extension`, `icon`, `is_searchable`, `is_image`) VALUES ('rar', 'archive.png', 0, 0);
 INSERT INTO `<?php echo $table_prefix ?>file_types` (`extension`, `icon`, `is_searchable`, `is_image`) VALUES ('bz', 'archive.png', 0, 0);
@@ -93,6 +96,8 @@ INSERT INTO `<?php echo $table_prefix ?>file_types` (`extension`, `icon`, `is_se
 INSERT INTO `<?php echo $table_prefix ?>file_types` (`extension`, `icon`, `is_searchable`, `is_image`) VALUES ('qt', 'mov.png', 0, 0);
 INSERT INTO `<?php echo $table_prefix ?>file_types` (`extension`, `icon`, `is_searchable`, `is_image`) VALUES ('vob', 'video.png', 0, 0);
 INSERT INTO `<?php echo $table_prefix ?>file_types` (`extension`, `icon`, `is_searchable`, `is_image`) VALUES ('txt', 'doc.png', 1, 0);
+INSERT INTO `<?php echo $table_prefix ?>file_types` (`extension`, `icon`, `is_searchable`, `is_image`) VALUES ('php', 'doc.png', 1, 0);
+INSERT INTO `<?php echo $table_prefix ?>file_types` (`extension`, `icon`, `is_searchable`, `is_image`) VALUES ('mp4', 'video.png', 1, 0);
 
 INSERT INTO `<?php echo $table_prefix ?>im_types` (`name`, `icon`) VALUES ('ICQ', 'icq.gif');
 INSERT INTO `<?php echo $table_prefix ?>im_types` (`name`, `icon`) VALUES ('AIM', 'aim.gif');
@@ -130,6 +135,20 @@ INSERT INTO `<?php echo $table_prefix ?>permissions` (`id`, `source`, `permissio
 INSERT INTO `<?php echo $table_prefix ?>permissions` (`id`, `source`, `permission`) VALUES (9, 'projects', 'manage');
 INSERT INTO `<?php echo $table_prefix ?>permissions` (`id`, `source`, `permission`) VALUES (10, 'milestones', 'change status');
 INSERT INTO `<?php echo $table_prefix ?>permissions` (`id`, `source`, `permission`) VALUES (11, 'times', 'manage');
+INSERT INTO `<?php echo $table_prefix ?>permissions` (`id`, `source`, `permission`) VALUES (12, 'tasks', 'edit score');
+INSERT INTO `<?php echo $table_prefix ?>permissions` (`id`, `source`, `permission`) VALUES (13, 'milestones', 'edit goal');
+INSERT INTO `<?php echo $table_prefix ?>permissions` (`id`, `source`, `permission`) VALUES (14, 'messages', 'access');
+INSERT INTO `<?php echo $table_prefix ?>permissions` (`id`, `source`, `permission`) VALUES (15, 'tasks', 'access');
+INSERT INTO `<?php echo $table_prefix ?>permissions` (`id`, `source`, `permission`) VALUES (16, 'files', 'access');
+INSERT INTO `<?php echo $table_prefix ?>permissions` (`id`, `source`, `permission`) VALUES (17, 'forms', 'access');
+INSERT INTO `<?php echo $table_prefix ?>permissions` (`id`, `source`, `permission`) VALUES (18, 'wiki', 'access');
+INSERT INTO `<?php echo $table_prefix ?>permissions` (`id`, `source`, `permission`) VALUES (19, 'wiki', 'manage');
+INSERT INTO `<?php echo $table_prefix ?>permissions` (`id`, `source`, `permission`) VALUES (20, 'projects', 'access');
+INSERT INTO `<?php echo $table_prefix ?>permissions` (`id`, `source`, `permission`) VALUES (21, 'contacts', 'access');
+INSERT INTO `<?php echo $table_prefix ?>permissions` (`id`, `source`, `permission`) VALUES (22, 'contacts', 'manage');
+INSERT INTO `<?php echo $table_prefix ?>permissions` (`id`, `source`, `permission`) VALUES (23, 'search', 'access');
+INSERT INTO `<?php echo $table_prefix ?>permissions` (`id`, `source`, `permission`) VALUES (24, 'tags', 'access');
+INSERT INTO `<?php echo $table_prefix ?>permissions` (`id`, `source`, `permission`) VALUES (25, 'reports', 'access');
 
 INSERT INTO `<?php echo $table_prefix ?>project_user_permissions` (`user_id`, `project_id`, `permission_id`) VALUES (1, 1, 1);
 INSERT INTO `<?php echo $table_prefix ?>project_user_permissions` (`user_id`, `project_id`, `permission_id`) VALUES (1, 1, 2);
@@ -140,6 +159,11 @@ INSERT INTO `<?php echo $table_prefix ?>project_user_permissions` (`user_id`, `p
 INSERT INTO `<?php echo $table_prefix ?>project_user_permissions` (`user_id`, `project_id`, `permission_id`) VALUES (1, 1, 7);
 INSERT INTO `<?php echo $table_prefix ?>project_user_permissions` (`user_id`, `project_id`, `permission_id`) VALUES (1, 1, 8);
 INSERT INTO `<?php echo $table_prefix ?>project_user_permissions` (`user_id`, `project_id`, `permission_id`) VALUES (1, 1, 10);
+INSERT INTO `<?php echo $table_prefix ?>project_user_permissions` (`user_id`, `project_id`, `permission_id`) VALUES (1, 1, 11);
+INSERT INTO `<?php echo $table_prefix ?>project_user_permissions` (`user_id`, `project_id`, `permission_id`) VALUES (1, 1, 12);
+INSERT INTO `<?php echo $table_prefix ?>project_user_permissions` (`user_id`, `project_id`, `permission_id`) VALUES (1, 1, 13);
+INSERT INTO `<?php echo $table_prefix ?>project_user_permissions` (`user_id`, `project_id`, `permission_id`) VALUES (1, 1, 14);
+INSERT INTO `<?php echo $table_prefix ?>project_user_permissions` (`user_id`, `project_id`, `permission_id`) VALUES (1, 1, 15);
 
 INSERT INTO `<?php echo $table_prefix ?>plugins` (`plugin_id`, `name`, `installed`) VALUES (1, 'files', 0);
 INSERT INTO `<?php echo $table_prefix ?>plugins` (`plugin_id`, `name`, `installed`) VALUES (2, 'form', 0);

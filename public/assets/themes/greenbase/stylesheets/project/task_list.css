@@ -1,0 +1,167 @@
+div.taskList {
+}
+
+div.taskList .desc {
+  padding: 2px;
+  padding-left:0px;
+  padding-bottom: 0;
+  font-size:12px;
+  color:black;
+}
+
+div.taskList .openTasks, .taskList .completedTasks {
+  margin: 4px;
+}
+
+.openTasks table{
+  margin-left:20px;
+  width:100%;
+}
+
+.completedTasks table{
+  margin-left:10px;
+  border-left:2px;
+}
+
+#openTaskLists .block {
+  margin-bottom:5px;
+  padding-bottom:0px;
+}
+
+div.dueDate{
+  color:#777;
+  font-size:9px;
+  text-transform:uppercase;
+  padding-top:2px;
+}
+
+div.taskList .desc {
+}
+
+div.taskList td.taskCheckbox {
+  padding-top: 4px;
+}
+
+div.options{
+  margin-top:2px;
+}
+
+div.taskList span.assignedTo {
+  font-weight: bolder;
+}
+
+div.taskList .addTask {
+  padding: 10px;
+  background: #e8e8e8;
+}
+
+div.taskList .options {
+  padding: 0 0 0px 0px;
+  padding-bottom:5px;
+  font-size: 10px;
+  color: #999;
+}
+
+div.taskList .options a {
+	color:#AAA;
+  padding:1px;
+  padding-left:3px;
+  padding-right:3px;
+  text-decoration:none;
+  position:relative;
+  left:-3px;
+}
+
+div.taskText .options a{
+  padding:0px;
+}
+
+div.taskList .completedTasks {
+  color: #333;
+  font-size: 10px;
+}
+
+div.taskList .completedTasks td {
+  padding: 0 2px;
+  color:#999;
+}
+
+div.taskList span.taskCompletedOnBy {
+  color: #999;
+  text-transform:uppercase;
+}
+
+span.taskCompletedOnBy a {
+  text-transform:none;
+}
+
+div.taskList .taskListTags {
+  margin: 0px;
+  font-size: 9px;
+  padding-top:2px;
+}
+
+div.taskList .taskListTags span {
+  text-transform:uppercase;
+  color:#777;
+}
+
+div.taskList .taskListTags a {
+  color:#777;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+div.taskList .taskListTags a:hover {
+  background:none;
+  text-decoration:underline;
+}
+
+div.taskList .taskText  {
+  padding: 0 0 5px 0;
+}
+
+div.taskList .taskText {
+  line-height:150%;
+}
+
+.openTasks .taskText td {
+  list-style:square;
+  border-left:1px solid black;
+}
+
+.taskText p {
+  margin-bottom:0px;
+  margin-top:10px;
+  padding-left:0px;
+}
+
+.taskText .dueDate {
+  line-height:100%;
+  padding-top:5px;
+  padding-left:0px;
+}
+
+.taskText .options {
+  line-height:100%;
+  margin-top:5px;
+  margin-left:0px;
+  visibility:hidden;
+  display:inline;
+}
+
+.taskText .assignedTo {
+  visibility:visible;
+}
+
+.taskText:hover .options a {
+  visibility:visible;
+}
+
+.completedTasks .taskCompletedOnBy {
+  visibility:visible;
+}
+
+.completedTasks p {
+  color:black;
+}

@@ -25,7 +25,9 @@
   // Tab IDs
   define('DASHBOARD_TAB_OVERVIEW', 'overview');
   define('DASHBOARD_TAB_MY_PROJECTS', 'my_projects');
-  define('DASHBOARD_TAB_MY_TASKS', 'my_task');
+  define('DASHBOARD_TAB_MY_TASKS', 'my_tasks');
+  define('DASHBOARD_TAB_WEEKLY_SCHEDULE', 'weekly_schedule');
+  define('DASHBOARD_TAB_CONTACTS', 'contacts');
 
   /**
   * Prepare dashboard tabbed navigation
@@ -36,21 +38,33 @@
   */
   function dashboard_tabbed_navigation($selected = DASHBOARD_TAB_OVERVIEW) {
     trace(__FILE__,'dashboard_tabbed_navigation');
-    add_tabbed_navigation_item(new TabbedNavigationItem(
+    add_tabbed_navigation_item(
       DASHBOARD_TAB_OVERVIEW, 
-      lang('overview'), 
+      'overview', 
       get_url('dashboard', 'index')
-    ));
-    add_tabbed_navigation_item(new TabbedNavigationItem(
+    );
+    add_tabbed_navigation_item(
       DASHBOARD_TAB_MY_PROJECTS,
-      lang('my projects'),
+      'my projects',
       get_url('dashboard', 'my_projects')
-    ));
-    add_tabbed_navigation_item(new TabbedNavigationItem(
-      DASHBOARD_TAB_MY_TASKS,
-      lang('my tasks'),
-      get_url('dashboard', 'my_tasks')
-    ));
+    );
+    if (use_permitted(logged_user(), active_project(), 'tasks')) {
+      add_tabbed_navigation_item(
+        DASHBOARD_TAB_MY_TASKS,
+        'my tasks',
+        get_url('dashboard', 'my_tasks')
+      );
+    } // if
+    add_tabbed_navigation_item(
+      DASHBOARD_TAB_WEEKLY_SCHEDULE,
+      'weekly schedule',
+      get_url('dashboard', 'weekly_schedule')
+    );
+    add_tabbed_navigation_item(
+      DASHBOARD_TAB_CONTACTS,
+      'contacts',
+      get_url('dashboard', 'contacts')
+    );
     trace(__FILE__,'dashboard_tabbed_navigation:plugin hook');
     // PLUGIN HOOK
     plugin_manager()->do_action('add_dashboard_tab');
@@ -102,48 +116,48 @@
   */
   function administration_tabbed_navigation($selected = ADMINISTRATION_TAB_ADMINISTRATION) {
     trace(__FILE__,'administration_tabbed_navigation');
-    add_tabbed_navigation_item(new TabbedNavigationItem(
+    add_tabbed_navigation_item(
       ADMINISTRATION_TAB_ADMINISTRATION, 
-      lang('index'), 
+      'index', 
       get_url('administration', 'index')
-    ));
-    add_tabbed_navigation_item(new TabbedNavigationItem(
+    );
+    add_tabbed_navigation_item(
       ADMINISTRATION_TAB_COMPANY, 
-      lang('company'), 
+      'company', 
       get_url('administration', 'company')
-    ));
-    add_tabbed_navigation_item(new TabbedNavigationItem(
+    );
+    add_tabbed_navigation_item(
       ADMINISTRATION_TAB_CLIENTS,
-      lang('clients'),
+      'clients',
       get_url('administration', 'clients')
-    ));
-    add_tabbed_navigation_item(new TabbedNavigationItem(
+    );
+    add_tabbed_navigation_item(
       ADMINISTRATION_TAB_PROJECTS,
-      lang('projects'),
+      'projects',
       get_url('administration', 'projects')
-    ));
-    add_tabbed_navigation_item(new TabbedNavigationItem(
+    );
+    add_tabbed_navigation_item(
       ADMINISTRATION_TAB_CONFIGURATION,
-      lang('configuration'),
+      'configuration',
       get_url('administration', 'configuration')
-    ));
-    add_tabbed_navigation_item(new TabbedNavigationItem(
+    );
+    add_tabbed_navigation_item(
       ADMINISTRATION_TAB_TOOLS,
-      lang('administration tools'),
+      'administration tools',
       get_url('administration', 'tools')
-    ));
+    );
 /*
-    add_tabbed_navigation_item(new TabbedNavigationItem(
+    add_tabbed_navigation_item(
       ADMINISTRATION_TAB_UPGRADE,
-      lang('upgrade'),
+      'upgrade',
       get_url('administration', 'upgrade')
-    ));
+    );
 */
-    add_tabbed_navigation_item(new TabbedNavigationItem(
+    add_tabbed_navigation_item(
       ADMINISTRATION_TAB_PLUGINS,
-      lang('plugins'),
+      'plugins',
       get_url('administration','plugins')
-    ));
+    );
     
     // PLUGIN HOOK
     plugin_manager()->do_action('add_administration_tab');
@@ -186,11 +200,11 @@
   * @return null
   */
   function account_tabbed_navigation($selected = ACCOUNT_TAB_MY_ACCOUNT) {
-    add_tabbed_navigation_item(new TabbedNavigationItem(
+    add_tabbed_navigation_item(
       ACCOUNT_TAB_MY_ACCOUNT, 
-      lang('my account'), 
+      'my account', 
       get_url('account', 'index')
-    ));
+    );
     
     // PLUGIN HOOK
     plugin_manager()->do_action('add_my_account_tab');

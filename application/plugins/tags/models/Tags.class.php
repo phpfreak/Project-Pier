@@ -1,8 +1,7 @@
 <?php
 
   /**
-  * Tags, generated on Wed, 05 Apr 2006 06:44:54 +0200 by 
-  * DataObject generation tool
+  * Tags
   *
   * @http://www.projectpier.org/
   */
@@ -12,11 +11,11 @@
     * Return tags for specific object
     *
     * @access public
-    * @param ProjectDataObject $object
+    * @param ApplicationDataObject $object
     * @param string $manager_class
     * @return array
     */
-    function getTagsByObject(ProjectDataObject $object, $manager_class) {
+    function getTagsByObject(ApplicationDataObject $object, $manager_class) {
       return self::findAll(array(
         'conditions' => array('`rel_object_id` = ? AND `rel_object_manager` = ?', $object->getObjectId(), get_class($object->manager())),
         'order' => '`tag`'
@@ -27,11 +26,11 @@
     * Return tag names as array for specific object
     *
     * @access public
-    * @param ProjectDataObject $object
+    * @param ApplicationDataObject $object
     * @param string $manager_class
     * @return array
     */
-    function getTagNamesByObject(ProjectDataObject $object, $manager_class) {
+    function getTagNamesByObject(ApplicationDataObject $object, $manager_class) {
       $rows = DB::executeAll('SELECT `tag` FROM ' .  self::instance()->getTableName(true) . ' WHERE `rel_object_id` = ? AND `rel_object_manager` = ? ORDER BY `tag`', $object->getId(), $manager_class);
       
       if (!is_array($rows)) {
@@ -49,11 +48,11 @@
     * Clear tags of specific object
     *
     * @access public
-    * @param ProjectDataObject $object
+    * @param ApplicationDataObject $object
     * @param string $manager_class
     * @return boolean
     */
-    function clearObjectTags(ProjectDataobject $object, $manager_class) {
+    function clearObjectTags(ApplicationDataObject $object, $manager_class) {
       $tags = $object->getTags(); // save the tags list
       if (is_array($tags)) {
         foreach ($tags as $tag) {
@@ -67,12 +66,12 @@
     *
     * @access public
     * @param array $tags Array of tags... Can be NULL or empty
-    * @param ProjectDataObject $object
+    * @param ApplicationDataObject $object
     * @param string $manager_class
     * @param Project $project
     * @return null
     */
-    function setObjectTags($tags, ProjectDataObject $object, $manager_class, $project = null) {
+    function setObjectTags($tags, ApplicationDataObject $object, $manager_class, $project = null) {
       self::clearObjectTags($object, $manager_class);
       if (is_array($tags) && count($tags)) {
         $tags = array_unique($tags);
@@ -121,6 +120,31 @@
       
       return $tags;
     } // getProjectTagNames
+
+    /**
+    * Return unique tag names used for certain classes of objects
+    *
+    * @access public
+    * @param array $class_name
+    * @return array
+    */
+    function getClassTagNames($class_names, $exclude_private = false) {
+      if ($exclude_private) {
+        $rows = DB::executeAll("SELECT DISTINCT `tag` FROM " . self::instance()->getTableName(true) . ' WHERE `rel_object_manager` IN (?) AND `is_private` = ? ORDER BY `tag`', $class_names, 0);
+      } else {
+        $rows = DB::executeAll("SELECT DISTINCT `tag` FROM " . self::instance()->getTableName(true) . ' WHERE `rel_object_manager` IN (?) ORDER BY `tag`', $class_names);
+      } // if
+      if (!is_array($rows) || !count($rows)) {
+        return null;
+      } // if
+      
+      $tags = array();
+      foreach ($rows as $row) {
+        $tags[] = $row['tag'];
+      } // foreach
+      
+      return $tags;
+    } // getClassTagNames
     
     /**
     * Return array of project objects. Optional filters are by tag and / or by object class
@@ -156,7 +180,7 @@
       $objects = array();
       foreach ($tags as $tag_object) {
         $object = $tag_object->getObject();
-        if ($object instanceof ProjectDataObject) {
+        if ($object instanceof ApplicationDataObject ) {
           $objects[] = $object;
         }
       } // foreach

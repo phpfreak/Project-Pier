@@ -134,8 +134,11 @@
       
       tpl_assign('table_prefix', $database_prefix);
       
+      @mysql_query("rollback", $this->database_connection);
+      @mysql_query("unlock tables", $this->database_connection);
       @mysql_query("SET NAMES '$database_charset'", $this->database_connection);
       @mysql_query("SET SQL_MODE=''", $this->database_connection);
+      @mysql_query("SET STORAGE_ENGINE=INNODB", $this->database_connection);
       tpl_assign('default_collation', 'collate utf8_unicode_ci');
       tpl_assign('default_charset', 'DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci');
       

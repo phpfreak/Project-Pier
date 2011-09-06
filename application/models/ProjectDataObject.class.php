@@ -242,7 +242,7 @@
     *
     * @param User $user
     * @param ProjectFile $file
-    * @return booealn
+    * @return boolean
     */
     function canDetachFile(User $user, ProjectFile $file) {
       return $this->canEdit($user);
@@ -723,6 +723,16 @@
     function onAttachFiles($files) {
       return true;
     } // onAttachFiles
+    
+    /**
+    * This event is triggered when we detach files
+    *
+    * @param array $files
+    * @return boolean
+    */
+    function onDetachFiles($files) {
+      return true;
+    } // onDetachFiles
     
     // ---------------------------------------------------
     //  Subscribable

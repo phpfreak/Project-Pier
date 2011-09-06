@@ -147,6 +147,32 @@
         'conditions' => array('`completed_on` = ? AND (`due_date` >= ? AND `due_date` < ?) AND `project_id` IN (?)', EMPTY_DATETIME, $from_date, $to_date, $project_ids)
       )); // findAll
     } // getTodayMilestonesByUser
+
+    /**
+    * Return active milestones due in specified period
+    *
+    * @access public
+    * @param User $user
+    * @param DateTimeValue $from_date
+    * @param DateTimeValue $to_date
+    * @return array
+    */
+    function getActiveMilestonesInPeriodByUser(User $user, DateTimeValue $from_date, DateTimeValue $to_date) {
+      $projects = $user->getActiveProjects();
+      if (!is_array($projects) || !count($projects)) {
+        return null;
+      }
+      
+      $project_ids = array();
+      foreach ($projects as $project) {
+        $project_ids[] = $project->getId();
+      } // foreach
+      
+      return self::findAll(array(
+        'conditions' => array('`completed_on` = ? AND (`due_date` >= ? AND `due_date` < ?) AND `project_id` IN (?)', EMPTY_DATETIME, $from_date, $to_date, $project_ids),
+        'order' => '`due_date` ASC'
+      )); // findAll
+    } // getActiveMilestonesInPeriodByUser
     
   } // ProjectMilestones 
 

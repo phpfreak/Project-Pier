@@ -65,7 +65,7 @@
 }
 
 .timeLogs .timeEdit {
-  width:75px;
+  width: auto;
   text-align:right;
 }
 

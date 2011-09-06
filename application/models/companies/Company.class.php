@@ -2,7 +2,6 @@
 
   /**
   * Company class
-  * Generated on Sat, 25 Feb 2006 17:37:12 +0100 by DataObject generation tool
   *
   * @http://www.projectpier.org/
   */
@@ -21,7 +20,7 @@
     * @var array
     */
     private $completed_projects;
-    
+
     /**
     * Return array of all company members
     *
@@ -29,11 +28,46 @@
     * @param void
     * @return array
     */
-    function getUsers() {
-      return Users::findAll(array(
+    function getContacts() {
+      return Contacts::findAll(array(
         'conditions' => '`company_id` = ' . DB::escape($this->getId()),
-        'order' => '`display_name`'
+        'order' => '`display_name` ASC'
       )); // findAll
+    } // getContacts
+    
+    /**
+    * Return number of company contacts
+    *
+    * @access public
+    * @param void
+    * @return integer
+    */
+    function countContacts() {
+      return Contacts::count('`company_id` = ' . DB::escape($this->getId()));
+    } // countContacts
+    
+    /**
+    * Return company users
+    *
+    * @access public
+    * @param void
+    * @return array
+    */
+    function getUsers() {
+      $users_table = Users::instance()->getTableName(true);
+      $contacts_table = Contacts::instance()->getTableName(true);
+      
+      $users = array();
+      $sql = "SELECT $users_table.* FROM $users_table, $contacts_table WHERE ($users_table.`id` = $contacts_table.`user_id` AND $contacts_table.`company_id` = ". DB::escape($this->getId()) . " )";
+      
+      $rows = DB::executeAll($sql);
+      if (is_array($rows)) {
+        foreach ($rows as $row) {
+          $users[] = Users::instance()->loadFromRow($row);
+        } // foreach
+      } // if
+      
+      return count($users) ? $users : null;
     } // getUsers
     
     /**
@@ -44,7 +78,15 @@
     * @return integer
     */
     function countUsers() {
-      return Users::count('`company_id` = ' . DB::escape($this->getId()));
+      $users_table = Users::instance()->getTableName(true);
+      $contacts_table = Contacts::instance()->getTableName(true);
+      $escaped_pk = is_array($pk_columns = Companies::getPkColumns()) ? '*' : DB::escapeField($pk_columns);
+      
+      $users = array();
+      $sql = "SELECT COUNT($users_table.$escaped_pk) AS 'row_count' FROM $users_table, $contacts_table WHERE ($users_table.`id` = $contacts_table.`user_id` AND $contacts_table.`company_id` = ". DB::escape($this->getId()) . " )";
+      
+      $row = DB::executeOne($sql);
+      return (integer) array_var($row, 'row_count', 0);
     } // countUsers
     
     /**
@@ -66,9 +108,20 @@
     * @return array
     */
     function getAutoAssignUsers() {
-      return Users::findAll(array(
-        'conditions' => '`company_id` = ' . DB::escape($this->getId()) . ' AND `auto_assign` > ' . DB::escape(0)
-      )); // findAll
+      $users_table = Users::instance()->getTableName(true);
+      $contacts_table = Contacts::instance()->getTableName(true);
+      
+      $users = array();
+      $sql = "SELECT $users_table.* FROM $users_table, $contacts_table WHERE ($users_table.`id` = $contacts_table.`user_id` AND $contacts_table.`company_id` = ". DB::escape($this->getId()) . " AND $users_table.`auto_assign` > ". DB::escape(0) . " )";
+      
+      $rows = DB::executeAll($sql);
+      if (is_array($rows)) {
+        foreach ($rows as $row) {
+          $users[] = Users::instance()->loadFromRow($row);
+        } // foreach
+      } // if
+      
+      return count($users) ? $users : null;
     } // getAutoAssignUsers
     
     /**
@@ -190,7 +243,17 @@
         return $this->getClientOfId() == 0;
       } // if
     } // isOwner
-    
+
+    /**
+    * Returns if company is a favorite
+    *
+    * @param void
+    * @return boolean
+    */
+    function isFavorite() {
+      return $this->getIsFavorite();
+    } // isFavorite
+        
     /**
     * Check if this company is part of specific project
     *
@@ -301,7 +364,7 @@
     } // canDelete
     
     /**
-    * Returns true if specific user can add clent company
+    * Returns true if specific user can add client company
     *
     * @access public
     * @param User $user
@@ -314,6 +377,17 @@
       return $user->isAccountOwner() || $user->isAdministrator($this);
     } // canAddClient
     
+    /**
+    * Check if this user can add new contact to this company
+    *
+    * @access public
+    * @param User $user
+    * @return boolean
+    */
+    function canAddContact(User $user) {
+      return Contact::canAdd($user, $this);
+    } // canAddContact
+
     /**
     * Check if this user can add new account to this company
     *
@@ -401,15 +475,15 @@
     } // getUpdatePermissionsUrl
     
     /**
-    * Return add user URL
+    * Return add contact URL
     *
     * @access public
     * @param void
     * @return string
     */
-    function getAddUserUrl() {
-      return get_url('user', 'add', array('company_id' => $this->getId()));
-    } // getAddUserUrl
+    function getAddContactUrl() {
+      return get_url('contacts', 'add', array('company_id' => $this->getId()));
+    } // getAddContactUrl
     
     /**
     * Return update avatar URL
@@ -432,6 +506,21 @@
     function getDeleteLogoUrl() {
       return get_url('company', 'delete_logo', $this->getId());
     } // getDeleteLogoUrl
+
+    /**
+    * Return toggle favorite URL
+    *
+    * @param void
+    * @return string
+    */
+    function getToggleFavoriteUrl($redirect_to = null) {
+      $attributes = array('id' => $this->getId());
+      if (trim($redirect_to) <> '') {
+        $attributes['redirect_to'] = str_replace('&amp;', '&', trim($redirect_to));
+      } // if
+      
+      return get_url('company', 'toggle_favorite', $attributes);
+    } // getToggleFavoriteUrl
     
     // ---------------------------------------------------
     //  Logo
@@ -571,10 +660,10 @@
         throw new Error(lang('error delete owner company'));
       } // if
       
-      $users = $this->getUsers();
-      if (is_array($users) && count($users)) {
-        foreach ($users as $user) {
-          $user->delete();
+      $contacts = $this->getContacts();
+      if (is_array($contacts) && count($contacts)) {
+        foreach ($contacts as $contact) {
+          $contact->delete();
         }
       } // if
       

@@ -7,17 +7,6 @@
   ));
   add_stylesheet_to_page('admin/massmailer.css');
 ?>
-<script>
-  $(function() {
-    $('.selectall').click(function() {
-      var checked_status = this.checked;
-      var prefix = this.id;
-      $('input[id^="'+(prefix)+'-"]').each(function() {
-        this.checked = checked_status;
-      });
-    });
-  });
-</script>
 <div id="massMailer">
   <form action="<?php echo $tool->getToolUrl() ?>" method="post">
 <?php tpl_display(get_template_path('form_errors')) ?>

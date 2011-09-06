@@ -30,9 +30,7 @@
     <?php echo do_textile($message->getAdditionalText()) ?>
 <?php } // if?>
   </div>
-<?php if (function_exists('files_activate')) { ?> 
 <?php echo render_object_files($message, $message->canEdit(logged_user())) ?>
-<?php } // if?>
   <div class="messageCommentCount">
 <?php if ($message->countComments()) { ?>
     <span><?php echo lang('comments') ?>:</span> <a href="<?php echo $message->getViewUrl() ?>#objectComments"><?php echo $message->countComments() ?></a>
@@ -40,25 +38,14 @@
     <span><?php echo lang('comments') ?>:</span> <?php echo $message->countComments() ?>
 <?php } // if ?>
   </div>
-<?php if (function_exists('tags_activate')) { ?> 
-  <div class="messageTags">
-    <span><?php echo lang('tags') ?>:</span> <?php echo project_object_tags($message, $message->getProject()) ?>
-  </div>
-<?php } // if?>
+    <?php echo render_object_tags($message); ?>
 <?php
-  $options = array();
-  if ($message->canEdit(logged_user())) {
-    $options[] = '<a href="' . $message->getEditUrl() . '">' . lang('edit') . '</a>';
-  } // if
+  $extra_options = array();
   if ($message->canDelete(logged_user())) {
-    $options[] = '<a href="' . $message->getDeleteUrl() . '">' . lang('delete') . '</a>';
+    $extra_options[] = '<a href="' . $message->getMoveUrl() . '">' . lang('move') . '</a>';
   } // if
+  echo render_object_options($message, $extra_options);
 ?>
-<?php if (count($options)) { ?>
-  <div class="messageOptions">
-    <?php echo implode(' | ', $options) ?>
-  </div>
-<?php } // if ?>
 </div>
 
 <!-- Comments -->

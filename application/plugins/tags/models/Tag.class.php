@@ -2,7 +2,6 @@
 
   /**
   * Tag class
-  * Generated on Wed, 05 Apr 2006 06:44:54 +0200 by DataObject generation tool
   *
   * @http://www.projectpier.org/
   */

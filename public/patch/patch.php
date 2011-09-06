@@ -6,8 +6,16 @@ mysql_select_db(DB_NAME, $link) or die('Could not select database ' . DB_NAME);
 
 $id = $_GET['id'];
 
+//$cs = 'character set '.config_option('character_set', 'utf8');
+//$co = 'collate '.config_option('collation', 'utf8_unicode_ci');
+
+$cs = 'character set utf8';
+$co = 'collate utf8_unicode_ci';
+
 $sql = file_get_contents("$id.sql");
 $sql = str_replace('<?php echo $table_prefix ?>', DB_PREFIX, $sql);
+$sql = str_replace('<?php echo $default_collation ?>', $co, $sql);
+$sql = str_replace('<?php echo $default_charset ?>', $cs, $sql);
 executeMultipleQueries($sql, &$total_queries, &$executed_queries, $link);
 echo 'Summary' . "<br>\n";
 echo 'Total queries in SQL: ' . $total_queries . " <br>\n";

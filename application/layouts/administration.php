@@ -1,17 +1,22 @@
-<?php $owner_company_name = clean(owner_company()->getName()) ?>
+<?php $owner_company_name = (owner_company()->getName()) ?>
 <?php $site_name = config_option('site_name', $owner_company_name) ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title><?php echo get_page_title() ?> @ <?php echo clean(owner_company()->getName()) ?></title>
+    <title><?php echo get_page_title() ?> | <?php echo clean(owner_company()->getName()) ?></title>
 <?php echo stylesheet_tag('project_website.css') ?> 
+<?php echo stylesheet_tag('colorbox/colorbox.css') ?>
 <?php echo meta_tag('content-type', 'text/html; charset=utf-8', true) ?> 
 <?php echo link_tag(ROOT_URL.'favicon.ico', 'rel', 'Shortcut Icon', array("type"=>"image/x-icon")) ?>
 <?php add_javascript_to_page('pp.js') ?>
 <?php add_javascript_to_page('jquery.min.js') ?>
+<?php add_javascript_to_page('jquery-ui.min.js') ?>
+<?php add_javascript_to_page('jquery.colorbox-min.js') ?>
+<?php add_javascript_to_page('jquery.imgareaselect.dev.js') ?>
 <?php echo render_page_head() ?>
   </head>
   <body>
+<?php include('inlinejs.php'); ?>
 <?php echo render_system_notices(logged_user()) ?>
     <div id="wrapper">
     
@@ -103,7 +108,7 @@
             <?php echo lang('footer copy without homepage', date('Y'), clean(owner_company()->getName())) ?>
 <?php } // if ?>
           </div>
-          <div id="productSignature"><?php echo product_signature() ?><span id="request_duration"><?php printf(' in %.3f seconds', (microtime(true) - $GLOBALS['request_start_time']) ); ?></span> <span id="current_datetime"><?php echo date('c [W]'); ?></span></div>
+          <div id="productSignature"><?php echo product_signature() ?><span id="request_duration"><?php printf(' in %.3f seconds', (microtime(true) - $GLOBALS['request_start_time']) ); ?></span> <span id="current_datetime"><?php echo date('c/I[W]'); ?></span></div>
         </div>
       </div>
       <!-- /content wrapper -->

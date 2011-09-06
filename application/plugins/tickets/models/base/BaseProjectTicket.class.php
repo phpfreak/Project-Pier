@@ -56,6 +56,28 @@
     } // setProjectId() 
     
     /**
+    * Return value of 'milestone_id' field
+    *
+    * @access public
+    * @param void
+    * @return integer 
+    */
+    function getMilestoneId() {
+      return $this->getColumnValue('milestone_id');
+    } // getMilestoneId()
+    
+    /**
+    * Set value of 'milestone_id' field
+    *
+    * @access public   
+    * @param integer $value
+    * @return boolean
+    */
+    function setMilestoneId($value) {
+      return $this->setColumnValue('milestone_id', $value);
+    } // setMilestoneId() 
+    
+    /**
     * Return value of 'category_id' field
     *
     * @access public
@@ -274,6 +296,28 @@
     function setState($value) {
       return $this->setColumnValue('state', $value);
     } // setState() 
+
+    /**
+    * Return value of 'created_on' field
+    *
+    * @access public
+    * @param void
+    * @return DateTimeValue 
+    */
+    function getDueDate() {
+      return $this->getColumnValue('due_date');
+    } // getDueDate()
+    
+    /**
+    * Set value of 'created_on' field
+    *
+    * @access public   
+    * @param DateTimeValue $value
+    * @return boolean
+    */
+    function setDueDate($value) {
+      return $this->setColumnValue('due_date', $value);
+    } // setDueDate() 
   
     /**
     * Return value of 'created_on' field

@@ -1,0 +1,120 @@
+/* @override http://squid.advanstar.info/public/assets/themes/advanstar/stylesheets/application_logs.css */
+
+/* WARNING : including this css file will hide page_actions block */
+/* WARNING : including this css file will hide h2 elements */
+#page_actions{
+  visibility:hidden;
+}
+
+h2 {
+  display:none;
+}
+
+table.applicationLogs {
+  width:100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+table.applicationLogs th {
+  display:none;
+}
+
+table.applicationLogs tr.logToday, tr.logYesterday, tr.logOlder {
+  background: white;
+}
+
+/* Table cells properties */
+table.applicationLogs td {
+  border-bottom: 1px solid #EEE;
+  padding-bottom: 2px;
+  padding-top: 3px;
+  padding-left:5px;
+  vertical-align:middle;
+  width:100px;
+  text-align:right;
+}
+
+/* date in log table */
+table.applicationLogs td.logBy {
+  text-align:left;
+  text-transform:uppercase;
+  color:#777;
+}
+
+tr.logToday td.logBy {
+  color:#000;
+}
+
+table.applicationLogs td.logTypeIcon {
+  width: 70px;
+  xpadding-left: 10px;
+  text-align:left;
+}
+
+table.applicationLogs .logDetails {
+  min-width: 300px;
+  text-align:left;
+  width:0px;
+  line-height:130%;
+  vertical-align:baseline;
+}
+
+table.applicationLogs .logProject, table.applicationLogs .logTakenOnBy {
+  text-align: right;
+}
+
+div .logProjectHeader {
+  font-weight: bold;
+  margin-top:15px;
+  margin-bottom:5px;
+  padding-left:5px;
+  padding-top:5px;
+  padding-bottom:5px;
+  background:#EEE;
+  vertical-align:baseline;
+}
+
+div .logProjectHeader a {
+  color:#03C;
+}
+
+div .logProjectHeader body{
+  display:none;
+}
+
+div .logProjectHeader a:hover {
+  color:white;
+}
+
+.applicationLogs a {
+  font-size:9px;
+  color:#777;
+  background:#DDD;
+  font-weight:bold;
+  padding-left:5px;
+  padding-right:5px;
+  padding-top:1px;
+  padding-bottom:1px;
+  text-decoration:none;
+}
+
+.applicationLogs a:hover {
+  text-decoration:underline;
+}
+
+.logDetails a {
+  font-size:12px;
+  color:black;
+  background:none;
+  font-weight:normal;
+}
+
+#tickets .tickets_header {
+  font-size:12px;
+  font-weight: bold;
+  margin-top:10px;
+  margin-bottom:6px;
+  padding-left:0px;
+  padding-top:10px;
+}

@@ -17,14 +17,19 @@
 <?php if (isset($active_projects) && is_array($active_projects) && count($active_projects)) { ?>
 <?php $show_icon = (config_option('files_show_icons', '1') == '1'); ?>
 <?php foreach ($active_projects as $project) { ?>
-<div class="block">
+<div class="expand-container-all block">
+  <div class="header">
 <?php if ($show_icon) { ?>
+<?php if ($project->hasLogo()) { ?>
     <div class="projectLogo"><img src="<?php echo $project->getLogoUrl() ?>" alt="<?php echo $project->getName() ?>" /></div>
 <?php } // if ?>
+<?php } // if ?>
 <?php $this->assign('project', $project); $this->includeTemplate(get_template_path('view_progressbar', 'project')); ?>
-  <div class="header"><h2><a href="<?php echo $project->getOverviewUrl() ?>"><?php echo clean($project->getName()) ?></a></h2></div>
-  <div class="content">
-<?php if (trim($project->getDescription())) { ?>
+  <h2><a href="<?php echo $project->getOverviewUrl() ?>"><?php echo clean($project->getName()) ?></a></h2>
+<div style="clear:both"></div>
+</div>
+  <div class="content expand-block-all">
+<?php if ($project->getShowDescriptionInOverview() && trim($project->getDescription())) { ?>
     <div class="description"><?php echo do_textile($project->getDescription()) ?></div>
 <?php } // if ?>
 <?php if (is_array($project_companies = $project->getCompanies())) { ?>

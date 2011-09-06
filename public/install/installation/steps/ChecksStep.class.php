@@ -43,6 +43,7 @@
       
       $this->check_extensions = array(
         'mysql' => true, 
+        'calendar' => false, 
         'gd' => false, 
         'simplexml' => false
       ); // array

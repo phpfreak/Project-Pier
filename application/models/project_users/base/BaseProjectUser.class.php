@@ -54,7 +54,29 @@
     function setUserId($value) {
       return $this->setColumnValue('user_id', $value);
     } // setUserId() 
+
+    /**
+    * Return value of 'note' field
+    *
+    * @access public
+    * @param void
+    * @return integer 
+    */
+    function getNote() {
+      return $this->getColumnValue('note');
+    } // getNote()
     
+    /**
+    * Set value of 'note' field
+    *
+    * @access public   
+    * @param string $value
+    * @return boolean
+    */
+    function setNote($value) {
+      return $this->setColumnValue('note', $value);
+    } // setNote() 
+        
     /**
     * Return value of 'created_on' field
     *

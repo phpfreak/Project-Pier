@@ -28,7 +28,7 @@
     private $action;
     
     /**
-    * System controller class. System controller class is class withch methods
+    * System controller class. System controller class is class which methods
     * are reserved (can't be called). Basic system controllers are Controller and
     * PageController classes.
     *

@@ -114,6 +114,8 @@
     'config option name default_private' => 'Default setting for private option',
     'config option name send_notification_default' => 'Default setting for Send notification',
     'config option name enable_efqm' => 'Enable EFQM options',
+    'config option name login_show_options' => 'Show options on the login page',
+    'config option desc login_show_options' => 'If yes, options for setting language and theme are shown.',
     'config option name display_application_logs' => 'Display application logs',
     'config option desc display_application_logs' => 'If no, logging still occurs but it is not displayed anymore.',
   ); // array

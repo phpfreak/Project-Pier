@@ -17,6 +17,9 @@
                                     'project_id' => DATA_TYPE_INTEGER,
                                     'title' => DATA_TYPE_STRING,
                                     'url' => DATA_TYPE_STRING,
+                                    'description' => DATA_TYPE_STRING,
+                                    'folder_id' => DATA_TYPE_INTEGER,
+                                    'logo_file' => DATA_TYPE_STRING,
                                     'created_on' => DATA_TYPE_DATETIME,
                                     'created_by_id' => DATA_TYPE_INTEGER);
   

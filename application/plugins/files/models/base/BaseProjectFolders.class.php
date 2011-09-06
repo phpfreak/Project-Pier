@@ -14,7 +14,12 @@
     * @var array
     * @static
     */
-    static private $columns = array('id' => DATA_TYPE_INTEGER, 'project_id' => DATA_TYPE_INTEGER, 'name' => DATA_TYPE_STRING);
+    static private $columns = array(
+      'id' => DATA_TYPE_INTEGER, 
+      'project_id' => DATA_TYPE_INTEGER, 
+      'name' => DATA_TYPE_STRING,
+      'parent_id' => DATA_TYPE_INTEGER
+    );
   
     /**
     * Construct

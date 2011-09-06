@@ -27,16 +27,14 @@
     <th><?php echo lang('name'); ?></th>
     <th><?php echo lang('details'); ?></th>
     <th><?php echo lang('hours'); ?></th>
-    <th></th>
+    <th><?php echo lang('bill'); ?></th>
+    <th><?php echo lang('actions'); ?></th>
   </tr>
 
 <?php
     $total_hours = 0;
-    
     if ($times) {
-
       foreach($times as $time) {
-
         $this->assign('time', $time);
 ?>
 
@@ -66,6 +64,9 @@
       <a href="<?php echo $time->getViewUrl() ?>"><?php echo clean($time->getName()) ?></a>
     </td>
     <td class="timeHours"><?php echo $time->getHours() ?></td>
+    <td class="timeFiles">
+      <?php echo render_object_files_brief($time, (!status) && $time->canEdit(logged_user())) ?>
+    </td>
     <td class="timeEdit">
 <?php
   $options = array();
@@ -74,13 +75,14 @@
 ?>
 <?php if(count($options)) { ?>
      <?php echo implode(' | ', $options) ?>
+<?php } else { // if(count ?>
+     <?php echo '&nbsp;' ?>
 <?php } // if ?>
     </td>
   </tr>
 
 <?php
       $total_hours += $time->getHours();
-
       } // foreach
     } // if
 ?>
@@ -91,6 +93,7 @@
     <td class="timeUser"></td>
     <td class="timeDetailsSmall" style="text-align:right;"><strong><?php echo lang('total'); ?>:&nbsp;</strong></td>
     <td class="timeHours"><strong><?php echo $total_hours; ?></strong></td>
+    <td class="timeBills"></td>
     <td class="timeEdit"></td>
   </tr>
 

@@ -11,13 +11,10 @@ return array(
   
   /* GANNT */
   'gantt' => 'Gantt',
-  'Download file gantt' => 'Download Gantt File',
-  'Click here to see gantt chart' => "Click here to see Gantt Chart",
   
-  /* MINDMAPPING */ 
-  'mm' => 'MindMapping',
-  'Download file mindmapping' => "Download Mindmap File",
-  'Version Freemind' => 'Freemind Version 0.9.0',
-  'Click here to see mindmapping' => "Click here to see Mind Mapping",
+  /* MINDMAP */ 
+  'download' => 'Download',
+  'freemind version' => 'Freemind Version 0.9.0',
+  'mindmap' => "Mind Map",
 );
 ?>

@@ -110,6 +110,8 @@
       } // if
       
       $task_list = new ProjectTaskList();
+      $task_list->setProjectId(active_project()->getId());
+
       $task_list_data = array_var($_POST, 'task_list');
       if (!is_array($task_list_data)) {
         $task_list_data = array(
@@ -141,7 +143,6 @@
         }
         //$task_list_data['due_date'] = DateTimeValueLib::make(0, 0, 0, array_var($_POST, 'task_list_due_date_month', 1), array_var($_POST, 'task_list_due_date_day', 1), array_var($_POST, 'task_list_due_date_year', 1970));
         $task_list->setFromAttributes($task_list_data);
-        $task_list->setProjectId(active_project()->getId());
         if (!logged_user()->isMemberOfOwnerCompany()) {
           $task_list->setIsPrivate(false);
         }
@@ -358,7 +359,7 @@
         $this->redirectTo('task', 'index');
       } // if
       
-      if (!$task_list->canAdd(logged_user(), active_project())) {
+      if (!$task_list->canDelete(logged_user(), active_project())) {
         flash_error(lang('no access permissions'));
         $this->redirectTo('task', 'index');
       } // if
@@ -372,6 +373,10 @@
         $target_project = Projects::findById($target_project_id);
         if (!($target_project instanceof Project)) {
           flash_error(lang('project dnx'));
+          $this->redirectToUrl($task_list->getMoveUrl());
+        } // if
+        if (!$task_list->canAdd(logged_user(), $target_project)) {
+          flash_error(lang('no access permissions'));
           $this->redirectToUrl($task_list->getMoveUrl());
         } // if
         try {
@@ -388,11 +393,9 @@
           flash_error(lang('error move task list'));
         } // try
 
-        //$this->redirectTo('task', 'index');
-        //$this->redirectToUrl($task_list->getViewUrl());
-        $this->redirectToUrl($target_project->getOverviewUrl());
+        $this->redirectToUrl($task_list->getViewUrl());
       }
-    } // delete_list
+    } // move_list
     
     /**
     * Delete task list
@@ -544,6 +547,11 @@
       if (is_array(array_var($_POST, 'task'))) {
         $old_owner = $task->getAssignedTo();
         //$task_data['due_date'] = DateTimeValueLib::make(0, 0, 0, array_var($_POST, 'task_due_date_month', 1), array_var($_POST, 'task_due_date_day', 1), array_var($_POST, 'task_due_date_year', 1970));
+        if (isset($_POST['task_start_date'])) {
+          $task_data['start_date'] = DateTimeValueLib::makeFromString($_POST['task_start_date']);
+        } else {
+          $task_data['start_date'] = DateTimeValueLib::make(0, 0, 0, array_var($_POST, 'task_start_date_month', 1), array_var($_POST, 'task_start_date_day', 1), array_var($_POST, 'task_start_date_year', 1970));
+        }
         if (isset($_POST['task_due_date'])) {
           $task_data['due_date'] = DateTimeValueLib::makeFromString($_POST['task_due_date']);
         } else {
@@ -620,6 +628,7 @@
       if (!is_array($task_data)) {
         $task_data = array(
           'text' => $task->getText(),
+          'start_date' => $task->getStartDate(),
           'due_date' => $task->getDueDate(),
           'task_list_id' => $task->getTaskListId(),
           'assigned_to' => $task->getAssignedToCompanyId() . ':' . $task->getAssignedToUserId(),
@@ -634,6 +643,11 @@
       if (is_array(array_var($_POST, 'task'))) {
         $old_owner = $task->getAssignedTo();
         //$task_data['due_date'] = DateTimeValueLib::make(0, 0, 0, array_var($_POST, 'task_due_date_month', 1), array_var($_POST, 'task_due_date_day', 1), array_var($_POST, 'task_due_date_year', 1970));
+        if (isset($_POST['task_start_date'])) {
+          $task_data['start_date'] = DateTimeValueLib::makeFromString($_POST['task_start_date']);
+        } else {
+          $task_data['start_date'] = DateTimeValueLib::make(0, 0, 0, array_var($_POST, 'task_start_date_month', 1), array_var($_POST, 'task_start_date_day', 1), array_var($_POST, 'task_start_date_year', 1970));
+        }
         if (isset($_POST['task_due_date'])) {
           $task_data['due_date'] = DateTimeValueLib::makeFromString($_POST['task_due_date']);
         } else {

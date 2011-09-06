@@ -48,10 +48,8 @@
         $this->includeTemplate($template);
       } catch(Exception $e) {
         ob_end_clean();
-        echo '<xmp>';
-        echo $e->__toString();
-        echo '</xmp>';
-        throw $e;
+        die("<xmp>$e</xmp>");
+        //throw $e;
       } // try
       return ob_get_clean();
     } // fetch

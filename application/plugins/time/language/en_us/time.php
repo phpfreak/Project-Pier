@@ -43,6 +43,7 @@
     'times' => 'Times',
 
     'billable time' => 'Billable time',
+    'bill' => 'Bill',
 
     // source: project_interface.php
 

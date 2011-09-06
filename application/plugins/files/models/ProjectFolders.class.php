@@ -20,7 +20,19 @@
         'order' => '`name`'
       )); // findAll
     } // getProjectFolders
-    
+ 
+    /**
+    * Return array of project folders without a parent
+    *
+    * @param Project $project
+    * @return array
+    */
+    static function getProjectFolderTree(Project $project, $folder = 0) {
+      return self::findAll(array(
+        'conditions' => array('`project_id` = ? AND `parent_id` = ?', $project->getId(), $folder ),
+        'order' => '`name`'
+      )); // findAll
+    } // getProjectFolders
   } // ProjectFolders 
 
 ?>

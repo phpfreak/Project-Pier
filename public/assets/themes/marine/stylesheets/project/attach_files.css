@@ -26,6 +26,7 @@ div.objectFiles  {
 
 div.objectFiles ul li a span  {
  font-weight: bold;
+ white-space: nowrap;
 }
 
 div.objectFiles div.objectFilesTitle  {
@@ -35,5 +36,10 @@ div.objectFiles div.objectFilesTitle  {
 div.objectFiles div.objectFilesTitle span  {
  color: #333333;
  font-weight: bold;
+}
+
+div.objectFilesBrief ul {
+  list-style: none;
+  padding-left: 0px;
 }
 

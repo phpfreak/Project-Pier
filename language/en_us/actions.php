@@ -7,13 +7,15 @@
     'register' => 'Register',
     'login' => 'Login',
     'logout' => 'Logout',
-    'hide welcome info' => 'Hide this info permanently',
+    'edit logo' => 'Edit logo',
+    'upload logo' => 'Set logo',
+    'delete logo' => 'Delete logo',
     
     // Companies
     'add company' => 'Add company',
-    'edit company' => 'Update company info',
+    'edit company' => 'Edit company',
     'delete company' => 'Delete company',
-    'edit company logo' => 'Update logo',
+    'edit company logo' => 'Set logo',
     'delete company logo' => 'Delete logo',
     'show map' => 'Show map',
     
@@ -26,6 +28,18 @@
     'add user' => 'Add user',
     'edit user' => 'Edit user',
     'delete user' => 'Delete user',
+    'add user account' => 'Add user',
+    
+    // Contacts
+    'add contact' => 'Add contact',
+    'edit contact' => 'Edit contact',
+    'delete contact' => 'Delete contact',
+    'edit user account' => 'Edit user account',
+    'delete user account' => 'Delete user account',
+    'toggle favorite' => 'Toggle favorite',
+    'done adding contacts' => 'Done adding contacts',
+    'list view' => 'List',
+    'detail view' => 'Details',
     
     // Project
     'add project' => 'Add project',
@@ -34,27 +48,27 @@
     'delete project' => 'Delete project',
     'mark project as finished' => 'Mark project as finished',
     'mark project as active' => 'Mark project as active',
-    'projects logo edit' => 'Update logo',
-    'projects logo delete' => 'Delete logo',
-    'update logo' => 'Update logo',
-    'upload logo' => 'Set logo',
     'can manage projects' => 'Can manage his/her own projects',
     'projects shift dates' => 'Shift dates',
     'projects shift dates desc' => 'Dates become "now" plus the difference between the original date and the original project creation date',
     'add days' => 'Days to add to all dates in the project',
+    'add text snippet' => 'Add text snippet',
+    'add text snippets' => 'Add text snippets',
     
     // Messages
     'add message' => 'Add message',
     'edit message' => 'Edit message',
+    'move message' => 'Move message',
     'delete message' => 'Delete message',
     'view message' => 'View message',
-    'update message options' => 'Update options',
+    'update message options' => 'Update',
     'subscribe to message' => 'Subscribe',
     'unsubscribe from message' => 'Unsubscribe',
     
     // Comments
     'add comment' => 'Post comment',
     'edit comment' => 'Edit comment',
+    'add status update' => 'Post status update',
     
     // Task list
     'add task list' => 'Add task list',
@@ -75,6 +89,7 @@
     'view assigned tasks' => 'View assigned task',
 
     // Milestone
+    'view milestone' => 'View milestone',
     'add milestone' => 'Add milestone',
     'edit milestone' => 'Edit milestone',
     'delete milestone' => 'Delete milestone',
@@ -89,13 +104,13 @@
     'remove company from project' => 'Remove from project',
     
     // Password
-    'update profile' => 'Update profile',
+    'update profile' => 'Edit profile',
     'change password' => 'Change password',
-    'update avatar' => 'Update avatar',
-    'delete current avatar' => 'Delete current avatar',
+    'update avatar' => 'Edit logo',
+    'delete current avatar' => 'Delete logo',
     
     // Permissions
-    'update permissions' => 'Update permissions',
+    'update permissions' => 'Edit permissions',
     'edit permissions' => 'Edit permissions',
 
     // Notifications

@@ -33,7 +33,7 @@
       if ((integer) $expiration > 0) {
         $expiration_time->advance($expiration);
       } else {
-        $expiration_time->advance(3600); // one hour
+        $expiration_time->advance(3*3600); // three hour
       } // if
       
       // if $expiration is null, set the cookie to expire when the session is over

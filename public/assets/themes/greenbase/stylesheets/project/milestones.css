@@ -1,0 +1,57 @@
+#milestones .milestone .dueDate span {
+  font-weight: bolder;
+}
+
+div.milestoneOptions {
+    font-size:11px;
+    visibility:hidden;
+}
+
+.milestone:hover .milestoneOptions a {
+  visibility:visible;
+}
+
+#milestones .content{
+    padding-top:0px;
+}
+
+#milestones .header{
+    padding-bottom:0px;
+}
+
+#milestones .description {
+    padding-left:15px;
+}
+
+.hint {
+    background:white;
+}
+
+#milestones .desc {
+  text-transform:uppercase;
+}
+
+#milestones .desc a {
+  color: #777;
+  background: #DDD;
+  font-weight: bold;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  text-decoration:none;
+  text-transform:none;
+}
+
+#milestones .desc a:hover{
+  text-decoration:underline;
+}
+
+#milestones ul {
+    padding-left:40px;
+}
+
+#milestones .header span.assignedTo {
+  float:right;
+  text-transform:none;
+}

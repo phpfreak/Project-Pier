@@ -246,6 +246,7 @@
       } // if
       
       tpl_assign('user', $user);
+      tpl_assign('contact', $user->getContact());
       tpl_assign('company', $company);
       tpl_assign('projects', $projects);
       tpl_assign('permissions', $permissions);

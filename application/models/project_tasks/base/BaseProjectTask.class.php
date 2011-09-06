@@ -76,7 +76,29 @@
     function setText($value) {
       return $this->setColumnValue('text', $value);
     } // setText() 
-        
+
+    /**
+    * Return value of 'start_date' field
+    *
+    * @access public
+    * @param void
+    * @return DateTimeValue 
+    */
+    function getStartDate() {
+      return $this->getColumnValue('start_date');
+    } // getStartDate()
+    
+    /**
+    * Set value of 'start_date' field
+    *
+    * @access public   
+    * @param DateTimeValue $value
+    * @return boolean
+    */
+    function setStartDate($value) {
+      return $this->setColumnValue('start_date', $value);
+    } // setStartDate() 
+
     /**
     * Return value of 'due_date' field
     *

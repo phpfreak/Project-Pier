@@ -1,5 +1,5 @@
 <?php
-while (ob_get_level()) ob_end_clean(); 
+if (ob_get_level()) while(@ob_end_clean()); 
 ob_start(); phpinfo(); $info = ob_get_contents(); ob_end_clean();
 $info = str_replace('class="v">', 'class="v">;', $info);
 $info = str_replace('<th>', '<th>;', $info);
@@ -18,7 +18,7 @@ Please explain what you were doing:<br /><textarea cols=50 rows=10 name=explain>
 Error:<br /><input size=70 type=text name=message value="<?php echo $last_error['message']; ?>"><br />
 File:<br /><input size=70 type=text name=file value="<?php echo $last_error['file']; ?>"><br />
 Line:<br /><input size=70 type=text name=line value="<?php echo $last_error['line']; ?>"><br />
-Release:<br /><input type=text name=release value="pp087"><br />
+Release:<br /><input type=text name=release value="pp088"><br />
 PHP version:<br /><input type=text size=70 name=phpversion value="<?php echo phpversion(); ?>"><br />
 Table prefix:<br /><input type=text size=70 name=table_prefix value="<?php echo TABLE_PREFIX; ?>"><br />
 Request:<br /><input type=text size=70 name=request value="<?php echo $_SERVER["REQUEST_URI"]; ?>"><br />

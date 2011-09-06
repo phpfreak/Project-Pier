@@ -21,5 +21,7 @@
   // PLUGIN HOOK
   plugin_manager()->do_action('project_overview_page_actions');
   // PLUGIN HOOK
-  add_page_action(lang('download task lists'), get_url('project', 'download_task_lists'));
+  if (use_permitted(logged_user(), active_project(), 'tasks')) {
+    add_page_action(lang('download task lists'), get_url('project', 'download_task_lists'));
+  }
 ?>

@@ -32,29 +32,7 @@
     function setId($value) {
       return $this->setColumnValue('id', $value);
     } // setId() 
-    
-    /**
-    * Return value of 'company_id' field
-    *
-    * @access public
-    * @param void
-    * @return integer 
-    */
-    function getCompanyId() {
-      return $this->getColumnValue('company_id');
-    } // getCompanyId()
-    
-    /**
-    * Set value of 'company_id' field
-    *
-    * @access public   
-    * @param integer $value
-    * @return boolean
-    */
-    function setCompanyId($value) {
-      return $this->setColumnValue('company_id', $value);
-    } // setCompanyId() 
-    
+
     /**
     * Return value of 'username' field
     *
@@ -208,171 +186,6 @@
     function setTitle($value) {
       return $this->setColumnValue('title', $value);
     } // setTitle() 
-    
-    /**
-    * Return value of 'homepage' field
-    *
-    * @access public
-    * @param void
-    * @return string 
-    */
-    function getHomepage() {
-      return $this->getColumnValue('homepage');
-    } // getHomepage()
-    
-    /**
-    * Return value of 'avatar_file' field
-    *
-    * @access public
-    * @param void
-    * @return string 
-    */
-    function getAvatarFile() {
-      return $this->getColumnValue('avatar_file');
-    } // getAvatarFile()
-    
-    /**
-    * Set value of 'avatar_file' field
-    *
-    * @access public   
-    * @param string $value
-    * @return boolean
-    */
-    function setAvatarFile($value) {
-      return $this->setColumnValue('avatar_file', $value);
-    } // setAvatarFile() 
-
-    /**
-    * Return value of 'title' field
-    *
-    * @access public
-    * @param void
-    * @return string 
-    */
-    function getUseGravatar() {
-      return $this->getColumnValue('use_gravatar');
-    } // getTitle()
-    
-    /**
-    * Set value of 'use_gravatar' field
-    *
-    * @access public   
-    * @param string $value
-    * @return boolean
-    */
-    function setUseGravatar($value) {
-      return $this->setColumnValue('use_gravatar', $value);
-    } // setTitle() 
-        
-    /**
-    * Return value of 'office_number' field
-    *
-    * @access public
-    * @param void
-    * @return string 
-    */
-    function getOfficeNumber() {
-      return $this->getColumnValue('office_number');
-    } // getOfficeNumber()
-    
-    /**
-    * Set value of 'office_number' field
-    *
-    * @access public   
-    * @param string $value
-    * @return boolean
-    */
-    function setOfficeNumber($value) {
-      return $this->setColumnValue('office_number', $value);
-    } // setOfficeNumber() 
-    
-    /**
-    * Return value of 'fax_number' field
-    *
-    * @access public
-    * @param void
-    * @return string 
-    */
-    function getFaxNumber() {
-      return $this->getColumnValue('fax_number');
-    } // getFaxNumber()
-    
-    /**
-    * Set value of 'fax_number' field
-    *
-    * @access public   
-    * @param string $value
-    * @return boolean
-    */
-    function setFaxNumber($value) {
-      return $this->setColumnValue('fax_number', $value);
-    } // setFaxNumber() 
-    
-    /**
-    * Return value of 'mobile_number' field
-    *
-    * @access public
-    * @param void
-    * @return string 
-    */
-    function getMobileNumber() {
-      return $this->getColumnValue('mobile_number');
-    } // getMobileNumber()
-    
-    /**
-    * Set value of 'mobile_number' field
-    *
-    * @access public   
-    * @param string $value
-    * @return boolean
-    */
-    function setMobileNumber($value) {
-      return $this->setColumnValue('mobile_number', $value);
-    } // setMobileNumber() 
-    
-    /**
-    * Return value of 'home_number' field
-    *
-    * @access public
-    * @param void
-    * @return string 
-    */
-    function getHomeNumber() {
-      return $this->getColumnValue('home_number');
-    } // getHomeNumber()
-    
-    /**
-    * Set value of 'home_number' field
-    *
-    * @access public   
-    * @param string $value
-    * @return boolean
-    */
-    function setHomeNumber($value) {
-      return $this->setColumnValue('home_number', $value);
-    } // setHomeNumber() 
-    
-    /**
-    * Return value of 'timezone' field
-    *
-    * @access public
-    * @param void
-    * @return float 
-    */
-    function getTimezone() {
-      return $this->getColumnValue('timezone');
-    } // getTimezone()
-    
-    /**
-    * Set value of 'timezone' field
-    *
-    * @access public   
-    * @param float $value
-    * @return boolean
-    */
-    function setTimezone($value) {
-      return $this->setColumnValue('timezone', $value);
-    } // setTimezone() 
     
     /**
     * Return value of 'created_on' field
@@ -571,7 +384,7 @@
     function setUseLDAP($value) {
       return $this->setColumnValue('use_LDAP', $value);
     } // setUseLDAP() 
-    
+
     /**
     * Return manager instance
     *

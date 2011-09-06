@@ -41,11 +41,18 @@ class Reports  {
       $graph->SetMarginColor('blue:1.7');
       $graph->SetColor('white');
       $graph->SetBackgroundGradient('#60A2BA','white',GRAD_HOR,BGRAD_MARGIN);
+      //$graph->SetBackgroundGradient('#A01010','white',GRAD_HOR,BGRAD_MARGIN);
       $graph->title->SetColor('white');
       $graph->title->SetFont(FF_FONT2,FS_BOLD,18);
+      //$graph->scale->actinfo->SetColTitles(array('Act','Duration','Start','Finish','Resp'));
+      $graph->scale->actinfo->SetStyle(ACTINFO_3D);
+      $graph->scale->actinfo->SetFont(FF_ARIAL,FS_NORMAL,10);
+      $graph->scale->actinfo->vgrid->SetColor('gray');
+      $graph->scale->actinfo->SetColor('darkgray');
+      $locale_char_set = 'utf-8';
       //For french support
-      Localization::instance()->getLocale();
-      if (preg_match('/' . Localization::instance()->getLocale() . '/i', 'fr_fr')) $graph->scale->SetDateLocale("fr_FR.utf8");
+      //Localization::instance()->getLocale();
+      //if (preg_match('/' . Localization::instance()->getLocale() . '/i', 'fr_fr')) $graph->scale->SetDateLocale("fr_FR.utf8");
 
       /*
       * data jpgraph construction gantt type for project
@@ -53,7 +60,26 @@ class Reports  {
       $project = active_project();
       //Project title
       $project_name = $project->getName();
-      $graph->title->Set(lang('project') . ' : ' . substr(utf8_decode($project_name),0,40) );
+      $graph->title->Set(lang('project') . ': ' . substr(utf8_decode($project_name),0,40) );
+
+      $rows = $this->displayProjectGantt($project, $graph, 0);
+      $subprojects = $project->getSubprojects();
+      foreach($subprojects as $subproject) {
+        $rows = $this->displayProjectGantt($subproject, $graph, $rows++);
+      }
+
+      //send data
+      $type = "image/png";
+      $name = "projectpiergantt.png";
+      header("Content-Type: $type");
+      header("pragma: no-cache");
+      header("Content-Disposition: attachment; filename=\"$name\"");
+      $graph->Stroke();
+      die(); //end process do not send other informations
+  }  //MakeGantt
+
+
+  function displayProjectGantt(&$project, &$graph, $start_row) {
       /*
       * There is no start date in project i take the created date project
       * fields "created_on"      
@@ -61,16 +87,47 @@ class Reports  {
       //start date project
       $start_date =  Localization::instance()->formatDate($project->getCreatedOn(),0,"Y-m-d");
 
+      //line number jpgraph      
+      $rows = $start_row;
+
+      $project_name = $project->getName();
+      $label = lang('project') . ': ' . substr(utf8_decode($project_name),0,40);
+      $mydate = date('Y-m-d');
+      $data = array(
+        array($rows++,ACTYPE_GROUP,$label,$start_date,$mydate,'')
+      );
+      $graph->SetSimpleFont(FF_FONT1,FS_BOLD,18);
+      $graph->CreateSimple($data);
+
+      /*
+      * Milestone
+      */      
+      $milestones = $project->getMilestones();
+      $mymilestone = array();
+      if (is_array($milestones)) {
+       foreach($milestones as $milestone){
+        if (!in_array($milestone->getId(),$milestonehidden)){
+          $ms_date = $milestone->getDueDate();
+          if (is_null($ms_date)) {
+            $ms_date =  Localization::instance()->formatDate($project->getCreatedOn(),0,"Y-m-d");
+          } else {
+            $ms_date = Localization::instance()->formatDate($ms_date,0,'Y-m-d');
+          }
+          $mymilestone[] = array($rows++, ACTYPE_MILESTONE, "  " . utf8_decode($milestone->getName()), $ms_date, $ms_date);
+        }  //if
+       } //foreach
+      } //if
+
+      // add many diamond on graph
+      if (count($mymilestone)>0) $graph->CreateSimple($mymilestone);
       $task_lists = $project->getTaskLists();
       /*
       * We took only task because we can just compute execution % on task_list, there is no notion in task
       */
-      //line number jpgraph      
-      $rows = 0;
       //milestone which dont appear => link to task_list
       $milestonehidden = array();         
       if (is_array($task_lists)) {
-        //Tasks lists
+        // Tasks lists
         foreach ($task_lists as $task_list) {
           //security access User can view this task_list ?
           if (!ProjectTaskList::canView(logged_user(), $task_list->getId())) continue;
@@ -78,6 +135,13 @@ class Reports  {
           // task list name
           $task_list_name=$task_list->getName();
           //due to migration to 0.8.6 it s possible task_list due_date isnull
+          $start_date = $task_list->getStartDate();
+          if (is_null($start_date)) {
+            $start_date =  Localization::instance()->formatDate($project->getCreatedOn(),0,"Y-m-d");
+            //$start_date = date('Y-m-d');
+          } else {
+            $start_date = Localization::instance()->formatDate($start_date,0,'Y-m-d');
+          }
           $mydate = $task_list->getDueDate();
           if ($mydate == ''){
             $mydate = date('Y-m-d');
@@ -86,28 +150,28 @@ class Reports  {
           }
           $progress = $this->progress($task_list);
           $progressgantt = array(
-                              array($rows,$progress[0]/100)
-                           );
+            array($rows,$progress[0]/100)
+          );
           /*
           * detect if task_list is linked to milestone ?
           */
           $istasklistlinktomilestone = $task_list->getMilestone();
           //This task list have a milestone it due_date is milestone now
           $typebar = ACTYPE_GROUP;
-          $milestonename = null;
+          $milestonename = '';
           if ($istasklistlinktomilestone != '' && $istasklistlinktomilestone != null){
               $mydatemilestone = $istasklistlinktomilestone->getDueDate();
               if ($mydatemilestone != ''){
                 $mydate = Localization::instance()->formatDate($mydatemilestone,0,'Y-m-d');
               }
               $milestonehidden[] = $istasklistlinktomilestone->getId();
-              $typebar = ACTYPE_GROUPMILESTONE;
-              $milestonename =  "\n  " . lang('milestone') . " : " . substr(utf8_decode($istasklistlinktomilestone->getName()),0,20);
+              $typebar = ACTYPE_MILESTONE;
+              $milestonename =  "\n  " . lang('milestone') . ": " . substr(utf8_decode($istasklistlinktomilestone->getName()),0,20);
           }//if
           
           $datasgantt = array(
-                          array($rows++,$typebar,substr(utf8_decode($task_list_name),0,25) . " [" . $progress[1] . '/' . $progress[2] . "]" . $milestonename,$start_date,$mydate,'[' . $progress[0] ." %]")
-                        );
+           array($rows++,$typebar,"  " . substr(utf8_decode($task_list_name),0,35) . " [" . $progress[1] . '/' . $progress[2] . "]" . $this->epure($milestonename),$start_date,$mydate,'[' . $progress[0] ."%]",'','')
+          );
           
           //task for this task_list
           $tasks = $task_list->getTasks();
@@ -123,51 +187,36 @@ class Reports  {
               if ($task->isCompleted()) {          
                 //complete
                 $progressgantt[] = array($rows,1); 
-              }else{                             
+              } else {                             
                 $progressgantt[] = array($rows,0);
               }//if
               //task name
-              $task_text = $task->getText();
-	            $this->epure($task_text);
-	            $task_text = "   $task_text";
-	            if (strlen($task_text) > 25) $task_text = substr($task_text,0,22) . "...";
+              $task_text = '[' . $task->getId() . '] ' . $task->getText();
+	      $this->epure($task_text);
+	      $task_text = "    $task_text";
+	      if (strlen($task_text) > 35) $task_text = substr($task_text,0,35) . "...";
+              $start_date = $task->getStartDate();
+              if (is_null($start_date)) {
+                $start_date =  Localization::instance()->formatDate($project->getCreatedOn(),0,"Y-m-d");
+                //$start_date = date('Y-m-d');
+              } else {
+                $start_date = Localization::instance()->formatDate($start_date,0,'Y-m-d');
+              }
               $mydate = $task->getDueDate();
               if ($mydate == ''){
                 $mydate = date('Y-m-d');
-              }else{
+              } else {
                 $mydate = Localization::instance()->formatDate($mydate,0,'Y-m-d');
               }
-	            $datasgantt[] = array($rows++,ACTYPE_NORMAL,utf8_decode($task_text),$start_date,$mydate,"");
+	      $datasgantt[] = array($rows++,ACTYPE_NORMAL,utf8_decode($task_text),$start_date,$mydate,$mydate,'','');
             }
           }
           if (count($datasgantt)> 0) $graph->CreateSimple($datasgantt,null,$progressgantt);
-          
-
         } // foreach
       } // if
-      /*
-      * Milestone
-      */      
-      $milestones = $project->getMilestones();
-      $mymilestone = array();
-      foreach($milestones as $milestone){
-        if (!in_array($milestone->getId(),$milestonehidden)){
-          $mymilestone[] = array($rows++, ACTYPE_MILESTONE, utf8_decode($milestone->getName()), Localization::instance()->formatDate($milestone->getDueDate(),0,'Y-m-d'), '');
-        }  //if
-      } //foreach
-      // add many diamond on graph
-      if (count($mymilestone)>0) $graph->CreateSimple($mymilestone);
 
-      //send data
-      $type = "image/png";
-      $name = "projectpiergantt.png";
-      header("Content-Type: $type");
-      header("pragma: no-cache");
-      header("Content-Disposition: attachment; filename=\"$name\"");
-      $graph->Stroke();
-  	  die; //end process do not send other informations
-  }  //MakeGantt
-  
+      return $rows;
+  } // displayProjectGantt
   
   /**
    *Make Mn
@@ -209,13 +258,15 @@ class Reports  {
       //milestones
       $milestones = $project->getMilestones();
       $mymilestone = array();
-      foreach($milestones as $milestone){
+      if (is_array($milestones)) {
+        foreach($milestones as $milestone){
 	  $url = externalUrl(get_url('milestone','view',array('id' => $milestone->getId())));
 	  $content .= "<node CREATED=\"$mytime\" LINK=\"$url\" POSITION=\"right\" MODIFIED=\"$mytime\" TEXT=\"  [" . $milestone->getName() . ' ' . Localization::instance()->formatDate($milestone->getDueDate()) . "]\">\n";
 	  $content .= "<font NAME=\"SansSerif\" BOLD=\"true\" SIZE=\"12\"/>";
           $content .= "<icon BUILTIN=\"messagebox_warning\"/>\n";
           $content .= "<icon BUILTIN=\"messagebox_warning\"/>\n";
           $content .= "</node>\n";
+        }
       }
 
       $task_lists = $project->getTaskLists();
@@ -240,7 +291,7 @@ class Reports  {
 	    $icon .= "<icon BUILTIN=\"button_ok\"/>\n";
 	    $tasklistComplete = true;
 	  }
-	  $this->epure($task_list_name);
+	  $this->epure('tl:'.$task_list_name);
           if (strlen($task_list_name) > 40) $task_list_name = substr($task_list_name,0,40) . "...";
           $position = $positions[$actualpos];
           $url = externalUrl(get_url('task','view_list',array('id' => $task_list->getId())));
@@ -299,8 +350,8 @@ class Reports  {
     header("Content-Type: $type");
     header("Content-Disposition: attachment; filename=\"$name\"");
     header("Content-Length: " . (string) $size);
-	  echo $content;
-	  die; //end process do not send other informations
+    echo $content;
+    die; //end process do not send other informations
   }  //MakeMm
   
   
@@ -323,10 +374,13 @@ class Reports  {
     /*
     * return string[] 
     */    
-  	$totalTasks = $task_list->countAllTasks();
+    $totalTasks = $task_list->countAllTasks();
     $openTasks = $task_list->countOpenTasks();
     $completedTasks = $task_list->countCompletedTasks();
-    $percentTasks = round($completedTasks / $totalTasks * 100);
+    $percentTasks = 0;
+    if ($totalTasks>0) {
+      $percentTasks = round($completedTasks / $totalTasks * 100);
+    }
     return array($percentTasks,$completedTasks,$totalTasks);
   }
 
@@ -336,6 +390,7 @@ class Reports  {
       */      
       $value = preg_replace('/\>|\</','',$value);
       $value = preg_replace('/\"/','\'',$value);
+      $value = preg_replace('/\n|\r/','',$value);
   }
   
 }

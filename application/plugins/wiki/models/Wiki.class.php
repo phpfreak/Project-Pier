@@ -71,19 +71,19 @@ class Wiki extends BaseWiki {
    * @param mixed $project
    * @return
    */
-	function getPagesList(Project $project)
-	{
-
-		$sql = 'SELECT p.id, r.name FROM ' . Wiki::instance()->getTableName(true) . ' AS p, ' . Revisions::instance()->getTableName(true) . ' AS r WHERE p.project_id = ' . $project->getId() . ' AND p.id = r.page_id AND r.revision = p.revision ORDER BY 2'; 
-		$return = array();
-		
-		foreach(((array) DB::executeAll($sql)) as $page){
-			$return[] = array('name' 	=> $page['name'],	
-												'view_url'		=> get_url('wiki', 'view', array('id' => $page['id']))
-												);
-		}
-		return $return;
-	}
+  function getPagesList(Project $project)
+  {
+    $sql = 'SELECT p.id, r.name FROM ' . Wiki::instance()->getTableName(true) . ' AS p, ' . Revisions::instance()->getTableName(true) . ' AS r WHERE p.project_id = ' . $project->getId() . ' AND p.id = r.page_id AND r.revision = p.revision AND p.project_sidebar = 0 ORDER BY 2'; 
+    $return = array();
+      foreach(((array) DB::executeAll($sql)) as $page){
+        $return[] = array(
+          'name' => $page['name'],	
+	  'view_url' => get_url('wiki', 'view', array('id' => $page['id'])
+        )
+      );
+    }
+    return $return;
+  }
 
     /**
     * Return array of all pages for project

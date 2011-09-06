@@ -9,14 +9,13 @@
   */
   
   // add project tab
-  define('PROJECT_TAB_LINKS', 'links');
   add_action('add_project_tab', 'links_add_project_tab');
   function links_add_project_tab() {
-    add_tabbed_navigation_item(new TabbedNavigationItem(
-      PROJECT_TAB_LINKS,
-      lang('links'),
+    add_tabbed_navigation_item(
+      'links',
+      'links',
       get_url('links', 'index')
-    ));
+    );
   }
   
   // overview page
@@ -48,8 +47,11 @@
     $sql = "CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."project_links` (
         `id` int(10) unsigned NOT NULL auto_increment,
         `project_id` int(10) unsigned NOT NULL default '0',
-        `title` varchar(100) NOT NULL default '',
+        `folder_id` INT( 10 ) NOT NULL DEFAULT 0,
+        `title` varchar(50) NOT NULL default '',
         `url` text,
+        `description` TEXT DEFAULT '',
+        `logo_file` VARCHAR( 50 ) DEFAULT '',
         `created_on` datetime NOT NULL default '0000-00-00 00:00:00',
         `created_by_id` int(10) unsigned default NULL,
         PRIMARY KEY  (`id`),
@@ -59,7 +61,7 @@
     // create table
     DB::execute($sql);
   }
-  
+
   /**
   * If you need an de-activation routine run from the admin panel
   *   use the following pattern for the function:

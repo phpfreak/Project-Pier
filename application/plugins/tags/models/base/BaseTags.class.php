@@ -1,6 +1,5 @@
 <?php 
 
-  
   /**
   * Tags class
   *

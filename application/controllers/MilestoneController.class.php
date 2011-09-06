@@ -3,9 +3,6 @@
   /**
   * Milestone controller
   *
-  * @package Taus.application
-  * @subpackage controller
-  * @version 1.0
   * @http://www.projectpier.org/
   */
   class MilestoneController extends ApplicationController {
@@ -35,10 +32,35 @@
 
       $this->canGoOn();
 
+      // Gets desired view 'detail' or 'list'
+      // $view_type is from URL, Cookie or set to default: 'list'
+      $view_type = array_var($_GET, 'view', Cookie::getValue('milestonesViewType', 'list'));
+      $expiration = Cookie::getValue('remember'.TOKEN_COOKIE_NAME) ? REMEMBER_LOGIN_LIFETIME : null;
+      Cookie::setValue('milestonesViewType', $view_type, $expiration);
+      $filter_assigned = array_var($_GET, 'assigned', Cookie::getValue('milestonesFilterAssigned', 'all'));
+      $expiration = Cookie::getValue('remember'.TOKEN_COOKIE_NAME) ? REMEMBER_LOGIN_LIFETIME : null;
+      Cookie::setValue('milestonesFilterAssigned', $filter_assigned, $expiration);
+  
+      $all_milestones_visible_to_user = $project->getMilestones();
+      
+      $all_assigned_to = array();
+      if (logged_user()->isMemberOfOwnerCompany() && is_array($all_milestones_visible_to_user) ) {
+        foreach($all_milestones_visible_to_user as $milestone) {
+          $assigned_to = $milestone->getAssignedTo();
+          if ($assigned_to) {
+            $all_assigned_to[$assigned_to->getDisplayName()]=$assigned_to;
+          }
+        }
+      }
+   
+      tpl_assign('filter_assigned', $filter_assigned);
+      tpl_assign('view_type', $view_type);
       tpl_assign('late_milestones', $project->getLateMilestones());
       tpl_assign('today_milestones', $project->getTodayMilestones());
       tpl_assign('upcoming_milestones', $project->getUpcomingMilestones());
       tpl_assign('completed_milestones', $project->getCompletedMilestones());
+      tpl_assign('all_visible_milestones', $all_milestones_visible_to_user);
+      tpl_assign('assigned_to_milestones', $all_assigned_to);
       
       $this->setSidebar(get_template_path('index_sidebar', 'milestone'));
     } // index
@@ -75,6 +97,7 @@
     * @return null
     */
     function add() {
+      $this->addHelper('textile');
       $this->setTemplate('add_milestone');
       
       if (!ProjectMilestone::canAdd(logged_user(), active_project())) {
@@ -91,8 +114,10 @@
         ); // array
       } // if
       $milestone = new ProjectMilestone();
+      $milestone->setProjectId(active_project()->getId());
       tpl_assign('milestone_data', $milestone_data);
       tpl_assign('milestone', $milestone);
+      $this->setSidebar(get_template_path('textile_help_sidebar'));
       
       if (is_array(array_var($_POST, 'milestone'))) {
         if (isset($_POST['milestone_due_date'])) {
@@ -108,7 +133,6 @@
           $milestone->setIsPrivate(false);
         }
         
-        $milestone->setProjectId(active_project()->getId());
         $milestone->setAssignedToCompanyId(array_var($assigned_to, 0, 0));
         $milestone->setAssignedToUserId(array_var($assigned_to, 1, 0));
         
@@ -150,6 +174,7 @@
     * @return null
     */
     function edit() {
+      $this->addHelper('textile');
       $this->setTemplate('add_milestone');
       
       $milestone = ProjectMilestones::findById(get_id());
@@ -180,6 +205,7 @@
       
       tpl_assign('milestone_data', $milestone_data);
       tpl_assign('milestone', $milestone);
+      $this->setSidebar(get_template_path('textile_help_sidebar'));
       
       if (is_array(array_var($_POST, 'milestone'))) {
         $old_owner = $milestone->getAssignedTo(); // remember the old owner

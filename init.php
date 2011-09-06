@@ -48,11 +48,12 @@
     print "ProjectPier is not installed. Please redirect your browser to <b><a href=\"./". PUBLIC_FOLDER . "/install\">" . PUBLIC_FOLDER . "/install</a></b> folder and follow installation procedure";
     die();
   } // if
-  
+
   // ---------------------------------------------------
   //  Init...
   // ---------------------------------------------------
 //$_REQUEST['trace']='x';
+//$_REQUEST['debug']='x';
 
   function trace($f, $l = '') {
     if (isset($_REQUEST['trace'])) {
@@ -69,7 +70,8 @@
       file_put_contents('cache/trace.txt', $trace, FILE_APPEND);
     }
   } 
-  
+ 
+
   include_once ROOT . '/environment/environment.php';
 
   // Lets prepare everything for autoloader
@@ -104,6 +106,12 @@
     DB::execute('SET AUTOCOMMIT=1');
     DB::execute("SET SQL_MODE=''");
     DB::execute("SET STORAGE_ENGINE=INNODB");  // try to set to INNODB, don't care if it fails
+    //
+    //Failed to import file '/home/sharec/public_html/pp088/tmp/Riot.zip' to the file repository (unique file id: a25a6e76db0b741ec4f30d6bbae79db37024c28a)
+    // DB::execute('SET SESSION max_allowed_packet=16777216');  // 16 MB
+    //  Query failed with message 'SESSION variable max_allowed_packet is read-only. Use SET GLOBAL max_allowed_packet to assign the value'
+    // DB::execute('SET GLOBAL max_allowed_packet=16777216');  // 16 MB
+    //  Query failed with message 'Access denied; you need the SUPER privilege for this operation'
   } catch(Exception $e) {
     if (Env::isDebugging()) {
       Env::dumpError($e);
@@ -122,7 +130,7 @@
   define('TABLE_PREFIX',     DB_PREFIX);
   
   define('PRODUCT_NAME', 'ProjectPier');
-  define('PRODUCT_VERSION', '0.8.7');
+  define('PRODUCT_VERSION', '0.8.8');
   
   define('MAX_SEARCHABLE_FILE_SIZE', 1048576); // if file type is searchable script will load its content into search index. Using this constant you can set the max filesize of the file that will be imported. Noone wants 500MB in search index for single file
   define('SESSION_LIFETIME', 0 + config_option('session_lifetime', 3600) );
@@ -183,6 +191,7 @@
   } catch(Exception $e) {
     trace(__FILE__, '- exception ' . $e );
     if (Env::isDebugging()) {
+      print $e->getTraceAsString();
       Env::dumpError($e);
     } else {
       Logger::log($e, Logger::FATAL);

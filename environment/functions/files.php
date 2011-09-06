@@ -421,13 +421,14 @@
     header("Expires: " . gmdate("D, d M Y H:i:s", mktime(date("H") + 2, date("i"), date("s"), date("m"), date("d"), date("Y"))) . " GMT");
     header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
     header("Content-Type: $type");
-    header("Content-Length: " . (string) $size);
+    header("Content-Length: " . $size);
     // Prepare disposition
     $disposition = $force_download ? 'attachment' : 'inline';
     // http://www.ietf.org/rfc/rfc2183.txt
     $download_name = strtr($name, " ()<>@,;:\\/[]?=*%'\"", '--------------------');
     $download_name = normalize($download_name);
-    header("Content-Disposition: $disposition; filename=$download_name");
+    header("Content-Disposition: $disposition; filename=\"$download_name\"");
+    //header("Content-Disposition: $disposition; filename=$download_name");
     header("Content-Transfer-Encoding: binary");
     if ($from_filesystem) {
       if (!is_readable($content)) return false;
@@ -442,10 +443,29 @@
         $buffer = fread($handle, $chunksize);
         print $buffer;
         flush();
+        ob_flush();
       }
       return fclose($handle);
     } else {
-      print $content;
+      header("X-ProjectPier-Storage: mysql");
+      header("X-ProjectPier-Size: " . $size);
+      // 0.8.8 $content = repository id
+      //print $content;
+      $repository_id = $content;
+      $repo_table = 'pp088_file_repo';
+      $query = sprintf("SELECT `content`, `seq` FROM $repo_table WHERE `id`='%s' order by `seq` asc",
+        mysql_real_escape_string($repository_id));
+      header("X-ProjectPier-Debug1: " . $query);
+      $result = mysql_query($query);
+      header("X-ProjectPier-Debug2: " . mysql_error());
+      while ($row = mysql_fetch_assoc($result)) {
+        header("X-ProjectPier-Debug3-" . $row['seq'] . ": " . mysql_error());
+        print $row['content'];
+        //flush();
+        ob_flush();
+      }
+      header("X-ProjectPier-Debug4: " . mysql_error());
+      mysql_free_result($result);
     }
     return((connection_status() == 0) && !connection_aborted());
   } // download_contents

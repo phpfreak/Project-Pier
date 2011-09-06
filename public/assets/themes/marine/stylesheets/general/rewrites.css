@@ -9,6 +9,7 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, 
 table  {
  border-collapse: collapse;
  border-spacing: 0;
+ table-layout: fixed;
 }
 
 fieldset, img  {
@@ -53,7 +54,7 @@ a:hover  {
 
 a img  {
  border: 0;
- vertical-align: text-bottom;
+ xvertical-align: text-bottom;
 }
 
 em  {
@@ -88,12 +89,12 @@ p, ul, pre, dl  {
 
 ul  {
  list-style-image: url(../../images/icons/0105_ico-arrow.gif);
- padding-left: 20px;
+ padding-left: 15px;
 }
 
 ol  {
  list-style: decimal;
- padding-left: 25px;
+ padding-left: 15px;
 }
 
 dt  {
@@ -127,13 +128,17 @@ acronym  {
 table  {
  border: 1px solid #CCCCCC;
  border-collapse: collapse;
- width: 100%;
+ width: inherit;
 }
+
 
 th, td  {
  border: 1px solid #E5E5E5;
  padding: 4px;
  vertical-align: top;
+ xwhite-space:pre-wrap;
+ white-space:-moz-pre-wrap !important;
+ word-wrap:break-word;
 }
 
 th  {
@@ -162,6 +167,8 @@ table.blank td  {
  font-size: 12px;
  font-style: italic;
  font-weight: normal;
+ white-space:-moz-pre-wrap !important;
+ word-wrap:break-word;
 }
 
 .help  {
@@ -228,31 +235,18 @@ table.blank td  {
 }
 
 .odd  {
- background-color: #F6F8F9;
+ background-color: #E6E8E9;
  border-bottom: 1px solid #BFD9E4;
 }
 
-div.odd  {
- margin-top: -8px !important;
- padding-top: 10px;
-}
-
 .sidebarBlock div.odd  {
- padding-top: 5px;
+ padding: 5px;
  margin-top: 0 !important;
 }
 
-.blockHeader  {
- border-bottom: 1px solid #333333;
- font-size: 120%;
- margin-bottom: 5px;
- padding: 5px 10px;
-}
-
-.blockHeader h2  {
- font-size: 18px;
- font-weight: normal;
- margin: 5px 0;
+.sidebarBlock div.even  {
+ padding: 5px;
+ margin-top: 0 !important;
 }
 
 .note  {
@@ -279,6 +273,10 @@ div.odd  {
  padding: 5px;
 }
 
+.content .important {
+ padding: 0px;
+}
+
 .header h2  {
  font-size: 16px;
  font-weight: bold;
@@ -289,8 +287,9 @@ div.odd  {
 .block  {
  background: #F5F5F5 url('../../images/logtypes/old.gif') repeat-x top right;
  border: 1px solid #E0E0E0;
- margin-bottom: 10px;
- padding: 5px;
+ margin-bottom: 5px;
+ margin-top: 5px;
+ padding: 0px;
 }
 
 .block .header  {
@@ -302,7 +301,7 @@ div.odd  {
  background-image: url(../../images/layout/bg_alert.png);
  background-repeat: repeat-x;
  border-color: #EFCAB8;
- padding: 5px;
+ padding: 0px;
 }
 
 .important .header  {
@@ -359,4 +358,3 @@ a.iCalSubscribe  {
  background: url('../../images/icons/icalendar.png') no-repeat;
  padding: 4px 0 0 20px;
 }
-

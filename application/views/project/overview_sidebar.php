@@ -35,10 +35,7 @@
   <div class="blockContent">
     <ul>
 <?php foreach ($important_files as $important_file) { ?>
-      <li class="<?php echo odd_even_class($files_ln); ?>">
-        <a href="<?php echo $important_file->getDetailsUrl() ?>"><?php echo clean($important_file->getFilename()) ?></a><br />
-        <span class="desc"><?php echo lang('revisions on file', $important_file->countRevisions()) ?></span>
-      </li>
+      <li class="<?php echo odd_even_class($files_ln); ?>"><a href="<?php echo $important_file->getDetailsUrl() ?>"><?php echo clean($important_file->getFilename()) ?></a><br /><span class="desc"><?php echo lang('revisions on file', $important_file->countRevisions()) ?></span></li>
 <?php } // foreach ?>
     </ul>
   </div>
@@ -66,11 +63,8 @@
 <?php } // if ?>
 <?php if (active_project()->canEdit(logged_user())) { ?>
       <li><a href="<?php echo active_project()->getEditUrl() ?>"><?php echo lang('edit project') ?></a></li>
-      <li><a href="<?php echo active_project()->getEditLogoUrl() ?>"><?php echo lang('projects logo edit') ?></a></li>
+      <li><a href="<?php echo active_project()->getEditLogoUrl() ?>"><?php echo lang('edit logo') ?></a></li>
 <?php } // if ?>
-<?php if (active_project()->canDelete(logged_user())) { ?>
-      <li><a href="<?php echo active_project()->getDeleteUrl(); ?>"><?php echo lang('delete project') ?></a></li>
-<?php } // if ?>    
 <?php if (active_project()->canChangePermissions(logged_user())) { ?>
       <li><a href="<?php echo active_project()->getPermissionsUrl(); ?>"><?php echo lang('edit permissions') ?></a></li>
 <?php } // if ?>    
@@ -81,6 +75,9 @@
       <li><a href="<?php echo active_project()->getOpenUrl() ?>" onclick="return confirm('<?php echo lang('confirm open project') ?>')"><?php echo lang('mark project as active') ?></a></li>
 <?php } // if ?>
 <?php } // if ?>
+<?php if (active_project()->canDelete(logged_user())) { ?>
+      <li><a href="<?php echo active_project()->getDeleteUrl(); ?>"><?php echo lang('delete project') ?></a></li>
+<?php } // if ?>    
 
     </ul>
   </div>
@@ -94,6 +91,21 @@
     <ul>
 <?php foreach ($project_companies as $project_company) { ?>
       <li class="<?php echo odd_even_class($companies_ln); ?>"><a href="<?php echo $project_company->getCardUrl() ?>"><?php echo clean($project_company->getName()) ?></a></li>
+<?php } // foreach ?>
+    </ul>
+  </div>
+</div>
+<?php } // if ?>
+
+
+<?php if (isset($project_users) && is_array($project_users) && count($project_users)) { ?>
+<?php count($project_users); ?>
+<div class="sidebarBlock">
+  <h2><?php echo lang('users involved in project') ?></h2>
+  <div class="blockContent">
+    <ul>
+<?php foreach ($project_users as $project_user) { ?>
+      <li class="<?php echo odd_even_class($users_ln); ?>"><a href="<?php echo $project_user->getCardUrl() ?>"><?php echo clean($project_user->getDisplayName()) ?></a></li>
 <?php } // foreach ?>
     </ul>
   </div>

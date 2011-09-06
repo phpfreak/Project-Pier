@@ -27,6 +27,20 @@
 </div>
 <?php } // if ?>
 
+
+<?php if (isset($my_files) && is_array($my_files) && count($my_files)) { ?>
+<div class="sidebarBlock">
+  <h2><?php echo lang('my files') ?></h2>
+  <div class="blockContent">
+    <ul>
+<?php foreach ($my_files as $my_file) { ?>
+      <li><a href="<?php echo $my_file->getViewUrl() ?>"><?php echo clean($my_file->getFileName()) ?></a></li>
+<?php } // foreach ?>
+    </ul>
+  </div>
+</div>
+<?php } // if ?>
+
 <div class="sidebarBlock">
   <h2><?php echo lang('rss feeds') ?></h2>
   <div class="blockContent">

@@ -1,0 +1,66 @@
+#objectComments div.comment {
+  margin: 8px 0;
+  padding-bottom: 5px;
+  padding-left:10px;
+  padding-top:3px;
+}
+
+#objectComments .commentHead {
+  color: #333;
+  font-size: 10px;
+}
+
+#objectComments .commentHead a {
+  font-size:9px;
+  font-weight: bold;
+  background:#DDD;
+  color:#777;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  text-decoration:none;
+}
+
+#objectComments .commentHead a:hover{
+  text-decoration:underline;
+}
+
+#objectComments .commentHead span a {
+  font-size:10px;
+  background:none;
+  color:black;
+  text-decoration:underline;
+}
+
+#objectComments .commentBody {
+  border:none;
+  /*border-top: 1px solid #ccc;*/
+  padding: 0 10px;
+}
+
+#objectComments .commentUserAvatar {
+  float: left;
+  /*margin: 10px 10px 10px 0;*/
+  margin:0px;
+  margin-right:10px;
+}
+
+.commentText p{
+  margin-top:5px;
+  padding-left:10px;
+  line-height:150%;
+  margin-bottom:3px;
+}
+
+.comment .options {
+  visibility:hidden;
+  font-size:10px;
+  margin-top:0px;
+  padding-left:5px;
+}
+
+.comment:hover .options a {
+  visibility:visible;
+}
+

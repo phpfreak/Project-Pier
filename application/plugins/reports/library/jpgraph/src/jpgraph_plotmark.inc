@@ -189,6 +189,7 @@ class PlotMark {
         $this->csimareas="";    
         if( !empty($this->csimtarget) ) {
 	    $this->csimareas .= "<area shape=\"poly\" coords=\"$coords\" href=\"".$this->csimtarget."\"";
+            $tmp = '';
 	    if( !empty($this->csimalt) ) {										
 		$tmp=sprintf($this->csimalt,$this->yvalue,$this->xvalue);
 		$this->csimareas .= " title=\"$tmp\"";
@@ -202,6 +203,7 @@ class PlotMark {
         $this->csimareas="";    
         if( !empty($this->csimtarget) ) {
 	    $this->csimareas .= "<area shape=\"circle\" coords=\"$x,$y,$r\" href=\"".$this->csimtarget."\"";
+            $tmp = '';
     	    if( !empty($this->csimalt) ) {										
 		$tmp=sprintf($this->csimalt,$this->yvalue,$this->xvalue);
 		$this->csimareas .= " title=\"$tmp\"";
@@ -346,6 +348,7 @@ class PlotMark {
 		$this->csimareas = "<area shape=\"rect\" coords=\"".
 		    $dx.','.$dy.','.round($dx+$dw).','.round($dy+$dh).'" '.
 		    "href=\"".$this->csimtarget."\"";
+                $tmp = '';
 		if( !empty($this->csimalt) ) {
 		    $tmp=sprintf($this->csimalt,$this->yvalue,$this->xvalue);
 		    $this->csimareas .= " title=\"$tmp\"";

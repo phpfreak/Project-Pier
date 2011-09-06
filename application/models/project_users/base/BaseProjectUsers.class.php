@@ -13,7 +13,7 @@
     * @var array
     * @static
     */
-    static private $columns = array('project_id' => DATA_TYPE_INTEGER, 'user_id' => DATA_TYPE_INTEGER, 'created_on' => DATA_TYPE_DATETIME, 'created_by_id' => DATA_TYPE_INTEGER);
+    static private $columns = array('project_id' => DATA_TYPE_INTEGER, 'user_id' => DATA_TYPE_INTEGER, 'note' => DATA_TYPE_STRING, 'created_on' => DATA_TYPE_DATETIME, 'created_by_id' => DATA_TYPE_INTEGER);
   
     /**
     * Construct

@@ -363,6 +363,16 @@
     } // getUpdateOptionsUrl
     
     /**
+    * Move this message
+    *
+    * @param void
+    * @return string
+    */
+    function getMoveUrl() {
+      return get_url('message', 'move', array('id' => $this->getId(), 'active_project' => $this->getProjectId()));
+    } // getEditUrl
+
+    /**
     * Return delete message URL
     *
     * @access public

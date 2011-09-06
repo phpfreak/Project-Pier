@@ -7,6 +7,16 @@
   */
   class Project extends BaseProject {
 
+    // ---------------------------------------------------
+    // Page Attachments
+    // ---------------------------------------------------
+    
+    /** Cache of all page attachments
+    *
+    * @var array
+    */
+    private $all_page_attachments;
+
     /**
     * This object is taggable
     *
@@ -133,8 +143,8 @@
     private $all_completed_milestones;
     
     /**
-    * Cached array of completed milestones - is_private check is made before retriving meaning that if
-    * user is no member of owner company all private data will be hiddenas
+    * Cached array of completed milestones - is_private check is made before retrieving meaning that if
+    * user is no member of owner company all private data will be hidden
     *
     * @var array
     */
@@ -721,7 +731,7 @@
     } // getAllTaskLists
     
     /**
-    * Return all taks lists
+    * Return all task lists
     *
     * @access public
     * @param void
@@ -980,7 +990,7 @@
     * 
     *  - messages
     *  - milestones
-    *  - tast lists
+    *  - task lists
     *  - files
     *
     * @access public
@@ -993,6 +1003,7 @@
         'messages'   => Tags::getProjectObjects($this, $tag, 'ProjectMessages', $exclude_private),
         'milestones' => Tags::getProjectObjects($this, $tag, 'ProjectMilestones', $exclude_private),
         'task_lists' => Tags::getProjectObjects($this, $tag, 'ProjectTaskLists', $exclude_private),
+        'tickets'    => Tags::getProjectObjects($this, $tag, 'ProjectTickets', $exclude_private),
         'files'      => Tags::getProjectObjects($this, $tag, 'ProjectFiles', $exclude_private),
       ); // array
     } // getObjectsByTag
@@ -1121,6 +1132,25 @@
     } // getCompanies
     
     /**
+    * Get all companies involved in this project visible to the given user
+    *
+    * @access public
+    * @param User $user The user to filter with
+    * @param boolean $include_owner_company Include owner in result
+    * @return array
+    */
+    function getVisibleCompanies($user, $include_owner_company = false) {
+      $visible = array();
+      $companies = $this->getCompanies($include_owner_company);
+      foreach($companies as $company) {
+        if (logged_user()->canSeeCompany($company)) {
+          $visible[] = $company;
+        }
+      }
+      return $visible;
+    } // getVisibleCompanies
+
+    /**
     * Remove all companies from project
     *
     * @access public
@@ -1160,6 +1190,26 @@
       } // if
     } // getUsers
     
+    
+    /**
+    * Get all users involved in this project visible to the given user
+    *
+    * @access public
+    * @param User $user The user to filter with
+    * @param boolean $include_owner_company Include owner in result
+    * @return array
+    */
+    function getVisibleUsers($user) {
+      $visible = array();
+      $users = $this->getUsers(false);
+      foreach($users as $user) {
+        if (logged_user()->canSeeUser($user)) {
+          $visible[] = $user;
+        }
+      }
+      return $visible;
+    } // getVisibleUsers
+
     /**
     * Remove all users from project
     *
@@ -1246,8 +1296,9 @@
         $task_list_ids[] = $task_list->getId();
       } // if
       
+      // 'conditions' => array('`task_list_id` IN (?) AND ((`assigned_to_user_id` = ? AND `assigned_to_company_id` = ?) OR (`assigned_to_user_id` = ? AND `assigned_to_company_id` = ?) OR (`assigned_to_user_id` = ? AND `assigned_to_company_id` = ?)) AND `completed_on` = ?', $task_list_ids, $user->getId(), $user->getCompanyId(), 0, $user->getCompanyId(), 0, 0, EMPTY_DATETIME),
       return ProjectTasks::findAll(array(
-        'conditions' => array('`task_list_id` IN (?) AND ((`assigned_to_user_id` = ? AND `assigned_to_company_id` = ?) OR (`assigned_to_user_id` = ? AND `assigned_to_company_id` = ?) OR (`assigned_to_user_id` = ? AND `assigned_to_company_id` = ?)) AND `completed_on` = ?', $task_list_ids, $user->getId(), $user->getCompanyId(), 0, $user->getCompanyId(), 0, 0, EMPTY_DATETIME),
+        'conditions' => array('((`assigned_to_user_id` = ? AND `assigned_to_company_id` = ?) OR (`assigned_to_user_id` = ? AND `assigned_to_company_id` = ?) OR (`assigned_to_user_id` = ? AND `assigned_to_company_id` = ?)) AND `completed_on` = ?', $task_list_ids, $user->getId(), $user->getCompanyId(), 0, $user->getCompanyId(), 0, 0, EMPTY_DATETIME),
         'order' => '`due_date`'
       )); // findAll
     } // getUsersTasks
@@ -1260,18 +1311,25 @@
     * Return array of task that are assigned to specific user or his company
     *
     * @param User $user
+    * @param array $options
+    * @param boolean $include_company
     * @return array
     */
-    function getUsersTickets(User $user) {
+    function getUsersTickets(User $user, $options = null, $include_company = false) {
       if (!plugin_active('tickets')) return null;
-      $conditions = DB::prepareString('`project_id` = ? AND ((`assigned_to_user_id` = ? AND `assigned_to_company_id` = ?) OR (`assigned_to_user_id` = ? AND `assigned_to_company_id` = ?) OR (`assigned_to_user_id` = ? AND `assigned_to_company_id` = ?) OR `created_by_id`= ?) AND `closed_on` = ?', array($this->getId(), $user->getId(), $user->getCompanyId(), 0, $user->getCompanyId(), 0, 0, $user->getId(), EMPTY_DATETIME));
+      if ($include_company) {      
+        $conditions = DB::prepareString('`project_id` = ? AND ((`assigned_to_user_id` = ? AND `assigned_to_company_id` = ?) OR (`assigned_to_user_id` = ? AND `assigned_to_company_id` = ?) OR (`assigned_to_user_id` = ? AND `assigned_to_company_id` = ?) OR `created_by_id`= ?) AND `closed_on` = ?', array($this->getId(), $user->getId(), $user->getCompanyId(), 0, $user->getCompanyId(), 0, 0, $user->getId(), EMPTY_DATETIME));
+      } else {
+        $conditions = DB::prepareString('`project_id` = ? AND `assigned_to_user_id` = ? AND `closed_on` = ?', array($this->getId(), $user->getId(), EMPTY_DATETIME));
+      } // if
       if(!$user->isMemberOfOwnerCompany()) {
         $conditions .= DB::prepareString(' AND `is_private` = ?', array(0));
       } // if
-      return ProjectTickets::findAll(array(
-        'conditions' => $conditions,
-        'order' => '`created_on`'
-      )); // findAll
+      $options['conditions'] = $conditions;
+      if (!isset($options['order'])) {
+        $options['order'] = '`created_on`';
+      }
+      return ProjectTickets::findAll($options); // findAll
     } // getUsersTickets
     
     // ---------------------------------------------------
@@ -1390,7 +1448,7 @@
     } // canAdd
     
     /**
-    * Returns true if user can update speicific project
+    * Returns true if user can update specific project
     *
     * @access public
     * @param User $user
@@ -1539,6 +1597,16 @@
     } // getPeopleUrl
     
     /**
+    * Return project settings page URL
+    *
+    * @param void
+    * @return string
+    */
+    function getSettingsUrl() {
+      return get_url('project_settings', 'index', array('active_project' => $this->getId()));
+    } // getSettingsUrl
+    
+    /**
     * Return project permissions page URL
     *
     * @param void
@@ -1572,14 +1640,17 @@
     * Return edit project URL
     *
     * @access public
-    * @param void
+    * @param string $redirect_to URL where we need to redirect user when edit is done
     * @return string
     */
-    function getEditUrl() {
-      return get_url('project', 'edit', array(
-        'id' => $this->getId(),
-        'active_project' => $this->getId(),
-      ));
+    function getEditUrl($redirect_to = null) {
+      $attributes = array('id' => $this->getId(),
+        'active_project' => $this->getId());
+      if (trim($redirect_to) <> '') {
+        $attributes['redirect_to'] = urlencode(trim($redirect_to));
+      } // if
+      
+      return get_url('project', 'edit', $attributes);
     } // getEditUrl
     
     /**
@@ -1617,6 +1688,40 @@
     function getOpenUrl() {
       return get_url('project', 'open', $this->getId());
     } // getOpenUrl
+    
+    /**
+    * Return add contact to project URL
+    *
+    * @access public
+    * @param void
+    * @return string
+    */
+    function getAddContactUrl($params = null) {
+      $params['active_project'] = $this->getId();
+      return get_url('project', 'add_contact', $params);
+    } // getAddContactUrl
+    
+    /**
+    * Return remove contact to project URL
+    *
+    * @access public
+    * @param integer $contact_id
+    * @return string
+    */
+    function getRemoveContactUrl($contact_id) {
+      return get_url('project', 'remove_contact', array('rel_object_manager' => 'Contacts', 'rel_object_id' => $contact_id, 'project_id' => $this->getId()));
+    } // getRemoveContactUrl
+    
+    /**
+    * Return edit contact to project URL
+    *
+    * @access public
+    * @param integer $contact_id
+    * @return string
+    */
+    function getEditContactUrl($contact_id) {
+      return get_url('project', 'edit_contact', array('rel_object_manager' => 'Contacts', 'rel_object_id' => $contact_id, 'project_id' => $this->getId()));
+    } // getEditContactUrl
     
     /**
     * Return remove user from project URL
@@ -1808,8 +1913,10 @@
     * @return boolean
     */
     function delete() {
+      $this->clearPageAttachments();
       $this->clearMessages();
       $this->clearTaskLists();
+      $this->clearTickets();
       $this->clearMilestones();
       $this->clearFiles();
       $this->clearFolders();
@@ -1819,6 +1926,21 @@
       return parent::delete();
     } // delete
     
+    /**
+    * Clear all project page attachments
+    *
+    * @param void
+    * @return null
+    */
+    private function clearPageAttachments() {
+      $page_attachments = $this->getAllPageAttachments();
+      if (is_array($page_attachments)) {
+        foreach ($page_attachments as $page_attachment) {
+          $page_attachment->delete();
+        } // foreach
+      } // if
+    } // clearPageAttachments
+ 
     /**
     * Clear all project messages
     *
@@ -1850,7 +1972,22 @@
         } // foreach
       } // if
     } // clearTaskLists
-    
+
+    /**
+    * Clear all tickets
+    *
+    * @param void
+    * @return null
+    */
+    private function clearTickets() {
+      $tickets = $this->getAllTickets();
+      if (is_array($tickets)) {
+        foreach ($tickets as $ticket) {
+          $ticket->delete();
+        } // foreach
+      } // if
+    } // clearTickets
+        
     /**
     * Clear all milestones
     *

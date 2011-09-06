@@ -244,7 +244,7 @@
   /**
   * Render option group
   *
-  * @param string $labe Group label
+  * @param string $label Group label
   * @param array $options
   * @param array $attributes
   * @return string

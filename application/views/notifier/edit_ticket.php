@@ -23,7 +23,37 @@ if ((!defined('SHOW_TICKET_BODY')) or (SHOW_TICKET_BODY == true)) {
   echo "\n";
   echo $ticket->getDescription();
   echo "\n----------------\n\n";
-}
+
+  $changes = $changeset->getChanges();
+  foreach ($changes as $change) {
+    if (trim($change->getFromData()) == "") {
+      if ($change->dataNeedsTranslation()) {
+        echo strip_tags(lang('change set to', lang($change->getType()), lang($change->getToData())));
+      } else {
+        echo strip_tags(lang('change set to', lang($change->getType()), $change->getToData()));
+      } // if
+    } elseif (trim($change->getToData()) == "") {
+      if ($change->dataNeedsTranslation()) {
+        echo strip_tags(lang('change from to', lang($change->getType()), lang($change->getFromData()), lang('n/a')));
+      } else {
+        echo strip_tags(lang('change from to', lang($change->getType()), $change->getFromData(), lang('n/a')));
+      } // if
+    } else {
+      if ($change->dataNeedsTranslation()) {
+        echo strip_tags(lang('change from to', lang($change->getType()), lang($change->getFromData()), lang($change->getToData())));
+      } else {
+        echo strip_tags(lang('change from to', lang($change->getType()), $change->getFromData(), $change->getToData()));
+      } // if
+    } // if
+    echo "\n";
+  } // foreach
+  echo "\n";
+  if (trim($changeset->getComment())) {
+    echo lang('comment').":\n";
+    echo $changeset->getComment();
+  } // if
+  echo "\n----------------\n\n";
+} // if
 ?>
 
 <?php echo lang('view new ticket').":\n" ?>

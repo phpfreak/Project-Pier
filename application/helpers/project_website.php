@@ -19,40 +19,35 @@
     BreadCrumbs::instance()->addByFunctionArguments($args);
     
   } // project_crumbs
-  
-  // Tab IDs
-  define('PROJECT_TAB_OVERVIEW', 'overview');
-  define('PROJECT_TAB_MESSAGES', 'messages');
-  define('PROJECT_TAB_TASKS', 'tasks');
-  define('PROJECT_TAB_MILESTONES', 'milestones');
 
+
+  function project_tabbed_navigation_filter($items) {
+    $pass = array();
+    foreach ($items as &$item) {
+      if (use_permitted(logged_user(), active_project(), $item->getID())) {
+        $pass[]=$item;
+      } else {
+        if ($item->getId() == 'overview') {
+          $pass[]=$item;
+        }
+      }
+    }
+    return $pass;
+  }
+  
   /**
   * Prepare dashboard tabbed navigation
   *
   * @param string $selected ID of selected tab
   * @return null
   */
-  function project_tabbed_navigation($selected = PROJECT_TAB_OVERVIEW) {
-    add_tabbed_navigation_item(new TabbedNavigationItem(
-      PROJECT_TAB_OVERVIEW, 
-      lang('overview'), 
-      get_url('project', 'index')
-    ));
-    add_tabbed_navigation_item(new TabbedNavigationItem(
-      PROJECT_TAB_MESSAGES, 
-      lang('messages'), 
-      get_url('message', 'index')
-    ));
-    add_tabbed_navigation_item(new TabbedNavigationItem(
-      PROJECT_TAB_TASKS, 
-      lang('tasks'), 
-      get_url('task', 'index')
-    ));
-    add_tabbed_navigation_item(new TabbedNavigationItem(
-      PROJECT_TAB_MILESTONES, 
-      lang('milestones'), 
-      get_url('milestone', 'index')
-    ));
+  function project_tabbed_navigation($selected = 'overview') {
+    add_filter('tabbed_navigation_items', 'project_tabbed_navigation_filter');
+
+    add_tabbed_navigation_item('project', 'overview', get_url('project', 'index'));
+    add_tabbed_navigation_item('milestones', 'milestones', get_url('milestone', 'index'));
+    add_tabbed_navigation_item('tasks', 'tasks', get_url('task', 'index'));
+    add_tabbed_navigation_item('messages', 'messages', get_url('message', 'index'));
 
     // PLUGIN HOOK
     plugin_manager()->do_action('add_project_tab');

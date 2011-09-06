@@ -9,6 +9,7 @@
     
     const ORDER_BY_NAME = 'name';
     const ORDER_BY_POSTTIME = 'created_on';
+    const ORDER_BY_FOLDER = 'folder';
     
     /**
     * Array of types that will script treat as images (provide thumbnail, add 
@@ -38,6 +39,8 @@
       trace(__FILE__,'getProjectFiles()');
       if ($order == self::ORDER_BY_POSTTIME) {
         $order_by = '`created_on` DESC';
+      } elseif ($order == self::ORDER_BY_FOLDER) {
+        $order_by = '`folder_id` ASC, `filename` ASC';
       } else {
         $order_by = '`filename`';
       } // if
@@ -86,6 +89,12 @@
               } else {
                 $group_by_str = format_date($created_on);
               } // if
+            } elseif ($order == self::ORDER_BY_FOLDER) {
+              if (!is_null($file->getFolder())) {
+                $group_by_str = $file->getFolder()->getName();            
+              } else {
+                $group_by_str = lang("no folder");
+              }
             } else {
               $group_by_str = strtoupper(substr_utf($file->getFilename(), 0, 1));
             } // if
@@ -104,7 +113,7 @@
     } // getProjectFiles
     
     /**
-    * Orphened files are files that are not part of any folder, but project itself
+    * Orphaned files are files that are not part of any folder, but project itself
     *
     * @param Project $project
     * @param boolean $show_private
@@ -124,7 +133,7 @@
     } // getOrphanedFilesByProject
     
     /**
-    * Reaturn all project files
+    * Return all project files
     *
     * @param Project $project
     * @return array
@@ -169,8 +178,8 @@
     */
     static function getIndexUrl($order_by = null, $page = null) {
       trace(__FILE__,"getIndexUrl($order_by, $page)");
-      if (($order_by <> ProjectFiles::ORDER_BY_NAME) && ($order_by <> ProjectFiles::ORDER_BY_POSTTIME)) {
-        $order_by = ProjectFiles::ORDER_BY_POSTTIME;
+      if (($order_by <> ProjectFiles::ORDER_BY_NAME) && ($order_by <> ProjectFiles::ORDER_BY_POSTTIME) && ($order_by <> ProjectFiles::ORDER_BY_FOLDER)) {
+        $order_by = ProjectFiles::ORDER_BY_FOLDER;
       } // if
       
       // #PAGE# is reserved as a placeholder

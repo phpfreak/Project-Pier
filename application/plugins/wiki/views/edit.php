@@ -48,7 +48,25 @@ trace(__FILE__,'begin');
   echo yes_no_widget('wiki[project_sidebar]', 'wikiFormSidebar', $page->getProjectSidebar(), lang('yes'), lang('no'));
   echo label_tag(lang('wiki publish page'), 'wikiFormPublishYes');
   echo yes_no_widget('wiki[publish]', 'wikiFormPublish', $page->getPublish(), lang('yes'), lang('no'));
+
+  if ($page->canLock(logged_user())) { ?>
+<div id="wiki-field-lockpage">
+<?php 
+  echo label_tag(lang('wiki lock page'), 'wikiFormLockPageYes');
+  echo yes_no_widget('wiki[locked]', 'wikiFormLockPage', $page->getLocked(), lang('yes'), lang('no'));
 ?>
+<div>
+<?php 
+  if ($page->getLocked()) { 
+    //echo lang('wiki page locked');
+    echo lang('wiki page locked by on', $page->getLockedByUser()->getUsername(), format_datetime($page->getLockedOn()));
+  } else {
+    echo lang('wiki page not locked');
+  }
+?>
+</div>
+</div>
+<?php } // if ?>
 </div>
 
 <?php echo submit_button($page->isNew() ? lang('add wiki page') : lang('edit wiki page')) ?>

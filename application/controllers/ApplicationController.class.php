@@ -39,14 +39,14 @@
     * @access public
     * @return null
     */
-	function canGoOn()
-	{
-		if(active_project() == null || !logged_user()->isProjectUser(active_project()))
-		{
-			flash_error(lang('no access permissions'));
-			$this->redirectTo('dashboard');
-		} // if
-	}// end canGoOn
+    function canGoOn()
+    {
+      if(active_project() == null || !logged_user()->isProjectUser(active_project()))
+      {
+        flash_error(lang('no access permissions'));
+        $this->redirectTo('dashboard', 'index');
+      } // if
+    }// end canGoOn
 	
   } // ApplicationController
 

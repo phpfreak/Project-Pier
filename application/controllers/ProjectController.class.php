@@ -45,7 +45,10 @@
       
       $project = active_project();
       
+      $page_attachments = PageAttachments::getAttachmentsByPageNameAndProject('project_overview', active_project());
+      
       $this->setLayout('project_website');
+      tpl_assign('page_attachments', $page_attachments);
       tpl_assign('project_log_entries', $project->getProjectLog(
         config_option('project_logs_per_page', 20)
       ));
@@ -57,7 +60,8 @@
       
       // Sidebar
       tpl_assign('visible_forms', $project->getVisibleForms(true));
-      tpl_assign('project_companies', $project->getCompanies());
+      tpl_assign('project_companies', $project->getVisibleCompanies(logged_user()));
+      tpl_assign('project_users', $project->getVisibleUsers(logged_user()));
       tpl_assign('important_messages', active_project()->getImportantMessages());
       tpl_assign('important_files', active_project()->getImportantFiles());
       
@@ -126,7 +130,11 @@
         $this->redirectTo('dashboard', 'index');
       } // if
       
-      tpl_assign('project_companies', active_project()->getCompanies());
+      $this->addHelper('textile');
+      $page_attachments = PageAttachments::getAttachmentsByTypeAndProject(array('Contacts', 'Companies'), active_project());
+      tpl_assign('page_attachments', $page_attachments);
+      tpl_assign('project', active_project());
+
     } // people
     
     /**
@@ -774,8 +782,11 @@
         $this->redirectToReferer(get_url('dashboard', 'index'));
       } // if
 
+      // TODO find a more elegant solution for this parameter
+      $page_name = 'project_overview';
       $this->setTemplate('add_project');
-      $this->setLayout('administration');
+      $this->setLayout('project_website');
+      $this->setSidebar(get_template_path('textile_help_sidebar'));
       
       $project_data = array_var($_POST, 'project');
       if (!is_array($project_data)) {
@@ -788,8 +799,14 @@
         ); // array
       } // if
       
+      $page_attachments = PageAttachments::getAttachmentsByPageNameAndProject($page_name, $project);
+
+      $redirect_to = urldecode(array_var($_GET, 'redirect_to'));
+      
       tpl_assign('project', $project);
       tpl_assign('project_data', $project_data);
+      tpl_assign('page_attachments', $page_attachments);
+      tpl_assign('redirect_to', $redirect_to);
       
       if (is_array(array_var($_POST, 'project'))) {
         $project->setFromAttributes($project_data);
@@ -798,10 +815,28 @@
           DB::beginWork();
           $project->save();
           ApplicationLogs::createLog($project, null, ApplicationLogs::ACTION_EDIT, false, true);
+
+          $page_attachments = array_var($project_data, 'page_attachments');
+          if (is_array($page_attachments)) {
+            foreach ($page_attachments as $id => $page_attachment_data) {
+              $page_attachment = PageAttachments::findById($id);
+              if (array_var($page_attachment_data, 'delete') == "checked") {
+                $page_attachment->delete();
+              } else {
+                $page_attachment->setFromAttributes($page_attachment_data);
+                $page_attachment->save();
+              } // if
+            } // foreach
+            PageAttachments::reorder($page_name, $project);
+          } // if
           DB::commit();
           
           flash_success(lang('success edit project', $project->getName()));
-          $this->redirectToUrl($project->getOverviewUrl());
+          if ((trim($redirect_to)) == '' || !is_valid_url($redirect_to)) {
+            $redirect_to = $project->getSettingsUrl();
+          } // if
+          $this->redirectToUrl($redirect_to);
+
         } catch(Exception $e) {
           DB::rollback();
           tpl_assign('error', $e);
@@ -1057,6 +1092,261 @@
       $this->redirectToReferer(get_url('administration', 'projects'));
     } // open
     
+    
+    /**
+    * Adds contact to project (as a PageAttachment)
+    *
+    * @param void
+    * @return null
+    */
+    function add_contact() {
+      if (!active_project()->canChangePermissions(logged_user())) {
+        flash_error(lang('no access permissions'));
+        $this->redirectToReferer(active_project()->getOverviewUrl());
+      } // if
+      
+      $already_attached_contacts = PageAttachments::getAttachmentsByTypeAndProject(array('Contacts'), active_project());
+      $already_attached_contacts_ids = null;
+      if (is_array($already_attached_contacts)) {
+        $already_attached_contacts_ids = array();
+        foreach ($already_attached_contacts as $already_attached_contact) {
+          $already_attached_contacts_ids[] = $already_attached_contact->getRelObjectId();
+        } // foreach
+      } // if
+      
+      $this->setTemplate('add_contact');
+      
+      $contact = new Contact();
+      
+      $im_types = ImTypes::findAll(array('order' => '`id`'));
+
+      $contact_data = array_var($_POST, 'contact');
+      if (!is_array($contact_data)) {
+        $contact_data = array(); // array
+      } // if
+      
+      $existing_contact_data = array_var($contact_data, 'existing');
+      if (!is_array($existing_contact_data)) {
+        $existing_contact_data = array(); // array
+      } // if
+      $new_contact_data = array_var($contact_data, 'new');
+      if (!is_array($new_contact_data)) {
+        $new_contact_data = array(); // array
+      } // if
+      $company_data = array_var($new_contact_data, 'company');
+      if (!is_array($company_data)) {
+        $company_data = array(); // array
+      } // if
+      $user_data = array_var($new_contact_data, 'user');
+      if (!is_array($user_data)) {
+        $user_data = array(); // array
+      } // if
+      
+      $project_init = array_var($_GET, 'project_init');
+      
+      tpl_assign('already_attached_contacts_ids', $already_attached_contacts_ids);
+      tpl_assign('contact', $contact);
+      tpl_assign('contact_data', $contact_data);
+      tpl_assign('existing_contact_data', $existing_contact_data);
+      tpl_assign('new_contact_data', $new_contact_data);
+      tpl_assign('company_data', $company_data);
+      tpl_assign('user_data', $user_data);
+      tpl_assign('project_init', $project_init);
+      tpl_assign('im_types', $im_types);
+      tpl_assign('project', active_project());
+
+      if (is_array(array_var($_POST, 'contact'))) {
+        if (array_var($contact_data, 'what') == 'existing') {
+          if (!(Contacts::findById(array_var($existing_contact_data, 'rel_object_id')) instanceof Contact)) {
+            tpl_assign('error', new FormSubmissionErrors(array(lang('existing contact required'))));
+          } else {
+            $page_attachment = new PageAttachment();
+            $page_attachment->setFromAttributes($existing_contact_data);
+            $page_attachment->setRelObjectManager('Contacts');
+            $page_attachment->setProjectId(active_project()->getId());
+            $page_attachment->setPageName('people');
+            $page_attachment->save();
+            PageAttachments::reorder('people', active_project());
+            flash_success(lang('success add contact', $page_attachment->getObject()->getDisplayName()));
+            if ($project_init) {
+              $this->redirectToUrl(active_project()->getAddContactUrl(array('project_init' => '1')));
+            } else {
+              $this->redirectToUrl(get_url('project', 'people'));
+            } // if
+          } // if
+        } else {
+          // New contact
+          // Save avatar
+          $avatar = array_var($_FILES, 'new_avatar');
+          if (is_array($avatar) && isset($avatar['size']) && $avatar['size'] != 0) {
+            try {
+              if (!isset($avatar['name']) || !isset($avatar['type']) || !isset($avatar['size']) || !isset($avatar['tmp_name']) || !is_readable($avatar['tmp_name'])) {
+                throw new InvalidUploadError($avatar, lang('error upload file'));
+              } // if
+
+              $valid_types = array('image/jpg', 'image/jpeg', 'image/pjpeg', 'image/gif', 'image/png');
+              $max_width   = config_option('max_avatar_width', 50);
+              $max_height  = config_option('max_avatar_height', 50);
+
+              if ($avatar['size']) {
+                if (!in_array($avatar['type'], $valid_types) || !($image = getimagesize($avatar['tmp_name']))) {
+                  throw new InvalidUploadError($avatar, lang('invalid upload type', 'JPG, GIF, PNG'));
+                } elseif (!$contact->setAvatar($avatar['tmp_name'], $max_width, $max_height, false)) {
+                  throw new Error($avatar, lang('error edit avatar'));
+                  $contact->setAvatarFile('');
+                } // if
+              } // if
+            } catch (Exception $e) {
+              flash_error($e->getMessage());
+            }
+          } else {
+            $contact->setAvatarFile('');
+          } // if
+          
+          try {
+            DB::beginWork();
+            $contact->setFromAttributes($new_contact_data);
+            
+            if (array_var($company_data, 'what') == 'existing') {
+              $company_id = $new_contact_data['company_id'];
+            } else {
+              $company = new Company();
+              $company->setName(array_var($company_data, 'name'));
+              $company->setTimezone(array_var($company_data, 'timezone'));
+              $company->setClientOfId(owner_company()->getId());
+              $company->save();
+              $company_id = $company->getId();
+            } // if
+            $contact->setCompanyId($company_id);
+
+            // User account info
+            if (array_var($user_data, 'add_account') == "yes") {
+              $user = new User();
+              $user->setFromAttributes($user_data);
+
+              if (array_var($user_data, 'password_generator') == 'random') {
+                // Generate random password
+                $password = substr(sha1(uniqid(rand(), true)), rand(0, 25), 13);
+              } else {
+                // Validate user input
+                $password = array_var($user_data, 'password');
+                if (trim($password) == '') {
+                  throw new Error(lang('password value required'));
+                } // if
+                if ($password <> array_var($user_data, 'password_a')) {
+                  throw new Error(lang('passwords dont match'));
+                } // if
+              } // if
+              $user->setPassword($password);
+              $user->save();
+
+              $contact->setUserId($user->getId());
+            } else {
+              $contact->setUserId(0);
+            } // if
+
+            $contact->save();
+            if (plugin_active('tags')) {
+              $contact->setTagsFromCSV(array_var($new_contact_data, 'tags'));
+            }
+
+            $contact->clearImValues();
+            foreach ($im_types as $im_type) {
+              $value = trim(array_var($new_contact_data, 'im_' . $im_type->getId()));
+              if ($value <> '') {
+
+                $contact_im_value = new ContactImValue();
+
+                $contact_im_value->setContactId($contact->getId());
+                $contact_im_value->setImTypeId($im_type->getId());
+                $contact_im_value->setValue($value);
+                $contact_im_value->setIsDefault(array_var($new_contact_data, 'default_im') == $im_type->getId());
+
+                $contact_im_value->save();
+              } // if
+            } // foreach
+
+            ApplicationLogs::createLog($contact, null, ApplicationLogs::ACTION_ADD);
+
+            $page_attachment = new PageAttachment();
+            $page_attachment->setFromAttributes($new_contact_data);
+            $page_attachment->setRelObjectId($contact->getId());
+            $page_attachment->setRelObjectManager('Contacts');
+            $page_attachment->setProjectId(active_project()->getId());
+            $page_attachment->setPageName('people');
+            $page_attachment->save();
+            PageAttachments::reorder('people', active_project());
+
+            DB::commit();
+
+            // Send notification...
+            try {
+              if (array_var($user_data, 'add_account') == "yes" && array_var($user_data, 'send_email_notification')) {
+                Notifier::newUserAccount($user, $password);
+              } // if
+            } catch(Exception $e) {
+            } // try
+
+            flash_success(lang('success add contact', $contact->getDisplayName()));
+            if ($project_init) {
+              $this->redirectToUrl(active_project()->getAddContactUrl(array('project_init' => '1')));
+            } else {
+              $this->redirectToUrl(get_url('project', 'people'));
+            } // if
+
+          } catch (Exception $e) {
+            DB::rollback();
+            tpl_assign('error', $e);
+          } // try
+          
+        } // if
+
+      } // if
+
+    } // add_contact
+    
+    /**
+    * Remove contact from project
+    *
+    * @param void
+    * @return null
+    */
+    function remove_contact() {
+      if (!active_project()->canChangePermissions(logged_user())) {
+        flash_error(lang('no access permissions'));
+        $this->redirectToReferer(active_project()->getOverviewUrl());
+      } // if
+      
+      $rel_object_manager = array_var($_GET, 'rel_object_manager', 'Contacts');
+      
+      $rel_object_id = array_var($_GET, 'rel_object_id');
+      $contact = Contacts::findById($rel_object_id);
+      if (!($contact instanceof Contact)) {
+        flash_error(lang('contact dnx'));
+        $this->redirectTo('project', 'people');
+      } // if
+
+      $project_id = array_var($_GET, 'project_id', active_project());
+      $project = Projects::findById(get_id('project_id'));
+      if (!($project instanceof Project)) {
+        flash_error(lang('project dnx'));
+        $this->redirectTo('project', 'people');
+      } // if
+      
+      $page_attachments = PageAttachments::getAttachmentsByManagerIdAndProject($rel_object_manager, $rel_object_id, $project_id);
+      foreach ($page_attachments as $page_attachment) {
+        try {
+          $page_attachment->delete();
+          flash_success(lang('success remove contact from project'));
+        } catch (Exception $e) {
+          flash_error(lang('error remove contact from project'));
+        } // try
+      } // foreach
+      
+      $this->redirectTo('project', 'people');
+      
+    } // remove_contact
+    
     /**
     * Remove user from project
     *
@@ -1072,24 +1362,24 @@
       $user = Users::findById(get_id('user_id'));
       if (!($user instanceof User)) {
         flash_error(lang('user dnx'));
-        $this->redirectTo('project', 'people');
+        $this->redirectTo('project', 'permissions');
       } // if
       
       if ($user->isAccountOwner()) {
         flash_error(lang('user cant be removed from project'));
-        $this->redirectTo('project', 'people');
+        $this->redirectTo('project', 'permissions');
       } // if
       
       $project = Projects::findById(get_id('project_id'));
       if (!($project instanceof Project)) {
         flash_error(lang('project dnx'));
-        $this->redirectTo('project', 'people');
+        $this->redirectTo('project', 'permissions');
       } // if
       
       $project_user = ProjectUsers::findById(array('project_id' => $project->getId(), 'user_id' => $user->getId()));
       if (!($project_user instanceof ProjectUser)) {
         flash_error(lang('user not on project'));
-        $this->redirectTo('project', 'people');
+        $this->redirectTo('project', 'permissions');
       } // if
       
       try {

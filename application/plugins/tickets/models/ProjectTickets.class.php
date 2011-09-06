@@ -31,6 +31,76 @@
         'order' => '`priority`'
       )); // findAll
     } // getOpenTicketsByUser
+
+    /**
+    * Return late tickets that are assigned to the user
+    *
+    * @param User $user
+    * @param boolean $include_company includes tickets assigned to whole company
+    * @return array
+    */
+    function getLateTicketsByUser(User $user, $include_company = false) {
+      $due_date = DateTimeValueLib::now()->beginningOfDay();
+
+      $projects = $user->getActiveProjects();
+      if (!is_array($projects) || !count($projects)) {
+        return null;
+      } // if
+      
+      $project_ids = array();
+      foreach ($projects as $project) {
+        $project_ids[] = $project->getId();
+      } // foreach
+      
+      // TODO This request contains a hard-coded value for status. Might need to be changed
+      // if ticket properties are made more generic
+      if ($include_company) {
+        return self::findAll(array(
+          //'conditions' => array('(`assigned_to_user_id` = ? OR (`assigned_to_user_id` = ? AND `assigned_to_company_id` = ?)) AND `project_id` IN (?) AND `state` <> ? AND `due_date` < ?', $user->getId(), 0, $user->getCompanyId(), $project_ids, 'closed', $due_date),
+          //'order' => '`due_date`'
+          'conditions' => array('(`assigned_to_user_id` = ? OR (`assigned_to_user_id` = ? AND `assigned_to_company_id` = ?)) AND `project_id` IN (?) AND `state` <> ?', $user->getId(), 0, $user->getCompanyId(), $project_ids, 'closed'),
+          'order' => '`state` ASC'
+          )); // findAll
+      } else {
+        return self::findAll(array(
+          //'conditions' => array('`assigned_to_user_id` = ? AND `project_id` IN (?) AND `state` <> ? AND `due_date` < ?', $user->getId(), $project_ids, 'closed', $due_date),
+          //'order' => '`due_date`'
+          'conditions' => array('`assigned_to_user_id` = ? AND `project_id` IN (?) AND `state` <> ?', $user->getId(), $project_ids, 'closed'),
+          'order' => '`state` ASC'
+        )); // findAll
+      } // if
+      
+    } // getLateTicketsByUser
+    
+    /**
+    * Return open tickets due in specified period
+    *
+    * @access public
+    * @param User $user
+    * @param DateTimeValue $from_date
+    * @param DateTimeValue $to_date
+    * @return array
+    */
+    function getOpenTicketsInPeriodByUser(User $user, DateTimeValue $from_date, DateTimeValue $to_date) {
+      $projects = $user->getActiveProjects();
+      if (!is_array($projects) || !count($projects)) {
+        return null;
+      }
+      
+      $project_ids = array();
+      foreach ($projects as $project) {
+        $project_ids[] = $project->getId();
+      } // foreach
+      
+      // TODO status values hard-coded in query
+      return self::findAll(array(
+        //'conditions' => array('`state` IN (?) AND (`due_date` >= ? AND `due_date` < ?) AND `project_id` IN (?)', array('new', 'open', 'pending'), $from_date, $to_date, $project_ids),
+        //'order' => '`due_date` ASC'
+        'conditions' => array('`state` IN (?) AND `project_id` IN (?)', array('new', 'open', 'pending'), $project_ids),
+        'order' => '`state` ASC'
+      )); // findAll
+    } // getOpenTicketsInPeriodByUser
+
     
     /**
     * Return tickets that belong to specific project

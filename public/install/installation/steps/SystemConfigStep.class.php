@@ -57,10 +57,10 @@
           'database_host'    => $this->getFromStorage('database_host', 'localhost'),
           'database_user'    => $this->getFromStorage('database_user', 'root'),
           'database_pass'    => $this->getFromStorage('database_pass'),
-          'database_name'    => $this->getFromStorage('database_name', 'PP'),
+          'database_name'    => $this->getFromStorage('database_name', 'pp'),
           'database_create'  => $this->getFromStorage('database_create' ),
           'database_charset' => $this->getFromStorage('database_charset', 'utf8'),
-          'database_prefix'  => $this->getFromStorage('database_prefix', 'PP087_'),
+          'database_prefix'  => $this->getFromStorage('database_prefix', 'pp088_'),
         ); // array
       } // if
       tpl_assign('config_form_data', $config_form_data);

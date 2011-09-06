@@ -12,10 +12,14 @@
  * @param mixed $content
  * @return
  */
-function wiki_links($content)
-{
-	return preg_replace_callback('/\[(wiki|user):([0-9]*)\]/', 'wiki_replace_link_callback', $content);	
+if (!function_exists('wiki_links')) {
+  function wiki_links($content)
+  {
+    return preg_replace_callback('/\[(wiki|user):([0-9]*)\]/', 'wiki_replace_link_callback', $content);	
+    //return $content;	
+  }
 }
+
 
 function wiki_replace_link_callback($matches)
 {

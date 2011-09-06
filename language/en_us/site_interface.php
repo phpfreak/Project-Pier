@@ -23,6 +23,7 @@
     
     'my projects' => 'My projects',
     'my projects archive desc' => 'List of finished (archived) projects. All actions for these projects are locked, but you can still browse them.',
+    'my files' => 'My files',
     
     'company online' => 'Company online',
     

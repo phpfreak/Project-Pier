@@ -1,4 +1,7 @@
 <?php
+  //$s = file_get_contents('t');
+  //$s .= $_SERVER['HTTP_USER_AGENT'] . "\n";
+  //file_put_contents('t', $s);
   // Request starts
   $GLOBALS['request_start_time'] = microtime(true);
   if (!version_compare(phpversion(), '5.0', '>=')) {

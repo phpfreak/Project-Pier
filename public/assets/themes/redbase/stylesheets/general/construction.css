@@ -69,6 +69,15 @@ body {
   border-top: 1px dotted #ccc;
 }
 
+.block .header .projectLogo {
+  float: left;
+  margin: 0 5px 0 0;
+}
+
+.block .header h2 {
+  margin: 0 0 0 0;
+}
+
 #systemNoticesWrapper {
   background: red;
   color: white;
@@ -226,7 +235,9 @@ body {
  list-style-image: none !important;
  margin: 0;
  padding: 0;
- word-wrap: break-word;
+ white-space: pre-wrap; /* css-3 */
+ white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+ word-wrap: break-word; /* Internet Explorer 5.5+ */
 }
 
 * html #account_more_menu ul li, * html #account_more_menu ul li a  {
@@ -462,6 +473,69 @@ only IE mac will see this*/
   height: 16px;
 }
 
+  /*--------------------  Page actions ---------------------*/
+#page_actionsWrapper  {
+ height: 28px;
+ background-color: #EEF6FF;
+ background-color: #B5CD73;
+ background-image: url(../../images/layout/bg_pageactions.png);
+ background-repeat: repeat-x;
+ border: 1px solid #9BB15A;
+ padding: 0;
+}
+
+#page_actionsBlock  {
+ font-size: 13px;
+ line-height: 28px;
+ margin: 0 auto;
+ padding: 0 10px;
+ text-align: left;
+ width: 890px;
+}
+
+#page_menu  {
+ float: right;
+}
+
+/*clearing hacks*/
+#page_menu  {
+ overflow: hidden;
+}
+
+#page_menu ul  {
+ list-style: none;
+ list-style-image: none;
+ margin: 0;
+ padding: 0;
+ left: -999em;
+ position: absolute;
+}
+
+#page_menu ul li  {
+ float: left;
+ font-size: 12px;
+ font-weight: bold;
+ margin: 0;
+ padding: 0;
+}
+
+#page_menu ul li a  {
+ line-height: 28px;
+ border: 0;
+ border-left: 1px solid #DAE6B5;
+ border-right: 1px solid #9BB15A;
+ color: #5C6C2D;
+ display: block;
+ padding: 0px 8px;
+ text-decoration: none;
+}
+
+#page_menu ul li a:hover  {
+ color: #000000;
+ left: 0;
+}
+
+
 /** Content **/
 
 #outerContentWrapper {
@@ -524,46 +598,18 @@ only IE mac will see this*/
 }
 
 #sidebar ul {
-	list-style-image: disc;
+	list-style-type: disc;
 	margin-left: 5px;
-	}
+}
+
+#sidebar li {
+  white-space: pre-wrap; /* css-3 */
+  white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
 
 #sidebar .listWithDetails li {
   padding-bottom: 5px;
-}
-
-/** Page actions **/
-
-#page_actions {
-  margin: 0px auto;
-  text-align: left;
-  width: 958px;
-}
-
-#page_actions ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-#page_actions ul li {
-  padding-right: 3px;
-  display: inline;
-  xfont-weight: bolder;
-  font-size: 11px;
-}
-
-#page_actions ul li a {
-  border: 0;
-  padding: 0 13px 0 0;
-  color: black;
-  text-decoration: none;
-  background: url('../../images/icons/more_down.gif') no-repeat right bottom;
-}
-
-#page_actions ul li a:hover {
-  background: #eee url('../../images/icons/more_down.gif') no-repeat right bottom;
-  background-color: #fffccc;
 }
 
 /** Footer **/
@@ -742,3 +788,7 @@ div.private span {
   display: inline;
   padding-right: 5px;
 }
+
+#memo{position:fixed;bottom:0px;right:0px;background-color:#FAF9E4;height:250px;width:200px;font-weight: bold;font-size:14px;border:1px solid black;padding:2px;z-index: 9998;filter:alpha(opacity=80);-moz-opacity:0.8;opacity: 0.8;-moz-border-radius:5px;border-radius: 5px;}
+#memo .header{text-align:center;background-color:#FAF9E4; color: black}
+#memo textarea{width:182px;height:210px;margin:0px;background:transparent;border:none;color:black}

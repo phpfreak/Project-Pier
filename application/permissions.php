@@ -28,5 +28,13 @@
   function remove_permission_source($source) {
     permission_manager()->removeSource($source);
   }
+
+  function use_permitted($user, $project, $source) {
+    if ($user->isAdministrator()) return true;
+    if ($user->getProjectPermission($project, $source . '-access')) {
+      return true;
+    }
+    return $user->getProjectPermission($project, $source . '-manage');
+  }
   trace(__FILE__,'end');
 ?>

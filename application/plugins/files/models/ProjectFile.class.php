@@ -170,7 +170,7 @@
       $revision = $this->getLastRevision();
       return $revision instanceof ProjectFileRevision ? $revision->getFileType() : null;
     } // getFileType
-    
+
     /**
     * Return URL of file type icon
     *
@@ -207,7 +207,7 @@
     */
     function getTypeString() {
       $revision = $this->getLastRevision();
-      return $revision instanceof ProjectFileRevision ? $revision->getTypeString() : null;
+      return $revision instanceof ProjectFileRevision ? $revision->getTypeString() : '';
     } // getTypeString
     
     /**
@@ -269,6 +269,11 @@
       if (isset($uploaded_file['error']) && ($uploaded_file['error'] > UPLOAD_ERR_OK)) {
         throw new InvalidUploadError($uploaded_file);
       } // if
+
+      // http://www.projectpier.org/node/2069
+      if (empty($uploaded_file['type'])) {
+        $uploaded_file['type'] = 'application/octet-stream';  // TODO get_mime_type_for_filename($uploaded_file['name']);
+      }
       
       $repository_id = FileRepository::addFile($uploaded_file['tmp_name'], array('name' => $uploaded_file['name'], 'type' => $uploaded_file['type'], 'size' => $uploaded_file['size']));
       
@@ -399,6 +404,19 @@
         'active_project' => $this->getProjectId())
       ); // get_url
     } // getEditUrl
+    
+    /**
+    * Return move file URL
+    *
+    * @param void
+    * @return string
+    */
+    function getMoveUrl() {
+      return get_url('files', 'move', array(
+        'id' => $this->getId(), 
+        'active_project' => $this->getProjectId())
+      ); // get_url
+    } // getMoveUrl
     
     /**
     * Return delete file URL

@@ -7,6 +7,7 @@
     array($message->isNew() ? lang('add message') : lang('edit message'))
   ));
   add_stylesheet_to_page('project/messages.css');
+  $project = active_project();
 ?>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -47,7 +48,7 @@ $(document).ready(function() {
   
   <fieldset>
     <legend><?php echo lang('milestone') ?></legend>
-    <?php echo select_milestone('message[milestone_id]', active_project(), array_var($message_data, 'milestone_id'), array('id' => 'messageFormMilestone')) ?>
+    <?php echo select_milestone('message[milestone_id]', $project, array_var($message_data, 'milestone_id'), array('id' => 'messageFormMilestone')) ?>
   </fieldset>
   
 <?php if (logged_user()->isMemberOfOwnerCompany()) { ?>
@@ -82,21 +83,23 @@ $(document).ready(function() {
 <?php if (function_exists('tags_activate')) { ?>  
   <fieldset>
     <legend><?php echo lang('tags') ?></legend>
-    <?php echo project_object_tags_widget('message[tags]', active_project(), array_var($message_data, 'tags'), array('id' => 'messageFormTags', 'class' => 'long')) ?>
+    <?php echo project_object_tags_widget('message[tags]', $project, array_var($message_data, 'tags'), array('id' => 'messageFormTags', 'class' => 'long')) ?>
   </fieldset>
 <?php } // if ?>
 <?php if ($message->isNew()) { 
-  $this->assign('project', active_project());
+  $this->assign('project', $project);
   $this->assign('object', $message);
   $this->assign('post_data_name', 'message');
   $this->assign('post_data', $message_data);
   $this->includeTemplate(get_template_path('select_receivers', 'notifier'));
 ?>
 <?php if (function_exists('files_activate')) { ?>   
+<?php if (!is_null($project)) { ?>
 <?php if ($message->canAttachFile(logged_user(), $project)) { ?>
   <?php echo render_attach_files() ?>
-<?php } // if ?>
-<?php } // if ?>
+<?php } // if canAttach ?>
+<?php } // if !is_null ?>
+<?php } // if function_exists ?>
 <?php } // if ?>
   <?php echo submit_button($message->isNew() ? lang('add message') : lang('edit message')) ?>
 </form>

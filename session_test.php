@@ -3,8 +3,17 @@
 // save as "session_test.php" inside your webspace  
 ini_set('display_errors', 'On');
 error_reporting(6143);
-
 session_start();
+echo '<xmp>';
+echo 'upload_limit = ' . ini_get('upload_limit') . "\n";
+echo 'file_uploads = ' . ini_get('file_uploads') . "\n";
+echo 'upload_max_filesize = ' . ini_get('upload_max_filesize') . "\n";
+echo 'max_input_time = ' . ini_get('max_input_time') . "\n";
+echo 'memory_limit = ' . ini_get('memory_limit') . "\n";
+echo 'max_execution_time = ' . ini_get('max_execution_time') . "\n";
+echo 'post_max_size = ' . ini_get('post_max_size') . "\n";
+echo 'upload_tmp_dir = ' . ini_get('upload_tmp_dir') . "\n";
+echo '</xmp>';
 
 $sessionSavePath = ini_get('session.save_path');
 

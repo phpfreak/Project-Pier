@@ -1,0 +1,20 @@
+Greenbase is a theme for ProjectPier, which is an Open Source project management and collaboration
+tool that you can install on your own server (http://www.projectpier.org). 
+
+Greenbase tries to follow these guidelines:
+- put user content at the front, by using larger/darker fonts for its content, smaller/dimmer fonts for administrative info
+- only show action links on hover, so the user-generated content is easier to parse
+- use color extremely sparingly
+- use distinctive look for human names throughout the interface
+- encourage a unique navigation path through the app, by hiding bits of the interface (e.g. the userbox dropdowns)
+- try to make each page focused on a single issue, hide bits of the interface that don't follow this (e.g. milestones on "my tasks" page)
+
+Greenbase is based on redbase.
+
+Here is a list of the few things that have been hidden from the interface:
+- dropdown links in the userbox (top right of every page)
+- header on the overview page
+- action links on the overview page (following the idea that to create e.g. a milestone, you should go to the milestone page)
+- action links on the "my tasks" page (these would not allow you to create a new task)
+- probably a lot more
+If you can't find a usual element of ProjectPier, there's a good chance it was removed on purpose.

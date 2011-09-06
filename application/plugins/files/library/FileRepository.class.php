@@ -1,7 +1,7 @@
 <?php
 
   /**
-  * File repository provides a wrapper for storing files in a specific repository. It provides methos for
+  * File repository provides a wrapper for storing files in a specific repository. It provides methods for
   * adding, updating and removing files. Every file is reprepsented by a file ID and can be accessed by it
   *
   * @version 1.0
@@ -81,7 +81,7 @@
     } // getFileAttributes
     
     /**
-    * Return value of specifi file attribute. If attrbute is not available return $default
+    * Return value of specific file attribute. If attrbute is not available return $default
     *
     * @param string $file_id
     * @param string $attribute_name

@@ -234,6 +234,17 @@
     } // getProject
     
     /**
+    * Return milestone obj
+    *
+    * @access public
+    * @param void
+    * @return Project
+    */
+    function getMilestone() {
+      return ProjectMilestones::findById($this->getMilestoneId());
+    } // getMilestone
+    
+    /**
     * Return user object of person who created this ticket
     *
     * @access public
@@ -334,6 +345,21 @@
     // ---------------------------------------------------
     //  Permissions
     // ---------------------------------------------------
+
+    /**
+    * Check CAN_MANAGE_TICKETS permission
+    *
+    * @access public
+    * @param User $user
+    * @return boolean
+    */
+    function canManage(User $user) {
+      trace(__FILE__,'canManage');
+      if (!$user->isProjectUser($this->getProject())) {
+        return false;
+      } // if
+      return $user->getProjectPermission($this->getProject(), ProjectTicket::CAN_MANAGE_TICKETS);
+    } // canManage
     
     /**
     * Returns true if $user can access this ticket
@@ -360,8 +386,18 @@
     * @return booelean
     */
     function canAdd(User $user, Project $project) {
-      if(!$user->isProjectUser($project)) {
-        return false; // user is on project
+      if ($user->isAdministrator()) {
+        return true; // give access to admin
+      } // if
+      if (!$user->isProjectUser($project)) {
+        return false;
+      } // if
+      //if (!$this->canManage($user)) {
+      //  return false; // user don't have access to this project or can't manage tickets
+      //} // if
+      //if($this->isPrivate() && !$user->isMemberOfOwnerCompany()) {
+      if(!$user->isMemberOfOwnerCompany()) {
+        return false; // user that is not member of owner company can't access private objects
       } // if
       return true;
     } // canAdd
@@ -392,11 +428,11 @@
     * @return boolean
     */
     function canEdit(User $user) {
-      if(!$user->isProjectUser($this->getProject())) {
-        return false;
-      } // if
       if($user->isAdministrator()) {
         return true;
+      } // if
+      if(!$user->isProjectUser($this->getProject())) {
+        return false;
       } // if
       if($this->isPrivate() && !$user->isMemberOfOwnerCompany()) {
         return false; // user that is not member of owner company can't access private objects

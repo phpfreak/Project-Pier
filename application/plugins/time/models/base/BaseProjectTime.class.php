@@ -194,7 +194,7 @@ return $this->setColumnValue('task_list_id', $value);
     } // setDescription() 
     
     /**
-    * Return value of 'due_date' field
+    * Return value of 'done_date' field
     *
     * @access public
     * @param void
@@ -205,14 +205,14 @@ return $this->setColumnValue('task_list_id', $value);
     } // getDoneDate()
     
     /**
-    * Set value of 'due_date' field
+    * Set value of 'done_date' field
     *
     * @access public   
     * @param DateTimeValue $value
     * @return boolean
     */
-    function setDueDate($value) {
-      return $this->setColumnValue('due_date', $value);
+    function setDoneDate($value) {
+      return $this->setColumnValue('done_date', $value);
     } // setDueDate() 
     
     /**

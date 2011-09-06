@@ -1,9 +1,9 @@
            		
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Upgrading to ProjectPier 0.8.7
+Upgrading to ProjectPier 0.8.6
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-ProjectPier 0.8.7 is NOT database compatible with previous versions.
+ProjectPier 0.8.6 is NOT database compatible with previous versions.
 
 Upgrade instructions 
 
@@ -13,21 +13,21 @@ Upgrade instructions
 
 3) Archive your 0.8.0.3 copy in a safe place
 
-4) Run the script 0803-087.php in public/upgrade/templates/db_migration against the copy of step 1.
+4) Run the script 0803-086.php in public/upgrade/templates/db_migration against the copy of step 1.
 
 5) If step 4 completes without errors, run the same script against your production database else stop and report.
 
-6) Install 0.8.7 on a fresh database.
+6) Install 0.8.6 on a fresh database.
 
 After the complete installation:
 
-7) Edit 0.8.7 /config/config.php and set the values equal to the values of your 0.8.0.3 production database
+7) Edit 0.8.6 /config/config.php and set the values equal to the values of your 0.8.0.3 production database
 
-8) Open the browser on your 0.8.7 site and login with your 0.8.0.3 user id and password
+8) Open the browser on your 0.8.6 site and login with your 0.8.0.3 user id and password
 
-9) Drop the 0.8.7 database
+9) Drop the 0.8.6 database
 
-10) Enjoy 0.8.7
+10) Enjoy 0.8.6
 
 
 

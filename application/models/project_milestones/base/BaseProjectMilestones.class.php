@@ -67,7 +67,7 @@
     } // getPkColumns
     
     /**
-    * Return name of first auto_incremenent column if it exists
+    * Return name of first auto_increment column if it exists
     *
     * @access public
     * @param void
@@ -201,7 +201,7 @@
     * because you can't use associative indexing with list() construct
     *
     * @access public
-    * @param array $arguments Query argumens (@see find()) Limit and offset are ignored!
+    * @param array $arguments Query arguments (@see find()) Limit and offset are ignored!
     * @param integer $items_per_page Number of items per page
     * @param integer $current_page Current page number
     * @return array

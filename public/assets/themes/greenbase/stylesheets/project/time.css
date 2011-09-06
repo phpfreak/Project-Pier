@@ -1,0 +1,83 @@
+.timeTaskList {
+  background:#E9F1F5 url(../../images/layout/bg_block.png) repeat-x left top;
+  border:1px solid #BBD7E2;
+  padding:5px;
+  margin-bottom:10px;
+}
+
+.timeTaskList h2 {
+  margin-top:0;
+  border-bottom:1px solid #BBD7E2;
+  padding-bottom:5px;
+}
+
+.timeLogs {
+  width:640px;
+}
+
+.timeLogs td {
+  padding:2px 0 2px 5px;
+  background-color:#FFF;
+}
+
+.timeLogs th {
+  background-color:#D6E7ED;
+}
+
+.timeLogs .timeCheck {
+  width:20px;
+}
+
+.timeLogs .timeCheck input {
+  width:auto;
+}
+
+.timeLogs .timeDate {
+  width:115px;
+}
+
+.timeLogs .timeDateSmall {
+  width:75px;
+}
+
+.timeLogs .timeUser {
+  width:65px;
+}
+
+.timeLogs .timeProject {
+  width:100px;
+}
+
+.timeLogs .timeDetailsLarge {
+  width:285px;
+}
+
+.timeLogs .timeDetails {
+  width:270px;
+}
+
+.timeLogs .timeDetailsSmall {
+  width:245px;
+}
+
+.timeLogs .timeHours {
+  width:35px;
+}
+
+.timeLogs .timeEdit {
+  width:75px;
+  text-align:right;
+}
+
+.submitTime {
+  text-align:center;
+  margin:10px 0;
+}
+
+.submitTime input {
+  width:auto;
+}
+
+.total td {
+  background-color:#F0F0F0;
+}

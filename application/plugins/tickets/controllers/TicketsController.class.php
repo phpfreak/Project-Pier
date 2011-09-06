@@ -41,7 +41,7 @@
       
       $this->setSidebar(get_template_path('tickets_sidebar', 'tickets'));
     } // categories
-    
+
     /**
     * Return project tickets
     *
@@ -51,6 +51,9 @@
     */
     function index() {
       $page = (integer) array_var($_GET, 'page', 1);
+      $category = (integer) array_var($_GET, 'category', 0);
+      $priority = array_var($_GET, 'priority', FALSE);
+      $type = array_var($_GET, 'type', FALSE);
       if($page < 0) $page = 1;
       
       $closed = (boolean) array_var($_GET, 'closed', false);
@@ -58,6 +61,9 @@
       if(!logged_user()->isMemberOfOwnerCompany()) {
         $conditions .= DB::prepareString(' AND `is_private` = ?', array(0) );
       } // if
+      if ($category>0) $conditions .= DB::prepareString(' AND `category_id` = ?', array($category));
+      if ($priority) $conditions .= DB::prepareString(' AND `priority` = ?', array($priority));
+      if ($type) $conditions .= DB::prepareString(' AND `type` = ?', array($type));
     
       if ($closed) {
         $order = '`closed_on` DESC';
@@ -218,7 +224,8 @@
           'state' => $ticket->getState(),
           'type' => $ticket->getType(),
           'category_id' => $ticket->getCategoryId(),
-          'assigned_to' => $ticket->getAssignedToCompanyId() . ':' . $ticket->getAssignedToUserId()
+          'assigned_to' => $ticket->getAssignedToCompanyId() . ':' . $ticket->getAssignedToUserId(),
+          'milestone_id' => $ticket->getMilestoneId(),
         ); // array
       } // if
       
@@ -240,7 +247,8 @@
             'status' => $ticket->getState(),
             'type' => $ticket->getType(),
             'category' => $ticket->getCategory(),
-            'assigned to' => $ticket->getAssignedTo()
+            'assigned to' => $ticket->getAssignedTo(),
+            'milestone' => $ticket->getMilestone()
           );
           $old_private = $ticket->isPrivate();
           
@@ -277,7 +285,8 @@
               'type' => $ticket->getType(),
               'status' => $ticket->getState(),
               'category' => $ticket->getCategory(),
-              'assigned to' => $ticket->getAssignedTo()
+              'assigned to' => $ticket->getAssignedTo(),
+              'milestone' => $ticket->getMilestone()
             );
         
             foreach ($old_fields as $type => $old_field) {
@@ -769,7 +778,45 @@
       $this->setLayout('dashboard');
       $this->setTemplate('my_tickets');
       $this->addHelper('textile');
+
+      $page = (integer) array_var($_GET, 'page', 1);
+      $category = (integer) array_var($_GET, 'category', 0);
+      $priority = array_var($_GET, 'priority', FALSE);
+      $type = array_var($_GET, 'type', FALSE);
+      if($page < 0) $page = 1;
+      
+      $closed = (boolean) array_var($_GET, 'closed', false);
+      $conditions = DB::prepareString('`closed_on` '.($closed ? '>' : '=').' ?', array(EMPTY_DATETIME));
+      if(!logged_user()->isMemberOfOwnerCompany()) {
+        $conditions .= DB::prepareString(' AND `is_private` = ?', array(0) );
+      } // if
+      if ($category>0) $conditions .= DB::prepareString(' AND `category_id` = ?', array($category));
+      if ($priority) $conditions .= DB::prepareString(' AND `priority` = ?', array($priority));
+      if ($type) $conditions .= DB::prepareString(' AND `type` = ?', array($type));
+    
+      if ($closed) {
+        $order = '`project_id`, `closed_on` DESC';
+      } else {
+        $order = '`project_id`, `created_on` DESC';
+      } // if
+
+      list($tickets, $pagination) = ProjectTickets::paginate(
+        array(
+          'conditions' => $conditions,
+          'order' => $order
+        ),
+        config_option('tickets_per_page', 25), 
+        $page
+      ); // paginate
+      
+      tpl_assign('closed', $closed);
+      tpl_assign('tickets', $tickets);
+      tpl_assign('tickets_pagination', $pagination);
       tpl_assign('active_projects', logged_user()->getActiveProjects());
+      
+      $this->setSidebar(get_template_path('index_sidebar', 'tickets'));
+//      tpl_assign('active_projects', logged_user()->getActiveProjects());
+
       //$this->setSidebar(get_template_path('index_sidebar', 'tickets'));
     } // my_tickets
   

@@ -5,7 +5,7 @@
   *
   * @http://www.projectpier.org/
   */
-  abstract class BaseTag extends ProjectDataObject {
+  abstract class BaseTag extends ApplicationDataObject {
   
     // -------------------------------------------------------
     //  Access methods

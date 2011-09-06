@@ -91,10 +91,16 @@
       $project_id = array_var($_GET, 'active_project');
       if (!empty($project_id)) {
         $project = Projects::findById($project_id);
-        if (!($project instanceof Project)) {
-          throw new Error(lang('failed to load project'));
+        if ($project instanceof Project) {
+          $this->setProject($project);
+        } else {
+          $project = new Project;
+          $project->setId($project_id);
+          $project->setName(lang('deleted or unknown'));
+          //flash_error(lang('failed to load project'));
+          $this->setProject($project);
+          //throw new Error(lang('failed to load project'));
         } // if
-        $this->setProject($project);
       } // if
     } // initActiveProject
     

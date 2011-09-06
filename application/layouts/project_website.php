@@ -1,40 +1,35 @@
 <?php $owner_company_name = clean(owner_company()->getName()) ?>
 <?php $site_name = config_option('site_name', $owner_company_name) ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
 <?php if (active_project() instanceof Project) { ?>
-    <title><?php echo clean(active_project()->getName()) ?> - <?php echo get_page_title() ?> @ <?php echo clean(owner_company()->getName()) ?></title>
+    <title><?php echo get_page_title() ?> | <?php echo clean(active_project()->getName()) ?> | <?php echo clean(owner_company()->getName()) ?></title>
 <?php } else { ?>
-    <title><?php echo get_page_title() ?> @ <?php echo clean(owner_company()->getName()) ?></title>
+    <title><?php echo get_page_title() ?> | <?php echo clean(owner_company()->getName()) ?></title>
 <?php } // if ?>
     
 <?php echo stylesheet_tag('project_website.css') ?> 
 <?php echo stylesheet_tag('jquery/jquery-ui-1.8.6.custom.css') ?> 
-<?php echo meta_tag('content-type', 'text/html; charset=utf-8', true) ?> 
+<?php echo stylesheet_tag('colorbox/colorbox.css') ?> 
+<?php echo meta_tag('content-type', 'text/html; charset=utf-8', true) ?>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" /> 
 <?php echo link_tag(ROOT_URL.'favicon.ico', 'rel', 'Shortcut Icon', array("type"=>"image/x-icon")) ?>
 <?php echo link_tag(logged_user()->getRecentActivitiesFeedUrl(), 'rel', 'alternate', array("type"=>"application/rss+xml", "title"=>lang('recent activities feed'))) ?>
 <?php add_javascript_to_page('pp.js') ?>
 <?php add_javascript_to_page('jquery.min.js') ?>
 <?php add_javascript_to_page('jquery-ui.min.js') ?>
+<?php add_javascript_to_page('jquery.colorbox-min.js') ?>
+<?php add_javascript_to_page('jquery.imgareaselect.dev.js') ?>
+
 <?php echo render_page_head() ?>
   </head>
   <body>
-<script>
-$(function() {
-  $('input.datepicker').datepicker({
-    dateFormat: '<?php echo lang('input date format') ?>',
-    showOn: 'button',
-    buttonImage: '<?php echo get_image_url('icons/calendar.png'); ?>',
-    buttonImageOnly: true,
-    constrainInput: false
-  });
-});
-</script>
+<?php include('inlinejs.php') ?>
+<?php include dirname(__FILE__) . '/memo.php'?>
 <?php trace(__FILE__,'body begin') ?>
 <?php echo render_system_notices(logged_user()) ?>
-    <div id="wrapper">
-    
+    <div id="wrapper">   
       <!-- header -->
       <div id="headerWrapper">
         <div id="header">
@@ -73,6 +68,7 @@ $(function() {
 <?php } // if ?>
           </div>
 <?php trace(__FILE__,'body searchBox') ?>
+<?php if (use_permitted(logged_user(), active_project(), 'search')) { ?>
           <div id="searchBox">
             <form action="<?php echo active_project()->getSearchUrl() ?>" method="get">
               <div>
@@ -89,27 +85,13 @@ $(function() {
               </div>
             </form>
           </div>
+<?php } ?>
         </div>
       </div>
       
 <?php trace(__FILE__,'body contentWrapper') ?>
       <!-- content wrapper -->
       <div id="outerContentWrapper">
-<?php if (is_array(page_actions())) { ?>
-          <div id="page_actionsWrapper">
-           <div id="page_actionsBlock">
-            <div id="page_actions">
-              <ul class="">
-<?php foreach (page_actions() as $page_action) { ?>
-                <li><a href="<?php echo $page_action->getURL() ?>"><?php echo clean($page_action->getTitle()) ?></a></li>
-<?php } // foreach ?>
-              </ul>
-            </div>
-           </div>
-          </div>
-<?php } else { // if ?>
-        <div style="height:1px"></div>
-<?php } // if ?>
         <div id="innerContentWrapper">
 <?php if (!is_null(flash_get('success'))) { ?>
           <div id="success"><?php echo clean(flash_get('success')) ?></div>
@@ -117,7 +99,8 @@ $(function() {
 <?php if (!is_null(flash_get('error'))) { ?>
           <div id="error"><?php echo clean(flash_get('error')) ?></div>
 <?php } ?>
-          <h1 id="pageTitle"><?php echo get_page_title() ?></h1>
+ <div style="clear:both"></div>
+          <div id="pageHeader"><span id="pageTitle"><?php echo get_page_title() ?></span><?php include('pageoptions.php'); ?></div>
           <div id="pageContent">
             <div id="content">
               <!-- Content -->
@@ -140,7 +123,7 @@ $(function() {
             <?php echo lang('footer copy without homepage', date('Y'), clean(owner_company()->getName())) ?>
 <?php } // if ?>
           </div>
-          <div id="productSignature"><?php echo product_signature() ?><span id="request_duration"><?php printf(' in %.3f seconds', (microtime(true) - $GLOBALS['request_start_time']) ); ?></span> <span id="current_datetime"><?php echo date('c [W]'); ?></span></div>
+          <div id="productSignature"><?php echo product_signature() ?><span id="request_duration"><?php printf(' in %.3f seconds', (microtime(true) - $GLOBALS['request_start_time']) ); ?></span> <span id="current_datetime"><?php echo date('c/I[W]'); ?></span><span id="user_current_datetime"><?php $seconds = date_offset_get(new DateTime); echo $seconds / 3600; echo ' ' . logged_user()->getTimezone(); ?></span></div>
         </div>
       </div>
       <!-- /content wrapper -->

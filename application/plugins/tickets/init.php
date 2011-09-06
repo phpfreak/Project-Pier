@@ -3,38 +3,46 @@
   add_action('add_dashboard_tab', 'tickets_add_dashboard_tab');
   function tickets_add_dashboard_tab() {
     trace(__FILE__,'tickets_add_dashboard_tab()');
-    add_tabbed_navigation_item(new TabbedNavigationItem(
-      DASHBOARD_TAB_MY_TICKETS,
-      lang('my tickets'),
-      get_url('tickets', 'my_tickets')
-    ));
+    if (use_permitted(logged_user(), active_project(), 'tickets')) {
+      add_tabbed_navigation_item(
+        DASHBOARD_TAB_MY_TICKETS,
+        'my tickets',
+        get_url('tickets', 'my_tickets')
+      );
+    } // if
   }
 
   // add project tab
   define('PROJECT_TAB_TICKETS', 'tickets');
   add_action('add_project_tab', 'tickets_add_project_tab');
   function tickets_add_project_tab() {
-    add_tabbed_navigation_item(new TabbedNavigationItem(
-      PROJECT_TAB_TICKETS, 
-      lang('tickets'), 
-      get_url('tickets', 'index')
-    ));
+    if (use_permitted(logged_user(), active_project(), 'tickets')) {
+      add_tabbed_navigation_item(
+        PROJECT_TAB_TICKETS, 
+        'tickets', 
+        get_url('tickets', 'index')
+      );
+    } // if
   }
  
   // overview page
   add_action('project_overview_page_actions','tickets_project_overview_page_actions');
   function tickets_project_overview_page_actions() {
-    if (ProjectTicket::canAdd(logged_user(), active_project())) {
-      add_page_action(lang('add ticket'), get_url('tickets', 'add_ticket'));
+    if (use_permitted(logged_user(), active_project(), 'tickets')) {
+      if (ProjectTicket::canAdd(logged_user(), active_project())) {
+        add_page_action(lang('add ticket'), get_url('tickets', 'add_ticket'));
+      } // if
     } // if
   }
 
   // my tasks dropdown
   add_action('my_tasks_dropdown','tickets_my_tasks_dropdown');
   function tickets_my_tasks_dropdown() {
-    echo '<li class="header"><a href="'.get_url('tickets', 'index').'">'.lang('tickets').'</a></li>';
-    if (ProjectTicket::canAdd(logged_user(), active_project())) {
-      echo '<li><a href="'.get_url('tickets', 'add_ticket').'">'.lang('add ticket').'</a></li>';
+    if (use_permitted(logged_user(), active_project(), 'tickets')) {
+      echo '<li class="header"><a href="'.get_url('tickets', 'index').'">'.lang('tickets').'</a></li>';
+      if (ProjectTicket::canAdd(logged_user(), active_project())) {
+        echo '<li><a href="'.get_url('tickets', 'add_ticket').'">'.lang('add ticket').'</a></li>';
+      } // if
     } // if
   }
 
@@ -75,15 +83,17 @@ CREATE TABLE IF NOT EXISTS `{$tp}project_categories` (
 CREATE TABLE IF NOT EXISTS `{$tp}project_tickets` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `project_id` int(10) unsigned NOT NULL default '0',
+  `milestone_id` int( 10 ) unsigned NOT NULL DEFAULT 0,
   `category_id` int(10) unsigned default NULL,
-  `assigned_to_company_id` smallint(5) unsigned default NULL,
+  `assigned_to_company_id` int(10) unsigned default NULL,
   `assigned_to_user_id` int(10) unsigned default NULL,
-  `summary` varchar(200)  $cs $co NOT NULL default '',
+  `summary` varchar(255)  $cs $co NOT NULL default '',
   `type` enum('defect', 'enhancement', 'feature request') $cs $co NOT NULL default 'defect',
   `description` text $cs $co,
   `priority` enum('critical', 'major', 'minor', 'trivial') $cs $co NOT NULL default 'major',
   `state` enum( 'opened', 'confirmed', 'not reproducable', 'test and confirm', 'fixed', 'closed', 'none' ) $cs $co NOT NULL DEFAULT 'opened',
   `is_private` tinyint(1) NOT NULL default '0',
+  `due_date` datetime NOT NULL default '0000-00-00 00:00:00',
   `closed_on` datetime NOT NULL default '0000-00-00 00:00:00',
   `closed_by_id` int(10) default NULL,
   `created_on` datetime NOT NULL default '0000-00-00 00:00:00',
@@ -100,9 +110,9 @@ CREATE TABLE IF NOT EXISTS `{$tp}project_tickets` (
     DB::execute($sql);
     $sql = "
 CREATE TABLE IF NOT EXISTS `{$tp}project_ticket_changes` (
-  `id` int(11) unsigned NOT NULL auto_increment,
-  `ticket_id` int(11) unsigned NOT NULL default '0',
-  `type` enum('status', 'priority', 'assigned to', 'summary', 'category', 'type', 'private', 'comment', 'attachment', '') $cs $co NOT NULL,
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `ticket_id` int(10) unsigned NOT NULL default '0',
+  `type` enum('milestone', 'status', 'priority', 'assigned to', 'summary', 'category', 'type', 'private', 'comment', 'attachment', '') $cs $co NOT NULL,
   `from_data` varchar(255) $cs $co NOT NULL default '',
   `to_data` varchar(255) $cs $co NOT NULL default '',
   `created_on` datetime NOT NULL default '0000-00-00 00:00:00',

@@ -1,5 +1,7 @@
 <?php
 
+  function filenamecmp($a, $b) { return strcmp($a->getFileName(), $b->getFileName()); }
+
   /**
   * User class
   *
@@ -107,6 +109,27 @@
     private $visible_companies = array();
     
     /**
+    * Cached array of new files
+    *
+    * @var array
+    */
+    private $files;
+
+    /**
+    * Cached array of new files
+    *
+    * @var array
+    */
+    private $importantfiles;
+
+    /**
+    * Contact reference. This value is read on first request and cached
+    *
+    * @var boolean
+    */
+    private $contact = null;
+
+    /**
     * Construct user object
     *
     * @param void
@@ -127,7 +150,7 @@
     */
     function isMemberOf(Company $company) {
       trace(__FILE__,'isMemberOf()');
-      return $this->getCompanyId() == $company->getId();
+      return $this->getContact()->getCompanyId() == $company->getId();
     } // isMemberOf
     
     /**
@@ -166,6 +189,56 @@
       } // if
       return $this->is_project_user_cache[$project->getId()];
     } // isProjectUser
+
+    /**
+    * Set the project specific note for this user
+    *
+    * @param Project $project
+    * @param string $data
+    * @return boolean
+    */
+    function setProjectNote(Project $project, $data) {
+      if (is_null($project)) {
+        return false;
+      }
+      if (!$this->isProjectUser($project)) {
+        return false;
+      }
+      $project_user = ProjectUsers::findById(array(
+        'project_id' => $project->getId(), 
+        'user_id' => $this->getId())
+      ); // findById
+      if ($project_user instanceof ProjectUser) {
+        $project_user->setNote($data);
+        return $project_user->save();
+      } // if
+      return false;
+    } // setProjectNote
+
+    /**
+    * Set the project specific note for this user
+    *
+    * @param Project $project
+    * @param string $data
+    * @return boolean
+    */
+    function getProjectNote(Project $project) {
+      if (is_null($project)) {
+        return false;
+      }
+      if (!$this->isProjectUser($project)) {
+        return false;
+      }
+      $project_user = ProjectUsers::findById(array(
+        'project_id' => $project->getId(), 
+        'user_id' => $this->getId())
+      ); // findById
+      if ($project_user instanceof ProjectUser) {
+        return $project_user->getNote();
+      } // if
+      return false;
+    } // getProjectNote
+    
     
     /**
     * Check if this of specific company website. If must be member of that company and is_admin flag set to true
@@ -344,7 +417,18 @@
     * @return Company
     */
     function getCompany() {
-      return Companies::findById($this->getCompanyId());
+      return $this->getContact()->getCompany();
+    } // getCompany
+
+    /**
+    * Return owner company
+    *
+    * @access public
+    * @param void
+    * @return Company
+    */
+    function getCompanyId() {
+      return $this->getContact()->getCompanyId();
     } // getCompany
 
     /**
@@ -359,7 +443,36 @@
       return is_null($company) ? '' : $company->getName();
     } // getDisplayName
 
+    /**
+    * Return associated contact
+    *
+    * @param void
+    * @return Contact
+    */
+    function getContact() {
+      if (!isset($this->contact)) {
+        $contact = Contacts::findOne(array('conditions' => array('`user_id` = ? ', $this->getId())));
+        if ($contact instanceof Contact) {
+          $this->contact = $contact;
+        } else {
+          $this->contact = new Contact;
+          $this->contact->setName(lang('missing contact'));
+        }
+      }
+      return $this->contact;
+    } // getContact
     
+    /**
+    * Return time zone
+    *
+    * @access public
+    * @param void
+    * @return Company
+    */
+    function getTimezone() {
+      return $this->getContact()->getTimezone();
+    } // getTimezone
+
     /**
     * Return all projects that this user is member of
     *
@@ -451,6 +564,68 @@
     } // getTodayMilestones
     
     /**
+    * Return array of active projects that this user have access
+    *
+    * @access public
+    * @param void
+    * @return array
+    */
+    function getFiles($sort = 'name') {
+      trace(__FILE__, 'getFiles()');
+      if (is_null($this->files)) {
+        trace(__FILE__, '- initialize cache: files');
+        $this->files = array();
+      } // if
+      if (!isset($this->files[$sort])) {
+        $files = array();
+        $projects = $this->getActiveProjects();
+        foreach($projects as $project) {
+          $projectfiles = ProjectFiles::getAllFilesByProject($project);
+          $i=0;
+          while (isset($projectfiles[$i])){
+            $files[] = $projectfiles[$i];
+            unset($projectfiles[$i]);
+            $i++;
+          }
+        }
+        usort($files, "filenamecmp");
+        $this->files[$sort] = $files;
+      } // if
+      return $this->files[$sort];
+    } // getFiles
+
+    /**
+    * Return array of active projects that this user have access
+    *
+    * @access public
+    * @param void
+    * @return array
+    */
+    function getImportantFiles($sort = 'name') {
+      trace(__FILE__, 'getImportantFiles()');
+      if (is_null($this->importantfiles)) {
+        trace(__FILE__, '- initialize cache: files');
+        $this->importantfiles = array();
+      } // if
+      if (!isset($this->importantfiles[$sort])) {
+        $files = array();
+        $projects = $this->getActiveProjects();
+        foreach($projects as $project) {
+          $projectfiles = ProjectFiles::getImportantProjectFiles($project);
+          $i=0;
+          while (isset($projectfiles[$i])){
+            $files[] = $projectfiles[$i];
+            unset($projectfiles[$i]);
+            $i++;
+          }
+        }
+        usort($files, "filenamecmp");
+        $this->importantfiles[$sort] = $files;
+      } // if
+      return $this->importantfiles[$sort];
+    } // getImportantFiles
+    
+    /**
     * Return display name for this account. If there is no display name set username will be used
     *
     * @access public
@@ -461,221 +636,6 @@
       $display = parent::getDisplayName();
       return trim($display) == '' ? $this->getUsername() : $display;
     } // getDisplayName
-    
-    /**
-    * Returns true if we have title value set
-    *
-    * @access public
-    * @param void
-    * @return boolean
-    */
-    function hasTitle() {
-      return trim($this->getTitle()) <> '';
-    } // hasTitle
-
-    /**
-    * Check if this user has valid homepage address set
-    *
-    * @access public
-    * @param void
-    * @return boolean
-    */
-    function hasHomepage() {
-      return trim($this->getHomepage()) <> '' && is_valid_url($this->getHomepage());
-    } // hasHomepage
-    
-    /**
-    * Set homepage URL
-    * 
-    * This function is simple setter but it will check if protocol is specified for given URL. If it is not then 
-    * http will be used. Supported protocols are http and https for this type or URL
-    *
-    * @param string $value
-    * @return null
-    */
-    function setHomepage($value) {
-      if (trim($value) == '') {
-        return parent::setHomepage('');
-      } // if
-      
-      $check_value = strtolower($value);
-      if (!str_starts_with($check_value, 'http://') && !str_starts_with($check_value, 'https://')) {
-        return parent::setHomepage('http://' . $value);
-      } else {
-        return parent::setHomepage($value);
-      } // if
-    } // setHomepage
-    
-    // ---------------------------------------------------
-    //  IMs
-    // ---------------------------------------------------
-    
-    /**
-    * Return true if this user have at least one IM address
-    *
-    * @access public
-    * @param void
-    * @return boolean
-    */
-    function hasImValue() {
-      return UserImValues::count('`user_id` = ' . DB::escape($this->getId()));
-    } // hasImValue
-    
-    /**
-    * Return all IM values
-    *
-    * @access public
-    * @param void
-    * @return array
-    */
-    function getImValues() {
-      return UserImValues::getByUser($this);
-    } // getImValues
-    
-    /**
-    * Return value of specific IM. This function will return null if IM is not found
-    *
-    * @access public
-    * @param ImType $im_type
-    * @return string
-    */
-    function getImValue(ImType $im_type) {
-      $im_value = UserImValues::findById(array('user_id' => $this->getId(), 'im_type_id' => $im_type->getId()));
-      return $im_value instanceof UserImValue && (trim($im_value->getValue()) <> '') ? $im_value->getValue() : null;
-    } // getImValue
-    
-    /**
-    * Return default IM value. If value was not found NULL is returned
-    *
-    * @access public
-    * @param void
-    * @return string
-    */
-    function getDefaultImValue() {
-      $default_im_type = $this->getDefaultImType();
-      return $this->getImValue($default_im_type);
-    } // getDefaultImValue
-    
-    /**
-    * Return default user IM type. If there is no default user IM type NULL is returned
-    *
-    * @access public
-    * @param void
-    * @return ImType
-    */
-    function getDefaultImType() {
-      return UserImValues::getDefaultUserImType($this);
-    } // getDefaultImType
-    
-    /**
-    * Clear all IM values
-    *
-    * @access public
-    * @param void
-    * @return boolean
-    */
-    function clearImValues() {
-      return UserImValues::instance()->clearByUser($this);
-    } // clearImValues
-    
-    // ---------------------------------------------------
-    //  Avatars
-    // ---------------------------------------------------
-    
-    /**
-    * Set user avatar from $source file
-    *
-    * @param string $source Source file
-    * @param integer $max_width Max avatar widht
-    * @param integer $max_height Max avatar height
-    * @param boolean $save Save user object when done
-    * @return string
-    */
-    function setAvatar($source, $max_width = 50, $max_height = 50, $save = true) {
-      if (!is_readable($source)) {
-        return false;
-      }
-      
-      do {
-        $temp_file = ROOT . '/cache/' . sha1(uniqid(rand(), true));
-      } while (is_file($temp_file));
-      
-      try {
-        Env::useLibrary('simplegd');
-        
-        $image = new SimpleGdImage($source);
-        $thumb = $image->scale($max_width, $max_height, SimpleGdImage::BOUNDARY_DECREASE_ONLY, false);
-        $thumb->saveAs($temp_file, IMAGETYPE_PNG);
-        
-        $public_filename = PublicFiles::addFile($temp_file, 'png');
-        if ($public_filename) {
-          $this->setAvatarFile($public_filename);
-          if ($save) {
-            $this->save();
-          } // if
-        } // if
-        
-        $result = true;
-      } catch(Exception $e) {
-        $result = false;
-      } // try
-      
-      // Cleanup
-      if (!$result && $public_filename) {
-        PublicFiles::deleteFile($public_filename);
-      } // if
-      @unlink($temp_file);
-      
-      return $result;
-    } // setAvatar
-    
-    /**
-    * Delete avatar
-    *
-    * @param void
-    * @return null
-    */
-    function deleteAvatar() {
-      if ($this->hasAvatar()) {
-        PublicFiles::deleteFile($this->getAvatarFile());
-        $this->setAvatarFile('');
-      } // if
-    } // deleteAvatar
-    
-    /**
-    * Return path to the avatar file. This function just generates the path, does not check if file really exists
-    *
-    * @access public
-    * @param void
-    * @return string
-    */
-    function getAvatarPath() {
-      return PublicFiles::getFilePath($this->getAvatarFile());
-    } // getAvatarPath
-    
-    /**
-    * Return URL of avatar
-    *
-    * @access public
-    * @param void
-    * @return string
-    */
-    function getAvatarUrl() {
-      if ($this->getUseGravatar()) return 'http://www.gravatar.com/avatar/' . md5( strtolower( trim( $this->getEmail() ))) . '?s=50'; 
-      return $this->hasAvatar() ? PublicFiles::getFileUrl($this->getAvatarFile()) : get_image_url('avatar.gif');
-    } // getAvatarUrl
-    
-    /**
-    * Check if this user has uploaded avatar
-    *
-    * @access public
-    * @param void
-    * @return boolean
-    */
-    function hasAvatar() {
-      if ($this->getUseGravatar()) return true;
-      return (trim($this->getAvatarFile()) <> '') && is_file($this->getAvatarPath());
-    } // hasAvatar
     
     // ---------------------------------------------------
     //  Utils
@@ -761,13 +721,15 @@
       }
       $username = $this->getUsername();
       if (strlen(config_option('ldap_domain', '')) != 0) {
-        $username = $username . '@' . config_option('ldap_domain');
+        //$username = $username . '@' . config_option('ldap_domain');
+        $username = sprintf(config_option('ldap_domain'), $username);
       }	
 
       $ldapconn = ldap_connect('ldap://' . config_option('ldap_host', ''));
       if (!$ldapconn) {
         return false;
       }
+      ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3);
       $ldap_secure_connection = config_option('ldap_secure_connection', self::LDAP_SECURE_CONNECTION_NO);
       if ($ldap_secure_connection == self::LDAP_SECURE_CONNECTION_TLS) {
         if (!ldap_start_tls($ldapconn)) {
@@ -853,6 +815,28 @@
       } // if
       return false;
     } // canSeeUser
+
+    /**
+    * Returns true if this user can see $contact
+    * TODO shouldn't it be in the Contact model?
+    *
+    * @param Contact $contact
+    * @return boolean
+    */
+    function canSeeContact(Contact $contact) {
+      if ($this->isMemberOfOwnerCompany()) {
+        return true; // see all
+      } // if
+      if ($contact->getCompanyId() == $this->getCompanyId()) {
+        return true; // see members of your own company
+      } // if
+      if ($contact->isMemberOfOwnerCompany()) {
+        return true; // see members of owner company
+      } // if
+      return false;
+    } // canSeeContact
+    
+
     
     /**
     * Returns true if this user can see $company. Members of owener company and
@@ -866,22 +850,22 @@
       if ($this->isMemberOfOwnerCompany()) {
         return true;
       } // if
-      
-      if (isset($this->visible_companies[$company->getId()])) {
-        return $this->visible_companies[$company->getId()];
-      } // if
-      
+            
       if ($company->isOwner()) {
         $this->visible_companies[$company->getId()] = true;
         return true;
       } // if
-      
+
+      if (isset($this->visible_companies[$company->getId()])) {
+        return $this->visible_companies[$company->getId()];
+      } // if
+
       if ($this->getCompanyId() == $company->getId()) {
         $this->visible_companies[$company->getId()] = true;
         return true;
       } // if
       
-      // Lets companye projects for company of this user and for $company and 
+      // Lets company projects for company of this user and for $company and 
       // compare if we have projects where both companies work together
       $projects_1 = DB::executeAll("SELECT `project_id` FROM " . ProjectCompanies::instance()->getTableName(true) . " WHERE `company_id` = ?", $this->getCompanyId());
       $projects_2 = DB::executeAll("SELECT `project_id` FROM " . ProjectCompanies::instance()->getTableName(true) . " WHERE `company_id` = ?", $company->getId());
@@ -999,12 +983,12 @@
     * @return string
     */
     function getEditProfileUrl($redirect_to = null) {
-      $attributes = array('id' => $this->getId());
+      $attributes = array('id' => $this->getContact()->getId());
       if (trim($redirect_to) <> '') {
         $attributes['redirect_to'] = str_replace('&amp;', '&', trim($redirect_to));
       } // if
       
-      return get_url('account', 'edit_profile', $attributes);
+      return get_url('contacts', 'edit', $attributes);
     } // getEditProfileUrl
     
     /**
@@ -1021,7 +1005,7 @@
       
       return get_url('account', 'edit_password', $attributes);
     } // getEditPasswordUrl
-    
+
     /**
     * Return update user permissions page URL
     *
@@ -1036,36 +1020,6 @@
       
       return get_url('account', 'update_permissions', $attributes);
     } // getUpdatePermissionsUrl
-    
-    /**
-    * Return update avatar URL
-    *
-    * @param string
-    * @return string
-    */
-    function getUpdateAvatarUrl($redirect_to = null) {
-      $attributes = array('id' => $this->getId());
-      if (trim($redirect_to) <> '') {
-        $attributes['redirect_to'] = str_replace('&amp;', '&', trim($redirect_to));
-      } // if
-      
-      return get_url('account', 'edit_avatar', $attributes);
-    } // getUpdateAvatarUrl
-    
-    /**
-    * Return delete avatar URL
-    *
-    * @param void
-    * @return string
-    */
-    function getDeleteAvatarUrl($redirect_to = null) {
-      $attributes = array('id' => $this->getId());
-      if (trim($redirect_to) <> '') {
-        $attributes['redirect_to'] = str_replace('&amp;', '&', trim($redirect_to));
-      } // if
-      
-      return get_url('account', 'delete_avatar', $attributes);
-    } // getDeleteAvatarUrl
     
     /**
     * Return recent activities feed URL
@@ -1147,19 +1101,7 @@
       } else {
         $errors[] = lang('email value is required');
       } // if
-      
-      // Validate homepage if present
-      if ($this->validatePresenceOf('homepage')) {
-        if (!is_valid_url($this->getHomepage())) {
-          $errors[] = lang('user homepage invalid');
-        } // if
-      } // if
-      
-      // Company ID
-      if (!$this->validatePresenceOf('company_id')) {
-        $errors[] = lang('company value required');
-      }
-      
+            
     } // validate
     
     /**
@@ -1173,7 +1115,6 @@
         return false;
       } // if
       
-      $this->deleteAvatar();
       ProjectUsers::clearByUser($this);
       MessageSubscriptions::clearByUser($this);
       return parent::delete();

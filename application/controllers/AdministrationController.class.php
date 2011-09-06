@@ -59,7 +59,7 @@
     */
     function members() {
       tpl_assign('company', owner_company());
-      tpl_assign('users', owner_company()->getUsers());
+      tpl_assign('users', owner_company()->getContacts());
     } // members
     
     /**
@@ -320,7 +320,16 @@
 
     } // browse_log
 
-    
+    // ---------------------------------------------------
+    //  Plugins
+    // ---------------------------------------------------
+
+    /**
+    * Displays all local plugins (enabled or not)
+    *
+    * @param void
+    * @return null
+    */
     function plugins() {
       trace(__FILE__,'plugins()');
       $plugins = Plugins::getAllPlugins();
@@ -409,11 +418,11 @@
           }
         }
       }
-      if ( count($errors) )
+      if ( count($errors) ) {
         flash_error(lang('plugin activation failed', implode(", ",$errors)));
-      else
+      } else {
         flash_success(lang('plugins updated'));
-
+      }
       $this->redirectTo('administration','plugins');
       
     } // update

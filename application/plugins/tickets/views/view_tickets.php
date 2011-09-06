@@ -1,6 +1,7 @@
 <?php if (is_array($tickets)) { ?>
-<?php if (isset($ticketsheader)) { echo "<div class=\"tickets_header\">$ticketsheader</div>"; } ?>
-<table width="100%" cellpadding="2" border="0">
+<div class="block">
+<?php if (isset($ticketsheader)) { echo "<div class=\"header\">$ticketsheader</div>"; } ?>
+<div class="content"><table>
   <tr bgcolor>
     <th width="40"><?php echo lang("ticket") ?></td>
     <th><?php echo lang("summary") ?></td>
@@ -29,5 +30,5 @@
     </td>
   </tr>
 <?php } // foreach ?>
-</table>
+</table></div></div>
 <?php } // if{ ?>

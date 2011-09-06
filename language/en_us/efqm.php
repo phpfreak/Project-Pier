@@ -27,6 +27,7 @@
 
     'view score card' => 'View score card',
     'score card' => 'Score card',
+    'edit score' => 'Edit score',
 
   ); // array
 

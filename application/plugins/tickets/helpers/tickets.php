@@ -1,13 +1,52 @@
 <?php
 
   /**
-  * Application helpers. This helpers are injected into the controllers
+  * Application helpers. These helpers are injected into the controllers
   * through ApplicationController construction so they are available in
   * whole application
   *
   * @http://www.projectpier.org/
   */
   
+  /**
+  * Returns possible values for ticket status
+  * TODO: remove hardcoded values!
+  *
+  * @param void
+  * @return array
+  */
+  function get_ticket_statuses() {
+    return array('new', 'open', 'pending', 'closed');
+    //return get_array('ProjectTicket.status');
+  } // get_ticket_statuses
+  
+  /**
+  * Render select ticket status
+  *
+  * @param string $selected status of ticket
+  * @param array $attributes Additional attributes
+  * @return string
+  */
+  function select_ticket_status($name, $selected = null, $attributes = null) {
+    $statuses = get_ticket_statuses();
+    $options = array();
+    foreach($statuses as $status) {
+      $option_attributes = $status == $selected ? array('selected' => 'selected') : null;
+      $options[] = option_tag(lang($status), $status, $option_attributes);
+    } // foreach
+    return select_box($name, $options, $attributes);
+  } // select_ticket_type
+    
+  /**
+  * Returns possible values for ticket type
+  * TODO: remove hardcoded values!
+  *
+  * @param void
+  * @return array
+  */
+  function get_ticket_types() {
+    return array('defect', 'enhancement', 'feature request');
+  } // get_ticket_types    
   /**
   * Render select ticket type
   *
@@ -16,7 +55,7 @@
   * @return string
   */
   function select_ticket_type($name, $selected = null, $attributes = null) {
-    $types = array('defect', 'enhancement', 'feature request');
+    $types = get_ticket_types();
     $options = array();
     foreach($types as $type) {
       $option_attributes = $type == $selected ? array('selected' => 'selected') : null;
@@ -26,6 +65,17 @@
   } // select_ticket_type
   
   /**
+  * Returns possible values for ticket priority
+  * TODO: remove hardcoded values!
+  *
+  * @param void
+  * @return array
+  */
+  function get_ticket_priorities() {
+    return array('critical', 'major', 'minor', 'trivial');
+  } // get_ticket_priorities
+
+  /**
   * Render select ticket priority
   *
   * @param string $selected priority of ticket
@@ -34,11 +84,11 @@
   */
   function select_ticket_priority($name, $selected = null, $attributes = null) {
     if ($selected == null) $selected = 'minor';
-    $types = array('critical', 'major', 'minor', 'trivial');
+    $priorities = get_ticket_priorities();
     $options = array();
-    foreach($types as $type) {
-      $option_attributes = $type == $selected ? array('selected' => 'selected') : null;
-      $options[] = option_tag(lang($type), $type, $option_attributes);
+    foreach($priorities as $priority) {
+      $option_attributes = $priority == $selected ? array('selected' => 'selected') : null;
+      $options[] = option_tag(lang($priority), $priority, $option_attributes);
     } // foreach
     return select_box($name, $options, $attributes);
   } // select_ticket_priority

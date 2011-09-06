@@ -263,6 +263,7 @@
       if (is_array($activity_log)) {
         foreach ($activity_log as $activity_log_entry) {
           tpl_assign('object', $activity_log_entry->getObject());
+          $description = 'no object attached';
           if ($activity_log_entry->getObject()) {
             $object_type = str_replace(" ", "_", strtolower($activity_log_entry->getObject()->getObjectTypeName()));
             if (file_exists(get_template_path('render_'.$object_type, 'feed'))) {

@@ -3,11 +3,11 @@
   define('PROJECT_TAB_TAGS', 'tags');
   add_action('add_project_tab', 'tags_add_project_tab');
   function tags_add_project_tab() {
-    add_tabbed_navigation_item(new TabbedNavigationItem(
+    add_tabbed_navigation_item(
       PROJECT_TAB_TAGS,
-      lang('tags'),
+      'tags',
       get_url('project', 'tags')
-    ));
+    );
   }
 
   // my tasks dropdown

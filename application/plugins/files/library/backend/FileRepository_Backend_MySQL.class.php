@@ -199,10 +199,27 @@
       $file_id = $this->getUniqueId();
       $files_table = $this->getFilesTableName();
       $escaped_id = mysql_real_escape_string($file_id, $this->db_link);
-      $escaped_content = mysql_real_escape_string(file_get_contents($source), $this->db_link);
-      $escaped_order = mysql_real_escape_string($this->getNextOrder(), $this->db_link);
-      
-      if (mysql_query("INSERT INTO $files_table (`id`, `content`, `order`) VALUES ('$escaped_id', '$escaped_content', '$escaped_order')", $this->db_link)) {
+      $order = intval($this->getNextOrder());
+
+      mysql_query("BEGIN WORK", $this->db_link);
+      $success = true;
+      $seq = 0;
+      $block_size = 500 * 1024; // 500 KB
+      $handle = fopen($source, "rb");
+      while (!feof($handle)) {
+        $seq++;
+        $data = fread($handle, $block_size);
+        $escaped_content = mysql_real_escape_string($data, $this->db_link);
+        if (!mysql_query("INSERT INTO $files_table (`id`, `seq`, `content`, `order`) VALUES ('$escaped_id', $seq, '$escaped_content', $order)", $this->db_link)) {
+echo mysql_error();
+          $success = false;
+          break;
+        }
+      }
+      fclose($handle);
+
+      if ($success) {
+        mysql_query("COMMIT", $this->db_link);
         
         if (is_array($attributes)) {
           foreach ($attributes as $attribute_name => $attribute_value) {
@@ -212,6 +229,7 @@
         
         return $file_id;
       } else {
+        mysql_query("ROLLBACK", $this->db_link);
         throw new FileRepositoryAddError($source, $file_id);
       } // if
     } // addFile
@@ -364,7 +382,7 @@
     */
     protected function getNextOrder() {
       $files_table = $this->getFilesTableName();
-      if ($result = mysql_query("SELECT `order` FROM $files_table ORDER BY `order` DESC", $this->db_link)) {
+      if ($result = mysql_query("SELECT max(`order`) as `order` FROM $files_table", $this->db_link)) {
         if ($row = mysql_fetch_assoc($result)) {
           return (integer) $row['order'] + 1;
         } // if

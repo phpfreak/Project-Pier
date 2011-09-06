@@ -29,13 +29,18 @@
     function index() {
       trace(__FILE__,'index()');
       $this->addHelper('textile');
+      $this->addHelper('files', 'files');
       $links = ProjectLinks::getAllProjectLinks(active_project());
       tpl_assign('links', $links);
+      tpl_assign('folders', active_project()->getFolders());
+      tpl_assign('folder_tree', ProjectFolders::getProjectFolderTree(active_project())); 
+      $this->setSidebar(get_template_path('index_sidebar', 'files'));    
     } // index
     
     function add_link() {
       
       $this->setTemplate('edit_link');
+      $this->addHelper('files', 'files');
       
       if (!ProjectLink::canAdd(logged_user(), active_project())) {
         flash_error(lang('no access permissions'));
@@ -66,7 +71,7 @@
       
       tpl_assign('project_link', $project_link);
       tpl_assign('project_link_data', $project_link_data);
-    
+
     } // add_link
     
     /**
@@ -77,7 +82,6 @@
     */
     function edit_link() {
       
-      $this->setTemplate('edit_link');
       $project_link = ProjectLinks::findById(get_id());
       
       if (!ProjectLink::canEdit(logged_user())) {
@@ -90,12 +94,17 @@
         $this->redirectTo('links');
       } // if
       
+      $this->setTemplate('edit_link');
+      $this->addHelper('files', 'files');
+
       $project_link_data = array_var($_POST, 'project_link');
       
       if (!is_array($project_link_data)) {
         $project_link_data = array(
-          'title'  => $project_link->getTitle(),
-          'url'    => $project_link->getUrl(),
+          'title'       => $project_link->getTitle(),
+          'url'         => $project_link->getUrl(),
+          'description' => $project_link->getDescription(),
+          'folder_id'   => $project_link->getFolderId(),
         ); // array
       } // if
       
@@ -157,7 +166,115 @@
       } // try
       
     } // delete_link
+
+    /**
+    * Show and process edit link logo form
+    *
+    * @param void
+    * @return null
+    */
+    function edit_logo() {
+      $link = ProjectLinks::findById(get_id());
+      if (!($link instanceof ProjectLink)) {
+        flash_error(lang('link dnx'));
+        $this->redirectToReferer(get_url('links', 'index'));
+      } // if
+
+      if (!$link->canEdit(logged_user())) {
+        flash_error(lang('no access permissions'));
+        $this->redirectToReferer(get_url('links'));
+      } // if
+
+      if (!function_exists('imagecreatefromjpeg')) {
+        flash_error(lang('no image functions'));
+        $this->redirectTo('links');
+      } // if
+
+      $this->setTemplate('edit_logo');
+      //$this->setLayout('administration');
+      
+      tpl_assign('link', $link);
+      
+      $logo = array_var($_FILES, 'new_logo');
+
+      if (is_array($logo)) {
+        try {
+          move_uploaded_file($logo["tmp_name"], ROOT . "/tmp/" . $logo["name"]);
+          $logo["tmp_name"] = ROOT . "/tmp/" . $logo["name"];
+          if (!isset($logo['name']) || !isset($logo['type']) || !isset($logo['size']) || !isset($logo['tmp_name']) || !is_readable($logo['tmp_name'])) {
+            throw new InvalidUploadError($logo, lang('error upload file'));
+          } // if
+          
+          $valid_types = array('image/jpg', 'image/jpeg', 'image/pjpeg', 'image/gif', 'image/png');
+          $max_width   = config_option('max_logo_width', 50);
+          $max_height  = config_option('max_logo_height', 50);
+          
+          if (!in_array($logo['type'], $valid_types) || !($image = getimagesize($logo['tmp_name']))) {
+            throw new InvalidUploadError($logo, lang('invalid upload type', 'JPG, GIF, PNG'));
+          } // if
+          
+          $old_file = $link->getLogoPath();
+          
+          DB::beginWork();
+          
+          if (!$link->setLogo($logo['tmp_name'], $max_width, $max_height, true)) {
+            DB::rollback();
+            flash_error(lang('error edit link logo', $e));
+            $this->redirectToUrl($link->getEditLogoUrl());
+          } // if
+          
+          ApplicationLogs::createLog($link, active_project(), ApplicationLogs::ACTION_EDIT);
+          
+          flash_success(lang('success edit logo'));
+          DB::commit();
+          
+          if (is_file($old_file)) {
+            @unlink($old_file);
+          } // uf
+          
+        } catch(Exception $e) {
+          flash_error(lang('error edit logo', $e));
+          DB::rollback();
+        } // try
+        
+        $this->redirectToUrl($link->getEditLogoUrl());
+      } // if
+    } // edit_logo
     
+    /**
+    * Delete link logo
+    *
+    * @param void
+    * @return null
+    */
+    function delete_logo() {
+      if (!logged_user()->isAdministrator(owner_company())) {
+        flash_error(lang('no access permissions'));
+        $this->redirectTo('links', 'index');
+      } // if
+      
+      $link = links::findById(get_id());
+      if (!($link instanceof link)) {
+        flash_error(lang('link dnx'));
+        $this->redirectToReferer(get_url('links', 'index'));
+      } // if
+      
+      try {
+        DB::beginWork();
+        $link->deleteLogo();
+        $link->save();
+        ApplicationLogs::createLog($link, active_project(), ApplicationLogs::ACTION_EDIT);
+        DB::commit();
+        
+        flash_success(lang('success delete logo'));
+      } catch(Exception $e) {
+        DB::rollback();
+        flash_error(lang('error delete logo'));
+      } // try
+      
+      $this->redirectToUrl($link->getEditLogoUrl());
+    } // delete_logo
+        
   } // LinksController
 
 ?>

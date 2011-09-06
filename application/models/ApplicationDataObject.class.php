@@ -168,7 +168,18 @@
       $updated_by = $this->getUpdatedBy();
       return $updated_by instanceof User ? $updated_by->getCardUrl() : null;
     } // getUpdatedByCardUrl
-  
+
+    /**
+    * Delete specific object and associated objects
+    *
+    * @param void
+    * @return boolean
+    */
+    function delete() {
+      PageAttachments::clearAttachmentsByObject($this);
+      return parent::delete();
+    } // delete
+      
   } // ApplicationDataObject
 
 ?>

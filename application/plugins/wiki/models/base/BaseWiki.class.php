@@ -12,12 +12,15 @@
 abstract class BaseWiki extends DataManager
 {
   static private $columns = array(
-    'id' => DATA_TYPE_INTEGER, 
-    'project_id' => DATA_TYPE_INTEGER, 
-    'revision' => DATA_TYPE_INTEGER,
-    'project_index' => DATA_TYPE_BOOLEAN,
+    'id'              => DATA_TYPE_INTEGER, 
+    'project_id'      => DATA_TYPE_INTEGER, 
+    'revision'        => DATA_TYPE_INTEGER,
+    'project_index'   => DATA_TYPE_BOOLEAN,
     'project_sidebar' => DATA_TYPE_BOOLEAN,
-    'publish' => DATA_TYPE_BOOLEAN,
+    'publish'         => DATA_TYPE_BOOLEAN,
+    'locked'          => DATA_TYPE_BOOLEAN,
+    'locked_by_id'    => DATA_TYPE_INTEGER,
+    'locked_on'       => DATA_TYPE_DATETIME,
   ); 
 
   /**
@@ -84,44 +87,44 @@ abstract class BaseWiki extends DataManager
    *
    * @return
    */
-    function instance()
-    {
-		static $instance;
-		if(!instance_of($instance, 'Wiki')){
-			$instance = new Wiki;
-		}
-		return $instance;
-	} // instance
+  function instance()
+  {
+    static $instance;
+    if(!instance_of($instance, 'Wiki')) {
+      $instance = new Wiki;
+    }
+    return $instance;
+  } // instance
 	
-	/**
+  /**
     * Return number of rows in this table
     *
     * @access public
     * @param string $conditions Query conditions
     * @return integer
     */
-    function count($condition = null) {
-      if (isset($this) && instance_of($this, 'Wiki')) {
-        return parent::count($condition);
-      } else {
-        return Wiki::instance()->count($condition);
-      } // if
-    } // count
+  function count($condition = null) {
+    if (isset($this) && instance_of($this, 'Wiki')) {
+      return parent::count($condition);
+    } else {
+      return Wiki::instance()->count($condition);
+    } // if
+  } // count
 	
-	/**
+  /**
     * Delete rows that match specific conditions. If $conditions is NULL all rows from table will be deleted
     *
     * @access public
     * @param string $conditions Query conditions
     * @return boolean
     */
-    function delete($condition = null) {
-      if (isset($this) && instance_of($this, 'Wiki')) {
-        return parent::delete($condition);
-      } else {
-        return Wiki::instance()->delete($condition);
-      } // if
-    } // delete
+  function delete($condition = null) {
+    if (isset($this) && instance_of($this, 'Wiki')) {
+      return parent::delete($condition);
+    } else {
+      return Wiki::instance()->delete($condition);
+    } // if
+  } // delete
     
     // -------------------------------------------------------
     //  Finders

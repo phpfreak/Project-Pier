@@ -1,7 +1,7 @@
 <?php trace(__FILE__,'begin') ?>
 <?php set_page_title(lang('login')) ?>
 <?php trace(__FILE__,'get_url') ?>
-<script>
+<script type="text/javascript">
   showOptions = function() {
     var options1 = document.getElementById("options1");
     var options2 = document.getElementById("options2");
@@ -97,7 +97,7 @@
           <?php echo checkbox_field('login[remember]', (array_var($login_data, 'remember') == 'checked'), array('id' => 'loginRememberMe')) ?>
         </li>
         <li>
-          <label class="checkbox" for="trace"><?php echo lang('enable trace') ?></label><br>
+          <label class="checkbox" for="trace"><?php echo lang('enable trace') ?></label><br />
           <?php echo checkbox_field('trace', false, array('id' => 'trace')) ?>
         </li>
       </ul>
@@ -116,5 +116,5 @@
 <?php } // if ?>
 </form>
 
-<script>document.forms[0].loginUsername.focus()</script>
+<script type="text/javascript">document.forms[0].loginUsername.focus()</script>
 <?php trace(__FILE__,'end') ?>

@@ -32,6 +32,7 @@ return array(
   'delete wiki page'                    =>  'Delete page',
   'edit wiki page'                      =>  'Edit page',
   'wiki page dnx'                       =>  'Page not found',
+  'wiki all pages'                      =>  'All pages',
   
   'wiki page content'                   =>  'Page content',
   
@@ -47,6 +48,7 @@ return array(
   
   'wiki page history'                   =>  'Page history for \'%s\'',
   'wiki page revisions dnx'             =>  'Page has no revisions',
+  'wiki page not locked'                =>  'Page is not locked',
   
   'wiki default sidebar name'           =>  'Default Sidebar',
   'wiki default sidebar content'        =>  'This is some default content for your sidebar
@@ -69,9 +71,13 @@ return array(
   'wiki set as index page'              =>  'Set page as index page?',
   'wiki set as sidebar page'            =>  'Set page as sidebar page?',
   'wiki publish page'                   =>  'Publish page on the public wiki?',
+  'wiki lock page'                      =>  'Lock page?',
   'wiki page created'                   =>  'Page created',
 
-  'wiki public wiki'                    =>  'Public wiki'
+  'wiki public wiki'                    =>  'Public wiki',
+
+  'wiki page locked'                    =>  'Page is locked',
+  'wiki page locked by on'              =>  'Page locked by %s on %s',
   );
 
 ?>

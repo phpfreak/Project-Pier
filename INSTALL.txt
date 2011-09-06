@@ -1,0 +1,79 @@
+~~~~~~~~~~~~~~~~~~~
+System requirements
+~~~~~~~~~~~~~~~~~~~
+	
+ProjectPier requires a PHP web server and MySQL. The recommended web 
+server is Apache, but IIS 5 and above have been reported to work also.
+	
+ProjectPier is not PHP4 compatible.
+	
+Recommended configuration:
+	
+: PHP 5.1 or greater
+: MySQL 4.1 or greater with InnoDB support (see notes below)
+: Apache 2.0 or greater
+        
+If you do not have these installed on a server or your personal computer, 
+you can visit the sites below to learn more about how to download and install
+them.  They are all licensed under various compatible Open Source licenses.	
+: PHP    : http://www.php.net/
+: MySQL  : http://www.mysql.com/
+: Apache : http://www.apache.org/
+
+~~~~~~~~~~~~
+Installation
+~~~~~~~~~~~~
+	
+1. Make sure your server meets the requirements, see notes below regarding
+   enabling InnoDB support.
+2. Download ProjectPier from the project website - http://www.projectpier.org/.
+3. Unpack and upload the files to your web server.
+4. Direct your browser to the /public/install directory and follow the installation
+   procedure.
+
+~~~~~~~~~~~~~~~~~~~~~~~
+Enabling InnoDB Support
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Some installations of MySQL don't support InnoDB by default.  The ProjectPier installer 
+will tell you if your server is not configured to support InnoDB. This is easy to fix: 
+
+1. Open your MySQL options file, the file name is my.cnf (Linux) - usually at /etc/my.cnf 
+   or my.ini (Windows) - usually at c:/windows/my.ini.  If you are using the Uniform Server
+   on Windows, the file will be named 'my-small' and will need to be edited with a unix 
+   compatible editor such as PSPad or EditPad Lite.
+2. Comment the skip-innodb line by adding # in front of it (like #skip-innodb). 
+3. It would also be good to increase max_allowed_packet to ensure that 
+   you'll be able to upload files larger than 1MB. Just add this 
+   line bellow #skip-innodb line: 
+   set-variable = max_allowed_packet=64M
+
+Alternatively, just install without InnoDB support. The installer will allow you.
+
+~~~~~~~~~~~~~~~~~~~~~
+Changing the Language
+~~~~~~~~~~~~~~~~~~~~~
+
+ProjectPier installation screens are in English and English is the default language
+for the program. After installation is complete, the language can be changed.
+
+The following base languages are available:
+nl_nl = Dutch
+en_us = English (US)
+de_de = German
+es_es = Spanish
+fr_fr = French
+
+Other languages packs may be available for download at the site.
+
+~~~~~~~~~~~~~~~~
+Acknowledgements
+~~~~~~~~~~~~~~~~
+We would like to say thank you to all who are using this software and took the time to 
+install the test versions. We were happy with the feedback and the contributions.
+In particular the following individuals get a special thank you:
+
+SethZora - for his remarks, ideas and testing
+Kemie - for fixing the Marine theme
+jokoe - for the French translation
+visor7 - for the Spanish translation

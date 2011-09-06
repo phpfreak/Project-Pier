@@ -20,12 +20,13 @@
 
 <table class="timeLogs blank">
   <tr>
-    <th>Date</th>
-    <th>Name</th>
-    <th>Details</th>
-    <th>Task</th>
-    <th>Hours</th>
-    <th>Actions</th>
+    <th><?php echo lang('date') ?></th>
+    <th><?php echo lang('name') ?></th>
+    <th><?php echo lang('details') ?></th>
+    <th><?php echo lang('task') ?></th>
+    <th><?php echo lang('hours') ?></th>
+    <th><?php echo lang('bill') ?></th>
+    <th><?php echo lang('actions') ?></th>
   </tr>
 
 <?php
@@ -71,7 +72,10 @@
       <?php } // if ?>
     </td>
     <td class="timeHours"><?php echo $time->getHours() ?></td>
-		<td class="timeEdit">
+    <td class="timeFiles">
+      <?php echo render_object_files_brief($time, $time->canEdit(logged_user())) ?>
+    </td>
+    <td class="timeEdit">
 <?php
   $options = array();
   if($time->canEdit(logged_user())) $options[] = '<a href="' . $time->getEditUrl() . '">' . lang('edit') . '</a>';

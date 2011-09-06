@@ -4,18 +4,26 @@ ProjectPier Change Log
 ~~~~~~~~~~~~~~~~~~~~~~
 
 ---------------------------------------
-Version 0.8.7 April 5 2011 (beta)
+Version 0.8.7 July 15 2011 (stable)
 ---------------------------------------
 
 Features:
 
-- Added   (datetime)  - Footer shows date, time, timezone and [week] PP is working in.  
+- Added   (contacts)  - Contacts are now supported (Thanks to Timothee Boucher and Ryan Cross).  
+- Added   (dashboard) - My Files shows all important files reachable by a user (over projects).
+- Added   (datetime)  - Footer shows date, time, timezone, dst and [week] PP is working in.  
 - Added   (date fmt)  - Added language item 'input date format' to control date input format.  
+- Added   (links)     - Links support description and logo. 
+- Added   (links)     - Links can be added by project users. 
 - Added   (send not.) - Configuration option for default of Send notification (see Features).
+- Added   (permission)- Lots of more permissions. 
 - Added   (projects)  - Support for subprojects. 
+- Added   (reports)   - Gantt chart, mind map. 
 - Added   (tasks)     - Add Time link to quickly add time if time plugin active. 
+- Added   (theme)     - Greenbase. 
 - Added   (theme)     - Redbase. 
 - Added   (time)      - Initialize to task from Add Time link and default description. 
+- Added   (tickets)   - Assign to milestone. 
 - Added   (tickets)   - Download all tickets. 
 - Added   (wiki)      - Public wiki including page publish option. 
 - Added   (Node 130)  - Global search for administrators. 
@@ -32,11 +40,19 @@ Features:
 - Changed (login)     - Theme options are now in sync with installed themes. 
 - Changed (php)       - Short open tags are off now (used to be on). 
 - Changed (tasks)     - Suppress progress bar when empty.  
-- Changed (tasks)     - Suppress 0 task comment in sidebar when 0 tasks.  
+- Changed (tasks)     - Suppress 0 tasks comment in sidebar when 0 tasks.  
 - Changed (time)      - Moved text from code to language file.  
 - Changed (notifier)  - Clicking company checkbox selects all recipients.  
 - Changed (notifier)  - Recipients are shown in alphabetical order.  
 - Changed (notifier)  - Fixed almost all views to use proper language elements.  
+- Changed (theme)     - Marine: More view options and action menu instead of action bar. 
+- Changed (theme)     - Marine: Blocks are collapsable (e.g milestone card, application log, tickets log etc.) 
+- Changed (theme)     - Marine: Error and success message can be clicked to remove. 
+- Changed (theme)     - Marine: Success message fades out after 5 seconds. 
+- Changed (theme)     - More uniform use of styles (e.g. header instead of milestoneHeader)
+- Changed (theme)     - Tabs are removed when an user this not have access to it.
+- Changed (theme)     - Marine: Long texts are now properly reformatted.
+- Changed (upgrade)   - Completely automated database upgrade.
 - Removed (Node 2213) - add_comment.php.
 
 Issues:

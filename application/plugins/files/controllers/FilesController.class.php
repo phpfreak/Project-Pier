@@ -30,14 +30,14 @@
       $this->addHelper('textile');
       
       $order = array_var($_GET, 'order');
-      if (($order <> ProjectFiles::ORDER_BY_NAME) && ($order <> ProjectFiles::ORDER_BY_POSTTIME)) {
-        $order = ProjectFiles::ORDER_BY_POSTTIME;
+      if (($order <> ProjectFiles::ORDER_BY_NAME) && ($order <> ProjectFiles::ORDER_BY_POSTTIME) && ($order <> ProjectFiles::ORDER_BY_FOLDER)) {
+        $order = ProjectFiles::ORDER_BY_FOLDER;
       } // if
       $page = (integer) array_var($_GET, 'page', 1);
       if ((integer) $page < 1) {
         $page = 1;
       }
-      
+     
       $this->canGoOn();
       $hide_private = !logged_user()->isMemberOfOwnerCompany();
       $result = ProjectFiles::getProjectFiles(active_project(), null, $hide_private, $order, $page, config_option('files_per_page'), true);
@@ -54,6 +54,7 @@
       tpl_assign('files', $files);
       tpl_assign('pagination', $pagination);
       tpl_assign('folders', active_project()->getFolders());
+      tpl_assign('folder_tree', ProjectFolders::getProjectFolderTree(active_project())); 
       trace(__FILE__,'index() - important_files');
       tpl_assign('important_files', active_project()->getImportantFiles());
       
@@ -102,6 +103,7 @@
       tpl_assign('files', $files);
       tpl_assign('pagination', $pagination);
       tpl_assign('folders', active_project()->getFolders());
+      tpl_assign('folder_tree', ProjectFolders::getProjectFolderTree(active_project()));
       tpl_assign('important_files', active_project()->getImportantFiles());
       
       $this->setSidebar(get_template_path('index_sidebar', 'files'));
@@ -172,7 +174,10 @@
       
       $folder_data = array_var($_POST, 'folder');
       if (!is_array($folder_data)) {
-        $folder_data = array('name' => $folder->getName());
+        $folder_data = array(
+          'name' => $folder->getName(),
+          'parent_id' => $folder->getParentId()
+        );
       } // if
       
       tpl_assign('folder', $folder);
@@ -301,6 +306,7 @@
       tpl_assign('order', null);
       tpl_assign('page', null);
       tpl_assign('folders', active_project()->getFolders());
+      tpl_assign('folder_tree', ProjectFolders::getProjectFolderTree(active_project()));
       tpl_assign('important_files', active_project()->getImportantFiles());
       
       $this->setSidebar(get_template_path('index_sidebar', 'files'));
@@ -315,6 +321,7 @@
     function download_file() {
       trace(__FILE__,'download_file()');
       $inline = (boolean) array_var($_GET, 'inline', false);
+      $html = (boolean) array_var($_GET, 'html', false);
       
       trace(__FILE__,'download_file():findById()');
       $file = ProjectFiles::findById(get_id());
@@ -332,7 +339,7 @@
       trace(__FILE__,'download_file():canGoOn()');
       $this->canGoOn();
       $revision = $file->getLastRevision();
-      $this->_download_revision($revision, !$inline);
+      $this->_download_revision($revision, !$inline, $html);
 /*
       $download_name = $revision->getFileName() ? $revision->getFileName() : $file->getFileName();
       trace(__FILE__,"download_file():config_option('file_storage_adapter','fs')");
@@ -357,6 +364,7 @@
     function download_revision() {
       trace(__FILE__,'download_revision()');
       $inline = (boolean) array_var($_GET, 'inline', false);
+      $html = (boolean) array_var($_GET, 'html', false);
 
       $revision = ProjectFileRevisions::findById(get_id());
       if (!($revision instanceof ProjectFileRevision)) {
@@ -377,7 +385,7 @@
       
       $this->canGoOn();
 
-      $this->_download_revision($revision, !$inline);
+      $this->_download_revision($revision, !$inline, $html);
 /*
       $revision = $file->getLastRevision();
       $download_name = $revision->getFileName() ? $revision->getFileName() : $file->getFileName();
@@ -398,7 +406,7 @@
     * @param string $revision_id
     * @return null
     */
-    private function _download_revision($revision = null, $inline) {
+    private function _download_revision($revision = null, $inline, $html) {
       trace(__FILE__,"_download_revision(...):");
       if (!($revision instanceof ProjectFileRevision)) {
         flash_error(lang('file revision dnx'));
@@ -414,6 +422,10 @@
         trace(__FILE__,"_download_revision(...):from db");
         $is_fs = false;
         $contents = &$revision->getFileContent();
+        $contents = $repository_id;
+      }
+      if ($html) {
+        echo '<html><img src='.$revision->getDownloadUrl().'></html>'; die();
       }
       trace(__FILE__,"_download_revision(...):$repository_id");
       download_contents($contents, $revision->getTypeString(), $revision->getFileName(), $revision->getFileSize(), $inline, $is_fs);
@@ -666,6 +678,60 @@
         } // try
       } // if
     } // edit_file
+
+    /**
+    * Move message
+    *
+    * @access public
+    * @param void
+    * @return null
+    */
+    function move() {
+      $this->setTemplate('move_file');
+      
+      $file = ProjectFiles::findById(get_id());
+      if (!($file instanceof ProjectFile)) {
+        flash_error(lang('file dnx'));
+        $this->redirectTo('file', 'index');
+      } // if
+      
+      if (!$file->canDelete(logged_user(), active_project())) {
+        flash_error(lang('no access permissions'));
+        $this->redirectTo('file', 'index');
+      } // if
+      
+      $move_data = array_var($_POST, 'move_data');
+      tpl_assign('file', $file);
+      tpl_assign('move_data', $move_data);
+
+      if (is_array($move_data)) {
+        $target_project_id = $move_data['target_project_id'];
+        $target_project = Projects::findById($target_project_id);
+        if (!($target_project instanceof Project)) {
+          flash_error(lang('project dnx'));
+          $this->redirectToUrl($file->getMoveUrl());
+        } // if
+        if (!$file->canAdd(logged_user(), $target_project)) {
+          flash_error(lang('no access permissions'));
+          $this->redirectToUrl($file->getMoveUrl());
+        } // if
+        try {
+          DB::beginWork();
+          $file->setProjectId($target_project_id);
+          $file->save();
+          ApplicationLogs::createLog($file, active_project(), ApplicationLogs::ACTION_DELETE);
+          ApplicationLogs::createLog($file, $target_project, ApplicationLogs::ACTION_ADD);
+          DB::commit();
+
+          flash_success(lang('success move file', $file->getObjectName(), active_project()->getName(), $target_project->getName() ));
+        } catch(Exception $e) {
+          DB::rollback();
+          flash_error(lang('error move file', $e->getMessage()));
+        } // try
+
+        $this->redirectToUrl($file->getViewUrl());
+      }
+    } // move_file
     
     /**
     * Delete file
@@ -993,6 +1059,49 @@
       
       $this->redirectToReferer($object->getObjectUrl());
     } // detach_from_object
+
+    /**
+    * Restore project file revisions from attributes.php 
+    * Use this when table ProjectFileRevisions is empty
+    * @param void
+    * @return null
+    */
+    function repair() {
+
+      $attributes = include ROOT . '/upload/attributes.php';
+      foreach ($attributes as $k => $v) {
+
+        $files = ProjectFiles::findAll(array(
+          'conditions' => array('`filename` = ?', $v['name'])
+        )); // findAll
+        foreach ($files as $file) {
+          $id = $file->getId();
+  
+          $repository_id = $k;
+
+          $revision = new ProjectFileRevision();
+          $revision->setFileId($id);
+          $revision->setRepositoryId($repository_id);
+          $revision->deleteThumb(false);
+          $revision->setFilesize($v['size']);
+          $revision->setFilename($v['name']);
+          $revision->setTypeString($v['type']);
+      
+          $extension = get_file_extension(basename($v['name']));
+          if (trim($extension)) {
+            $file_type = FileTypes::getByExtension($extension);
+            if ($file_type instanceof Filetype) {
+              $revision->setFileTypeId($file_type->getId());
+            } // if
+          } // if
+      
+          $revision->setComment('-- Initial version --');
+          $revision->save();
+
+        }
+      }
+      $this->redirectTo('files', 'index');
+    }
   
   } // FilesController
 

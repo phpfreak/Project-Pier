@@ -1,7 +1,6 @@
 /*[fmt]2A10-1A0B-3*/
 table.applicationLogs  {
  font-size: 13px;
- width: 640px;
 }
 
 table.applicationLogs th  {
@@ -13,7 +12,7 @@ table.applicationLogs th  {
 }
 
 /*IE7 TABLE ROW BG FIX*/
-table.applicationLogs tr.logToday, table.applicationLogs tr.logToday td.logDetails, table.applicationLogs tr.logToday td.logProject, table.applicationLogs tr.logToday td.logTakenOnBy  {
+table.applicationLogs tr.logToday {
  background: #EDF5D6 url('../images/logtypes/today.gif') repeat-x top right;
  border: 1px solid #D7E5B2;
 }
@@ -23,9 +22,13 @@ table.applicationLogs tr.logToday td.logTypeIcon  {
  border: 1px solid #D7E5B2;
 }
 
-table.applicationLogs tr.logYesterday, table.applicationLogs tr.logYesterday td.logDetails, table.applicationLogs tr.logYesterday td.logProject, table.applicationLogs tr.logYesterday td.logTakenOnBy  {
+table.applicationLogs tr.logYesterday {
  background: #EBF2F6 url('../images/logtypes/yesterday.gif') repeat-x top right;
  border: 1px solid #D0E3EB;
+}
+
+table.applicationLogs tr.logYesterday.even  {
+ background: transparent;
 }
 
 table.applicationLogs tr.logYesterday td.logTypeIcon  {
@@ -33,12 +36,10 @@ table.applicationLogs tr.logYesterday td.logTypeIcon  {
 }
 
 table.applicationLogs tr.logOlder td.logDetails, table.applicationLogs tr.logOlder td.logProject, table.applicationLogs tr.logOlder td.logTakenOnBy  {
- background: #F5F5F5 url('../images/logtypes/old.gif') repeat-x top right;
  border: 1px solid #E0E0E0;
 }
 
 table.applicationLogs tr.logOlder td.logTypeIcon  {
- background: #F5F5F5 url('../images/logtypes/old.gif') repeat-x top right;
  border: 1px solid #E0E0E0;
 }
 
@@ -63,7 +64,7 @@ table.applicationLogs .logProject  {
 }
 
 table.applicationLogs .logTakenOnBy  {
- width: 360px;
+ width: 100px;
 }
 
 div.logProjectHeader  {
@@ -72,23 +73,23 @@ div.logProjectHeader  {
  font-size: 14px;
 }
 
-table.applicationLogs td.logBy  {
+table.applicationLogs.logBy  {
  width: 150px;
 }
 
 table.applicationLogs td.logDetails  {
- width: 440px;
+ width: 300px;
 }
 table.applicationLogs .task td.logTypeIcon  {
- border-left: 8px solid #C9EAA9 !important;
+ border-left: 8px solid #E0E000 !important;
 }
 
 table.applicationLogs .comment td.logTypeIcon  {
- border-left: 8px solid #D0E3EB !important;
+ border-left: 8px solid  #D0E3EB !important;
 }
 
 table.applicationLogs .task_list td.logTypeIcon  {
- border-left: 8px solid #D7D0EB !important;
+ border-left: 8px solid #E0E080 !important;
 }
 
 table.applicationLogs .milestone td.logTypeIcon  {
@@ -116,5 +117,22 @@ table.applicationLogs .ticket td.logTypeIcon  {
 }
 
 table.applicationLogs .folder td.logTypeIcon  {
- border-left: 8px solid #E0E000 !important;
+ border-left: 8px solid #D0A040 !important;
 }
+
+table.applicationLogs .form td.logTypeIcon  {
+ border-left: 8px solid #4497C8 !important;
+}
+
+table.applicationLogs .wiki td.logTypeIcon  {
+ border-left: 8px solid #E07090 !important;
+}
+
+table.applicationLogs .category td.logTypeIcon  {
+ border-left: 8px solid #007090 !important;
+}
+
+table.applicationLogs .project td.logTypeIcon  {
+ border-left: 8px solid #336633 !important;
+}
+

@@ -20,13 +20,13 @@
   <h2><?php echo lang('completed task lists') ?></h2>
   <div class="blockContent">
     <ul class="listWithDetails">
-<?php foreach ($completed_task_lists as $current_task_list) { ?>
-      <li><a href="<?php echo $current_task_list->getViewUrl() ?>"><?php echo clean($current_task_list->getName()) ?></a><br /><span class="desc">(<?php
+<?php foreach ($completed_task_lists as $current_task_list) {
         if ($current_task_list->getCompletedBy()) {
-          echo lang('completed on by', format_date($current_task_list->getCompletedOn()), $current_task_list->getCompletedBy()->getCardUrl(), clean($current_task_list->getCompletedBy()->getDisplayName()));
+          $desc = lang('completed on by', format_date($current_task_list->getCompletedOn()), $current_task_list->getCompletedBy()->getCardUrl(), clean($current_task_list->getCompletedBy()->getDisplayName()));
         } else {
-          echo lang('completed on', format_date($current_task_list->getCompletedOn()));
-        } // if ?>)</span></li>
+          $desc = lang('completed on', format_date($current_task_list->getCompletedOn()));
+        } // if ?>
+      <li><a href="<?php echo $current_task_list->getViewUrl() ?>"><?php echo clean($current_task_list->getName()) ?></a><br /><span class="desc">(<?php echo trim($desc); ?>)</span></li>
 <?php } // foreach ?>
     </ul>
   </div>

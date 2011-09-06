@@ -30,6 +30,7 @@
 <?php } // if ?>
 <?php $this->includeTemplate(get_template_path('view_progressbar', 'task')); ?>
   </div>
+  <div class="content">
 <?php if (!is_null($task_list->getDueDate())) { ?>
 <?php if ($task_list->getDueDate()->getYear() > DateTimeValueLib::now()->getYear()) { ?>
       <div class="dueDate"><span><?php echo lang('due date') ?>:</span> <?php echo format_date($task_list->getDueDate(), null, 0) ?></div>
@@ -56,7 +57,14 @@
       <tr class="<?php odd_even_class($task_list_ln); ?>">
 <!-- Task text and options -->
         <td class="taskText">
-          <?php echo (do_textile($task->getText())) ?>
+          <?php echo (do_textile('[' .$task->getId() . '] ' . $task->getText())) ?>
+<?php if (!is_null($task->getStartDate())) { ?>
+<?php if ($task->getStartDate()->getYear() > DateTimeValueLib::now()->getYear()) { ?>
+      <div class="startDate"><span><?php echo lang('start date') ?>:</span> <?php echo format_date($task->getStartDate(), null, 0) ?></div>
+<?php } else { ?>
+      <div class="startDate"><span><?php echo lang('start date') ?>:</span> <?php echo format_descriptive_date($task->getStartDate(), 0) ?></div>
+<?php } // if ?>
+<?php } // if ?>
 <?php if (!is_null($task->getDueDate())) { ?>
 <?php if ($task->getDueDate()->getYear() > DateTimeValueLib::now()->getYear()) { ?>
       <div class="dueDate"><span><?php echo lang('due date') ?>:</span> <?php echo format_date($task->getDueDate(), null, 0) ?></div>
@@ -101,20 +109,19 @@
   <?php //echo lang('no open task in task list') ?>
 <?php } // if ?>
 <?php if (is_array($task_list->getCompletedTasks())) { ?>
-  <div class="completedTasks">
+  <div class="completedTasks expand-container-completed">
 <?php   if ($on_list_page) { ?>
 <?php     echo lang('completed tasks') ?>:
 <?php   } else { ?>
 <?php     echo lang('recently completed tasks') ?>:
 <?php   } // if ?>
-    <table class="blank">
+    <table class="blank expand-block-completed">
 <?php $counter = 0; ?>
 <?php foreach ($task_list->getCompletedTasks() as $task) { ?>
 <?php $counter++; ?>
 <?php if ($on_list_page || ($counter <= 5)) { ?>
       <tr>
-        <td class="taskText">
-          <?php echo do_textile($task->getText()) ?> 
+        <td class="taskText"><?php echo (do_textile('[' .$task->getId() . '] ' . $task->getText())) ?>
 <?php
   $task_options = array();
   if ($task->getCompletedBy()) {
@@ -154,6 +161,7 @@
 <?php } // if ?>
     </table>
   </div>
-<?php } // if ?>
+<?php } // if (is_array($task_list->getCompletedTasks())) ?>
+</div><?php // div class="taskListExpanded" ?>
 </div>
 </div>
