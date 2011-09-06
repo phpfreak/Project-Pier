@@ -13,13 +13,13 @@
     <?php echo textarea_field("comment[text]", '', array('class' => 'comment', 'id' => 'addCommentText')) ?>
   </div>
     
-<?php if (logged_user()->isMemberOfOwnerCompany()) { ?>
+<?php if (logged_user()->isMemberOfOwnerCompany() && !$comment_form_object->getIsPrivate()) { ?>
   <fieldset>
     <legend><?php echo lang('options') ?></legend>
     
     <div class="objectOption">
       <div class="optionLabel"><label><?php echo lang('private comment') ?>:</label></div>
-      <div class="optionControl"><?php echo yes_no_widget('comment[is_private]', 'addCommentIsPrivate', false, lang('yes'), lang('no')) ?></div>
+      <div class="optionControl"><?php echo yes_no_widget('comment[is_private]', 'addCommentIsPrivate', $comment_form_object->getIsPrivate(), lang('yes'), lang('no')) ?></div>
       <div class="optionDesc"><?php echo lang('private comment desc') ?></div>
     </div>
   </fieldset>

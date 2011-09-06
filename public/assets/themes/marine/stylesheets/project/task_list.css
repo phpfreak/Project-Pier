@@ -1,0 +1,65 @@
+/*[fmt]2A10-1A0B-3*/
+div.taskList  {
+ font-size: 110%;
+}
+
+div.taskList .desc  {
+ padding: 5px;
+ padding-bottom: 0;
+ font-size: 13px;
+ color: #666;
+}
+
+div.taskList .openTasks, .taskList .completedTasks  {
+ margin: 10px;
+}
+
+div.taskList td.taskCheckbox  {
+ padding-top: 4px;
+ width: 20px;
+}
+
+div.taskList .addTask  {
+ background: url(../../images/layout/bg_block.png) repeat-x top left;
+ background-color: #E9F1F5;
+ border: 1px solid #BBD7E2;
+ padding: 5px;
+}
+
+div.taskList .options  {
+ padding-left: 8px;
+ font-size: 12px;
+}
+
+div.taskList .completedTasks  {
+ color: #666666;
+ font-size: 12px;
+}
+
+div.taskList .completedTasks td  {
+ line-height: 16px;
+ padding: 0 2px;
+}
+
+div.taskList span.taskCompletedOnBy  {
+ color: #333333;
+ font-style: italic;
+}
+
+div.taskList .taskListTags  {
+ font-size: 12px;
+ margin: 10px;
+}
+
+div.taskList .taskListTags span  {
+ font-weight: bold;
+}
+
+div.taskList .taskText .options  {
+ padding: 0px;
+}
+
+div.taskList .options a  {
+ color: #4887A0;
+}
+

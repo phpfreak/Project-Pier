@@ -1,9 +1,10 @@
 @import 'general/rewrites.css';
 @import 'general/forms.css';
 @import 'general/construction.css';
+@import ../../../javascript/lavalamp.css';
 
 select.select_milestone, select.select_task_list, select.select_message {
-  width: 250px;
+  width: 500px;
 }
 
 .options {

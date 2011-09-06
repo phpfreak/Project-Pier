@@ -93,7 +93,7 @@
     */
     function lang($name, $default = null) {
       if (is_null($default)) {
-        $default = "<span style=\"font-weight: bolder; color: red;\">Missing lang: $name</span>";
+        $default = "{$this->locale}($name)";
       } // if
       return $this->langs->get($name, $default);
     } // lang
@@ -122,64 +122,97 @@
     /**
     * Load language settings
     *
-    * @access public
     * @param void
     * @throws DirDnxError If language dir does not exists
     * @throws FileDnxError If language settings file for this local settings
     *   does not exists in lanuage dir
     */
     private function loadLanguageSettings() {
-      
+      trace(__FILE__,'loadLanguageSettings()');
       // Check dir...
-      if (!is_dir($this->getLanguageDirPath())) {
-        throw new DirDnxError($this->getLanguageDirPath());
+      $language_dir = $this->getLanguageDirPath();
+      if (!is_dir($language_dir)) {
+        throw new DirDnxError($language_dir);
       } // if
-      
+
+      $locale = $this->getLocale();
+      $locale_dir = $language_dir.'/'.$locale;
+      if (!is_dir($locale_dir)) {
+        throw new DirDnxError($locale_dir);
+      } // if
+
       // Get settings file path and include it
-      $settings_file = $this->getLanguageDirPath() . '/' . $this->getLocale() . '.php';
-      if (is_file($settings_file)) {
-        include_once $settings_file;
-      } else {
-        throw new FileDnxError($settings_file, "Failed to find language settings file. Expected location: '$settings_file'.");
-      } // if
-      
+      $settings_file = $locale_dir.'/'.$locale.'.php';
+      if (!is_file($settings_file)) {
+        trace(__FILE__,'loadLanguageSettings()');
+        throw new FileDnxError($settings_file, "Failed to find language settings file".$settings_file);
+      }
+      trace(__FILE__,'loadLanguageSettings():include_once '.$settings_file);
+      include_once $settings_file;
+
       // Clear langs
       $this->langs->clear();
       
-      // Get langs dir
-      $langs_dir = $this->getLanguageDirPath() . '/' . $this->getLocale();
-      if (is_dir($langs_dir)) {
-        $files = get_files($langs_dir, 'php');
-        
-        // Loop through files and add langs
-        if (is_array($files)) {
-          foreach ($files as $file) {
-            $langs = include_once $file;
-            if (is_array($langs)) {
-              $this->langs->append($langs);
-            } // if
-          } // foreach
+      // Load core language files
+      $this->loadLanguageFiles($locale_dir);
+
+      // load every plugin language files
+      // TODO: do this during plugin activation
+      $dirs = get_dirs(PLUGINS_DIR,false);
+      foreach ($dirs as $plugin_dir) {
+        $locale_dir = PLUGINS_DIR.'/'.$plugin_dir.'/language/' . $locale;
+        if (is_dir($locale_dir)) {
+          $this->loadLanguageFiles($locale_dir);
+        } else {
+          $locale_dir = PLUGINS_DIR.'/'.$plugin_dir.'/language/en_us';
+          if (is_dir($locale_dir)) {
+            $this->loadLanguageFiles($locale_dir);
+          } // if
         } // if
-        
-      } else {
-        throw new DirDnxError($langs_dir);
-      } // if
+      } // foreach
       
       // Done!
       return true;
       
     } // loadLanguageSettings
+
+    /**
+    * loadLanguageFiles
+    *
+    * @access private
+    * @param String $dir Select files from this dir
+    * @param String $ext Select files with given extension
+    * @return string
+    */
+    private function loadLanguageFiles($dir, $ext = 'php') {
+      trace(__FILE__,"loadLanguageFiles($dir, $ext):begin");
+      $files = get_files($dir, $ext);
+        
+      // Loop through files and add langs
+      if (is_array($files)) {
+        foreach ($files as $file) {
+          //try {
+            $langs = include_once $file;
+          //} catch (Exception $e) {}
+          if (is_array($langs)) {
+            $this->langs->append($langs);
+          } // if
+        } // foreach
+      } // if
+    }
     
     /**
-    * Return formated date
+    * Return formatted date
     *
     * @access public
     * @param DateTimeValue $date
     * @param float $timezone Timezone offset in hours
     * @return string
     */
-    function formatDate(DateTimeValue $date, $timezone = 0) {
-      return date($this->date_format, $date->getTimestamp() + ($timezone * 3600));
+    function formatDate(DateTimeValue $date, $timezone = 0, $format = NULL) {
+      $lang_date_format = $this->langs->get('date format', null);
+      $date_format = ($format) ? $format : ( ($lang_date_format) ? $lang_date_format : $this->date_format );
+      return date($date_format, $date->getTimestamp() + ($timezone * 3600));
     } // formatDate
     
     /**
@@ -192,8 +225,10 @@
     * @param float $timezone Timezone offset in hours
     * @return string
     */
-    function formatDescriptiveDate(DateTimeValue $date, $timezone = 0) {
-      return date($this->descriptive_date_format, $date->getTimestamp() + ($timezone * 3600));
+    function formatDescriptiveDate(DateTimeValue $date, $timezone = 0, $format = NULL) {
+      $lang_date_format = $this->langs->get('descriptive date format', null);
+      $date_format = ($format) ? $format : ( ($lang_date_format) ? $lang_date_format : $this->descriptive_date_format );
+      return date($date_format, $date->getTimestamp() + ($timezone * 3600));
     } // formatDescriptiveDate
     
     /**
@@ -205,11 +240,13 @@
     * @return string
     */
     function formatDateTime(DateTimeValue $date, $timezone = 0) {
-      return date($this->datetime_format, $date->getTimestamp() + ($timezone * 3600));
+      $lang_datetime_format = $this->langs->get('datetime format', null);
+      $datetime_format = ($lang_datetime_format) ? $lang_datetime_format : $this->datetime_format;
+      return date($datetime_format, $date->getTimestamp() + ($timezone * 3600));
     } // formatDateTime
     
     /**
-    * Return fromated time
+    * Return formated time
     *
     * @access public
     * @param DateTimeValue $date
@@ -217,7 +254,9 @@
     * @return string
     */
     function formatTime(DateTimeValue $date, $timezone = 0) {
-      return date($this->time_format, $date->getTimestamp() + ($timezone * 3600));
+      $lang_time_format = $this->langs->get('time format', null);
+      $time_format = ($lang_time_format) ? $lang_time_format : $this->time_format;
+      return date($time_format, $date->getTimestamp() + ($timezone * 3600));
     } // formatTime
     
     // -------------------------------------------------------------

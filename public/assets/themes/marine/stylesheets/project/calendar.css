@@ -1,0 +1,60 @@
+/*[fmt]2A10-1A0B-3*/
+.calendar th  {
+ width: 14%;
+ text-align: center;
+}
+
+.calendar th.weekend  {
+ background-color: #75BAD6;
+}
+
+.calendar td  {
+ padding: 0;
+ background-color: #EEE;
+ xline-height: 110%;
+}
+
+.calendar .date  {
+ margin-bottom: 1px;
+ xpadding-right: 2px;
+ text-align: right;
+ xfont-weight: bold;
+ padding: 1px;
+ xfont-weight: bold;
+}
+
+.calendar td.weekend .date  {
+ background-color: #75BAD6;
+}
+
+.calendar td.weekday .date  {
+ background-color: rgb(207, 226, 235);
+}
+
+.calendar .month-nav  {
+ font-weight: bold;
+}
+
+.calendar .month-nav .prev-month  {
+ float: left;
+}
+
+.calendar .month-nav .next-month  {
+ float: right;
+}
+
+.calendar .milestone a  {
+ font-weight: bold;
+ color: #9DC71D;
+}
+
+.calendar .task_list a  {
+ font-style: oblique;
+ color: rgb(155, 177, 90);
+ font-weight: bold;
+}
+
+.calendar .task a  {
+ xcolor: rgb(128, 0, 64);
+}
+

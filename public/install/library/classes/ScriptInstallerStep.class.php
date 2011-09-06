@@ -132,15 +132,15 @@
     } // setContentFromTemplate
     
     /**
-    * Returns true if step form is submited
+    * Returns true if step form is submitted
     *
     * @access public
     * @param void
     * @return boolean
     */
-    function isSubmited() {
-      return array_var($_POST, 'submited') == 'submited';
-    } // isSubmited
+    function isSubmitted() {
+      return array_var($_POST, 'submitted') == 'submitted';
+    } // isSubmitted
     
     // ---------------------------------------------------
     //  Installer interface functions

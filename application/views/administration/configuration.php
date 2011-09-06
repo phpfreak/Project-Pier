@@ -1,7 +1,7 @@
 <?php
   set_page_title(lang('configuration'));
   administration_tabbed_navigation(ADMINISTRATION_TAB_CONFIGURATION);
-  administration_crumbs(lang('configuration'));
+  administration_crumbs(lang('configuration', 'index'));
 ?>
 <div id="configuration">
 <?php if (isset($config_categories) && is_array($config_categories) && count($config_categories)) { ?>

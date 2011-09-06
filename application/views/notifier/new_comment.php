@@ -1,8 +1,8 @@
 ------------------------------------------------------------
- <?php echo lang('dont reply wraning') ?> 
+ <?php echo lang('do not reply warning') ?> 
 ------------------------------------------------------------
 
-<?php echo lang('new comment posted', $new_comment->getObject()->getTitle()) ?>. 
+<?php echo lang('new comment posted', $new_comment->getObject()->getObjectName()) ?>. 
 
 <?php
 /* Send the comment body unless the configuration file specifically says not to:
@@ -17,12 +17,11 @@ if ((!defined('SHOW_COMMENT_BODY')) or (SHOW_COMMENT_BODY == true)) {
 ?>
 
 <?php echo lang('view new comment') ?>:
-
-- <?php echo str_replace('&amp;', '&', $new_comment->getViewUrl()) ?> 
+<?php echo str_replace('&amp;', '&', externalUrl($new_comment->getViewUrl())) ?>
 
 <?php echo lang('company') ?>: <?php echo owner_company()->getName() ?> 
 <?php echo lang('project') ?>: <?php echo $new_comment->getProject()->getName() ?> 
 <?php echo lang('author') ?>: <?php echo $new_comment->getCreatedByDisplayName() ?> 
 
 --
-<?php echo ROOT_URL ?>
+<?php echo ''.lang('login').': '.externalUrl(ROOT_URL) ?>

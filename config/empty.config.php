@@ -13,22 +13,11 @@
   
   define('DB_ADAPTER', 'mysql'); 
   define('DB_HOST', 'localhost'); 
-  define('DB_USER', 'root'); 
+  define('DB_USER', ''); 
   define('DB_PASS', ''); 
-  define('DB_NAME', 'projectpier'); 
-  define('DB_PERSIST', true); 
-  define('TABLE_PREFIX', 'ac_'); 
-  define('ROOT_URL', 'http://projectpier.dev'); 
-  define('DEFAULT_LOCALIZATION', 'en_us'); 
-  // define('DEFAULT_LOCALIZATION', 'de_de'); //German
-  define('DEBUG', true); 
+  define('DB_NAME', ''); 
+  define('DB_PERSIST', false); 
   define('DB_CHARSET', 'utf8'); 
-  //Define if notification messages should include the message body for these three
-  // types of messages.  To disable this feature, change the word "true" to "false" (no quotes)
-  define('SHOW_MESSAGE_BODY', true);
-  define('SHOW_COMMENT_BODY', true);
-  define('SHOW_MILESTONE_BODY', true);
-  
-  return true;
+  define('TABLE_PREFIX', 'pp_'); 
   
 ?>

@@ -8,7 +8,7 @@
 <?php $counter = 0; ?>
 <?php foreach ($comments as $comment) { ?>
 <?php $counter++; ?>
-  <div class="comment <?php echo $counter % 2 ? 'even' : 'odd' ?>" id="comment<?php echo $comment->getId() ?>">
+  <div class="comment <?php echo $counter % 2 ? 'even' : 'odd'; if ($comment->isPrivate()) echo ' private'; ?>" id="comment<?php echo $comment->getId() ?>">
 <?php if ($comment->isPrivate()) { ?>
     <div class="private" title="<?php echo lang('private comment') ?>"><span><?php echo lang('private comment') ?></span></div>
 <?php } // if ?>

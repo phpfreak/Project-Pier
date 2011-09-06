@@ -1,4 +1,4 @@
-<h1 class="pageTitle"><span>Step <?php echo $current_step->getStepNumber() ?>:</span> Environment checks</h1>
+<h1 class="pageTitle"><span>Step <?php echo $current_step->getStepNumber() ?>:</span> Server check</h1>
 <?php $checklist = $installer->getCheckList() ?>
 <?php if (is_array($checklist) && count($checklist)) { ?>
 <ul>

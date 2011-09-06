@@ -3,6 +3,162 @@
 ProjectPier Change Log
 ~~~~~~~~~~~~~~~~~~~~~~
 
+---------------------------------------
+Version 0.8.6 December 31 2010 (stable)
+---------------------------------------
+
+Features:
+- Added   (company)     - Link to show company location in Google maps.
+- Added   (config)      - Many hardcoded values have become configurable.
+- Added   (cookies)     - Login page offers option to clear cookies.
+- Added   (date)        - Date formats can be set in language/general.php.
+- Added   (debug)       - Debug is turned on when ?debug is in the URL. DEBUG removed from configuration file.
+- Added   (email)       - Configuration option to ignore email uniqueness when adding user/editing profile.
+- Added   (error)       - A fatal error shows a page which can be sent to the development team.
+  Added   (jquery)      - jQuery has been added for client side JavaScripting.
+- Added   (jquery-ui)   - jQuery ui for nice user interface intereaction.
+- Added   (login)       - Multiple options available on login page.
+- Added   (page)        - Request processing time displayed in footer.
+- Added   (project)     - Projects can have a logo now.
+- Added   (project)     - Projects can be copied including milestones, tasks etc.
+- Added   (rss)         - RSS feeds trigger browsers to display feed button.
+- Added   (trace)       - Trace is turned on when ?trace is in the URL.
+- Added   (welcome)     - The admin Welcome page is now a Welcome project with a number of tasks.
+- Added   (wiki)        - Plugin: Wiki.
+- Added   (Node 133)    - New field "Homepage" in the user profile.
+- Added   (Node 260)    - Formatting of tasks is preserved in task list and on my tasks.
+- Added   (Node 328)    - Application logs can be styled via css now.
+- Added   (Node 428)    - Per-project activity logs.
+- Added   (Node 457)    - Bug/issue tracker.
+- Added   (Node 457#24) - Default ticket categories
+- Added   (Node 491)    - iCalender feed has pending tasks now.
+- Added   (Node 494)    - Improved top user navigation.
+- Added   (Node 572)    - Support for redirect url after logout.
+- Added   (Node 761)    - Edit and delete option for each task in my task (dashboard).
+- Added   (Node 847)    - Plugin framework (plugins, permissions) plus Wiki as plugin.
+- Added   (Node 920)    - Time Management (also Node 259, 349)
+- Added   (Node 1049)   - RSS Item description.
+- Added   (Node 1198)   - Comments on tasks and task list plus notifications.
+- Added   (Node 1216)   - Implemented a number of suggestions for a better UX.
+- Added   (Node 1223)   - Support to set the first day of the week.
+- Added   (Node 1238)   - Private comments are now tagged private so theme developers may format them differently.
+- Added   (Node 1252)   - GUI Updates: Page Actions as Inner Tabs
+- Added   (Node 1287)   - GUI Updates: Progressbar.
+- Added   (Node 1338)   - Support for LDAP authentication.
+- Added   (Node 1395)   - Support Reply To and Mail From for notifications.
+- Added   (Node 1527)   - Project tasks can be downloaded in Excel format.
+- Added   (Node 1572)   - Permission option for regular users to create projects.
+- Added   (Node 1702)   - Date selection with pop up, due date for task and task list.
+- Added   (Node 1730)   - Remember login lifetime can be configured now.
+- Added   (Node 1873)   - Random value generated in URLs to defeat caching.
+  Added   (Node 1899)   - Avatars from gravatar.com can be used.
+  Added   (Node 1903)   - Set milestones based on project creation.
+  Added   (Node 1907)   - Marine is the default theme.
+- Added   (Node 1911)   - Date selection with pop up, due date for task and task list.
+- Added   (Node 1912)   - Links begin with http:// if no :// present. 
+- Added   (Node 1915)   - Wiki pages are always displayed in the side bar. 
+- Added   (Node 1920)   - Configuration option for setting the default (y/n) for private option. 
+- Added   (Node 1923)   - Links and files are copied properly now. Files are not duplicated in content. 
+- Added   (Node 1953)   - Task lists can be copied within a project.
+- Added   (Node 1953)   - Task lists can be moved to another project.
+- Added   (Node 1961)   - Dashboard shows open tickets for projects a user is connected to.
+- Added   (Node 1963)   - Task due dates are now saved properly.
+- Changed (favicon)     - The favicon.ico of projectpier.org is used (transparent).
+  Changed (files)       - Revisions retain the original filename.
+- Changed (files)       - Separate Add revision view, removed from Edit file.
+- Changed (files)       - Plugin: Files.
+- Changed (forms)       - Plugin: Forms.
+- Changed (plugins)     - Plugin framework structure simplified, view enhanced.
+- Changed (tags)        - Plugin: Tags.
+- Changed (tasklist)    - Sanitized the view and corrected a number of errors.
+- Changed (tickets)     - Plugin: Tickets (see Node 457 above).
+- Changed (time mgt)    - Plugin: Time Management.
+- Changed (title)       - Window title is in sync with page.
+- Changed (user)        - Add user saves then edits account permissions.
+- Changed (Node 1247)   - GUI Updates: Members removed from user interface.
+- Changed (Node 1248)   - GUI Updates: Userbox.
+- Removed (languages)   - All languages except en_us are removed.
+- Removed (themes)      - All themes except marine are removed
+- Removed (yui)         - All Yahoo UI functionality has been removed.
+  Removed (Node 1904)   - Invoice has been removed. Too confusing as example.
+
+Issues:
+- Fixed  (Node 101)  - Clear error message when directories are missing during install.
+- Fixed  (Node 285)  - Upload to file system works.
+- Fixed  (Node 493)  - RSS Feed does not affect user activity anymore.
+- Fixed  (Node 719)  - Non company users can attach files now.
+- Fixed  (Node 720)  - Missing references to database link present now.
+- Fixed  (Node 798)  - All activeCollab references removed.
+- Fixed  (Node 885)  - CSS style tag replaced with class tag.
+- Fixed  (Node 991)  - Application can now be reached via IP address.
+- Fixed  (Node 1009) - Dutch translation updated.
+- Fixed  (Node 1045) - Upload file fails when open basedir is active.
+- Fixed  (Node 1061) - Code improvement.
+- Fixed  (Node 1087) - All languages in UTF8.
+- Fixed  (Node 1093) - Large dimension images now generate a dummy thumbnail.
+- Fixed  (Node 1112) - Long type strings are now supported.
+- Fixed  (Node 1113) - Transparancy support for 32/64 bit PNG.
+- Fixed  (Node 1163) - Long type strings are now supported.
+- Fixed  (Node 1194) - String conversions are now unicode-aware.
+- Fixed  (Node 1250) - GMT is now the default timezone, not gmt.
+- Fixed  (Node 1344) - Code fixed: added ProjectFile::getViewUrl(), fixed ProjectFiles.class.php.
+- Fixed  (Node 1355) - Download file with proper file name.
+- Fixed  (Node 1480) - German translation updated.
+- Fixed  (Node 1508) - Users cannot see each others task list anymore.
+- Fixed  (Node 1622) - Text parts in comments and descriptions are clickable if they look like links.
+- Fixed  (Node 1641) - Valid URLs are now recognized.
+- Fixed  (Node 1649) - Downloading filesystem files in chunks (streaming).
+- Fixed  (Node 1721) - Upload file fails when open basedir is active.
+- Fixed  (Node 1856) - Upload file fails when open basedir is active.
+- Fixed  (Node 1909) - Installation removes autoloader and logs files.
+- Fixed  (Node 1916) - Open tasks drop down to wide in page Add Time.
+- Closed (Node 259)  - Absorbed in 920 (see Features)
+- Closed (Node 439)  - IE6 SP2 is not a target platform.
+- Closed (Node 697)  - Solved by 1198 (see Features)
+- Closed (Node 950)  - Solved by 1198 (see Features)
+- Closed (Node 1236) - Development fails to reproduce error.
+- Closed (Node 1554) - Installed XAMPP with PP. No problems when clicking on the links.
+- Closed (Node 1662) - Installed XAMPP with PP. No problems.
+- Closed (Node 1761) - Solved by 1223 (see Features)
+
+Known Problems:
+- None
+
+--------------------------------
+Version 0.8.5.0 Beta 1 June 2009
+--------------------------------
+
+Features:
+- Added (Node 28) - A calendar view of milestones
+- Added two new themes: "zura1" and "zura-blue-steel"
+- Added 8 new translations: Bulgarian, Czech, Mexican Spanish,
+  Finnish, French, Italian, Lithuanian, Continental Portuguese,
+  and Russian
+
+Bug Fixes:
+- Fixed (Node 685) - Milestones coming due the next day said "one days"
+  instead of "one day".
+- Fixed (Node 506) - Type "Create new account for you" should be "Create
+  a new account for you".
+- Fixed (Node 721) - No email notification when comments are added.
+- Fixed (Node 843) - Cookies not expiring with browser closes
+- Fixed (Node 797) - Remove redundant tags automtically
+- Fixed (Node 743) - GIF format company logo with transparency now displays
+  properly.
+- Fixed (Node 1262) - Documentation for ProjectPier not consistent with
+  the project's code standards: capitalized file names where needed.
+- Fixed (Node 1038) - Pagination for search now works correctly.
+- Fixed (Node 1237) - Comments to private messages are now forced to be private.
+- Fixed (Node 437) - Security: Users can no longer download files from
+  projects they are not assigned to by manipulating the URL.
+
+----------------------------
+Version 0.8.0.3 16 June 2008
+----------------------------
+
+- Fixed (Node 721) - Correct variable misspelling
+- Fixed (Node 588) - Fixed DB scheme for storing timezone
+
 ----------------------------
 Version 0.8.0.2  15 Feb 2008
 ----------------------------
@@ -42,6 +198,7 @@ Version 0.8.0 Release Candidate 1 (0.8.0RC1)  03 Sept 2007
 - Added 13 alternate languages
 - Brand new default theme (old default theme included as acClassic)
 - New theme 'goCollabMonochrome' included
+
 - Message and comment email notification subject lines optimized for threading
   For Messages: ProjectTitle - MessageTitle
   For Comments: ProjectTitle - MessageTitle

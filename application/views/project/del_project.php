@@ -1,9 +1,8 @@
 <?php
 
   set_page_title(lang('delete project'));
-  administration_tabbed_navigation(ADMINISTRATION_TAB_PROJECTS);
-  administration_crumbs(lang('projects'));
-
+  project_crumbs(lang('projects'));
+  $this->includeTemplate(get_template_path('project/pageactions'));
 ?>
 <form action="<?php echo $project->getDeleteUrl() ?>" method="post">
   <?php tpl_display(get_template_path('form_errors')) ?>
@@ -20,5 +19,5 @@
     <?php echo password_field('deleteProject[password]', null, array('id' => 'loginPassword', 'class' => 'medium')) ?>
   </div>
 
-  <?php echo submit_button(lang('delete project')) ?> <a href="<?php echo get_url('administration','projects') ?>"><?php echo lang('cancel') ?></a>
+  <?php echo submit_button(lang('delete project')) ?> <a href="<?php echo $project->getOverviewUrl() ?>"><?php echo lang('cancel') ?></a>
 </form>

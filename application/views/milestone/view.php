@@ -3,7 +3,7 @@
   set_page_title($milestone->getName());
   project_tabbed_navigation(PROJECT_TAB_MILESTONES);
   project_crumbs(array(
-    array(lang('milestones'), get_url('milestone')),
+    array(lang('milestones'), get_url('milestone', 'index')),
     array($milestone->getName())
   ));
   

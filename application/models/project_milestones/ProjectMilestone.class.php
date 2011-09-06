@@ -133,7 +133,7 @@
     private function getDueDateDiff(DateTimeValue $diff_to) {
       return $this->getDueDate()->getTimestamp() - $diff_to->getTimestamp();
     } // getDueDateDiff
-    
+
     // ---------------------------------------------------
     //  Related object
     // ---------------------------------------------------
@@ -263,7 +263,7 @@
     * @return boolean
     */
     function canManage(User $user) {
-      return $user->getProjectPermission($this->getProject(), ProjectUsers::CAN_MANAGE_MILESTONES);
+      return $user->getProjectPermission($this->getProject(), PermissionManager::CAN_MANAGE_MILESTONES);
     } // canManage
     
     /**
@@ -294,13 +294,13 @@
     * @return boolean
     */
     function canAdd(User $user, Project $project) {
-      if (!$user->isProjectUser($project)) {
-        return false;
+      if ($user->getProjectPermission($project, PermissionManager::CAN_MANAGE_MILESTONES)) {
+        return true;
       }
       if ($user->isAdministrator()) {
         return true;
       }
-      return $user->getProjectPermission($project, ProjectUsers::CAN_MANAGE_MILESTONES);
+      return false;
     } // canAdd
     
     /**
@@ -311,30 +311,35 @@
     * @return boolean
     */
     function canEdit(User $user) {
-      if (!$user->isProjectUser($this->getProject())) {
-        return false;
-      }
-      if ($user->isAdministrator()) {
+      if ($user->getProjectPermission($this->getProject(), PermissionManager::CAN_MANAGE_MILESTONES)) {
         return true;
       }
       if ($this->getCreatedById() == $user->getId()) {
+        return true;
+      }
+      if ($user->isAdministrator()) {
         return true;
       }
       return false;
     } // canEdit
     
     /**
-    * Can chagne status of this milestone (completed / open)
+    * Can change status of this milestone (completed / open)
     *
     * @access public
     * @param User $user
     * @return boolean
     */
     function canChangeStatus(User $user) {
-      if ($this->canEdit($user)) {
+      if ($user->getProjectPermission($this->getProject(), PermissionManager::CAN_CHANGE_STATUS_MILESTONES)) {
         return true;
       }
-      
+      if ($this->getCreatedById() == $user->getId()) {
+        return true;
+      }
+      if ($user->isAdministrator()) {
+        return true;
+      }   
       // Additional check - is this milestone assigned to this user or its company
       if ($this->getAssignedTo() instanceof User) {
         if ($user->getId() == $this->getAssignedTo()->getObjectId()) {
@@ -356,13 +361,7 @@
     * @return boolean
     */
     function canDelete(User $user) {
-      if (!$user->isProjectUser($this->getProject())) {
-        return false;
-      }
-      if ($user->isAdministrator()) {
-        return true;
-      }
-      return false;
+      return $this->canEdit($user);
     } // canDelete
     
     // ---------------------------------------------------

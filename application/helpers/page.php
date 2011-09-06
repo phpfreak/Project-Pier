@@ -211,6 +211,18 @@
   } // style_tag
 
   /**
+  * Style class for sequence number
+  *
+  * @access public
+  * @param integer $seq_num
+  * @return string
+  */
+  function odd_even_class(&$seq_num) {
+    (isset($seq_num)) ? $seq_num++ : $seq_num = 1;
+    return (($seq_num % 2) == 0) ? 'even' : 'odd';
+  }
+
+  /**
   * Page description class
   * 
   * Class that hold XHTML page properties. This class can be used from templates
@@ -327,61 +339,61 @@
     } // getLinks
     
     /**
-  	* Add rel link
-  	*
-  	* @param string $href Link locator
-  	* @param string $rel Rel value
-  	* @param string $attributes
-  	* @return mixed
-  	*/
-  	function addRelLink($href, $rel = 'alternate', $attributes) {
-  		$this->addLink($href, 'rel', $rel, $attributes);
-  	} // end func addRelMedia
+    * Add rel link
+    *
+    * @param string $href Link locator
+    * @param string $rel Rel value
+    * @param string $attributes
+    * @return mixed
+    */
+    function addRelLink($href, $rel = 'alternate', $attributes) {
+      $this->addLink($href, 'rel', $rel, $attributes);
+    } // end func addRelMedia
   	
-  	/**
-  	* Add rev link
-  	*
-  	* @param string $href Link locator
-  	* @param string $rev Rev value
-  	* @param array $attributes
-  	* @return mixed
-  	*/
-  	function addRevLink($href, $rev = 'alternate', $attributes = null) {
-  	  $this->addLink($href, 'rev', $rev, $attributes);
-  	} // end func addRevLink
+    /**
+    * Add rev link
+    *
+    * @param string $href Link locator
+    * @param string $rev Rev value
+    * @param array $attributes
+    * @return mixed
+    */
+    function addRevLink($href, $rev = 'alternate', $attributes = null) {
+      $this->addLink($href, 'rev', $rev, $attributes);
+    } // end func addRevLink
   	
-  	/**
-  	* Add link
-  	*
-  	* @access public
-  	* @param string $href
-  	* @param string $rel_or_rev
-  	* @param string $rel
-  	* @param array $attributes
-  	* @return null
-  	*/
-  	function addLink($href, $rel_or_rev = 'rel', $rel = 'alternate', $attributes = null) {
+    /**
+    * Add link
+    *
+    * @access public
+    * @param string $href
+    * @param string $rel_or_rev
+    * @param string $rel
+    * @param array $attributes
+    * @return null
+    */
+    function addLink($href, $rel_or_rev = 'rel', $rel = 'alternate', $attributes = null) {
+    
+      // Do we have this link?
+      foreach ($this->links as $link) {
+        if (array_var($link, 'href') == $href) {
+          return;
+        }
+      }
   	  
-  	  // Do we have this link?
-  	  foreach ($this->links as $link) {
-  	    if (array_var($link, 'href') == $href) {
-  	      return;
-  	    }
-  	  }
+      // Prepare link attributes...
+      $link = array(
+        'href'      => $href,
+        $rel_or_rev => $rel
+      ); // array
   	  
-  	  // Prepare link attributes...
-  	  $link = array(
-  	    'href'      => $href,
-  	    $rel_or_rev => $rel
-  	  ); // array
-  	  
-  	  // Additional attributes
-  	  if (is_array($attributes) && count($attributes)) {
-  	    $link = array_merge($link, $attributes);
-  	  }
-  	  $this->links[] = $link;
-  	  
-  	} // addLink
+      // Additional attributes
+      if (is_array($attributes) && count($attributes)) {
+        $link = array_merge($link, $attributes);
+      }
+      $this->links[] = $link;
+    
+    } // addLink
     
     /**
     * Get inline_css
@@ -525,11 +537,10 @@
       $href = get_stylesheet_url($href);
     }
     $page = PageDescription::instance();
-    $page->addRelLink($href, 'Stylesheet', array(
-      'type'  => 'text/css',
-      'title' => $title,
-      'media' => $media
-    )); // addRelLink
+    $attributes = array('type' => 'text/css');
+    if ($title) $attributes['title'] = $title;
+    if ($media) $attributes['media'] = $media;
+    $page->addRelLink($href, 'Stylesheet', $attributes); // addRelLink
   } // add_stylesheet_to_page
   
   /**
@@ -622,6 +633,7 @@
       $generated = array();
       foreach ($links as $data) {
         $href = array_var($data, 'href');
+
         
         $rel_or_rev = isset($data['rel']) ? 'rel' : 'rev';
         $rel = '';

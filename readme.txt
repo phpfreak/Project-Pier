@@ -1,14 +1,40 @@
-           		
+~~~~~~~
+Version
+~~~~~~~
+
+This is version 0.8.6 - Enjoy!
+
+~~~~~~~~~~~~~~~~~~~
+STABLE
+~~~~~~~~~~~~~~~~~~~
+
+This software is STABLE, that means it can be used for your projects.
+
+~~~~~~~~~~~~~~
+Reporting Bugs
+~~~~~~~~~~~~~~
+
+It is absolutely critical for you to report any bugs you find with this software.
+If you don't, they can not be fixed. If you find a bug please 
+check the bug tracker to make sure it's not already known.  If you are certain 
+you have discovered a NEW bug, please log it into the bug tracker located
+at http://www.projectpier.org/project/issues/ under version 0.8.6.
+
+If you have NOT found any bugs, we need to hear that too!  
+Please let us know what type of system you are using and the extent of your 
+testing.  Please include the OS, Apache, PHP and MySQL versions and/or the name of
+the web hosting provider the testing was performed on.  A new forum has been setup
+specifically to gather and discuss this format, it is located at 
+http://www.projectpier.org/forum/development/086
+
 ~~~~~~~~~~~~~~~~~~~
 System requirements
 ~~~~~~~~~~~~~~~~~~~
 	
-ProjectPier requires a web server, PHP (5.0.2 or greater with MySQL, GD, and 
-SimpleXML extensions) and MySQL with InnoDB support. The recommended web 
+ProjectPier requires a PHP web server and MySQL. The recommended web 
 server is Apache, but IIS 5 and above have been reported to work also.
 	
-ProjectPier is not PHP4 compatible and it will not run on PHP versions prior
-to PHP 5.0.2.
+ProjectPier is not PHP4 compatible.
 	
 Recommended configuration:
 	
@@ -27,9 +53,8 @@ them.  They are all licensed under various compatible Open Source licenses.
 Upgrading
 ~~~~~~~~~
 
-If you are upgrading from ProjectPier 0.8.0-dev or activeCollab 0.7.1, do not
-follow the installation steps below, instead see upgrade.txt for an upgrade procedure.
-It is not possible to upgrade from older versions of activeCollab.
+If you are upgrading from ProjectPier 0.8.0.3, do not follow the installation 
+steps below, instead see UPGRADE.txt for an upgrade procedure.
 
 ~~~~~~~~~~~~
 Installation
@@ -59,35 +84,35 @@ will tell you if your server is not configured to support InnoDB. This is easy t
    line bellow #skip-innodb line: 
    set-variable = max_allowed_packet=64M
 
+Alternatively, just install without InnoDB support. The installer will allow you.
+
 ~~~~~~~~~~~~~~~~~~~~~
 Changing the Language
 ~~~~~~~~~~~~~~~~~~~~~
 
 ProjectPier installation screens are in English and English is the default language
-for the program.  However, ProjectPier is distributed with 13 other language options.
+for the program. After installation is complete, the language can be changed.
 
-After installation is complete, the language can be changed by manually editing the
-file /config/config.php. 
-
-How: Find this line in your config.php file: define('DEFAULT_LOCALIZATION', 'en_us');
-     Change en_us to the appropriate language abbreviation (select from the list below).
-     Example for German: define('DEFAULT_LOCALIZATION', 'de_de');
-
-The following languages are available:
-da_dk = Danish
-de_de = German
-el_gr = Greek
-en_us = English (US)
-es_ar = Argentinian Spanish
-hu_formal = Hungarian (formal)
-hu_informal = Hungarian (informal)
+The following base languages are available:
 nl_nl = Dutch
-pl_pl = Polish
-pt_br = Bralilian Portuguese
-sl_si = Slovenian
-sv_sv = Swedish
-tr_tr = Turkish
-zn_ch = Simplified Chinese
+en_us = English (US)
+de_de = German
+es_es = Spanish
+fr_fr = French
+
+Other languages packs may be available for download at the site.
+
+~~~~~~~~~~~~~~~~
+Acknowledgements
+~~~~~~~~~~~~~~~~
+We would like to say thank you to all who are using this software and took the time to 
+install the test versions. We were happy with the feedback and the contributions.
+In particular the following individuals get a special thank you:
+
+SethZora - for his remarks, ideas and testing
+Kemie - for fixing the Marine theme
+jokoe - for the French translation
+visor7 - for the Spanish translation
 
 ~~~~~~~~~~~~~~~~~
 About ProjectPier
@@ -95,6 +120,6 @@ About ProjectPier
 	
 ProjectPier is an Open Source project management and collaboration
 tool that you can install on your own server. It is released under the 
-terms of the Honest Public License - HPL (see license.txt for details).  
+terms of the Gnu Affero General Public License (AGPL) (see LICENSE.txt for details).  
 	
 : http://www.projectpier.org

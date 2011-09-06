@@ -14,7 +14,7 @@
     * @var array
     * @static
     */
-    static private $columns = array('id' => DATA_TYPE_INTEGER, 'company_id' => DATA_TYPE_INTEGER, 'username' => DATA_TYPE_STRING, 'email' => DATA_TYPE_STRING, 'token' => DATA_TYPE_STRING, 'salt' => DATA_TYPE_STRING, 'twister' => DATA_TYPE_STRING, 'display_name' => DATA_TYPE_STRING, 'title' => DATA_TYPE_STRING, 'avatar_file' => DATA_TYPE_STRING, 'office_number' => DATA_TYPE_STRING, 'fax_number' => DATA_TYPE_STRING, 'mobile_number' => DATA_TYPE_STRING, 'home_number' => DATA_TYPE_STRING, 'timezone' => DATA_TYPE_FLOAT, 'created_on' => DATA_TYPE_DATETIME, 'created_by_id' => DATA_TYPE_INTEGER, 'updated_on' => DATA_TYPE_DATETIME, 'last_login' => DATA_TYPE_DATETIME, 'last_visit' => DATA_TYPE_DATETIME, 'last_activity' => DATA_TYPE_DATETIME, 'is_admin' => DATA_TYPE_BOOLEAN, 'auto_assign' => DATA_TYPE_BOOLEAN);
+    static private $columns = array('id' => DATA_TYPE_INTEGER, 'company_id' => DATA_TYPE_INTEGER, 'username' => DATA_TYPE_STRING, 'email' => DATA_TYPE_STRING, 'token' => DATA_TYPE_STRING, 'salt' => DATA_TYPE_STRING, 'twister' => DATA_TYPE_STRING, 'display_name' => DATA_TYPE_STRING, 'title' => DATA_TYPE_STRING, 'homepage' => DATA_TYPE_STRING, 'avatar_file' => DATA_TYPE_STRING, 'use_gravatar' => DATA_TYPE_BOOLEAN, 'office_number' => DATA_TYPE_STRING, 'fax_number' => DATA_TYPE_STRING, 'mobile_number' => DATA_TYPE_STRING, 'home_number' => DATA_TYPE_STRING, 'timezone' => DATA_TYPE_FLOAT, 'created_on' => DATA_TYPE_DATETIME, 'created_by_id' => DATA_TYPE_INTEGER, 'updated_on' => DATA_TYPE_DATETIME, 'last_login' => DATA_TYPE_DATETIME, 'last_visit' => DATA_TYPE_DATETIME, 'last_activity' => DATA_TYPE_DATETIME, 'is_admin' => DATA_TYPE_BOOLEAN, 'auto_assign' => DATA_TYPE_BOOLEAN, 'use_LDAP' => DATA_TYPE_BOOLEAN);
   
     /**
     * Construct
@@ -149,6 +149,7 @@
     * @return User 
     */
     function findById($id, $force_reload = false) {
+      trace(__FILE__,"findById($id, $force_reload)");
       if (isset($this) && instance_of($this, 'Users')) {
         return parent::findById($id, $force_reload);
       } else {

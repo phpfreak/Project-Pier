@@ -1,7 +1,7 @@
 div.filesOrderAndPagination {
   border: 1px solid #ccc;
   padding: 2px 5px;
-  font-size: 10px;
+  font-size: 90%;
   min-height: 20px;
 }
 
@@ -47,11 +47,11 @@ div.listedFile div.fileDescription p, div.listedFile div.fileDescription ul, div
 }
 
 div.listedFile div.fileLastRevision, div.listedFile div.fileDetails, div.listedFile div.fileTags {
-  font-size: 11px;
+  xfont-size: 11px;
   color: #666;
 }
 
-div.listedFile div.fileOptions {
+div.listedFile div.fileOptions div.revisionOptions {
   margin-top: 5px;
 }
 
@@ -59,7 +59,7 @@ div.listedFile div.fileOptions {
 
 #selectFileControl {
   float: left;
-  width: 250px;
+  width: 500px;
 }
 
 #selectFolderControl {
@@ -122,6 +122,10 @@ div.revisionComment {
   border: 1px solid #ccc;
   border-width: 1px 0;
   padding: 0 8px;
+}
+
+div.revisionOptions a {
+  font-size: 90%;
 }
 
 a.downloadLink {

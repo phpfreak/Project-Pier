@@ -6,6 +6,7 @@
   * @http://www.projectpier.org/
   */
   abstract class BaseProject extends ApplicationDataObject {
+  //abstract class BaseProject extends ProjectDataObject {
   
     // -------------------------------------------------------
     //  Access methods
@@ -54,6 +55,28 @@
     function setName($value) {
       return $this->setColumnValue('name', $value);
     } // setName() 
+
+    /**
+    * Return value of 'priority' field
+    *
+    * @access public
+    * @param void
+    * @return integer 
+    */
+    function getPriority() {
+      return $this->getColumnValue('priority');
+    } // getPriority()
+    
+    /**
+    * Set value of 'priority' field
+    *
+    * @access public   
+    * @param integer $value
+    * @return boolean
+    */
+    function setPriority($value) {
+      return $this->setColumnValue('priority', $value);
+    } // setPriority() 
     
     /**
     * Return value of 'description' field
@@ -98,6 +121,28 @@
     function setShowDescriptionInOverview($value) {
       return $this->setColumnValue('show_description_in_overview', $value);
     } // setShowDescriptionInOverview() 
+
+    /**
+    * Return value of 'logo_file' field
+    *
+    * @access public
+    * @param void
+    * @return string 
+    */
+    function getLogoFile() {
+      return $this->getColumnValue('logo_file');
+    } // getLogoFile()
+    
+    /**
+    * Set value of 'logo_file' field
+    *
+    * @access public   
+    * @param string $value
+    * @return boolean
+    */
+    function setLogoFile($value) {
+      return $this->setColumnValue('logo_file', $value);
+    } // setLogoFile() 
     
     /**
     * Return value of 'completed_on' field

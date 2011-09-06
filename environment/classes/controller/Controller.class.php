@@ -59,13 +59,15 @@
     * @return InvalidControllerActionError if action name is not valid or true
     */
     function execute($action) {
-      
+      trace(__FILE__, "execute($action)" );
+    
       // Prepare action name
       $action = trim(strtolower($action));
       
       // If we have valid action execute and done... Else throw exception
       if ($this->validAction($action)) {
         $this->setAction($action);
+        trace(__FILE__, "execute($action) - {$action}()" );
         $this->$action();
         return true;
       } else {
@@ -75,7 +77,7 @@
     } // execute
     
     /**
-    * Forward to specific contrller / action
+    * Forward to specific controller / action
     *
     * @access public
     * @param string $action
@@ -213,7 +215,19 @@
       return $names;
       
     } // getReservedActionNames
-  
+
+    /**
+    * Define an action to take when an undefined method is called.
+    *
+    * @param name The name of the method that is undefined.
+    * @param args Arguments passed to the undefined method.
+    * @return throws UndefinedMethodException
+    */
+    function __call($name, $args) {
+      trace(__FILE__,"__call($name,...) - undefined method");
+      throw new UndefinedMethodException('Call to undefined method Controller::'.$name.'()',$name,$args);
+    }
+ 
   } // Controller
 
 ?>

@@ -1,0 +1,127 @@
+/** Message display **/
+.message {
+	position: relative;
+}
+.message .block {
+	border: none;
+	background: none;
+	padding: 0px;
+}
+.message .block .header {
+  font-size: 150%;
+  padding-bottom: 5px;
+}
+.message .block .header a {
+	font-size: 18px;
+	padding-top: 5px;
+	padding-bottom: 2px;
+	display: block;
+} 
+.message .messageDetails {
+  border: 1px solid #e8e8e8;
+  background: #f8f8f8;
+  display: none;
+  padding: 2px 5px;
+}
+
+.message .messageDetails .private {
+  margin-top: 4px;
+}
+
+.message h1, .message h2, .message h3 {
+  font-weight: normal;
+  border-bottom: 1px solid #ccc;
+}
+
+.message h1 {
+  font-size: 2em;
+}
+
+.message h2 {
+  font-size: 1.5em;
+}
+
+.message h3 {
+  font-size: 1.1em;
+  text-decoration: none;
+}
+.message .messageText p {
+	margin-bottom: 20px;
+}
+.message .messageText {
+  line-height: 150%;
+  font-size: 13px;
+}
+
+.message .messageSeparator {
+  text-align: center;
+  font-size: 9px;
+  font-weight: bolder;
+}
+.messageCommentCount {
+	float: left;
+	display: none;
+}
+.messageOptions {
+	background: #EEEEEE;
+	padding: 4px;
+}
+.messageTags {
+	display: none;
+}
+.message .objectFilesTitle span, .message .messageCommentCount span, .message .messageTags span {
+  color: #fff;
+  display: none;
+  font-weight: bolder;
+}
+
+.message .messageOptions {
+  margin-top: 10px;
+}
+
+.message .messageComment {
+  margin: 10px 10px;
+}
+
+.message .messageCommentHead {
+  font-weight: bolder;
+  font-size: 90%;
+}
+
+.message .messageCommentBody {
+  border: 1px solid #ccc;
+  border-width: 1px 0;
+  padding: 10px;
+  background: white;
+}
+
+/** Add message form **/
+
+#emailNotification .companyDetails {
+  margin: 10px 0;
+  border: 1px dotted #ccc;
+  padding: 5px 10px;
+}
+.messageAuthor {
+	position: absolute;
+	right: 15px;
+	top: 12px;
+}
+#emailNotification .companyName label {
+  font-weight: bolder;
+}
+
+#emailNotification .companyMembers {
+  padding-top: 5px;
+}
+
+#emailNotification .companyMembers ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#emailNotification .companyMembers ul li {
+  display: inline;
+  padding-right: 5px;
+}

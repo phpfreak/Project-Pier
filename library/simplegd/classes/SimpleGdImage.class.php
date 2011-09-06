@@ -29,9 +29,9 @@
     protected $is_loaded = false;
     
     /**
-    * Image resouce
+    * Image resource
     *
-    * @var resouce
+    * @var resource
     */
     protected $resource;
     
@@ -69,9 +69,9 @@
     * @param string $load_from_file Load content from image file
     * @return SimpleGdImage
     */
-    function __construct($load_from_file = null) {
-      if (!is_null($load_from_file)) {
-        $this->loadFromFile($load_from_file);
+    function __construct($file_path = null) {
+      if (!is_null($file_path)) {
+        $this->setSource($file_path);
       }
     } // __construct
     
@@ -97,47 +97,31 @@
     * @param string $file_path
     * @return null
     */
-    function loadFromFile($file_path) {
-      if (!is_readable($file_path)) {
-        throw new FileDnxError($file_path);
-      }
-      $image_type = false;
-      if (function_exists('exif_imagetype')) {
-        $image_type = exif_imagetype($file_path);
-      } else {
-        $image_size = getimagesize($file_path);
-        if (is_array($image_size) && isset($image_size[2])) {
-          $image_type = $image_size[2];
-        }
-      } // if
-      
-      if ($image_type === false) {
-        throw new FileNotImageError($file_path);
-      }
-      
-      switch ($image_type) {
+    function load() {
+      switch ($this->image_type) {
         case IMAGETYPE_PNG:
-          $this->resource = imagecreatefrompng($file_path);
+          $resource = imagecreatefrompng($this->source);
           break;
         case IMAGETYPE_JPEG:
-          $this->resource = imagecreatefromjpeg($file_path);
+          $resource = imagecreatefromjpeg($this->source);
           break;
         case IMAGETYPE_GIF:
-          $this->resource = imagecreatefromgif($file_path);
+          $resource = imagecreatefromgif($this->source);
           break;
         default:
-          throw new ImageTypeNotSupportedError($file_path, $image_type);
+          throw new ImageTypeNotSupportedError($this->source, $this->image_type);
       } // switch
       
-      if (!is_resource($this->resource)) {
-        $this->resource = null;
-        throw new FailedToLoadImageError($file_path);
+      if (!is_resource($resource)) {
+        throw new FailedToLoadImageError($this->source);
       } // if
-      
+      if (is_resource($this->resource)) {
+        imagedestroy($this->resource);
+      } // if
+      $this->resource = $resource;
+      $resource = null;
       $this->setIsLoaded();
-      $this->setSource($file_path);
-      $this->setImageType($image_type);
-    } // loadFromFile
+    } // load
     
     /**
     * This function is used for saving files that are loaded to file in case 
@@ -147,14 +131,14 @@
     * @param void
     * @return boolean
     * @throws ImageTypeNotSupportedError
-    * @throws FileNotWriableError
+    * @throws FileNotWritableError
     */
     function save() {
       if (!$this->isLoaded() || !is_file($this->getSource())) {
         throw new Error('This image was not loaded from the file. Use saveAs() function instead of save() - there you\'ll be able to specify output file and type');
       } // if
       if (!file_is_writable($this->getSource())) {
-        throw new FileNotWriableError($this->getSource());
+        throw new FileNotWritableError($this->getSource());
       } // if
       switch ($this->getImageType()) {
         case IMAGETYPE_PNG:
@@ -290,22 +274,49 @@
       $width = (integer) $width > 0 ? (integer) $width : 1;
       $height = (integer) $height > 0 ? (integer) $height : 1;
       
-      if ($this->getImageType() == IMAGETYPE_GIF) {
-        $new_resource = imagecreate($width, $height);
-      } else {
-        $new_resource = imagecreatetruecolor($width, $height);
-      } // if
+      switch($this->getImageType()) {
+        case IMAGETYPE_GIF:
+	  $new_resource = imagecreatetruecolor($new_width, $new_height); 
+	  $colorcount = imagecolorstotal($this->resource); 
+	  imagetruecolortopalette($new_resource, true, $colorcount); 
+	  imagepalettecopy($new_resource, $this->resource); 
+	  $transparentcolor = imagecolortransparent($this->resource); 
+	  imagefill($new_resource, 0, 0, $transparentcolor); 
+	  imagecolortransparent($new_resource, $transparentcolor);
+	  break;
+	  
+	case IMAGETYPE_PNG:
+	  $new_resource = imagecreatetruecolor($new_width, $new_height); 
+          $transparent_color_index = imagecolortransparent($this->resource);
+          if ($transparent_color_index>=0) {
+            $transparent_color = imagecolorsforindex($this->resource, $transparent_color_index);
+            $$transparent_color_index = imagecolorallocate($new_resource, $transparent_color['red'], $transparent_color['green'], $transparent_color['blue']);
+            imagefill($new_resource, 0, 0, $transparent_color_index);
+            imagecolortransparent($new_resource, $transparent_color_index);          
+          } else {
+            imagealphablending($new_resource, false);
+            $color = imagecolorallocatealpha($new_resource, 0, 0, 0, 127);
+            imagefill($new_resource, 0, 0, $color);
+            imagesavealpha($new_resource, true);
+          }
+          break;
+        
+        default:
+          $new_resource = imagecreatetruecolor($new_width, $new_height);
+          break;
+      } // switch
+
       
       imagecopyresampled($new_resource, $this->resource, 0, 0, 0, 0, $width, $height, $this->getWidth(), $this->getHeight());
       if ($mutate) {
-        // Destroy old resrouce, set new one and reset cached values
+        // Destroy old resource, set new one and reset cached values
         imagedestroy($this->resource); 
         $this->resource = $new_resource;
         $this->width = $width;
         $this->height = $height;
         return true;
       } else {
-        // Create new image from the resouce and return
+        // Create new image from the resource and return
         $new_image = new SimpleGdImage();
         $new_image->createFromResource($new_resource);
         return $new_image;
@@ -325,16 +336,32 @@
     */
     function scale($width, $height, $boundary = null, $mutate = true) {
       if (!is_resource($this->resource) || (get_resource_type($this->resource) <> 'gd')) {
-        return false;
+        if (is_null($this->source)) {
+          return false;
+        }
       }
-      
+
       $width = (integer) $width > 0 ? (integer) $width : 1;
       $height = (integer) $height > 0 ? (integer) $height : 1;
-      
-      $scale = min($width / $this->getWidth(), $height / $this->getHeight());
+
+      $mem_allowed=1024*1024*6; // 6 MB
+      $image_mem_usage = $this->getWidth() * $this->getHeight() * 4; // 4 bytes per pixel (RGBA)
+      if ($image_mem_usage>$mem_allowed) {
+        $im = imagecreatetruecolor($width, $height);
+        $white = imagecolorallocate($im, 0xFF, 0xFF, 0xFF);
+        $black = imagecolorallocate($im, 0x00, 0x00, 0xFF);
+        @imagefill ( $im , 0, 0, $white );
+        $s = $this->getWidth() . "x" . $this->getHeight();
+        @imagestring ( $im , 6 , 10 , 30 , $s , $black );
+        $this->resource = $im;
+        $scale = 1;
+      } else {
+        $this->load();
+        $scale = min($width / $this->getWidth(), $height / $this->getHeight());
+      }
       
       if ($boundary == self::BOUNDARY_DECREASE_ONLY) {
-        if ($scale > 1) {
+        if ($scale >= 1) {
           if ($mutate) {
             return;
           } else {
@@ -344,7 +371,7 @@
           } // if
         } // if
       } elseif ($boundary == self::BOUNDARY_INCREASE_ONLY) {
-        if ($scale < 1) {
+        if ($scale <= 1) {
           if ($mutate) {
             return;
           } else {
@@ -358,11 +385,37 @@
       $new_width = floor($scale * $this->getWidth());
       $new_height = floor($scale * $this->getHeight());
       
-      if ($this->getImageType() == IMAGETYPE_GIF) {
-        $new_resource = imagecreate($new_width, $new_height);
-      } else {
-        $new_resource = imagecreatetruecolor($new_width, $new_height);
-      } // if
+      switch($this->getImageType()) {
+        case IMAGETYPE_GIF:
+	  $new_resource = imagecreatetruecolor($new_width, $new_height); 
+	  $colorcount = imagecolorstotal($this->resource); 
+	  imagetruecolortopalette($new_resource, true, $colorcount); 
+	  imagepalettecopy($new_resource, $this->resource); 
+	  $transparentcolor = imagecolortransparent($this->resource); 
+	  imagefill($new_resource, 0, 0, $transparentcolor); 
+	  imagecolortransparent($new_resource, $transparentcolor);
+	  break;
+	  
+	case IMAGETYPE_PNG:
+	  $new_resource = imagecreatetruecolor($new_width, $new_height); 
+          $transparent_color_index = imagecolortransparent($this->resource);
+          if ($transparent_color_index>=0) {
+            $transparent_color = imagecolorsforindex($this->resource, $transparent_color_index);
+            $$transparent_color_index = imagecolorallocate($new_resource, $transparent_color['red'], $transparent_color['green'], $transparent_color['blue']);
+            imagefill($new_resource, 0, 0, $transparent_color_index);
+            imagecolortransparent($new_resource, $transparent_color_index);          
+          } else {
+            imagealphablending($new_resource, false);
+            $color = imagecolorallocatealpha($new_resource, 0, 0, 0, 127);
+            imagefill($new_resource, 0, 0, $color);
+            imagesavealpha($new_resource, true);
+          }
+          break;
+        
+        default:
+          $new_resource = imagecreatetruecolor($new_width, $new_height);
+          break;
+      } // switch
       
       imagecopyresampled($new_resource, $this->resource, 0, 0, 0, 0, $new_width, $new_height, $this->getWidth(), $this->getHeight());
       if ($mutate) {
@@ -380,7 +433,7 @@
     } // scale
     
     /**
-    * Change internat type value
+    * Change internal type value
     *
     * @param integer $to_type
     * @return null
@@ -462,8 +515,37 @@
     * @param string $value
     * @return null
     */
-    private function setSource($value) {
-      $this->source = $value;
+    private function setSource($file_path) {
+      if (!is_readable($file_path)) {
+        throw new FileDnxError($file_path);
+      }
+      $image_size = false;
+      $image_type = false;
+      if (function_exists('exif_imagetype')) {
+        $image_type = exif_imagetype($file_path);      
+      } else {
+        $image_size = getimagesize($file_path);
+        if (is_array($image_size) && isset($image_size[2])) {
+          $image_type = $image_size[2];
+        }
+      } // if
+      
+      if ($image_type === false) {
+        throw new FileNotImageError($file_path);
+      }
+      
+      $this->source = $file_path;
+      $this->setImageType($image_type);
+
+      if ($image_size === false) {
+        $image_size = getimagesize($file_path);
+      }
+
+      if (is_array($image_size)) {
+        $this->setWidth($image_size[0]);
+        $this->setHeight($image_size[1]);
+      }
+      
     } // setSource
     
     /**

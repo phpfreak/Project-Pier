@@ -1,3 +1,5 @@
+<?php $owner_company_name = clean(owner_company()->getName()) ?>
+<?php $site_name = config_option('site_name', $owner_company_name) ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
   <head>
@@ -8,29 +10,42 @@
 <?php } // if ?>
     
 <?php echo stylesheet_tag('project_website.css') ?> 
+<?php echo stylesheet_tag('jquery/jquery-ui-1.8.6.custom.css') ?> 
 <?php echo meta_tag('content-type', 'text/html; charset=utf-8', true) ?> 
-<link rel="Shortcut Icon" href="favicon.ico" type="image/x-icon" />
-<?php echo add_javascript_to_page('yui/yahoo/yahoo-min.js') ?>
-<?php echo add_javascript_to_page('yui/dom/dom-min.js') ?>
-<?php echo add_javascript_to_page('yui/event/event-min.js') ?>
-<?php echo add_javascript_to_page('yui/animation/animation-min.js') ?>
-<?php echo add_javascript_to_page('app.js') ?>
-<?php echo use_widget('UserBoxMenu') ?>
+    <link rel="Shortcut Icon" href="<?php echo ROOT_URL.'/favicon.ico' ?>" type="image/x-icon" />
+    <link rel="alternate" title="<?php echo lang('recent activities feed') ?>" type="application/rss+xml" href="<?php echo logged_user()->getRecentActivitiesFeedUrl(active_project()) ?>" />
+<?php add_javascript_to_page('pp.js') ?>
+<?php add_javascript_to_page('jquery.min.js') ?>
+<?php add_javascript_to_page('jquery-ui.min.js') ?>
 <?php echo render_page_head() ?>
   </head>
   <body>
+<script>
+//$.datepicker.setDefaults($.datepicker.regional[<?php echo 'nl'; //lang('language_code') ?>]);
+$(function() {
+  $('input.datepicker').datepicker({
+    showOn: 'button',
+    buttonImage: '<?php echo get_image_url('icons/calendar.png'); ?>',
+    buttonImageOnly: true,
+    onClose: function(dateText,picker) {
+      $('#startdate_day').val( dateText.split(/\//)[1] );
+    }
+  });
+});
+</script>
+<?php trace(__FILE__,'body begin') ?>
 <?php echo render_system_notices(logged_user()) ?>
     <div id="wrapper">
     
       <!-- header -->
       <div id="headerWrapper">
         <div id="header">
-          <h1><a href="<?php echo active_project()->getOverviewUrl() ?>"><?php echo clean(active_project()->getName()) ?></a></h1>
+          <h1><a href="<?php echo get_url('dashboard') ?>"><?php echo $site_name ?></a> | <a href="<?php echo active_project()->getOverviewUrl() ?>"><?php echo clean(active_project()->getName()) ?></a></h1>
           <div id="userboxWrapper"><?php echo render_user_box(logged_user()) ?></div>
         </div>
       </div>
       <!-- /header -->
-      
+<?php trace(__FILE__,'body tabsWrapper') ?>
       <div id="tabsWrapper">
         <div id="tabs">
 <?php if (is_array(tabbed_navigation_items())) { ?>
@@ -42,7 +57,7 @@
 <?php } // if ?>
         </div>
       </div>
-      
+<?php trace(__FILE__,'body crumbsWrapper') ?>
       <div id="crumbsWrapper">
         <div id="crumbsBlock">
           <div id="crumbs">
@@ -50,14 +65,15 @@
             <ul>
 <?php foreach (bread_crumbs() as $bread_crumb) { ?>
 <?php if ($bread_crumb->getUrl()) { ?>
-              <li>&raquo; <a href="<?php echo $bread_crumb->getUrl() ?>"><?php echo clean($bread_crumb->getTitle()) ?></a></li>
+              <li><a href="<?php echo $bread_crumb->getUrl() ?>"><?php echo clean($bread_crumb->getTitle()) ?></a></li>
 <?php } else {?>
-              <li>&raquo; <span><?php echo clean($bread_crumb->getTitle()) ?></span></li>
+              <li><span><?php echo clean($bread_crumb->getTitle()) ?></span></li>
 <?php } // if {?>
 <?php } // foreach ?>
             </ul>
 <?php } // if ?>
           </div>
+<?php trace(__FILE__,'body searchBox') ?>
           <div id="searchBox">
             <form action="<?php echo active_project()->getSearchUrl() ?>" method="get">
               <div>
@@ -77,28 +93,34 @@
         </div>
       </div>
       
+<?php trace(__FILE__,'body contentWrapper') ?>
       <!-- content wrapper -->
       <div id="outerContentWrapper">
-        <div id="innerContentWrapper">
-<?php if (!is_null(flash_get('success'))) { ?>
-          <div id="success" onclick="this.style.display = 'none'"><?php echo clean(flash_get('success')) ?></div>
-<?php } ?>
-<?php if (!is_null(flash_get('error'))) { ?>
-          <div id="error" onclick="this.style.display = 'none'"><?php echo clean(flash_get('error')) ?></div>
-<?php } ?>
-
-          <h1 id="pageTitle"><?php echo get_page_title() ?></h1>
-          <div id="pageContent">
-            <div id="content">
 <?php if (is_array(page_actions())) { ?>
+          <div id="page_actionsWrapper">
+           <div id="page_actionsBlock">
             <div id="page_actions">
-              <ul>
+              <ul class="">
 <?php foreach (page_actions() as $page_action) { ?>
                 <li><a href="<?php echo $page_action->getURL() ?>"><?php echo clean($page_action->getTitle()) ?></a></li>
 <?php } // foreach ?>
               </ul>
             </div>
+           </div>
+          </div>
+<?php } else { // if ?>
+        <div style="height:1px"></div>
 <?php } // if ?>
+        <div id="innerContentWrapper">
+<?php if (!is_null(flash_get('success'))) { ?>
+          <div id="success"><?php echo clean(flash_get('success')) ?></div>
+<?php } ?>
+<?php if (!is_null(flash_get('error'))) { ?>
+          <div id="error"><?php echo clean(flash_get('error')) ?></div>
+<?php } ?>
+          <h1 id="pageTitle"><?php echo get_page_title() ?></h1>
+          <div id="pageContent">
+            <div id="content">
               <!-- Content -->
               <?php echo $content_for_layout ?>
               <!-- /Content -->
@@ -119,11 +141,12 @@
             <?php echo lang('footer copy without homepage', date('Y'), clean(owner_company()->getName())) ?>
 <?php } // if ?>
           </div>
-          <div id="productSignature"><?php echo product_signature() ?></div>
+          <div id="productSignature"><?php echo product_signature() ?><span id="request_duration"><?php printf(' in %.3f seconds', (microtime(true) - $GLOBALS['request_start_time']) ); ?></span></div>
         </div>
       </div>
       <!-- /content wrapper -->
       
     </div>
+<?php trace(__FILE__,'body end') ?>
   </body>
 </html>

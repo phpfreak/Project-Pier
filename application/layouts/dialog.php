@@ -4,7 +4,7 @@
     <title><?php echo get_page_title() ?></title>
 <?php echo stylesheet_tag('dialog.css') ?> 
 <?php echo meta_tag('content-type', 'text/html; charset=utf-8', true) ?> 
-<link rel="Shortcut Icon" href="favicon.ico" type="image/x-icon" />
+<link rel="Shortcut Icon" href="<?php echo ROOT_URL ?>/favicon.ico?086" type="image/x-icon" />
 <?php echo render_page_head() ?>
   </head>
   <body>

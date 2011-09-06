@@ -72,12 +72,11 @@
   function clean($str) {
     $str = preg_replace('/&(?!#[0-9]+;)/s', '&amp;', $str);
   	$str = str_replace(array('<', '>', '"'), array('&lt;', '&gt;', '&quot;'), $str);
-  
   	return $str;
   } // clean
   
   /**
-  * Convert entities back to valid characteds
+  * Convert entities back to valid characters
   *
   * @param string $escaped_string
   * @return string
@@ -193,7 +192,7 @@
     // Prepare result
     $result = array();
     
-    // Loop elemetns
+    // Loop elements
     foreach ($array as $value) {
       
       // Subelement is array? Flat it
@@ -301,9 +300,6 @@
   * @return boolean
   */
   function is_valid_url($url) {
-    if (str_starts_with(strtolower($url), 'http://localhost')) {
-      return true;
-    }
     return preg_match(URL_FORMAT, $url);
   } // end func is_valid_url 
   
@@ -316,15 +312,25 @@
   * @return void
   */
   function redirect_to($to, $die = true) {
-  	$to = trim($to);
-  	if (strpos($to, '&amp;') !== false) {
-  	  $to = str_replace('&amp;', '&', $to);
-  	} // if
-    header('Location: ' . $to);
-    if ($die) {
+    if (headers_sent($filename, $linenum)) {
+      echo "Headers already sent in $filename on line $linenum\n" .
+          "Click this <a href=\"".ROOT_URL."\">link</a> to continue\n";
+      session_write_close();
       die();
     }
-  } // end func redirect_to
+    trace('redirect_to', "($to, $die)");
+    $to = trim($to);
+    if (strpos($to, '&amp;') !== false) {
+      $to = str_replace('&amp;', '&', $to);
+    } // if
+
+    while (ob_get_level()) ob_end_clean();
+    header('Location: ' . $to);
+    if ($die) {
+      session_write_close();
+      die();
+    }
+  } // end redirect_to
   
   /**
   * Redirect to referer
@@ -333,7 +339,7 @@
   * @param string $alternative Alternative URL is used if referer is not valid URL
   * @return null
   */
-  function redirect_to_referer($alternative = nulls) {
+  function redirect_to_referer($alternative = null) {
     $referer = get_referer();
     if (!is_valid_url($referer)) {
       redirect_to($alternative);
@@ -428,4 +434,67 @@
     } // foreach
     return $array;
   } // array_stripslashes
+
+  /**
+  * This function will add hyperlinks to strings that look like links
+  *
+  * @param string $text
+  * @return $text with possibly hyperlinks
+  */
+  function add_links(&$text) {
+    // The following searches for strings that look like links and auto-links them
+    $search = array(
+        '/(?<!")(http:\/\/[^\s\"<]*)/',
+        '/[^\/](www\.[^\s<]*)/'
+    );
+    $replace = array(
+        "<a href=\"$1\" rel=\"nofollow\">$1</a>",
+        " <a href=\"http://$1\" rel=\"nofollow\">$1</a>"
+    );
+    $text = preg_replace($search,$replace,$text);
+
+    return $text;
+  }
+
+  /**
+  * This function will return string in lowercase
+  *
+  * @param string $string
+  * @return $string in lower case
+  */
+  function lc($string) {
+    return utf8_encode(strtolower(utf8_decode($string))); 
+  }
+
+  /**
+  * This function will return string normalized
+  *
+  * @param string $string
+  * @return $string normalized
+  */
+  function normalize ($string) {
+    $table = array(
+        'Š'=>'S', 'š'=>'s', 'Đ'=>'Dj', 'đ'=>'dj', 'Ž'=>'Z', 'ž'=>'z', 'Č'=>'C', 'č'=>'c', 'Ć'=>'C', 'ć'=>'c',
+        'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
+        'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O',
+        'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U', 'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss',
+        'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c', 'è'=>'e', 'é'=>'e',
+        'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o',
+        'ô'=>'o', 'õ'=>'o', 'ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'ý'=>'y', 'þ'=>'b',
+        'ÿ'=>'y', 'Ŕ'=>'R', 'ŕ'=>'r',
+    );
+    
+    return strtr($string, $table);
+  }
+
+  /**
+  * This function will return external url
+  *
+  * @param string $relative_url
+  * @return $string with http:// etc. added
+  */
+  function externalUrl($relative_url) {
+    return 'http://' . $_SERVER['HTTP_HOST'] . $relative_url; 
+  }
+
 ?>

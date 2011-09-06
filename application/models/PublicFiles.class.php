@@ -1,7 +1,7 @@
 <?php
 
   /**
-  * This class provides interface for adding and retriving files from public/files folder
+  * This class provides interface for adding and retrieving files from public/files folder
   *
   * @http://www.projectpier.org/
   */

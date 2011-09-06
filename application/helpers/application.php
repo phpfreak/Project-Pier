@@ -33,7 +33,7 @@
     
     $system_notices = array();
     if (config_option('upgrade_check_enabled', false) && config_option('upgrade_last_check_new_version', false)) {
-      $system_notices[] = lang('new ProjectPier version available', get_url('administration', 'upgrade'));
+      $system_notices[] = lang('new version available', get_url('administration', 'upgrade'));
     }
     
     if (count($system_notices)) {
@@ -64,7 +64,42 @@
     } // if
     return select_box($name, $options, $attributes);
   } // select_company
-  
+
+  /**
+  * Renders select project box
+  *
+  * @param string $name
+  * @param Project $project
+  * @param integer $selected ID of selected milestone
+  * @param array $attributes Array of additional attributes
+  * @return string
+  * @throws InvalidInstanceError
+  */
+  function select_project($name, $projectname = null, $selected = null, $attributes = null) {
+    if (is_array($attributes)) {
+      if (!isset($attributes['class'])) {
+        $attributes['class'] = 'select_project';
+      }
+    } else {
+      $attributes = array('class' => 'select_project');
+    } // if
+    
+    $options = array(option_tag(lang('none'), 0));
+    if (is_null($projectname)) {
+      $projects = Projects::getAll();
+    } else {
+      $projects = Projects::getAll();
+    }
+    if (is_array($projects)) {
+      foreach ($projects as $project) {
+        $option_attributes = $project->getId() == $selected ? array('selected' => 'selected') : null;
+        $options[] = option_tag($project->getName(), $project->getId(), $option_attributes);
+      } // foreach
+    } // if
+    
+    return select_box($name, $options, $attributes);
+  } // select_milestone
+    
   /**
   * Render assign to SELECT
   *
@@ -84,8 +119,8 @@
     
     $logged_user = logged_user();
     
-    $can_assign_to_owners = $logged_user->isMemberOfOwnerCompany() || $logged_user->getProjectPermission($project, ProjectUsers::CAN_ASSIGN_TO_OWNERS);
-    $can_assign_to_other = $logged_user->isMemberOfOwnerCompany() || $logged_user->getProjectPermission($project, ProjectUsers::CAN_ASSIGN_TO_OTHER);
+    $can_assign_to_owners = $logged_user->isMemberOfOwnerCompany() || $logged_user->getProjectPermission($project, PermissionManager::CAN_ASSIGN_TO_OWNERS);
+    $can_assign_to_other = $logged_user->isMemberOfOwnerCompany() || $logged_user->getProjectPermission($project, PermissionManager::CAN_ASSIGN_TO_OTHER);
     
     $grouped_users = $project->getUsers(true);
     
@@ -242,44 +277,6 @@
   } // select_message
   
   /**
-  * Render select folder box
-  *
-  * @param string $name Control name
-  * @param Project $project
-  * @param integer $selected ID of selected folder
-  * @param array $attributes Select box attributes
-  * @return string
-  */
-  function select_project_folder($name, $project = null, $selected = null, $attributes = null) {
-    if (is_null($project)) {
-      $project = active_project();
-    } // if
-    if (!($project instanceof Project)) {
-      throw new InvalidInstanceError('$project', $project, 'Project');
-    } // if
-    
-    if (is_array($attributes)) {
-      if (!isset($attributes['class'])) {
-        $attributes['class'] = 'select_folder';
-      }
-    } else {
-      $attributes = array('class' => 'select_folder');
-    } // if
-    
-    $options = array(option_tag(lang('none'), 0));
-    
-    $folders = $project->getFolders();
-    if (is_array($folders)) {
-      foreach ($folders as $folder) {
-      	$option_attributes = $folder->getId() == $selected ? array('selected' => true) : null;
-      	$options[] = option_tag($folder->getName(), $folder->getId(), $option_attributes);
-      } // foreach
-    } // if
-    
-    return select_box($name, $options, $attributes);
-  } // select_project_folder
-  
-  /**
   * Select a single project file
   *
   * @param string $name Control name
@@ -363,7 +360,7 @@
     if (!is_array($tag_names) || !count($tag_names)) {
       return '--';
     }
-    
+
     $links = array();
     foreach ($tag_names as $tag_name) {
       $links[] = '<a href="' . $project->getTagUrl($tag_name) . '">' . clean($tag_name) . '</a>';
@@ -435,9 +432,12 @@
   * @return string
   */
   function render_object_files(ProjectDataObject $object, $can_remove = false) {
-    tpl_assign('attached_files_object', $object);
-    tpl_assign('attached_files', $object->getAttachedFiles());
-    return tpl_fetch(get_template_path('list_attached_files', 'files'));
+    if (function_exists('files_activate')) {
+      tpl_assign('attached_files_object', $object);
+      tpl_assign('attached_files', $object->getAttachedFiles());
+      return tpl_fetch(get_template_path('list_attached_files', 'files'));
+    }
+    return '';
   } // render_object_files
   
   /**
@@ -458,26 +458,40 @@
     tpl_assign('application_logs_show_project_column', array_var($options, 'show_project_column', true));
     return tpl_fetch(get_template_path('render_application_logs', 'application'));
   } // render_application_logs
-  
+
   /**
-  * Render text that says when action was tacken and by who
+  * Render one project's application logs
+  * 
+  * This helper will render array of log entries.
+  *
+  * @param array $project The project.
+  * @param array $log_entries An array of entries for this project.
+  * @return null
+  */
+  function render_project_application_logs($project, $log_entries) {
+    tpl_assign('application_logs_project', $project);
+    tpl_assign('application_logs_entries', $log_entries);
+    return tpl_fetch(get_template_path('render_project_application_logs', 'application'));
+  } // render_application_logs
+
+  /**
+  * Render text that says when action was taken and by who
   *
   * @param ApplicationLog $application_log_entry
   * @return string
   */
   function render_action_taken_on_by(ApplicationLog $application_log_entry) {
     if ($application_log_entry->isToday()) { 
-      $result = '<span class="desc">' . lang('today') . ' ' . clean(format_time($application_log_entry->getCreatedOn()));
+      $result = lang('today') . ' ' . clean(format_time($application_log_entry->getCreatedOn()));
     } elseif ($application_log_entry->isYesterday()) { 
-      //return '<span class="desc">' . lang('yesterday') . ' ' . clean(format_time($application_log_entry->getCreatedOn()));
-      $result = '<span class="desc">' . lang('yesterday');
+      $result =  lang('yesterday') . ' ' . clean(format_time($application_log_entry->getCreatedOn()));
     } else { 
-      $result = '<span class="desc">' . clean(format_date($application_log_entry->getCreatedOn()));
+      $result =  clean(format_date($application_log_entry->getCreatedOn()));
     } // if
-    $result .= '</span>';
+    $result = "<span class=\"desc\">$result</span></td><td>";
     
     $taken_by = $application_log_entry->getTakenBy();
-    return $taken_by instanceof User ? $result . ', <a href="' . $taken_by->getCardUrl() . '">' . clean($taken_by->getDisplayName()) . '</a>' : $result;
+    return $taken_by instanceof User ? $result . '<a href="' . $taken_by->getCardUrl() . '">' . clean($taken_by->getDisplayName()) . '</a>' : $result;
   } // render_action_taken_on
 
 ?>

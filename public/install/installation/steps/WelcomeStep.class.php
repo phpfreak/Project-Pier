@@ -29,7 +29,7 @@
     */
     function execute() {
       $this->setContentFromTemplate('welcome.php');
-      return array_var($_POST, 'submited') == 'submited';
+      return array_var($_POST, 'submitted') == 'submitted';
     } // execute
   
   } // WelcomeStep

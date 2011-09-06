@@ -16,7 +16,7 @@
     /**
     * Create new log entry and return it
     * 
-    * Delete actions are automaticly marked as silent if $is_silent value is not provided (not NULL)
+    * Delete actions are automatically marked as silent if $is_silent value is not provided (not NULL)
     *
     * @param ApplicationDataObject $object
     * @param Project $project
@@ -127,22 +127,73 @@
     * @return array
     */
     static function getProjectLogs(Project $project, $include_private = false, $include_silent = false, $limit = null, $offset = null) {
+      trace(__FILE__,"getProjectLogs({$project->getId()}, $include_private, $include_silent, $limit, $offset)");
       $private_filter = $include_private ? 1 : 0;
       $silent_filter = $include_silent ? 1 : 0;
       
-      return self::findAll(array(
-        'conditions' => array('`is_private` <= ? AND `is_silent` <= ? AND `project_id` = (?)', $private_filter, $silent_filter, $project->getId()),
-        'order' => '`created_on` DESC',
-        'limit' => $limit,
-        'offset' => $offset,
-      )); // findAll
+      $all_logs = self::findAll(array(
+         'conditions' => array('`is_private` <= ? AND `is_silent` <= ? AND `project_id` = (?)', $private_filter, $silent_filter, $project->getId()),
+         'order' => '`created_on` DESC',
+         'limit' => $limit,
+         'offset' => $offset
+       )); // findAll
+      return ApplicationLogs::filterLogs($all_logs);
     } // getProjectLogs
+    
+    /**
+    * Exclude logs from uninstalled plugins
+    *
+    * @param Project $project
+    * @param boolean $include_private
+    * @param boolean $include_silent
+    * @param integer $limit
+    * @param integer $offset
+    * @return array
+    */
+    static function filterLogs($all_logs) {
+      trace(__FILE__,"filterLogs({$all_logs})");
+      if ($all_logs==NULL) return;
+      $filtered_logs = array();
+      //Only show logs related to installed applications
+      foreach ($all_logs as $log)
+      {
+        trace(__FILE__,"filterLogs($all_logs) - foreach ");
+        //if ($log->getObject()==NULL) continue;
+        $manager_class_name = $log->getRelObjectManager();
+        //Search the string 'plugins' in the file path containing the class, if false is a core application else is a plugin
+        if (!isset($GLOBALS['autoloader_classes'][strtoupper($manager_class_name)])) continue;
+        if (strpos($GLOBALS['autoloader_classes'][strtoupper($manager_class_name)], 'plugins') == false)
+        //if (strpos($GLOBALS['autoloader_classes'][strtoupper(get_class($log->getObject()))], 'plugins') == false)
+        {
+          trace(__FILE__,"filterLogs($all_logs) - core ".$manager_class_name);
+          //the class is a core application 
+          $filtered_logs[]=$log;
+        }
+        else 
+        {
+          trace(__FILE__,"filterLogs($all_logs) - plugin: ".$manager_class_name);
+          //TODO
+          //the class comes from a plugin
+          //so we need to filter logs from uninstalled plugins
+          //$log_class = $manager_class_name; //get_class($log->getObject()->manager());
+          //$plugin = Plugins::findOne(array('conditions'=>array("`log_providers` like '%".$log_class."%'")));
+          //error_log("Looking for plugin with log_provider $log_class, found ".$plugin->getName());
+          //if($plugin instanceof Plugin && $plugin->isInstalled()) {
+          //  $filtered_logs[] = $log;
+          //} //if
+          if (class_exists($manager_class_name)) {
+            $filtered_logs[] = $log;
+          }
+        }
+      }
+      return $filtered_logs;
+    } // filterLogs
     
     /**
     * Return overall (for dashboard or RSS)
     *
     * This function will return array of application logs that match the function arguments. Entries can be filtered by 
-    * type (prvivate, silent), projects (if $project_ids is array, if NULL project ID is ignored). Result set can be 
+    * type (private, silent), projects (if $project_ids is array, if NULL project ID is ignored). Result set can be 
     * also limited using $limit and $offset params
     * 
     * @param boolean $include_private
@@ -162,12 +213,13 @@
         $conditions = array('`is_private` <= ? AND `is_silent` <= ?', $private_filter, $silent_filter);
       } // if
       
-      return self::findAll(array(
+      $all_logs = self::findAll(array(
         'conditions' => $conditions,
         'order' => '`created_on` DESC',
         'limit' => $limit,
         'offset' => $offset,
       )); // findAll
+      return ApplicationLogs::filterLogs($all_logs);
     } // getOverallLogs
     
     /**

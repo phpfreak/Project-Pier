@@ -16,31 +16,25 @@
 <?php } // if ?>
 
     <div class="header">
-<?php if ($milestone->canChangeStatus(logged_user())) { ?>
-<?php if ($milestone->isCompleted()) { ?>
-<?php echo checkbox_link($milestone->getOpenUrl(), true) ?>
-<?php } else { ?>
-<?php echo checkbox_link($milestone->getCompleteUrl(), false) ?>
-<?php } // if ?>
-<?php } // if?>
-
 <?php if ($milestone->getAssignedTo() instanceof ApplicationDataObject) { ?>
         <span class="assignedTo"><?php echo clean($milestone->getAssignedTo()->getObjectName()) ?>:</span>
 <?php } // if ?>
       <a href="<?php echo $milestone->getViewUrl() ?>"><?php echo clean($milestone->getName()) ?></a>
 <?php if ($milestone->isUpcoming()) { ?>
- (<?php echo lang('days left', $milestone->getLeftInDays()) ?>)
+ (<?php echo format_days('days left', $milestone->getLeftInDays()) ?>)
 <?php } elseif ($milestone->isLate()) { ?>
- (<?php echo lang('days late', $milestone->getLateInDays()) ?>)
+ (<?php echo format_days('days late', $milestone->getLateInDays()) ?>)
 <?php } elseif ($milestone->isToday()) { ?>
  (<?php echo lang('today') ?>)
 <?php } // if ?>
     </div>
     <div class="content">
+<?php if (!is_null($milestone->getDueDate())) { ?>
 <?php if ($milestone->getDueDate()->getYear() > DateTimeValueLib::now()->getYear()) { ?>
       <div class="dueDate"><span><?php echo lang('due date') ?>:</span> <?php echo format_date($milestone->getDueDate(), null, 0) ?></div>
 <?php } else { ?>
       <div class="dueDate"><span><?php echo lang('due date') ?>:</span> <?php echo format_descriptive_date($milestone->getDueDate(), 0) ?></div>
+<?php } // if ?>
 <?php } // if ?>
       
 <?php if ($milestone->getDescription()) { ?>
@@ -71,15 +65,20 @@
 <?php if ($task_list->isCompleted()) { ?>
         <li><del datetime="<?php echo $task_list->getCompletedOn()->toISO8601() ?>"><a href="<?php echo $task_list->getViewUrl() ?>" title="<?php echo lang('completed task list') ?>"><?php echo clean($task_list->getName()) ?></a></del></li>
 <?php } else { ?>
-        <li><a href="<?php echo $task_list->getViewUrl() ?>"><?php echo clean($task_list->getName()) ?></a></li>
+        <li><a href="<?php echo $task_list->getViewUrl() ?>"><?php echo clean($task_list->getName()) ?></a>
+<?php
+        $this->assign('task_list', $task_list); 
+        $this->includeTemplate(get_template_path('view_progressbar', 'task')); 
+?>
+        </li>
 <?php } // if ?>
 <?php } // foreach ?>
       </ul>
 <?php } // if ?>
 <?php } // if ?>
-
+<?php if (plugin_active('tags')) { ?>
   <p><span><?php echo lang('tags') ?>:</span> <?php echo project_object_tags($milestone, $milestone->getProject()) ?></p>
-
+<?php } // if ?>
 <?php
   $options = array();
   if ($milestone->canEdit(logged_user())) {
@@ -88,6 +87,13 @@
   if ($milestone->canDelete(logged_user())) {
     $options[] = '<a href="' . $milestone->getDeleteUrl() . '">' . lang('delete') . '</a>';
   }
+  if ($milestone->canChangeStatus(logged_user())) {
+    if ($milestone->isCompleted()) {
+      $options[] = '<a href="' . $milestone->getOpenUrl() . '">' . lang('mark milestone as open') . '</a>';
+    } else {
+      $options[] = '<a href="' . $milestone->getCompleteUrl() . '">' . lang('mark milestone as completed') . '</a>';
+    } // if
+  } // if
 ?>
 <?php if (count($options)) { ?>
       <div class="milestoneOptions"><?php echo implode(' | ', $options) ?></div>

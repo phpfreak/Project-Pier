@@ -86,6 +86,17 @@
         } // if
       } // if
     } // advance
+
+    /**
+    * Difference to another DateTime
+    *
+    * @param void
+    * @param integer $input 
+    * @return integer $seconds
+    */
+    function difference(DateTimeValue $input) {  
+      return $this->getTimestamp() - $input->getTimestamp();
+    } // difference
     
     /**
     * This function will return true if this day is today

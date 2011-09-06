@@ -9,7 +9,7 @@
   error_reporting(E_ALL);
   
   if (function_exists('date_default_timezone_set')) {
-    date_default_timezone_set('gmt');
+    date_default_timezone_set('GMT');
   } // if
   
   define('UPGRADER_PATH', dirname(__FILE__)); // upgrader is here

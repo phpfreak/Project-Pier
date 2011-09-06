@@ -35,6 +35,7 @@
   * @return null
   */
   function dashboard_tabbed_navigation($selected = DASHBOARD_TAB_OVERVIEW) {
+    trace(__FILE__,'dashboard_tabbed_navigation');
     add_tabbed_navigation_item(new TabbedNavigationItem(
       DASHBOARD_TAB_OVERVIEW, 
       lang('overview'), 
@@ -50,7 +51,12 @@
       lang('my tasks'),
       get_url('dashboard', 'my_tasks')
     ));
-    
+    trace(__FILE__,'dashboard_tabbed_navigation:plugin hook');
+    // PLUGIN HOOK
+    plugin_manager()->do_action('add_dashboard_tab');
+    // PLUGIN HOOK
+    trace(__FILE__,'dashboard_tabbed_navigation:set_selected');
+      
     tabbed_navigation_set_selected($selected);
   } // dashboard_tabbed_navigation
   
@@ -66,8 +72,8 @@
   * @return null
   */
   function administration_crumbs() {
-    add_bread_crumb(lang('dashboard'), get_url('dashboard'));
-    add_bread_crumb(lang('administration'), get_url('administration'));
+    add_bread_crumb(lang('dashboard'), get_url('dashboard', 'index'));
+    add_bread_crumb(lang('administration'), get_url('administration', 'index'));
     
     $args = func_get_args();
     if (!count($args)) {
@@ -80,10 +86,10 @@
   // Tab IDs
   define('ADMINISTRATION_TAB_ADMINISTRATION', 'administration');
   define('ADMINISTRATION_TAB_COMPANY', 'company');
-  define('ADMINISTRATION_TAB_MEMBERS', 'members');
   define('ADMINISTRATION_TAB_PROJECTS', 'projects');
   define('ADMINISTRATION_TAB_CLIENTS', 'clients');
   define('ADMINISTRATION_TAB_CONFIGURATION', 'config');
+  define('ADMINISTRATION_TAB_PLUGINS', 'plugins');
   define('ADMINISTRATION_TAB_TOOLS', 'tools');
   define('ADMINISTRATION_TAB_UPGRADE', 'upgrade');
 
@@ -95,6 +101,7 @@
   * @return null
   */
   function administration_tabbed_navigation($selected = ADMINISTRATION_TAB_ADMINISTRATION) {
+    trace(__FILE__,'administration_tabbed_navigation');
     add_tabbed_navigation_item(new TabbedNavigationItem(
       ADMINISTRATION_TAB_ADMINISTRATION, 
       lang('index'), 
@@ -104,11 +111,6 @@
       ADMINISTRATION_TAB_COMPANY, 
       lang('company'), 
       get_url('administration', 'company')
-    ));
-    add_tabbed_navigation_item(new TabbedNavigationItem(
-      ADMINISTRATION_TAB_MEMBERS,
-      lang('members'),
-      get_url('administration', 'members')
     ));
     add_tabbed_navigation_item(new TabbedNavigationItem(
       ADMINISTRATION_TAB_CLIENTS,
@@ -135,6 +137,16 @@
       lang('upgrade'),
       get_url('administration', 'upgrade')
     ));
+    add_tabbed_navigation_item(new TabbedNavigationItem(
+      ADMINISTRATION_TAB_PLUGINS,
+      lang('plugins'),
+      get_url('administration','plugins')
+    ));
+    
+    // PLUGIN HOOK
+    plugin_manager()->do_action('add_administration_tab');
+    // PLUGIN HOOK
+    
     tabbed_navigation_set_selected($selected);
   } // administration_tabbed_navigation
   
@@ -150,8 +162,8 @@
   * @return null
   */
   function account_crumbs() {
-    add_bread_crumb(lang('dashboard'), get_url('dashboard'));
-    add_bread_crumb(lang('account'), get_url('account'));
+    add_bread_crumb(lang('dashboard'), get_url('dashboard', 'index'));
+    add_bread_crumb(lang('account'), get_url('account', 'index'));
     
     $args = func_get_args();
     if (!count($args)) {
@@ -177,6 +189,10 @@
       lang('my account'), 
       get_url('account', 'index')
     ));
+    
+    // PLUGIN HOOK
+    plugin_manager()->do_action('add_my_account_tab');
+    // PLUGIN HOOK
     tabbed_navigation_set_selected($selected);
   } // account_tabbed_navigation
 

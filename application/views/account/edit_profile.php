@@ -69,10 +69,22 @@
           <?php echo label_tag(lang('is auto assign'), null, true) ?>
           <?php echo yes_no_widget('user[auto_assign]', 'userFormAutoAssign', array_var($user_data, 'auto_assign'), lang('yes'), lang('no')) ?>
         </div>
+
+        <div>
+          <?php echo label_tag(lang('use LDAP'), null, true) ?>
+          <?php echo yes_no_widget('user[use_LDAP]', 'userFormUseLDAP', array_var($user_data, 'use_LDAP'), lang('yes'), lang('no')) ?>
+        </div>
+
+        <div>
+          <?php echo label_tag(lang('can manage projects'), null, true) ?>
+          <?php echo yes_no_widget('user[can_manage_projects]', 'userFormCanManageProjects', array_var($user_data, 'can_manage_projects'), lang('yes'), lang('no')) ?>
+        </div>
       </fieldset>
 <?php } else { ?>
       <input type="hidden" name="user[is_admin]" value="0" />
       <input type="hidden" name="user[auto_assign]" value="0" />
+      <input type="hidden" name="user[use_LDAP]" value="0" />
+      <input type="hidden" name="user[can_manage_projects]" value="0" />
 <?php } // if ?>
     </div>
   </div>
@@ -100,8 +112,18 @@
   </div>
   
   <div>
+    <?php echo label_tag(lang('homepage'), 'profileFormHomepage', false) ?>
+    <?php echo text_field('user[homepage]', array_var($user_data, 'homepage'), array('id' => 'profileFormHomepage', 'class' => 'long')) ?>
+  </div>
+  
+  <div>
     <?php echo label_tag(lang('timezone'), 'profileFormTimezone', true)?>
     <?php echo select_timezone_widget('user[timezone]', array_var($user_data, 'timezone'), array('id' => 'profileFormTimezone', 'class' => 'long')) ?>
+  </div>
+
+  <div>
+    <?php echo label_tag(lang('use gravatar'), 'profileFormUseGravatar', true) ?>
+    <?php echo yes_no_widget('user[use_gravatar]', 'profileFormUseGravatar', array_var($user_data, 'use_gravatar'), lang('yes'), lang('no')) ?>
   </div>
     
 <?php if (is_array($im_types) && count($im_types)) { ?>

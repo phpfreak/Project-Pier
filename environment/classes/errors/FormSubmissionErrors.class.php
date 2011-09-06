@@ -1,7 +1,7 @@
 <?php
 
   /**
-  * This error is thrown when there are multiple errors with submited data. This error 
+  * This error is thrown when there are multiple errors with submitted data. This error 
   * is recognized by form_errors template and $errors field is displayed as a list of 
   * submission errors
   *

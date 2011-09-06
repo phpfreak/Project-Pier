@@ -344,10 +344,11 @@
   * @return null
   */
   function pick_date_widget($name, $value = null, $year_from = null, $year_to = null) {
-    if (!($value instanceof DateTimeValue)) {
-      $value = new DateTimeValue($value);
+    $v = $value;
+    if ($value instanceof DateTimeValue) {
+      $v = $v->format('m/d/Y');
     }
-    
+/*
     $month_options = array();
     for ($i = 1; $i <= 12; $i++) {
       $option_attributes = $i == $value->getMonth() ? array('selected' => 'selected') : null;
@@ -368,8 +369,10 @@
       $option_attributes = $i == $value->getYear() ? array('selected' => 'selected') : null;
       $year_options[] = option_tag($i, $i, $option_attributes);
     } // if
-    
-    return select_box($name . '_month', $month_options) . select_box($name . '_day', $day_options) . select_box($name . '_year', $year_options);
+    //$v = date('m/d/Y');
+    //return select_box($name . '_month', $month_options) . select_box($name . '_day', $day_options) . select_box($name . '_year', $year_options);
+*/
+    return text_field($name, $v, array('class' => 'datepicker' ) );
   } // pick_date_widget
   
   /**

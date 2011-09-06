@@ -19,10 +19,6 @@ address, caption, cite, code, dfn, em, strong, th, var {
   font-weight: normal;
 }
 
-ol, ul {
-  list-style: none;
-}
-
 caption, th {
   text-align:left;
 }
@@ -36,7 +32,7 @@ q:before, q:after {
 }
 
 body {
-  font-family: Verdana,"Lucida Grande",sans-serif;
+  font-family: Arial, Verdana,"Lucida Grande",sans-serif;
   font-size: 11px;
   color: black;
   background: white;
@@ -44,13 +40,11 @@ body {
 }
 
 a {
-  color: #003562;
+  xcolor: #003562;
   text-decoration: none;
-
 }
 
 a:hover {
-
   color: #BA0101;
 }
 
@@ -140,7 +134,7 @@ th, td {
 
 th {
   background: #d9e8ff;
-  font-size: 90%;
+  xfont-size: 90%;
   padding: 2px 5px;
 }
 
@@ -155,7 +149,7 @@ table.blank th, table.blank td {
 /** Classes **/
 
 .desc {
-  font-size: 90%;
+  xfont-size: 90%;
   color: #666;
   font-style: italic;
   font-weight: normal;
@@ -195,21 +189,20 @@ table.blank th, table.blank td {
 
 .odd {
   background-color: #eeeeee;
-	border-top: 1px solid #d5d6d7;
-	border-bottom: 1px solid #d5d6d7;
+  border-top: 1px solid #d5d6d7;
+  border-bottom: 1px solid #d5d6d7;
 }
 
 .blockHeader {
   margin-bottom: 5px;
   padding: 5px 10px;
-  font-size: 120%;
+  xfont-size: 120%;
 }
 
 .blockHeader h2 {
   margin: 5px 0;
   font-size: 17px;
   font-weight: normal;
-
 }
 
 .note {
@@ -221,15 +214,13 @@ table.blank th, table.blank td {
 .block, .hint, .important, .success {
   margin: 10px 0;
   padding: 5px 10px;
-  font-size: 90%;
+  xfont-size: 90%;
 }
 
 .block .header, .hint .header, .important .header, .success .header {
   padding: 2px 5px;
   font-weight: bold;
-  font-size: 20px;
   color: 444444;
-  font-family: "Courier New", Courier, monospace;	
 }
 
 .block .content, .hint .content, .important .content, .success .content {
@@ -242,7 +233,7 @@ table.blank th, table.blank td {
   padding: 0;
   font-size: 20px;
   font-weight: bolder;
-	color: white;
+  color: white;
 }
 
 .block {
@@ -252,13 +243,11 @@ table.blank th, table.blank td {
 
 .block .header {
   border-color: #47987a;
-  
 }
 
 .hint {
   border: 1px solid #ABABAB;
   background-color: #d9e8ff;
-  font-size: 12px;
 }
 
 .hint .header {
@@ -279,7 +268,6 @@ table.blank th, table.blank td {
 .success {
   border-color: green;
   background-color: #90DC90;
-  font-size: 12px;
 }
 
 .success .header {

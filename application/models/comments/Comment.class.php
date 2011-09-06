@@ -2,7 +2,6 @@
 
   /**
   * Comment class
-  * Generated on Wed, 19 Jul 2006 22:17:32 +0200 by DataObject generation tool
   *
   * @http://www.projectpier.org/
   */

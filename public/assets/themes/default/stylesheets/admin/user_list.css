@@ -1,37 +1,32 @@
-#usersList div.listedUser {
+#usersList .listedUser {
   margin: 5px 0;
-  padding: 10px;
+  padding: 5px;
 }
 
-#usersList div.userAvatar {
+#usersList .userAvatar {
   float: left;
   width: 50px;
   text-align: center;
 }
 
-#usersList div.userAvatar img {
-  border: 1px solid #ccc;
+#usersList .userAvatar img {
+  xborder: 1px solid #ccc;
 }
 
-#usersList div.userDetails {
+#usersList .userDetails {
   margin-left: 60px;
 }
 
-#usersList div.userName {
-  margin-bottom: 10px;
-  font-size: 150%;
+#usersList .userName {
+  margin-bottom: 5px;
+  font-size: 120%;
   font-weight: bolder;
 }
 
-#usersList div.userIsAdmin, #usersList div.userAutoAssign {
-  font-size: 90%;
+#usersList .userIsAdmin, #usersList .userAutoAssign, #usersList .userUseLDAP  {
+  xfont-size: 90%;
 }
 
-#usersList div.userIsAdmin span, #usersList div.userAutoAssign span {
-  font-weight: bolder;
+#usersList .userIsAdmin, #usersList .userAutoAssign, #usersList .userUseLDAP {
   color: #333;
-}
-
-#usersList div.userAutoAssign {
-  margin-bottom: 10px;
 }

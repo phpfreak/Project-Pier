@@ -1,10 +1,10 @@
-<?php if (isset($advanced_pagination_object) && ($advanced_pagination_object instanceof DataPagination ) && isset($advanced_pagination_url_base) && isset($advanced_pagination_page_placeholder)) { ?>
 <?php 
+if (isset($advanced_pagination_object) && ($advanced_pagination_object instanceof DataPagination ) && isset($advanced_pagination_url_base) && isset($advanced_pagination_page_placeholder)) {
 
   $advanced_pagination_urls = array(lang('pagination page')); 
   if (!$advanced_pagination_object->isFirst()) {
-    $advanced_pagination_urls[] = '<a href="' . str_replace($advanced_pagination_page_placeholder, 1, $advanced_pagination_url_base) . '" title="' . lang('pagination first') . '">&laquo;&laquo;</a>';
-    $advanced_pagination_urls[] = '<a href="' . str_replace($advanced_pagination_page_placeholder, $advanced_pagination_object->getPrevious(), $advanced_pagination_url_base) . '" title="' . lang('pagination previous') . '">&laquo;</a>';
+    $advanced_pagination_urls[] = '<a href="' . str_replace($advanced_pagination_page_placeholder, 1, $advanced_pagination_url_base) . '" title="' . lang('pagination first') . '">&lt;&lt;</a>';
+    $advanced_pagination_urls[] = '<a href="' . str_replace($advanced_pagination_page_placeholder, $advanced_pagination_object->getPrevious(), $advanced_pagination_url_base) . '" title="' . lang('pagination previous') . '">&lt;</a>';
   } // if
   
   if ($advanced_pagination_object->getCurrentPage() - 3 > 0) {
@@ -56,14 +56,14 @@
   }
   
   if (!$advanced_pagination_object->isLast()) {
-    $advanced_pagination_urls[] = '<a href="' . str_replace($advanced_pagination_page_placeholder, $advanced_pagination_object->getNext(), $advanced_pagination_url_base) . '" title="' . lang('pagination next') . '">&raquo;</a>';
-    $advanced_pagination_urls[] = '<a href="' . str_replace($advanced_pagination_page_placeholder, $advanced_pagination_object->getTotalPages(), $advanced_pagination_url_base) . '" title="' . lang('pagination last') . '">&raquo;&raquo;</a>';
+    $advanced_pagination_urls[] = '<a href="' . str_replace($advanced_pagination_page_placeholder, $advanced_pagination_object->getNext(), $advanced_pagination_url_base) . '" title="' . lang('pagination next') . '">&gt;</a>';
+    $advanced_pagination_urls[] = '<a href="' . str_replace($advanced_pagination_page_placeholder, $advanced_pagination_object->getTotalPages(), $advanced_pagination_url_base) . '" title="' . lang('pagination last') . '">&gt;&gt;</a>';
   } // if
   
+  echo '<div class="advancedPagination">';
+  foreach ($advanced_pagination_urls as $advanced_pagination_url) {
+    echo "<span>$advanced_pagination_url</span>&nbsp;";
+  } // foreach 
+  echo '</div>';
+} // if 
 ?>
-<div class="advancedPagination">
-<?php foreach ($advanced_pagination_urls as $advanced_pagination_url) { ?>
-<span><?php echo $advanced_pagination_url ?></span>
-<?php } // foreach ?>
-</div>
-<?php } // if ?>

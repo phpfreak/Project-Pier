@@ -2,7 +2,7 @@
 
   /**
   * Page controller is special controller that is able to map controller name 
-  * and actions name with layout and template and automaticly display them. 
+  * and actions name with layout and template and automatically display them. 
   * This behaviour is present only when action has not provided any exit by 
   * itself (redirect to another page, render template and die etc)
   *
@@ -25,14 +25,14 @@
     private $layout;
     
     /**
-    * Array of helpers that will be automaticly loaded when render method is called
+    * Array of helpers that will be automatically loaded when render method is called
     *
     * @var array
     */
     private $helpers = array();
     
     /**
-    * Automaticly render template / layout if action ends without exit
+    * Automatically render template / layout if action ends without exit
     *
     * @var boolean
     */
@@ -48,8 +48,16 @@
       parent::__construct();
       $this->setSystemControllerClass('PageController');;
       
-      $this->addHelper('common', 'page', 'format', 'pagination');
-      if (Env::helperExists($this->getControllerName())) $this->addHelper($this->getControllerName()); // controller name helper
+      $this->addHelper('common');
+      $this->addHelper('page');
+      $this->addHelper('form');
+      $this->addHelper('format');
+      $this->addHelper('pagination');
+      // autoload helper with name equal to controller
+      $cn = $this->getControllerName();
+      if (Env::helperExists($cn, $cn)) { 
+        $this->addHelper($cn, $cn); // controller name helper
+      }
     } // __construct
     
     /**
@@ -59,6 +67,7 @@
     * @return null
     */
     function execute($action) {
+      ob_start();
       parent::execute($action);
       if ($this->getAutoRender()) $render = $this->render(); // Auto render?
       return true;
@@ -79,7 +88,8 @@
     * @throws FileDnxError
     */
     function render($template = null, $layout = null, $die = true) {
-      
+      trace(__FILE__, "render($template, $layout, $die)" );
+
       // Set template and layout...
       if (!is_null($template)) {
         $this->setTemplate($template);
@@ -92,14 +102,17 @@
       $template_path = $this->getTemplatePath();
       $layout_path = $this->getLayoutPath();
       
+      trace(__FILE__, "tpl_fetch($template_path)" );
       // Fetch content...
       $content = tpl_fetch($template_path);
-      
+
+      trace(__FILE__, "renderLayout($layout_path <xmp>$content</xmp>)" );
       // Assign content and render layout
       $this->renderLayout($layout_path, $content);
       
       // Die!
       if ($die) {
+        session_write_close();
         die();
       } // if
       
@@ -234,22 +247,17 @@
     * @param string $helper This param can be array of helpers
     * @return null
     */
-    function addHelper($helper) {
-      $args = func_get_args();
-      if (!is_array($args)) {
-        return false;
+    function addHelper($helper, $controller_name = null) {
+      trace(__FILE__,"addHelper($helper, $controller_name)");
+      
+      if (!in_array($helper, $this->helpers)) {
+        if (Env::useHelper($helper, $controller_name)) {
+          $this->helpers[] = $helper;
+        } // if
       } // if
       
-      foreach ($args as $helper) {
-        if (!in_array($helper, $this->helpers)) {
-          if (Env::useHelper($helper)) {
-            $this->helpers[] = $helper;
-          } // if
-        } // if
-      } // foreach
-      
       return true;
-    } // addAutoLoadHelper
+    } // addHelper
     
     /**
     * Get auto_render
@@ -301,7 +309,7 @@
     } // getTemplatePath
     
     /**
-    * Return path of the layout file. File dnx throw exception
+    * Return path of the layout file.
     *
     * @param void
     * @return string

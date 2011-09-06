@@ -2,7 +2,6 @@
 
   /**
   * ProjectMessage class
-  * Generated on Sat, 04 Mar 2006 12:21:44 +0100 by DataObject generation tool
   *
   * @http://www.projectpier.org/
   */
@@ -43,6 +42,13 @@
     */
     protected $is_file_container = true;
     
+    /**
+    * Message is subscribable
+    *
+    * @var boolean
+    */
+    protected $is_subscribable = true;
+
     /**
     * Cached array of subscribers
     *
@@ -182,6 +188,8 @@
     * @return array
     */
     function getRelatedForms() {
+      trace(__FILE__,'getRelatedForms()');
+      if (!plugin_active('form')) { return null; }
       if (is_null($this->related_forms)) {
         $this->related_forms = ProjectForms::findAll(array(
           'conditions' => '`action` = ' . DB::escape(ProjectForm::ADD_COMMENT_ACTION) . ' AND `in_object_id` = ' . DB::escape($this->getId()),
@@ -206,7 +214,7 @@
       if (!$user->isProjectUser($this->getProject())) {
         return false;
       } // if
-      return $user->getProjectPermission($this->getProject(), ProjectUsers::CAN_MANAGE_MESSAGES);
+      return $user->getProjectPermission($this->getProject(), PermissionManager::CAN_MANAGE_MESSAGES);
     } // canManage
     
     /**
@@ -240,7 +248,7 @@
       if ($user->isAdministrator()) {
         return true; // administrator
       } // if
-      return $user->getProjectPermission($project, ProjectUsers::CAN_MANAGE_MESSAGES);
+      return $user->getProjectPermission($project, PermissionManager::CAN_MANAGE_MESSAGES);
     } // canAdd
     
     /**

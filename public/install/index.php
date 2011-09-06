@@ -1,4 +1,5 @@
 <?php
+  function trace() { }
 
   require_once dirname(__FILE__) . '/include.php';
   

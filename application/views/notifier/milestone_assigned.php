@@ -1,5 +1,5 @@
 ------------------------------------------------------------
- <?php echo lang('dont reply wraning') ?> 
+<?php echo lang('do not reply warning') ?> 
 ------------------------------------------------------------
 
 <?php echo lang('milestone assigned', $milestone_assigned->getName()) ?>. 
@@ -19,10 +19,10 @@ if ((!defined('SHOW_MILESTONE_BODY')) or (SHOW_MILESTONE_BODY == true)) {
 <?php echo lang('view assigned milestones') ?>:
 
 
-- <?php echo str_replace('&amp;', '&', $milestone_assigned->getViewUrl()) ?> 
+- <?php echo str_replace('&amp;', '&', externalUrl($milestone_assigned->getViewUrl())) ?> 
 
 Company: <?php echo owner_company()->getName() ?> 
 Project: <?php echo $milestone_assigned->getProject()->getName() ?> 
 
 --
-<?php echo ROOT_URL ?>
+<?php echo externalUrl(ROOT_URL) ?>

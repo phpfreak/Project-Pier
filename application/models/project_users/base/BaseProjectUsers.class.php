@@ -1,6 +1,5 @@
 <?php 
 
-  
   /**
   * ProjectUsers class
   *
@@ -14,7 +13,7 @@
     * @var array
     * @static
     */
-    static private $columns = array('project_id' => DATA_TYPE_INTEGER, 'user_id' => DATA_TYPE_INTEGER, 'created_on' => DATA_TYPE_DATETIME, 'created_by_id' => DATA_TYPE_INTEGER, 'can_manage_messages' => DATA_TYPE_BOOLEAN, 'can_manage_tasks' => DATA_TYPE_BOOLEAN, 'can_manage_milestones' => DATA_TYPE_BOOLEAN, 'can_upload_files' => DATA_TYPE_BOOLEAN, 'can_manage_files' => DATA_TYPE_BOOLEAN, 'can_assign_to_owners' => DATA_TYPE_BOOLEAN, 'can_assign_to_other' => DATA_TYPE_BOOLEAN);
+    static private $columns = array('project_id' => DATA_TYPE_INTEGER, 'user_id' => DATA_TYPE_INTEGER, 'created_on' => DATA_TYPE_DATETIME, 'created_by_id' => DATA_TYPE_INTEGER);
   
     /**
     * Construct
@@ -64,8 +63,8 @@
     */
     function getPkColumns() {
       return array (
-  0 => 'project_id',
-  1 => 'user_id',
+      0 => 'project_id',
+      1 => 'user_id',
 );
     } // getPkColumns
     

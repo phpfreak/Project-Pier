@@ -56,6 +56,28 @@
     } // setMilestoneId() 
     
     /**
+    * Return value of 'priority' field
+    *
+    * @access public
+    * @param void
+    * @return integer 
+    */
+    function getPriority() {
+      return $this->getColumnValue('priority');
+    } // getPriority()
+    
+    /**
+    * Set value of 'priority' field
+    *
+    * @access public   
+    * @param integer $value
+    * @return boolean
+    */
+    function setPriority($value) {
+      return $this->setColumnValue('priority', $value);
+    } // setPriority() 
+   
+    /**
     * Return value of 'project_id' field
     *
     * @access public
@@ -120,6 +142,28 @@
     function setDescription($value) {
       return $this->setColumnValue('description', $value);
     } // setDescription() 
+    
+    /**
+    * Return value of 'due_date' field
+    *
+    * @access public
+    * @param void
+    * @return DateTimeValue 
+    */
+    function getDueDate() {
+      return $this->getColumnValue('due_date');
+    } // getDueDate()
+    
+    /**
+    * Set value of 'due_date' field
+    *
+    * @access public   
+    * @param DateTimeValue $value
+    * @return boolean
+    */
+    function setDueDate($value) {
+      return $this->setColumnValue('due_date', $value);
+    } // setDueDate() 
     
     /**
     * Return value of 'is_private' field

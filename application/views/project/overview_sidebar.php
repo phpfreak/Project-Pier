@@ -1,14 +1,17 @@
+<?php trace(__FILE__,'begin') ?>
+<?php if (plugin_active('forms')) { ?>
 <?php if (isset($visible_forms) && is_array($visible_forms) && (count($visible_forms) > 0)) { ?>
 <div class="sidebarBlock">
   <h2><?php echo lang('forms') ?></h2>
   <div class="blockContent">
     <ul>
 <?php foreach ($visible_forms as $visible_form) { ?>
-      <li><a href="<?php echo $visible_form->getSubmitUrl() ?>"><?php echo clean($visible_form->getName()) ?></a></li>
+      <li class="<?php echo odd_even_class($form_ln); ?>"><a href="<?php echo $visible_form->getSubmitUrl() ?>"><?php echo clean($visible_form->getName()) ?></a></li>
 <?php } // foreach ?>
     </ul>
   </div>
 </div>
+<?php } // if ?>
 <?php } // if ?>
 
 <?php if (isset($important_messages) && is_array($important_messages) && count($important_messages)) { ?>
@@ -17,7 +20,7 @@
   <div class="blockContent">
     <ul class="listWithDetails">
 <?php foreach ($important_messages as $important_message) { ?>
-      <li><a href="<?php echo $important_message->getViewUrl() ?>"><?php echo clean($important_message->getTitle()) ?></a><br />
+      <li class="<?php echo odd_even_class($message_ln); ?>"><a href="<?php echo $important_message->getViewUrl() ?>"><?php echo clean($important_message->getTitle()) ?></a><br />
       <span class="desc"><?php echo lang('comments on message', $important_message->countComments()) ?></span></li>
 <?php } // foreach ?>
     </ul>
@@ -25,13 +28,14 @@
 </div>
 <?php } // if ?>
 
+<?php if (plugin_active('files')) { ?>
 <?php if (isset($important_files) && is_array($important_files) && count($important_files)) { ?>
 <div class="sidebarBlock">
   <h2><?php echo lang('important files') ?></h2>
   <div class="blockContent">
     <ul>
 <?php foreach ($important_files as $important_file) { ?>
-      <li>
+      <li class="<?php echo odd_even_class($files_ln); ?>">
         <a href="<?php echo $important_file->getDetailsUrl() ?>"><?php echo clean($important_file->getFilename()) ?></a><br />
         <span class="desc"><?php echo lang('revisions on file', $important_file->countRevisions()) ?></span>
       </li>
@@ -39,6 +43,7 @@
     </ul>
   </div>
 </div>
+<?php } // if ?>
 <?php } // if ?>
 
 <?php if (active_project()->canEdit(logged_user()) || active_project()->canChangeStatus(logged_user())) { ?>
@@ -53,8 +58,14 @@
     
 <?php if (active_project()->canEdit(logged_user())) { ?>
       <li><a href="<?php echo active_project()->getEditUrl() ?>"><?php echo lang('edit project') ?></a></li>
+      <li><a href="<?php echo active_project()->getEditLogoUrl() ?>"><?php echo lang('projects logo edit') ?></a></li>
 <?php } // if ?>
-    
+<?php if (active_project()->canDelete(logged_user())) { ?>
+      <li><a href="<?php echo active_project()->getDeleteUrl(); ?>"><?php echo lang('delete project') ?></a></li>
+<?php } // if ?>    
+<?php if (active_project()->canChangePermissions(logged_user())) { ?>
+      <li><a href="<?php echo active_project()->getPermissionsUrl(); ?>"><?php echo lang('edit permissions') ?></a></li>
+<?php } // if ?>    
 <?php if (active_project()->canChangeStatus(logged_user())) { ?>
 <?php if (active_project()->isActive()) { ?>
       <li><a href="<?php echo active_project()->getCompleteUrl() ?>" onclick="return confirm('<?php echo lang('confirm complete project') ?>')"><?php echo lang('mark project as finished') ?></a></li>
@@ -74,7 +85,7 @@
   <div class="blockContent">
     <ul>
 <?php foreach ($project_companies as $project_company) { ?>
-      <li><a href="<?php echo $project_company->getCardUrl() ?>"><?php echo clean($project_company->getName()) ?></a></li>
+      <li class="<?php echo odd_even_class($companies_ln); ?>"><a href="<?php echo $project_company->getCardUrl() ?>"><?php echo clean($project_company->getName()) ?></a></li>
 <?php } // foreach ?>
     </ul>
   </div>
@@ -89,3 +100,4 @@
     </ul>
   </div>
 </div>
+<?php trace(__FILE__,'end') ?>

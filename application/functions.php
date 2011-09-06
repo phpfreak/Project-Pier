@@ -31,7 +31,7 @@
     try {
       $loader->loadClass($class_name);
     } catch(Exception $e) {
-      die('Caught Exception in AutoLoader: ' . $e->__toString());
+      die('Exception in AutoLoader: ' . $e->__toString());
     } // try
   } // __autoload
   
@@ -46,6 +46,11 @@
     if (($logger_session instanceof Logger_Session) && !$logger_session->isEmpty()) {
       Logger::saveSession();
     } // if
+    $last_error = error_get_last();
+    if($last_error['type'] === E_ERROR || $last_error['type'] === E_PARSE) {
+      include 'error.php';
+    }
+    if (ob_get_length()) ob_end_flush();
   } // __shutdown
   
   /**
@@ -94,6 +99,7 @@
   * @return string
   */
   function get_url($controller_name = null, $action_name = null, $params = null, $anchor = null, $include_project_id = true) {
+    //trace(__FILE__,"get_url($controller_name, $action_name, params?, $anchor, $include_project_id)");
     $controller = trim($controller_name) ? $controller_name : DEFAULT_CONTROLLER;
     $action = trim($action_name) ? $action_name : DEFAULT_ACTION;
     if (!is_array($params) && !is_null($params)) {
@@ -110,6 +116,12 @@
       } // if
     } // if
     
+    // defeat caches
+    $url_params[]=time();
+    if (isset($_REQUEST['trace'])) {
+      $url_params[]='trace';
+    }
+
     if (is_array($params)) {
       foreach ($params as $param_name => $param_value) {
         if (is_bool($param_value)) {
@@ -149,7 +161,7 @@
   */
   function product_version() {
     // 0.6 is the last version that comes without PRODUCT_VERSION constant that is set up
-    return defined('PRODUCT_VERSION') ? PRODUCT_VERSION : '0.8.0.2';
+    return defined('PRODUCT_VERSION') ? PRODUCT_VERSION : '0.8.0';
   } // product_version
   
   /**
@@ -181,7 +193,7 @@
   // ---------------------------------------------------
   
   /**
-  * Return matched requst controller
+  * Return matched request controller
   *
   * @access public
   * @param void
@@ -224,11 +236,16 @@
       foreach ($_GET as $k => $v) {
         $ref_params['ref_' . $k] = $v;
       }
+      trace(__FILE__, 'prepare_company_website_controller(): not logged in, redirect');
       $controller->redirectTo('access', 'login', $ref_params);
     } // if
     
     $controller->setLayout($layout);
-    $controller->addHelper('form', 'breadcrumbs', 'pageactions', 'tabbednavigation', 'company_website', 'project_website');
+    $controller->addHelper('breadcrumbs');
+    $controller->addHelper('pageactions');
+    $controller->addHelper('tabbednavigation');
+    $controller->addHelper('company_website');
+    $controller->addHelper('project_website');
   } // prepare_company_website_controller
   
   // ---------------------------------------------------
@@ -309,6 +326,7 @@
   * @return ApplicationDataObject
   */
   function get_object_by_manager_and_id($object_id, $manager_class) {
+    trace(__FILE__, "get_object_by_manager_and_id($object_id, $manager_class)");
     $object_id = (integer) $object_id;
     $manager_class = trim($manager_class);
     
@@ -322,4 +340,32 @@
     return $object instanceof DataObject ? $object : null;
   } // get_object_by_manager_and_id
 
+  /**
+  * This function will return duration in secs in weeks, days, hours, minutes and seconds
+  *
+  * @param integer $secs
+  * @return string
+  */
+
+  function duration($secs)
+  {
+    $vals = array(
+      'weeks' => (int) ($secs / 86400 / 7),
+      'days' => $secs / 86400 % 7,
+      'hours' => $secs / 3600 % 24,
+      'minutes' => $secs / 60 % 60,
+      'seconds' => $secs % 60
+    );
+
+    $ret = array();
+    $added = false;
+
+    foreach ($vals as $k => $v) {
+      if ($v > 0 || $added) {
+        $added = false;  // true
+        $ret[] = $v .' '. lang($k);
+      }
+    }
+    return join(' ', $ret);
+  } 
 ?>

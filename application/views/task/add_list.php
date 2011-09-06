@@ -21,7 +21,17 @@
     <?php echo label_tag(lang('name'), 'taskListFormName', true) ?>
     <?php echo text_field('task_list[name]', array_var($task_list_data, 'name'), array('class' => 'long', 'id' => 'taskListFormName')) ?>
   </div>
-  
+
+  <div>
+    <?php echo label_tag(lang('due date'), null, true) ?>
+    <?php echo pick_date_widget('task_list_due_date', array_var($task_list_data, 'due_date')) ?>
+  </div>
+
+  <div>
+    <?php echo label_tag(lang('priority'), 'taskListFormPriority') ?>
+    <?php echo input_field('task_list[priority]', array_var($task_list_data, 'priority'), array('class' => 'short', 'id' => 'taskListFormPriority')) ?>
+  </div>
+      
   <div>
     <?php echo label_tag(lang('description'), 'taskListFormDescription') ?>
     <?php echo textarea_field('task_list[description]', array_var($task_list_data, 'description'), array('class' => 'short', 'id' => 'taskListFormDescription')) ?>
@@ -38,25 +48,30 @@
     <?php echo yes_no_widget('task_list[is_private]', 'taskListFormIsPrivate', array_var($task_list_data, 'is_private'), lang('yes'), lang('no')) ?>
   </div>
 <?php } // if ?>
-  
+
+<?php if (plugin_active('tags')) { ?>
   <div class="formBlock">
     <?php echo label_tag(lang('tags'), 'taskListFormTags') ?>
     <?php echo project_object_tags_widget('task_list[tags]', active_project(), array_var($task_list_data, 'tags'), array('id' => 'taskListFormTags', 'class' => 'long')) ?>
   </div>
+ <?php } // if ?>
   
 <?php if ($task_list->isNew()) { ?>
   <h2><?php echo lang('tasks') ?></h2>
   <table class="blank">
     <tr>
       <th><?php echo lang('task') ?>:</th>
-      <th><?php echo lang('assign to') ?>:</th>
+      <th><?php echo lang('due date') ?>:</th>
     </tr>
 <?php for ($i = 0; $i < 6; $i++) { ?>
-    <tr style="background: <?php echo $i % 2 ? '#fff' : '#e8e8e8' ?>">
+    <tr class="<?php echo $i % 2 ? 'odd' : 'even' ?>">
       <td>
         <?php echo textarea_field("task_list[task$i][text]", array_var($task_list_data["task$i"], 'text'), array('class' => 'short')) ?>
       </td>
       <td>
+    <?php echo pick_date_widget("task_list_task{$i}_due_date", array_var($task_list_data["task$i"], 'due_date')) ?>
+  <br /> 
+        <?php echo label_tag(lang('assign to'), null, true) ?>
         <?php echo assign_to_select_box("task_list[task$i][assigned_to]", active_project(), array_var($task_list_data["task$i"], 'assigned_to')) ?>
       </td>
     </tr>

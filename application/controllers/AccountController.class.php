@@ -71,6 +71,7 @@
           'email'         => $user->getEmail(),
           'display_name'  => $user->getDisplayName(),
           'title'         => $user->getTitle(),
+          'homepage'      => $user->getHomepage(),
           'office_number' => $user->getOfficeNumber(),
           'fax_number'    => $user->getFaxNumber(),
           'mobile_number' => $user->getMobileNumber(),
@@ -78,7 +79,10 @@
           'timezone'      => $user->getTimezone(),
           'is_admin'      => $user->getIsAdmin(),
           'auto_assign'   => $user->getAutoAssign(),
+          'use_LDAP'      => $user->getUseLDAP(),
+          'use_gravatar'  => $user->getUseGravatar(),
           'company_id'    => $user->getCompanyId(),
+          'can_manage_projects' => $user->canManageProjects() ? '1' : '0',
         ); // array
         
         if (is_array($im_types)) {
@@ -101,8 +105,16 @@
         try {
           DB::beginWork();
           
+          if (config_option('check_email_unique', '1')=='1') {
+            if (!$user->validateUniquenessOf('email')) {
+              throw new Error(lang('email address is already used'));
+            }
+          }
           $user->setFromAttributes($user_data);
           $user->save();
+
+          $granted = (trim(array_var($user_data, 'can_manage_projects')) == '1') ? 1 : 0;
+          $user->setPermission(PermissionManager::CAN_MANAGE_PROJECTS, $granted);
           
           $user->clearImValues();
           
@@ -226,7 +238,7 @@
         $this->redirectToReferer($company->getViewUrl());
       } // if
       
-      $permissions = ProjectUsers::getNameTextArray();
+      $permissions = PermissionManager::getPermissionsText();
       
       $redirect_to = array_var($_GET, 'redirect_to');
       if ((trim($redirect_to)) == '' || !is_valid_url($redirect_to)) {
@@ -241,32 +253,24 @@
       
       if (array_var($_POST, 'submitted') == 'submitted') {
         DB::beginWork();
+        ProjectUsers::clearByUser($user); 
         foreach ($projects as $project) {
-          $relation = ProjectUsers::findById(array(
-            'project_id' => $project->getId(),
-            'user_id' => $user->getId(),
-          )); // findById
-          
-          if (array_var($_POST, 'project_permissions_' . $project->getId()) == 'checked') {
-            if (!($relation instanceof ProjectUser)) {
-              $relation = new ProjectUser();
-              $relation->setProjectId($project->getId());
-              $relation->setUserId($user->getId());
-            } // if
-            
-            foreach ($permissions as $permission => $permission_text) {
-              $permission_value = array_var($_POST, 'project_permission_' . $project->getId() . '_' . $permission) == 'checked';
-              
-              $setter = 'set' . Inflector::camelize($permission);
-              $relation->$setter($permission_value);
-            } // foreach
-            
+          $permission_count = 0;
+          $permission_all = array_var($_POST, 'project_permissions_'.$project->getId().'_all') == 'checked' ;
+          foreach ($permissions as $permission_name => $permission_text) {
+            $permission_value = ($permission_all || array_var($_POST, 'project_permission_' . $project->getId() . '_' . $permission_name) == 'checked');
+            if ($permission_value) {
+              $permission_count++;
+            }
+            $user->setProjectPermission($project, $permission_name, $permission_value);
+          } // foreach
+
+          if ($permission_count>0) {
+            $relation = new ProjectUser();
+            $relation->setProjectId($project->getId());
+            $relation->setUserId($user->getId());
             $relation->save();
-          } else {
-            if ($relation instanceof ProjectUser) {
-              $relation->delete();
-            } // if
-          } // if
+          }
         } // if
         DB::commit();
         

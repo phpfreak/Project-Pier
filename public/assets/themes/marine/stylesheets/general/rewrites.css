@@ -1,0 +1,362 @@
+/*[fmt]2A10-1A0B-3*/
+/** Reset **/
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, p, blockquote, th, td  {
+ margin: 0;
+ padding: 0;
+ font-family: inherit;
+}
+
+table  {
+ border-collapse: collapse;
+ border-spacing: 0;
+}
+
+fieldset, img  {
+ border: 0;
+}
+
+ol, ul  {
+ list-style: none;
+}
+
+caption, th  {
+ text-align: left;
+}
+
+q:before, q:after  {
+ content: '';
+}
+
+body  {
+ color: #333333;
+ font-family: calibri, candara, tahoma, arial, helvetica, sans-serif;
+ font-size: 13px;
+ line-height: 150%;
+}
+
+input, th, td, textarea, option, select  {
+ font-family: calibri, candara, tahoma, arial, helvetica, sans-serif;
+ font-size: 1em;
+}
+
+a  {
+ border-bottom: 1px dotted #ABABAB;
+ color: #444444;
+ outline: none;
+ text-decoration: none;
+}
+
+a:hover  {
+ border-bottom: 1px solid #666666;
+ color: #222222;
+}
+
+a img  {
+ border: 0;
+ vertical-align: text-bottom;
+}
+
+em  {
+ font-style: italic;
+}
+
+strong  {
+ font-weight: bold;
+}
+
+h1, h2, h3, h4  {
+ margin: 10px 0;
+}
+
+h1  {
+ font-size: 20px;
+ padding: 0;
+}
+
+h2  {
+ font-size: 16px;
+}
+
+h3  {
+ font-size: 14px;
+ text-decoration: underline;
+}
+
+p, ul, pre, dl  {
+ margin: 5px 0;
+}
+
+ul  {
+ list-style-image: url(../../images/icons/0105_ico-arrow.gif);
+ padding-left: 20px;
+}
+
+ol  {
+ list-style: decimal;
+ padding-left: 25px;
+}
+
+dt  {
+ font-weight: bold;
+}
+
+dd  {
+ padding: 5px;
+}
+
+code  {
+ background: #E8E8E8;
+ font-size: 14px;
+ overflow: auto;
+ padding: 0 2px;
+}
+
+pre  {
+ background: #F1F1F1;
+ border: 1px solid #E5E5E5;
+ font-size: 14px;
+ overflow: auto;
+ padding: 10px;
+}
+
+acronym  {
+ border-bottom: 1px dotted #CCCCCC;
+ cursor: help;
+}
+
+table  {
+ border: 1px solid #CCCCCC;
+ border-collapse: collapse;
+ width: 100%;
+}
+
+th, td  {
+ border: 1px solid #E5E5E5;
+ padding: 4px;
+ vertical-align: top;
+}
+
+th  {
+ font-weight: bold;
+ background: #F1F1F1 url(../../images/logtypes/bg_th.gif) repeat-x left bottom !important;
+ font-size: 12px;
+ padding: 2px 5px;
+}
+
+table.blank  {
+ width: 100%;
+ border: 0;
+}
+
+table.blank th, table.blank td  {
+ padding: 4px !important;
+}
+
+table.blank td  {
+ border: 0;
+}
+
+/** Classes **/
+.desc, .desc a  {
+ color: #666666;
+ font-size: 12px;
+ font-style: italic;
+ font-weight: normal;
+}
+
+.help  {
+ border-bottom: 1px dotted #CCCCCC;
+ cursor: help;
+}
+
+.short  {
+ width: 30px;
+}
+
+.medium  {
+ width: 100px;
+}
+
+.long  {
+ width: 350px;
+}
+
+.left  {
+ text-align: left;
+}
+
+.center  {
+ text-align: center;
+}
+
+.right  {
+ text-align: right;
+}
+
+.top  {
+ vertical-align: top;
+}
+
+.middle  {
+ vertical-align: middle;
+}
+
+.bottom  {
+ vertical-align: bottom;
+}
+
+.bold  {
+ font-weight: bold;
+}
+
+.italic  {
+ font-style: italic;
+}
+
+.normal  {
+ font-style: normal;
+ font-weight: normal;
+}
+
+.error  {
+ color: #BF5940;
+}
+
+.even  {
+ background-color: transparent;
+ border-bottom: 1px solid #E8E8E8;
+}
+
+.odd  {
+ background-color: #F6F8F9;
+ border-bottom: 1px solid #BFD9E4;
+}
+
+div.odd  {
+ margin-top: -8px !important;
+ padding-top: 10px;
+}
+
+.sidebarBlock div.odd  {
+ padding-top: 5px;
+ margin-top: 0 !important;
+}
+
+.blockHeader  {
+ border-bottom: 1px solid #333333;
+ font-size: 120%;
+ margin-bottom: 5px;
+ padding: 5px 10px;
+}
+
+.blockHeader h2  {
+ font-size: 18px;
+ font-weight: normal;
+ margin: 5px 0;
+}
+
+.note  {
+ background: #E8E8E8;
+ border: 1px solid #CCCCCC;
+ padding: 0 8px;
+}
+
+.hint, .important, .success  {
+ border: 1px solid #CCCCCC;
+ font-size: 12px;
+ margin: 10px 0;
+ padding: 5px 10px;
+}
+
+.header  {
+ font-weight: bold;
+ font-size: 14px;
+ padding: 2px 5px 4px;
+}
+
+.block .content, .hint .content, .important .content, .success .content  {
+ line-height: 150%;
+ padding: 5px;
+}
+
+.header h2  {
+ font-size: 16px;
+ font-weight: bold;
+ margin: 0 0 5px;
+ padding: 0;
+}
+
+.block  {
+ background: #F5F5F5 url('../../images/logtypes/old.gif') repeat-x top right;
+ border: 1px solid #E0E0E0;
+ margin-bottom: 10px;
+ padding: 5px;
+}
+
+.block .header  {
+ border-bottom: 1px solid #CCCCCC;
+}
+
+.important  {
+ background-color: #F9ECE6;
+ background-image: url(../../images/layout/bg_alert.png);
+ background-repeat: repeat-x;
+ border-color: #EFCAB8;
+ padding: 5px;
+}
+
+.important .header  {
+ border-bottom: 1px solid #EFCAB8;
+}
+
+.success, .hint, #innerContentWrapper #success  {
+ background: url(../../images/layout/bg_success.png) repeat-x top center;
+ background-color: #FAF9E4;
+ border: 1px solid #F2EEB7;
+ margin-bottom: 10px;
+ padding: 5px;
+}
+
+.success .header, .hint .header  {
+ border-bottom: 1px solid #F2EEB7;
+}
+
+.hint .projectLogo img  {
+ margin: 5px 10px 5px 0;
+}
+
+a.blank, a.blank:hover  {
+ background: transparent;
+ border: 0;
+ margin: 0;
+ padding: 0;
+}
+
+a.checkboxLink, a.checkboxLink:hover  {
+ background: transparent;
+ border: 0;
+ height: 12px;
+ margin: 0;
+ padding: 0;
+ width: 12px;
+}
+
+a.checkboxLink img  {
+ border: 0;
+}
+
+.assignedTo  {
+ font-weight: bold;
+ color: #666;
+ font-size: 12px !important;
+}
+
+a.selected  {
+ background: #E9F1F5;
+}
+
+a.iCalSubscribe  {
+ background: url('../../images/icons/icalendar.png') no-repeat;
+ padding: 4px 0 0 20px;
+}
+

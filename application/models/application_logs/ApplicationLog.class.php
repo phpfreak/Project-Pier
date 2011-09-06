@@ -128,10 +128,13 @@
     * @param void
     * @return string
     */
-    function getObjectTypeName() {
-      $object = $this->getObject();
-      return $object instanceof ApplicationDataObject ? $object->getObjectTypeName() : null;
-    } // getObjectTypeName
+   function getObjectTypeName() {
+     $mgr = $this->getRelObjectManager(); // string
+     $obj = new $mgr();                   // instance of $mgr
+     $obj = $obj->getItemClass();         // string
+     $obj = new $obj();                   // instance of item class
+     return $obj instanceof ApplicationDataObject ? $obj->getObjectTypeName() : $mgr;
+   } // getObjectTypeName
     
   } // ApplicationLog 
 

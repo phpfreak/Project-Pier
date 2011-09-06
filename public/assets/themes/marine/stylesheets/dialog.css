@@ -1,0 +1,271 @@
+/*[fmt]2A10-1A0B-3*/
+*  {
+ margin: 0;
+ padding: 0;
+}
+
+body  {
+ font-family: Calibri, verdana, arial, helvetica, sans-serif;
+ color: #333;
+ font-size: 12px;
+ background-color: #F0F0F0;
+ /*[disabled]xtext-align:center;*/
+ line-height: 150%;
+ overflow: hidden;
+}
+
+a  {
+ color: #489;
+ text-decoration: none;
+ border-bottom: 1px dotted #999;
+ outline: none;
+}
+
+a:hover  {
+ border-bottom: 1px solid #666;
+ color: #222;
+}
+
+h1  {
+ margin: 0 0 5px;
+ padding: 0 0 5px;
+ color: #263356;
+ font-size: 20px;
+}
+
+h2  {
+ margin: 10px 0;
+ color: #263356;
+ font-size: 16px;
+}
+
+code  {
+ padding: 0 2px;
+ font-size: 1.2em;
+ background: #E8E8E8;
+}
+
+pre  {
+ border: 1px solid #263356;
+ padding: 0 8px;
+ font-size: 1.2em;
+ background: #E8E8E8;
+}
+
+acronym  {
+ border-bottom: 1px dotted #CCC;
+ cursor: help;
+}
+
+ul  {
+ list-style: none;
+}
+
+/** Form **/
+label  {
+ margin: 3px 0;
+ font-weight: bold;
+ display: block;
+}
+
+label.checkbox  {
+ margin: 0px;
+}
+
+label span.label_required  {
+ color: #BF5940;
+ font-size: 90%;
+}
+
+input, textarea, select  {
+ border: 1px solid #515151;
+ padding: 4px;
+ font-family: verdana, arial, helvetica, sans-serif;
+ font-size: 11px;
+ background: #FFFFFF;
+}
+
+input:hover, textarea:hover, select:hover  {
+ border: 1px solid #515151;
+}
+
+input:focus, textarea:focus, select:focus  {
+ border: 1px solid #515151;
+}
+
+fieldset  {
+ margin: 10px 0;
+ padding: 10px;
+ padding-top: 5px;
+ border: 1px solid #CCC;
+}
+
+fieldset legend  {
+ font-size: 90%;
+ font-weight: bold;
+}
+
+input  {
+ width: 200px;
+}
+
+input.short  {
+ width: 50px;
+}
+
+input.medium  {
+ width: 150px;
+}
+
+input.long  {
+ width: 320px;
+}
+
+input.checkbox  {
+ border: 0;
+ width: auto;
+ background: transparent;
+ margin: 0;
+}
+
+textarea  {
+ width: 400px;
+ height: 150px;
+}
+
+textarea.short  {
+ height: 70px;
+}
+
+input, textarea, select  {
+ border: 1px solid #CCC;
+ background-image: url(../images/layout/bg_inputs.png);
+ background-repeat: no-repeat;
+ padding: 2px;
+ font-family: calibri, tahoma, verdana, arial, helvetica, sans-serif;
+ font-size: 12px;
+ background-color: #FFF;
+}
+
+button, button.submit, input[type=submit], button[type=submit], .submit  {
+ background-image: url(../images/layout/bg_crumbs.png);
+ background-repeat: repeat-x;
+ background-color: #599DB7;
+ color: #FFFFFF;
+ border: 1px solid #4887A0;
+ font-size: 12px;
+ font-weight: bold;
+ padding: 4px 6px;
+ letter-spacing: 1px;
+ margin-top: 10px;
+}
+
+button:hover, button.submit:hover, input[type=submit]:hover, button[type=submit]:hover, .submit:hover  {
+ color: #2B586A;
+ border: 1px solid #2B586A;
+}
+
+span.required  {
+ color: #FF0000;
+ font-size: 90%;
+}
+
+#formErrors  {
+ border: 1px solid #EFCAB8;
+ background-color: #F9ECE6;
+ background-image: url(../images/layout/bg_alert.png);
+ background-repeat: repeat-x;
+ padding: 5px;
+}
+
+#success  {
+ margin-bottom: 10px;
+ padding: 5px;
+ border: 1px solid #F2EEB7;
+ background: #FAF9E4 url(../images/layout/bg_success.png) repeat-x top center;
+}
+
+/** Classes **/
+.desc  {
+ font-size: 90%;
+ color: #666;
+ font-style: italic;
+}
+
+.bold  {
+ font-weight: bold;
+}
+
+.note  {
+ border: 1px solid #263356;
+ padding: 0 8px;
+ background: #E8E8E8;
+}
+
+/** Construction **/
+#dialog  {
+ margin: 150px auto;
+ background: #F5F5F5 url('../images/logtypes/old.gif') repeat-x top right;
+ border: 1px solid #E0E0E0;
+ padding: 25px;
+ width: 362px;
+ font-size: 12px;
+ text-align: left;
+}
+
+#dialog h1  {
+ padding-right: 60px;
+}
+
+/** Login dialog **/
+.container  {
+ overflow: hidden;
+ width: 100%;
+}
+
+.left  {
+ float: left;
+ width: 45%;
+}
+
+.right  {
+ float: right;
+ width: 45%;
+}
+
+#loginSubmit  {
+ text-align: right;
+ margin-right: 8px;
+ margin-bottom: 10px;
+}
+
+.hidden  {
+ position: relative;
+ display: none;
+ left: -999em;
+}
+
+#loginOptionsLink  {
+ padding-top: 20px;
+}
+
+#loginUsernameDiv, #loginPasswordDiv  {
+ padding-top: 4px;
+ font-size: 13px;
+}
+
+.checkbox  {
+ vertical-align: middle;
+}
+
+/** Forgot password dialog **/
+#forgotPasswordSubmit  {
+ text-align: right;
+ margin-right: 8px;
+}
+
+ul li  {
+ margin: 0;
+ padding: 0;
+}
+

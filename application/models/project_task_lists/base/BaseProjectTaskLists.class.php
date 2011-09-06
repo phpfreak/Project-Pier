@@ -14,7 +14,7 @@
     * @var array
     * @static
     */
-    static private $columns = array('id' => DATA_TYPE_INTEGER, 'milestone_id' => DATA_TYPE_INTEGER, 'project_id' => DATA_TYPE_INTEGER, 'name' => DATA_TYPE_STRING, 'description' => DATA_TYPE_STRING, 'is_private' => DATA_TYPE_BOOLEAN, 'completed_on' => DATA_TYPE_DATETIME, 'completed_by_id' => DATA_TYPE_INTEGER, 'created_on' => DATA_TYPE_DATETIME, 'created_by_id' => DATA_TYPE_INTEGER, 'updated_on' => DATA_TYPE_DATETIME, 'updated_by_id' => DATA_TYPE_INTEGER, 'order' => DATA_TYPE_INTEGER);
+    static private $columns = array('id' => DATA_TYPE_INTEGER, 'milestone_id' => DATA_TYPE_INTEGER, 'project_id' => DATA_TYPE_INTEGER, 'name' => DATA_TYPE_STRING, 'description' => DATA_TYPE_STRING, 'due_date' => DATA_TYPE_DATETIME, 'priority' => DATA_TYPE_INTEGER, 'is_private' => DATA_TYPE_BOOLEAN, 'completed_on' => DATA_TYPE_DATETIME, 'completed_by_id' => DATA_TYPE_INTEGER, 'created_on' => DATA_TYPE_DATETIME, 'created_by_id' => DATA_TYPE_INTEGER, 'updated_on' => DATA_TYPE_DATETIME, 'updated_by_id' => DATA_TYPE_INTEGER, 'order' => DATA_TYPE_INTEGER);
   
     /**
     * Construct

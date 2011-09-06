@@ -49,6 +49,7 @@
     * @return null
     */
     function view_client() {
+      $this->addHelper('textile');
       $this->setTemplate('view_company');
       
       if (!logged_user()->isAdministrator(owner_company())) {
@@ -145,10 +146,13 @@
       
       $company = new Company();
       $company_data = array_var($_POST, 'company');
+      if ($company->isNew()) {
+        $company_data['timezone'] = owner_company()->getTimezone();
+      } // if
       tpl_assign('company', $company);
       tpl_assign('company_data', $company_data);
       
-      if (is_array($company_data)) {
+      if (array_var($_POST, 'company')) {
         $company->setFromAttributes($company_data);
         $company->setClientOfId(owner_company()->getId());
         

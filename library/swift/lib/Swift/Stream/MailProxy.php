@@ -365,14 +365,31 @@ class Swift_Stream_MailProxy implements Swift_IStream
 	{
 		$original_from = @ini_get('sendmail_from');
 		@ini_set('sendmail_from', $this->from);
+                // -o xvalue  Set option x to the specified value .
+                //    option: i  Ignore dots in incoming messages.
+                // -oi means ignore dots in incoming messages
+                // -f Allows trusted users to override the sender address on outgoing messages. 
+                //    For security reasons, it is disabled on some systems. 
+                //    Obsolete alternative forms of this argument are -r and -s .
 		$extra = "-oi -f ".$this->from;
-		$sent = @mail(
-		  //implode(', ', $this->getTo($string)),
-		  str_replace("\n", '', implode(', ', $this->getTo($string))),
-		  $this->getSubject($string),
-		  $this->getBody($string),
-		  $this->getHeaders($string),
-		  $extra);
+                if( ini_get('safe_mode') ){
+                  // 5th parameter not allowed in safe mode
+		  $sent = @mail(
+		    //implode(', ', $this->getTo($string)),
+		    str_replace("\n", '', implode(', ', $this->getTo($string))),
+		    $this->getSubject($string),
+		    $this->getBody($string),
+		    $this->getHeaders($string)
+		    );
+                }else{
+		  $sent = @mail(
+		    //implode(', ', $this->getTo($string)),
+		    str_replace("\n", '', implode(', ', $this->getTo($string))),
+		    $this->getSubject($string),
+		    $this->getBody($string),
+		    $this->getHeaders($string),
+		    $extra);
+                }
 		@ini_set('sendmail_from', $original_from);
 		return $sent;
 	}

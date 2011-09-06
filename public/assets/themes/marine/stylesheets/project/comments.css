@@ -1,0 +1,5 @@
+#objectComments div.comment { margin: 8px 0; padding: 10px; }
+#objectComments .commentHead { color: #666666; font-size: 11px; }
+#objectComments .commentHead a { font-weight: bold; }
+#objectComments .commentBody { background: url('../../images/logtypes/old.gif') #f5f5f5 repeat-x top right; border: 1px solid #e0e0e0; padding: 0 10px; }
+#objectComments .commentUserAvatar { background: url('../../images/logtypes/old.gif') #f5f5f5 repeat-x top right; border: 1px solid #e0e0e0; float: left; margin: 5px; padding: 5px; }

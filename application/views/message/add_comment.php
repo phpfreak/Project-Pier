@@ -3,7 +3,7 @@
   set_page_title($comment->isNew() ? lang('add comment') : lang('edit comment'));
   project_tabbed_navigation(PROJECT_TAB_MESSAGES);
   project_crumbs(array(
-    array(lang('messages'), get_url('message')),
+    array(lang('messages'), get_url('message', 'index')),
     array($message->getTitle(), $message->getViewUrl()),
     array($comment->isNew() ? lang('add comment') : lang('edit comment'))
   ));

@@ -42,11 +42,13 @@
     </div>
     <div><?php echo checkbox_field('milestone[send_notification]', array_var($milestone_data, 'send_notification', true), array('id' => 'milestoneFormSendNotification')) ?> <label for="milestoneFormSendNotification" class="checkbox"><?php echo lang('send milestone assigned to notification') ?></label></div>
   </div>
-  
+
+<?php if (plugin_active('tags')) { ?>
   <div class="formBlock">
     <?php echo label_tag(lang('tags'), 'milestoneFormTags') ?>
     <?php echo project_object_tags_widget('milestone[tags]', active_project(), array_var($milestone_data, 'tags'), array('id' => 'milestoneFormTags', 'class' => 'long')) ?>
   </div>
-  
+<?php } // if ?>
+
   <?php echo submit_button($milestone->isNew() ? lang('add milestone') : lang('edit milestone')) ?>
 </form>

@@ -1,0 +1,33 @@
+div.progressBar {
+  position:relative;
+  height:15px;
+  width:200px;
+  padding:0;
+  border:1px solid black;
+  z-index:1;
+  float:right;
+}
+
+div.progressBarCompleted {
+  height:100%;
+  position:absolute;
+  background:#6f6;
+  float: left;
+  z-index:5;
+  left:0;top:0;
+}
+
+div.progressBarText {
+  text-align:center;
+  width:100%;
+  position:absolute;
+  left:0;top:0;
+  z-index:100;
+  background:none;
+  float: left;
+  font-size:12px;
+  font-family: Verdana;
+  font-weight:normal;
+  line-height:16px;
+  color:#000;
+}

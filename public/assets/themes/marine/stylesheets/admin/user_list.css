@@ -1,0 +1,9 @@
+#usersList div.listedUser { margin: 5px 0; padding: 10px; border-bottom:1px solid #BFD9E4; }
+#usersList .odd { border-top:1px solid #BFD9E4; }
+#usersList div.userAvatar { float: left; margin-right: 10px; text-align: center; width: 50px; }
+#usersList div.userAvatar img { background: #ffffff; border: 1px solid #e0e0e0; float: left; margin-right: 5px; padding: 5px; }
+#usersList div.userDetails { margin-left: 70px; }
+#usersList div.userName { font-weight: bold; margin-bottom: 10px; }
+#usersList div.userIsAdmin, #usersList div.userAutoAssign { }
+#usersList div.userIsAdmin span, #usersList div.userAutoAssign span { color: #333333; font-weight: bold; }
+#usersList div.userAutoAssign { margin-bottom: 10px; }

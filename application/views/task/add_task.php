@@ -1,5 +1,4 @@
 <?php
-
   set_page_title($task->isNew() ? lang('add task') : lang('edit task'));
   project_tabbed_navigation(PROJECT_TAB_TASKS);
   project_crumbs(array(
@@ -30,8 +29,16 @@
     <?php echo textarea_field("task[text]", array_var($task_data, 'text'), array('id' => 'addTaskText', 'class' => 'short')) ?>
   </div>
   <div>
-    <label><?php echo lang('assign to') ?>:</label>
+    <?php echo label_tag(lang('due date'), 'addTaskDueDate', true) ?>
+    <?php echo pick_date_widget('task_due_date', array_var($task_data, 'due_date')) ?>
+  </div>
+  <div>
+    <?php echo label_tag(lang('assign to'), 'addTaskAssignedTo', true) ?>
     <?php echo assign_to_select_box("task[assigned_to]", active_project(), array_var($task_data, 'assigned_to')) ?>
+  </div>
+  <div>
+    <?php echo label_tag(lang('send notification'), 'sendNotification', true) ?>
+    <?php echo checkbox_field('task[send_notification]', true, array_var($task_data, 'send_notification')) ?>
   </div>
   
   <?php echo submit_button($task->isNew() ? lang('add task') : lang('edit task')) ?>

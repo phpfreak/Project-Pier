@@ -1,0 +1,13 @@
+div.block div.projectLogo {
+  float: left;
+  width: 60px;
+  text-align: center;
+}
+
+div.block div.header {
+  margin-left: 65px;
+}
+
+div.block div.content {
+  margin-left: 65px;
+}

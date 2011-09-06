@@ -1,0 +1,230 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font: 12px verdana, arial, helvetica, sans-serif;
+  color: black;
+  text-align: center;
+  line-height: 150%;
+	background: #fff
+}
+
+a {
+  color: white;
+  font-weight: bolder;
+  text-decoration: none;
+}
+
+a:hover {
+  border: 0;
+  color: white;
+  background: #263356;
+}
+
+h1 {
+  margin: 70px 0 5px 0;
+  padding: 70px 0 5px 0;
+  color: #263356;
+  font-size: 22px;
+	font-family: "Courier New", Courier, monospace ;
+	font-weight: bold;
+}
+
+h2 {
+  margin: 30px 0 10px 0;
+  color: #263356;
+  font-size: 16px;
+}
+
+p, ul, pre {
+  margin: 8px 0;
+}
+
+ul {
+  padding-left: 20px;
+  list-style: disc;
+}
+
+code {
+  padding: 0 2px;
+  font-size: 1.2em;
+  background: #e8e8e8;
+}
+
+pre {
+  border: 1px solid #263356;
+  padding: 0 8px;
+  font-size: 1.2em;
+  background: #e8e8e8;
+}
+
+acronym {
+  border-bottom: 1px dotted #ccc;
+  cursor: help;
+}
+
+/** Form **/
+
+label {
+  margin: 3px 0;
+  font-size: 90%;
+  font-weight: bolder;
+  display: block;
+}
+
+label.checkbox {
+  font-weight: normal;
+  display: inline;
+}
+
+label span.label_required {
+  color: red;
+  font-size: 90%;
+}
+
+input, textarea, select {
+  border: 1px solid #ababab;
+  padding: 3px;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 11px;
+  background: white;
+}
+
+input:hover, textarea:hover, select:hover {
+  border: 1px solid #ababab;
+}
+
+input:focus, textarea:focus, select:focus {
+  border: 1px solid #ababab;
+}
+
+fieldset {
+  margin: 10px 0;
+  padding: 10px;
+  padding-top: 5px;
+  border: 1px solid #ccc;
+}
+
+fieldset legend {
+  font-size: 90%;
+  font-weight: bolder;
+}
+
+input { width: 200px; }
+input.short { width: 50px; }
+input.medium { width: 150px; }
+input.long { width: 320px; }
+
+input.checkbox {
+  border: 0;
+  width: auto;
+}
+
+textarea {
+  width: 400px;
+  height: 150px;
+}
+
+textarea.short {
+  height: 70px;
+}
+
+
+button.submit {
+  margin-top: 10px;
+}
+
+span.required {
+  color: red;
+  font-size: 90%;
+}
+
+#formErrors {
+  background: red;
+  color: white;
+  padding: 5px 10px;
+}
+
+#formErrors ul li {
+  font-size: 90%;
+}
+
+/** Classes **/
+
+.desc {
+  font-size: 90%;
+  color: #666;
+  font-style: italic;
+}
+
+.bold {
+  font-weight: bolder;
+}
+
+.note {
+  border: 1px solid #263356;
+  padding: 0 8px;
+  background: #e8e8e8;
+}
+
+/** Construction **/
+
+#dialog {
+background: url(../images/layout/logo.png) no-repeat scroll center top;
+color:#2c2b7f;
+font-size:12px;
+margin:20px auto 0pt;
+padding:10px 30px 200px 55px;
+text-align:left;
+width:352px;
+}
+
+#error, #success {
+  margin: 10px 0;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  clear: both;
+  cursor: pointer;
+  text-align: left;
+}
+
+#error {
+  background: #FFB0B0;
+  border-color: red;
+}
+
+#success {
+  background: #90DC90;
+  border-color: green;
+}
+
+/** Login dialog **/
+
+#loginUsernameDiv, #loginPasswordDiv {
+  padding-top: 5px;
+}
+
+#loginUsernameDiv {
+  float: left;
+  width: 170px;
+}
+
+* html #loginUsernameDiv {
+  margin-top: 1px;
+}
+
+#loginPasswordDiv {
+  margin-left: 170px;
+}
+
+#loginSubmit span, #forgotPasswordSubmit span {
+  padding-left: 8px;
+  font-size: 11px;
+}
+
+* html #loginSubmit span, * html #forgotPasswordSubmit span {
+  position: relative;
+  top: -4px;
+}

@@ -1,0 +1,217 @@
+/*[fmt]2A10-1A0B-3*/
+label  {
+ display: block;
+ font-size: 13px;
+ font-weight: bold;
+ margin: 3px 0;
+}
+
+label.checkbox, label.yes_no  {
+ display: inline;
+ position: relative;
+ top: -2px;
+}
+
+* html label.checkbox, * html label.yes_no  {
+ top: 1px;
+}
+
+label.yes_no  {
+ font-weight: normal;
+}
+
+label span.label_required  {
+ color: #BF5940;
+}
+
+input, textarea, select  {
+ background-color: #FFFFFF;
+ background-image: url(../../images/layout/bg_inputs.png);
+ background-repeat: no-repeat;
+ border: 1px solid #CCCCCC;
+ font-family: calibri, tahoma, verdana, arial, helvetica, sans-serif;
+ font-size: 12px;
+ padding: 2px 5px;
+}
+
+select  {
+ padding: 1px;
+}
+
+input:hover, textarea:hover, select:hover  {
+ border: 1px solid #AAAAAA;
+}
+
+input:focus, textarea:focus, select:focus  {
+ border: 1px solid #8DBBCE;
+}
+
+fieldset  {
+ border: 1px solid #CCCCCC;
+ background-color: #F6F8F9;
+ margin: 10px 0;
+ padding: 10px;
+ padding-top: 5px;
+}
+
+fieldset legend  {
+ font-size: 14px;
+ font-weight: bold;
+}
+
+input  {
+ width: 200px;
+}
+
+input.short  {
+ width: 50px;
+}
+
+input.medium  {
+ width: 150px;
+}
+
+input.long  {
+ width: 400px;
+}
+
+input.title  {
+ width: 530px;
+}
+
+input.checkbox, input.yes_no  {
+ background: transparent;
+ border: 0;
+ width: auto;
+}
+
+legend label.checkbox  {
+ font-weight: bold;
+}
+
+textarea, textarea.long  {
+ height: 150px;
+ width: 400px;
+}
+
+textarea.short  {
+ height: 70px;
+ width: 365px;
+}
+
+textarea.comment  {
+ height: 150px;
+ width: 488px;
+}
+
+textarea.editor  {
+ height: 300px;
+ width: 530px;
+}
+
+button, button.submit, input[type=submit], button[type=submit], .submit  {
+ background-color: #599DB7;
+ background-image: url(../../images/layout/bg_crumbs.png);
+ background-repeat: repeat-x;
+ border: 1px solid #4887A0;
+ color: #FFFFFF;
+ font-size: 14px;
+ font-weight: bold;
+ margin-top: 10px;
+ padding: 4px 12px;
+}
+
+button:hover, button.submit:hover, input[type=submit]:hover, button[type=submit]:hover, .submit:hover  {
+ border: 1px solid #2B586A;
+ color: #2B586A;
+}
+
+button, .submit, .reset  {
+ float: right;
+ margin-left: 5px;
+ overflow: visible;
+ vertical-align: middle;
+ font-family: inherit;
+}
+
+button[type=reset], input[type=reset]  {
+ background-color: #A9A9A9;
+ background-image: url(../../images/layout/bg_btn_reset.png);
+ border: 1px solid #9A9A9A;
+ margin-top: -0.7em;
+}
+
+button.reset, * html button  {
+ background-color: #A9A9A9;
+ background-image: url(../../images/layout/bg_btn_reset.png);
+ border: 1px solid #9A9A9A;
+ color: #FFFFFF;
+ font-size: 12px;
+ font-weight: bold;
+ letter-spacing: 1px;
+ margin-top: -0.7em;
+ padding: 4px 12px;
+}
+
+* html .submit  {
+ background-color: #599DB7;
+ background-image: url(../../images/layout/bg_crumbs.png);
+ background-repeat: repeat-x;
+ border: 1px solid #4887A0;
+ margin-top: 10px;
+}
+
+/*-------------------- hack opera---------------------*/
+html:first-child button[type=reset], input[type=reset]  {
+ margin-top: 0.8em;
+}
+
+span.required  {
+ color: #BF5940;
+}
+
+form div.formBlock label  {
+ margin-top: 0;
+ padding-top: 0;
+}
+
+#formErrors  {
+ background-color: #F9ECE6;
+ background-image: url(../../images/layout/bg_alert.png);
+ background-repeat: repeat-x;
+ border: 1px solid #EFCAB8;
+ padding: 5px;
+}
+
+/** Options block, best to put it into fieldset **/
+.objectOption  {
+ margin-top: 5px;
+}
+
+.objectOption .optionLabel  {
+ display: block;
+ float: left;
+ width: 140px;
+}
+
+.objectOption .optionLabel label  {
+ margin: 0;
+ padding: 0;
+}
+
+.objectOption div.optionControl  {
+ margin-left: 140px;
+}
+
+.objectOption div.optionDesc  {
+ clear: left;
+ color: #333333;
+ font-size: 11px;
+ padding: 0 5px 5px;
+}
+
+img.ui-datepicker-trigger  {
+ vertical-align: middle;
+ margin-left: 5px;
+}
+

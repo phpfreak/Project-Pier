@@ -19,7 +19,7 @@
       parent::__construct();
       prepare_company_website_controller($this, 'administration');
       
-      // Access permissios
+      // Access permissions
       if (!logged_user()->isAdministrator(owner_company())) {
         flash_error(lang('no access permissions'));
         $this->redirectTo('dashboard');
@@ -45,6 +45,7 @@
     * @return null
     */
     function company() {
+      $this->addHelper('textile');
       tpl_assign('company', owner_company());
       $this->render(get_template_path('view_company', 'company'));
     } // company
@@ -71,6 +72,34 @@
     function projects() {
       tpl_assign('projects', logged_user()->getProjects());
     } // projects
+
+    /**
+    * Display time management tool
+    *
+    * @access public
+    * @param void
+    * @return null
+    */
+    function time() {
+      if (plugin_active('time')) {
+        tpl_assign('projects', logged_user()->getProjects());
+        tpl_assign('users', owner_company()->getUsers());
+
+        $status = (array_var($_GET, 'status')) ? array_var($_GET, 'status') : 0;
+        $times = ProjectTimes::getTimeByStatus($status);
+
+        $redirect_to = array_var($_GET, 'redirect_to');
+        if ($redirect_to == '') {
+          $redirect_to = get_url('administration', 'time', array('status' => $status));
+          $redirect_to = str_replace('&amp;', '&', trim($redirect_to));
+        } // if
+
+        tpl_assign('times', $times);
+        tpl_assign('redirect_to', $redirect_to);
+      } else {
+        $this->redirectTo('administration');
+      }
+    } // time
     
     /**
     * List clients
@@ -245,7 +274,103 @@
         } // try
       } // if
     } // tool_mass_mailer
-  
-  } // AdministrationController 
+    
+    function plugins() {
+      trace(__FILE__,'plugins()');
+      $plugins = Plugins::getAllPlugins();
+      tpl_assign('plugins',$plugins);
+      tpl_assign('plugins_keep_data',array());
+    } // index
+    
+    function update_plugins() {
+      trace(__FILE__,'update_plugins()');
+      $plugins = array_var($_POST,'plugins');
+      //$plugins = array('invoices' => '1');
+      if (is_null($plugins)) {
+        $this->redirectTo('administration','plugins');
+      }
 
+      $reference = Plugins::getAllPlugins();
+      trace(__FILE__,'update_plugins() - getAllPlugins done');
+      $errors = array();
+      foreach($plugins as $name => $yes_no) {
+        //If it is not a plugin continue
+        $plugin_file_path = APPLICATION_PATH.'/plugins/'.$name.'/init.php';
+        trace(__FILE__,"update_plugins() - plugin_file_path=[$plugin_file_path]");
+        if (!file_exists($plugin_file_path)) continue;
+        trace(__FILE__,"update_plugins() - plugin_file_path=[$plugin_file_path] exists");
+        // get existing id
+        $id = $reference[$name];
+        $nicename = ucwords(str_replace('_',' ',$name));
+        trace(__FILE__,"update_plugins() - id=$id name=$name nicename=$nicename");
+        if ($yes_no && '-' == $id) {
+          trace(__FILE__,"update_plugins() - activating [$name]");
+          try {
+            // Check if plugin exists in database
+            $plugin = Plugins::findOne(array('conditions' => array('`name` = ?', $name)));
+            trace(__FILE__,"update_plugins() - findOne");
+            if ($plugin == NULL) $plugin = new Plugin();
+            trace(__FILE__,"update_plugins() - setName");
+            $plugin->setName($name);
+            trace(__FILE__,"update_plugins() - setInstalled");
+            $plugin->setInstalled(true);
+            
+            DB::beginWork();
+            trace(__FILE__,"update_plugins() - including [$plugin_file_path]");
+            // get the file loaded here
+            include $plugin_file_path;
+            
+            // get activation routine ready
+            trace(__FILE__,"update_plugins() - activate: $name");
+            $activate = $name.'_activate';
+            if ( function_exists($activate) ) {
+              trace(__FILE__,"update_plugins() - calling: $activate");
+              $activate();
+            }
+            
+            // save to db now
+            $plugin->save();
+            DB::commit();
+          } catch (Exception $e) {
+            trace(__FILE__,'update_plugins() - '.$e->getMessage());
+            DB::rollback();
+            $errors[] = $nicename.' ('.$e->getMessage().')';
+          }
+        }
+        elseif (!$yes_no && '-' != $id) {
+          try
+          {
+            trace(__FILE__,"update_plugins() - deactivating [$name]");
+            $plugin = Plugins::findById($id);
+            DB::beginWork();
+            $deactivate = $name.'_deactivate';
+            if( function_exists($deactivate) ) {
+              trace(__FILE__,"update_plugins() - calling $deactivate");
+              //Check if user choose to purge data
+              if ($plugins[$name."_data"]=="0") {
+                trace(__FILE__,"update_plugins() - calling $deactivate(true)");
+                $deactivate(true);
+              } else {
+                $deactivate();
+              }
+            }
+            $plugin->setInstalled(false);
+            $plugin->save();
+            DB::commit();
+          } catch(Exception $e) {
+            DB::rollback();
+            $errors[] = $nicename.' ('.$e->getMessage().')';
+          }
+        }
+      }
+      if ( count($errors) )
+        flash_error(lang('plugin activation failed', implode(", ",$errors)));
+      else
+        flash_success(lang('plugins updated'));
+
+      $this->redirectTo('administration','plugins');
+      
+    } // update
+ 
+ } // AdministrationController 
 ?>

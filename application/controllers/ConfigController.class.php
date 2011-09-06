@@ -50,10 +50,10 @@
       tpl_assign('options', $options);
       tpl_assign('config_categories', $categories);
       
-      $submited_values = array_var($_POST, 'options');
-      if (is_array($submited_values)) {
+      $submitted_values = array_var($_POST, 'options');
+      if (is_array($submitted_values)) {
         foreach ($options as $option) {
-          $new_value = array_var($submited_values, $option->getName());
+          $new_value = array_var($submitted_values, $option->getName());
           if (is_null($new_value) || ($new_value == $option->getValue())) {
             continue;
           }

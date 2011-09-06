@@ -2,21 +2,27 @@
 
   /**
   * ProjectTaskList class
-  * Generated on Wed, 08 Mar 2006 15:51:26 +0100 by DataObject generation tool
   *
   * @http://www.projectpier.org/
   */
   class ProjectTaskList extends BaseProjectTaskList {
     
     /**
-    * This project object is taggable
+    * Project task list is taggable
     *
     * @var boolean
     */
     protected $is_taggable = true;
+
+    /**
+    * Project task list is commentable
+    *
+    * @var boolean
+    */
+    protected $is_commentable = true;
     
     /**
-    * Message comments are searchable
+    * Project task list comments are searchable
     *
     * @var boolean
     */
@@ -84,6 +90,13 @@
     * @var User
     */
     private $completed_by;
+
+    /**
+    * Cached milestone
+    *
+    * @var Milestone
+    */
+    private $milestone;
   
     // ---------------------------------------------------
     //  Operations
@@ -199,7 +212,22 @@
     // ---------------------------------------------------
     //  Related object
     // ---------------------------------------------------
-    
+
+    /**
+    * Return milestone
+    *
+    * @access public
+    * @param void
+    * @return array
+    */
+    function getMilestone() {
+      if(is_null($this->milestone)) {
+        $this->milestone = ProjectMilestones::findById($this->getMilestoneId());
+      } // if
+      
+      return $this->milestone;
+    } // getMilestone
+  
     /**
     * Return all tasks from this list
     *
@@ -307,6 +335,57 @@
       } // if
       return $this->count_completed_tasks;
     } // countCompletedTasks
+
+    /**
+    * Return download text for task list
+    *
+    * @access public
+    * @param void
+    * @return string
+    */
+    function getDownloadText(&$count, $sep, $header = false) {
+      if ($header) {
+        $download_text = lang('task download header');
+        $download_text = strtr($download_text, "\t", $sep);
+      } else {
+        $download_text = '';
+      }
+      $project_name=$this->getProject()->getName();
+      $task_list_name=$this->getName();
+      if ($this->isCompleted()) {
+        $task_list_status = lang('completed');
+      } else {
+        $task_list_status = lang('open');
+      }
+      $desc = $this->getDescription();
+      $desc = strtr($desc,"\r\n\t","   ");
+      $desc100 = substr($desc,0,100);
+      $task_list_info = "{$project_name}$sep{$task_list_name}$sep{$task_list_status}$sep{$desc100}$sep";
+      $tasks = $this->getTasks();
+      if (is_array($tasks)) {
+        foreach($tasks as $task) {
+          $count++;
+          if ($task->isCompleted()) {
+            $task_status = lang('completed');
+            $task_completion_info = format_date($task->getCompletedOn());
+          } else {
+            $task_status = lang('open');
+            $task_completion_info = lang('open');
+          }
+          if ($task->getAssignedTo()) {
+            $task_assignee = $task->getAssignedTo()->getObjectName();
+          } else {
+            $task_assignee = lang('not assigned');
+          }
+          $task_text = $task->getText();
+          $task_text = strtr($task_text,"\r\n\t","   ");
+          $task_text50 = substr($task_text,0,50);
+          $task_line = "$task_list_info{$task->getId()}$sep{$task_status}$sep{$task_completion_info}$sep{$task_assignee}$sep{$task_text50}";
+          $download_text .= "$task_line\r\n";
+        }
+      }
+      return $download_text;
+    }
     
     /**
     * Return owner project obj
@@ -326,6 +405,7 @@
     * @return array
     */
     function getRelatedForms() {
+      if(!plugin_active('forms')) { return null; }
       if (is_null($this->related_forms)) {
         $this->related_forms = ProjectForms::findAll(array(
           'conditions' => '`action` = ' . DB::escape(ProjectForm::ADD_TASK_ACTION) . ' AND `in_object_id` = ' . DB::escape($this->getId()),
@@ -382,7 +462,7 @@
     * @return boolean
     */
     function canManage(User $user) {
-      return $user->getProjectPermission($this->getProject(), ProjectUsers::CAN_MANAGE_TASKS);
+      return $user->getProjectPermission($this->getProject(), PermissionManager::CAN_MANAGE_TASKS);
     } // canManage
     
     /**
@@ -392,6 +472,9 @@
     * @return boolean
     */
     function canView(User $user) {
+      if ($user->isAdministrator()) {
+        return true;
+      } // if
       if (!$user->isProjectUser($this->getProject())) {
         return false; // user have access to project
       } // if
@@ -412,7 +495,10 @@
       if ($user->isAccountOwner()) {
         return true;
       } // if
-      return $user->getProjectPermission($project, ProjectUsers::CAN_MANAGE_TASKS);
+      if ($user->isAdministrator()) {
+        return true;
+      } // if
+      return $user->getProjectPermission($project, PermissionManager::CAN_MANAGE_TASKS);
     } // canAdd
     
     /**
@@ -528,6 +614,36 @@
     function getEditUrl() {
       return get_url('task', 'edit_list', array('id' => $this->getId(), 'active_project' => $this->getProjectId()));
     } // getEditUrl
+    
+    /**
+    * Copy this task list
+    *
+    * @param void
+    * @return string
+    */
+    function getCopyUrl() {
+      return get_url('task', 'copy_list', array('id' => $this->getId(), 'active_project' => $this->getProjectId()));
+    } // getEditUrl
+
+    /**
+    * Move this task list
+    *
+    * @param void
+    * @return string
+    */
+    function getMoveUrl() {
+      return get_url('task', 'move_list', array('id' => $this->getId(), 'active_project' => $this->getProjectId()));
+    } // getEditUrl
+
+    /**
+    * Download this task list
+    *
+    * @param void
+    * @return string
+    */
+    function getDownloadUrl() {
+      return get_url('task', 'download_list', array('id' => $this->getId(), 'active_project' => $this->getProjectId()));
+    } // getDownloadUrl
     
     /**
     * Delete this task list

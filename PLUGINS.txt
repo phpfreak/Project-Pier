@@ -1,0 +1,116 @@
+A. Plugins
+----------
+Plugins are installed in the <pp_root>/application/plugins folder.
+All plugin files are contained under this directory.  The subdirectory
+structure should look like this, omitting what is not necessary:
+<plugin_name>
+ |-<plugin_name>/models
+ |-<plugin_name>/views
+ |-<plugin_name>/controllers
+ |-<plugin_name>/helpers
+ |-<plugin_name>/library
+ |-<plugin_name>/language
+ |- init.php
+
+The standard in the development team is to use plural for a plugin name.
+
+The plugin architecture supports both actions and filters.  The
+difference between these is a matter of input; all actions on the same
+hook receive the same input regardless of order, filters receive
+modified input from previous filters on the same hook.  These actions
+and filters are currently defined:
+
+I. Action
+ a. add_dashboard_tab
+ b. add_administration_tab
+ c. add_my_account_tab
+ d. add_project_tab
+ e. project_overview_page_actions
+ f. add_my_tasks_tab
+
+II. Filters
+ a. tabbed_navigation_items
+
+Plugins should implement an 'init.php' file in the root of the
+<pp_root>/application/plugins/<plugin_name>/ folder.  Currently, the
+methods that must be implemented are:
+<plugin_name>_activate(): run anything necessary to activate the
+     plugin.  Example: verify and/or add database tables and inital data
+<plugin_name>_deactivate($purge): run anything necessary to
+     de-activate the plugin.  If the $purge argument is true, purge
+     all data related to the plugin.  Example: delete database tables
+     and remove all permissions associated with this plugin.
+
+The function plugin_active(<plugin_name>) should be used in views and elsewhere
+to test if a plugin is active and change behaviour accordingly.
+
+Future work:
+
+Backup
+<plugin_name>_backup(args): do anything to backup data under the given backup_id
+<plugin_name>_restore(args): do anything to restore data from the given backup_id
+<plugin_name>_forget(args): do anything to delete the backup data under the given backup_id
+
+Args is an array with a least 1 key and value: backup_id => <integer>
+Optional keys: project_id => <integer>, company_id => <integer>, client_id => <integer>
+
+Stylesheets
+Stylesheets and JavaScript needs to be deployed manually in the themes directories.
+A solution is needed to support stylesheets, images and JavaScript local to the plugin.
+
+Configuration
+Currently configuration is implemented by manipulating the configuration tables and
+reusing the standard configuration pages. See tickets for an example. 
+The original plugin developer mentioned a method <plugin_name>_configure_url() 
+which would return a link constructed with the PP built-in get_url() function 
+to a configuration page for the plugin. Not sure if it is still needed.
+
+
+
+B. Permissions
+--------------
+
+Permissions can be added to and removed from the system using the
+functions found in <pp_root>/application/permissions.php.  The
+"source" of a permission is the plugin name.  The "permission" is a
+short string description.  Note that the base ProjectDataObject class,
+which all models inherit from, defines methods for canView()
+canEdit(), canAdd(), and canDelete().  Deletion is traditionally
+acceptable only for administrators, but if a plugin implements
+per-object ACLs, this permission can be assigned to individual users.
+In addition, any number of other functions can be implemented to allow
+for more fine-grained permissions.
+
+The default (built-in) permissions are:
+Source     | Permission
+-----------+-------------------------
+files      | manage
+files      | upload
+milestones | manage
+messages   | manage
+tasks      | manage
+tasks      | assign to other clients
+tasks      | assign to owner company
+tickets    | manage
+projects   | manage
+milestones | change status
+
+For plugins that are implementing a new "Tab" on projects, the plugin
+should implement at least one permission called 'view'.  The plugin's
+init.php file should include a line like
+"add_action('add_project_tab','<name of a callback function>')".  The
+callback function should check the 'view' permission for the plugin
+based on the current user and project and add the tab *only* if the
+user has the appropriate permission.  This will avoid cluttering the
+project interface with unnecessary tabs.
+
+--
+
+All the source files for deactivated plugins should be excluded from the AutoLoader.
+
+The Plugin system should gracefully deactivate (perhaps only temporarily) any missing plugins.
+
+I really like the WP plugin mechanism that identifies plugins by a description section. Maybe this system could include an "identity.xml" or "identity.txt" to help describe the plugin to the user. Fields would include Plugin Name, Version, Homepage, Description, Author, etc. It could also include an Upgrade URL in preparation for future automated plugin installation/upgrades. (Define the tag now, so authors will include it for the future.)
+
+Anyone have ideas on how to handle errant plugins? If a plugin causes problems, the user should have simple problem resolution options. One idea comes to mind: A "PP safe mode" URL (administrators only) where all plugins are disabled and the admin can disable plugins. It could be linked from the login screen (which might be designated a "plugin free zone").
+

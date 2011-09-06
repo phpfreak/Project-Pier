@@ -1,7 +1,7 @@
 <?php
 
   /**
-  * Logger backand that is able to save session data into a text file
+  * Logger backend that is able to save session data into a text file
   *
   * @package Logger
   * @subpackage backends
@@ -126,7 +126,7 @@
     *
     * @param string $value
     * @return null
-    * @throws FileNotWriableError If file exists and is not writable
+    * @throws FileNotWritableError If file exists and is not writable
     * @throws DirDnxError If file does not exists and parent directory does not exists
     * @throws DirNotWritableError If file does not exists, but parent exists and is not writable
     */
@@ -134,7 +134,7 @@
       $file_path = $value;
       if (is_file($file_path)) {
         if (!file_is_writable($file_path)) {
-          throw new FileNotWriableError($file_path);
+          throw new FileNotWritableError($file_path);
         } // if
       } else {
         $folder_path = dirname($file_path);

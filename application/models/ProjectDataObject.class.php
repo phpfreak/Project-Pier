@@ -2,7 +2,7 @@
 
   /**
   * Abstract class that implements methods that share all project objects (tags manipulation, 
-  * retriving data about object creator etc)
+  * retrieving data about object creator etc.)
   * 
   * Project object is application object with few extra functions
   *
@@ -28,7 +28,18 @@
     * @var boolean
     */
     protected $is_taggable = false;
+
+    // ---------------------------------------------------
+    //  Subscribers
+    // ---------------------------------------------------
     
+    /**
+    * Mark this object as subscribable
+    *
+    * @var boolean
+    */
+    protected $is_subscribable = false;
+        
     // ---------------------------------------------------
     //  Search
     // ---------------------------------------------------
@@ -146,7 +157,7 @@
     abstract function canView(User $user);
     
     /**
-    * Check if this user can add a new object to this project. This method is called staticly
+    * Check if this user can add a new object to this project. This method is called statically
     *
     * @param User $user
     * @param Project $project
@@ -220,7 +231,7 @@
         return false;
       }
       if ($this->isNew()) {
-        return $user->getProjectPermission($project, ProjectUsers::CAN_UPLOAD_FILES);
+        return $user->getProjectPermission($project, PermissionManager::CAN_UPLOAD_FILES);
       } else {
         return $this->canEdit($user);
       } // if
@@ -302,7 +313,7 @@
     * @param string $input
     * @return boolean
     */
-    function setTagsFromCSV($input) {
+    function setTagsFromCSV($input = '') {
       $tag_names = array();
       if (trim($input)) {
         $tag_names = explode(',', $input);
@@ -323,6 +334,7 @@
     * @return boolean
     */
     function setTags() {
+      if(!plugin_active('tags')) { return null; }
       if (!$this->isTaggable()) {
         throw new Error('Object not taggable');
       }
@@ -338,6 +350,7 @@
     * @return boolean
     */
     function clearTags() {
+      if(!plugin_active('tags')) { return null; }
       if (!$this->isTaggable()) {
         throw new Error('Object not taggable');
       }
@@ -700,6 +713,30 @@
         'active_project' => $this->getProject()->getId()
       )); // get_url
     } // getDetachFileUrl
+
+    /**
+    * This event is triggered when we attach new files
+    *
+    * @param array $files
+    * @return boolean
+    */
+    function onAttachFiles($files) {
+      return true;
+    } // onAttachFiles
+    
+    // ---------------------------------------------------
+    //  Subscribable
+    // ---------------------------------------------------
+    
+    /**
+    * Returns true if users can subscribe to this object
+    *
+    * @param void
+    * @return boolean
+    */
+    function isSubscribable() {
+      return (boolean) $this->is_subscribable;
+    } // isSubscribable
     
     // ---------------------------------------------------
     //  System
@@ -742,6 +779,28 @@
       
       return $result;
     } // save
+
+    /**
+    * Copy object
+    *
+    * @param void
+    * @return boolean
+    */
+    function copy(&$source) {
+      if ($source->isTaggable()) {
+        //$this->copyTags($source);
+      } // if
+      if ($source->isSearchable()) {
+        //$this->clearSearchIndex();
+      } // if
+      if ($this->isCommentable()) {
+        //$this->copyComments($source);
+      } // if
+      if ($this->isFileContainer($source)) {
+        //$this->copyAttachedFiles($source);
+      } // if
+      return parent::copy($source);
+    } // copy
     
     /**
     * Delete object and drop content from search table

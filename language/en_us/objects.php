@@ -24,21 +24,7 @@
     'tasks' => 'Tasks',
     'task list' => 'Task list',
     'task lists' => 'Task lists',
-    'tag' => 'Tag',
-    'tags' => 'Tags',
-    'attachment' => 'Attachment',
-    'attachments' => 'Attachments',
     'message subscribers' => 'Subscribers',
-    'form' => 'Form',
-    'forms' => 'Forms',
-    'file' => 'File',
-    'files' => 'Files',
-    'file revision' => 'File revision',
-    'file revisions' => 'File revisions',
-    'revision' => 'Revision',
-    'revisions' => 'Revisions',
-    'folder' => 'Folder',
-    'folders' => 'Folders',
     'configuration category' => 'Configuration category',
     'configuration categories' => 'Configuration categories',
     
@@ -60,20 +46,15 @@
     'active projects' => 'Active projects',
     'finished project' => 'Finished project',
     'finished projects' => 'Finished projects',
-    'attached file' => 'Attached file',
-    'attached files' => 'Attached files',
     
     'important message'  => 'Important message',
     'important messages' => 'Important messages',
-    'important file'     => 'Important file',
-    'important files'    => 'Important files',
     
     'private message' => 'Private message',
     'private milestone' => 'Private milestone',
+    'private time' => 'Private time',
     'private task list' => 'Private task lists',
-    'private comment' => 'Private comment',
-    'private file' => 'Private file',
-    
+    'private comment' => 'Private comment',  
   ); // array
 
 ?>

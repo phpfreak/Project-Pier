@@ -1,0 +1,52 @@
+/* @override http://squid.advanstar.info/public/assets/themes/advanstar/stylesheets/application_logs.css */
+
+table.applicationLogs {
+  
+}
+
+table.applicationLogs th {
+  background: #e9e9e9;
+  border-bottom: 1px solid #b1b1b1;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+	}
+
+table.applicationLogs .logDetails a {
+	font-size: 12px;
+	border: none;
+}
+table.applicationLogs tr.logToday {
+  background: #f9ffeb;
+}
+
+table.applicationLogs tr.logYesterday {
+  background: #fcfff5;
+}
+
+table.applicationLogs tr.logOlder {
+  background: white;
+}
+
+table.applicationLogs td {
+  border-bottom: 1px dotted #d6d6d6;
+  padding: 5px 0 5px 0;
+	}
+
+table.applicationLogs td.logTypeIcon {
+  width: 75px;
+  padding-right: 10px;
+}
+
+table.applicationLogs .logProject, table.applicationLogs .logTakenOnBy {
+  text-align: right;
+}
+
+table.applicationLogs .logProject {
+  width: 30%;
+}
+
+table.applicationLogs .logTakenOnBy {
+  width: 150px;
+  padding-right: 10px;
+}

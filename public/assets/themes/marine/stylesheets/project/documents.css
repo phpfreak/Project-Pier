@@ -1,0 +1,40 @@
+#documents .documentDetails {
+  background-repeat: no-repeat;
+  background-position: 5px 5px;
+  padding-top: 5px;
+  padding-left: 60px;
+  min-height: 55px;
+}
+
+* html #documents .documentDetails {
+  height: 55px;
+}
+
+#documents .options {
+  padding-left: 60px;
+  color:#999;
+}
+
+#documents .documentDetails span {
+  font-weight: bolder;
+} 
+
+#documents .block {
+  background: #f7f7f7;
+  } 
+  
+#documents .header {
+  font-size: 14px;
+}
+
+.documentDesc {
+  font-size: 12px;
+  padding-bottom: 5px;
+  line-height: 150%;
+}
+
+#documents .documentOptions{
+  font-size: 10px;
+  color: #999;
+  font-weight:normal;
+}

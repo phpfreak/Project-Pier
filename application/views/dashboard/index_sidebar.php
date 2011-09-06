@@ -23,7 +23,6 @@
       <li><a href="<?php echo $my_project->getOverviewUrl() ?>"><?php echo clean($my_project->getName()) ?></a></li>
 <?php } // foreach ?>
     </ul>
-    <p><a href="<?php echo get_url('dashboard', 'my_projects') ?>">&raquo; <?php echo lang('my projects') ?></a></p>
   </div>
 </div>
 <?php } // if ?>

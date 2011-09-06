@@ -1,0 +1,13 @@
+#people div.projectCompany { background: url('../../images/logtypes/old.gif') #f7f7f4 repeat-x top right; border: 1px solid #e0e0e0; margin: 10px 0; min-height: 50px; padding: 10px; }
+ div.projectCompanyInfo, div.projectCompanyUsers{ margin-left: 50px; }
+* html #people div.projectCompany { height: 50px; }
+div.projectCompanyLogo { background: #ffffff; border: 1px solid #e0e0e0; float: left; margin: 5px; padding: 5px; }
+#people div.projectCompanyMeta { margin-left: 60px; }
+#people div.projectCompany a.companyName { font-size: 14px; font-weight: bold; }
+#people div.projectCompanyAddress, #people div.projectUserTitle, #people div.projectUserEmail { color: #666666; font-size: 12px; line-height: 120%; margin-top: 5px; padding-left: 5px; }
+#people div.projectCompanyHomepage { font-size: 12px; line-height: 100%; margin-top: 5px; padding-left: 5px; }
+#people div.projectCompanyOptions { font-size: 11px; margin-top: 5px; }
+#people div.projectCompanyUsers table { background: #ffffff; margin-top: 20px; width: 500px; }
+#people div.projectCompanyUsers table td{padding: 5px;}
+#people .projectUserDisplayName { font-weight: bold; }
+#people div.projectUserTitle, #people div.projectUserEmail { margin: 0; }

@@ -7,8 +7,7 @@ body {
   font: 12px verdana, arial, helvetica, sans-serif;
   color: black;
   text-align: center;
-  line-height: 150%;
-	
+  line-height: 150%;	
 }
 
 a {
@@ -28,8 +27,8 @@ h1 {
   padding: 60px 0 5px 0;
   color: white;
   font-size: 22px;
-	font-family: "Courier New", Courier, monospace ;
-	font-weight: bold;
+  font-family: "Courier New", Courier, monospace ;
+  font-weight: bold;
 }
 
 h2 {
@@ -131,7 +130,6 @@ textarea.short {
   height: 70px;
 }
 
-
 button.submit {
   margin-top: 10px;
 }
@@ -172,13 +170,13 @@ span.required {
 /** Construction **/
 
 #dialog {
-background:transparent url(../images/layout/login.png) no-repeat scroll center top;
-color:white;
-font-size:12px;
-margin:110px auto 0pt;
-padding:10px 30px 200px 55px;
-text-align:left;
-width:352px;
+  background:transparent url(../images/layout/login.png) no-repeat scroll center top;
+  color:white;
+  font-size:12px;
+  margin:110px auto 0pt;
+  padding:10px 30px 200px 55px;
+  text-align:left;
+  width:352px;
 }
 
 #error, #success {

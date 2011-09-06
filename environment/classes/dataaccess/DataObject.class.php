@@ -4,11 +4,11 @@
   * Data object class
   *
   * This class enables easy implementation of any object that is based
-  * on single database row. It enables reading, updating, inserting and 
-  * deleting that row without writing any SQL. Also, it can chack if 
-  * specific row exists in database.
+  * on a single database row. It enables reading, updating, inserting and 
+  * deleting a row without writing any SQL. Also, it can check if a 
+  * specific row exists in a database.
   * 
-  * This class supports PKs over multiple fields
+  * This class supports primary keys over multiple fields
   *
   * @package System
   * @version 1.0.1
@@ -18,14 +18,14 @@
   abstract class DataObject {
   
   	/**
-  	* Indicates if this is new object (not saved)
+  	* Indicates if this is a new object (not saved)
   	*
   	* @var boolean
   	*/
   	private $is_new = true;
   	
   	/**
-  	* Indicates if this object have been deleted from database
+  	* Indicates if this object has been deleted from database
   	*
   	* @var boolean
   	*/
@@ -108,7 +108,7 @@
   	abstract function manager();
   	
   	/**
-  	* Validate input data (usualy collected from from). This method is called
+  	* Validate input data (usually collected from form). This method is called
   	* before the item is saved and can be used to fetch errors in data before
   	* we really save it database. $errors array is populated with errors
   	*
@@ -201,7 +201,7 @@
   	} // getPkColumns
   	
   	/**
-  	* Check if specific column is part of the primary key
+  	* Check if a specific column is part of the primary key
   	*
   	* @access public
   	* @param string $column Column that need to be checked
@@ -223,7 +223,7 @@
   	} // isPrimaryKeyColumn
   	
   	/**
-  	* Check if this column is PK and if it is modified
+  	* Check if a column is a PK and if it is modified
   	*
   	* @access public
   	* @param string $column
@@ -344,7 +344,7 @@
   	  
   	  // We don't have it cached. Exists?
   	  if (!$this->columnExists($column_name) && $this->isLazyLoadColumn($column_name)) {
-    	  return $this->loadLazyLoadColumnValue($column_name, $default);
+    	    return $this->loadLazyLoadColumnValue($column_name, $default);
   	  } // if
   	  
   	  // Failed to load column or column DNX
@@ -366,18 +366,18 @@
   		if (!$this->columnExists($column)) return false;
   		
   		// Get type...
-  		$coverted_value = $this->rawToPHP($value, $this->getColumnType($column));
+  		$new_value = $this->rawToPHP($value, $this->getColumnType($column));
   		$old_value = $this->getColumnValue($column);
   		
-  		// Do we have modified value?
-  		if ($this->isNew() || ($old_value <> $coverted_value)) {
+  		// Do we have a modified value?
+  		if ($this->isNew() || ($old_value <> $new_value)) {
   		  
   		  // Set the value and report modification
-  		  $this->column_values[$column] = $coverted_value;
+  		  $this->column_values[$column] = $new_value;
   		  $this->addModifiedColumn($column);
   		  
   		  // Save primary key value. Also make sure that only the first PK value is
-  			// saved as old. Not to save second value on third modification ;)
+  		  // saved as old. Not to save second value on third modification ;)
   		  if ($this->isPrimaryKeyColumn($column) && !isset($this->updated_pks[$column])) {
   		    $this->updated_pks[$column] = $old_value;
   		  } // if
@@ -403,17 +403,40 @@
   	* @throws DAOValidationError
   	*/
   	function save() {
+          trace(__FILE__, 'save():begin');
   	  $errors = $this->doValidate();
   	  
   	  if (is_array($errors)) {
-  	    throw new DAOValidationError($this, $errors);
+            trace(__FILE__, 'save():errors');
+    	    throw new DAOValidationError($this, $errors);
   	  } // if
   	  
   	  return $this->doSave();
   	} // save
-  	
+
   	/**
-  	* Delete specific object (and related objects if neccecery)
+  	* Copy object into database (insert or update)
+  	*
+  	* @access public
+  	* @param void
+  	* @return boolean
+  	* @throws DBQueryError
+  	* @throws DAOValidationError
+  	*/
+  	function copy(&$source) {
+          trace(__FILE__, 'copy():begin');
+  	  $errors = $this->doValidate();
+  	  
+  	  if (is_array($errors)) {
+            trace(__FILE__, 'copy():errors');
+    	    throw new DAOValidationError($this, $errors);
+  	  } // if
+  	  
+  	  return $this->doCopy($source);
+  	} // save
+
+  	/**
+  	* Delete specific object (and related objects if necessary)
   	*
   	* @access public
   	* @param void
@@ -421,18 +444,18 @@
   	* @throws DBQueryError
   	*/
   	function delete() {
-  		if ($this->isNew() || $this->isDeleted()) {
-  		  return false;
-  		} // if
+  	  if ($this->isNew() || $this->isDeleted()) {
+  	    return false;
+  	  } // if
   		
-  		if ($this->doDelete()) {
-  		  $this->setDeleted(true);
-  		  $this->setLoaded(false);
+  	  if ($this->doDelete()) {
+  	    $this->setDeleted(true);
+  	    $this->setLoaded(false);
   		  
-  		  return true;
-  		} else {
-  		  return false;
-  		} // if
+  	    return true;
+  	  } else {
+  	    return false;
+  	  } // if
   	} // delete
   	
   	// -------------------------------------------------------------
@@ -456,7 +479,7 @@
   	  // Check input array...
   	  if (is_array($row)) {
   	  
-  	    // Loop fiedls...
+  	    // Loop fields...
   	    foreach ($row as $k => $v) {
   	      
   	      // If key exists set value
@@ -501,7 +524,7 @@
   	*/
   	private function rowExists($value) {
   	  // Don't do COUNT(*) if we have one PK column
-      $escaped_pk = is_array($pk_columns = $this->getPkColumns()) ? '*' : DB::escapeField($pk_columns);
+          $escaped_pk = is_array($pk_columns = $this->getPkColumns()) ? '*' : DB::escapeField($pk_columns);
   		
   	  $sql = "SELECT count($escaped_pk) AS 'row_count' FROM " . $this->getTableName(true) . " WHERE " . $this->manager()->getConditionsById($value);
   	  $row = DB::executeOne($sql);
@@ -525,6 +548,26 @@
   	  return count($errors) ? $errors : null;
   	  
   	} // doValidate
+
+  	/**
+  	* Save data into database
+  	*
+  	* @access public
+  	* @param void
+  	* @return integer or false
+  	*/
+  	private function doCopy(&$source) {
+          trace(__FILE__, 'doCopy():begin');
+  	  // Do we need to insert data or we need to save it...
+  	  if (is_array($this->attr_acceptable)) {
+  	    foreach ($this->attr_acceptable as $k => &$v) {
+  	      $this->setColumnValue($v, $source->getColumnValue($v)); // column exists, set
+  	    } // foreach
+  	  } // if
+
+          $this->setFromAttributes($source->attributes);
+  	} // doSave
+
   	
   	/**
   	* Save data into database
@@ -534,82 +577,104 @@
   	* @return integer or false
   	*/
   	private function doSave() {
-  		
+          trace(__FILE__, 'doSave():begin');
   	  // Do we need to insert data or we need to save it...
-  		if ($this->isNew()) {
-  		  
-  		  // Lets check if we have created_on and updated_on columns and they are empty
-  		  if ($this->columnExists('created_on') && !$this->isColumnModified('created_on')) {
-  		    $this->setColumnValue('created_on', DateTimeValueLib::now());
-  		  } // if
-  		  if ($this->columnExists('updated_on') && !$this->isColumnModified('updated_on')) {
-  		    $this->setColumnValue('updated_on', DateTimeValueLib::now());
-  		  } // if
-  		  
-  		  if (function_exists('logged_user') && (logged_user() instanceof User)) {
-    		  if ($this->columnExists('created_by_id') && !$this->isColumnModified('created_by_id') && (logged_user() instanceof User)) {
-    		    $this->setColumnValue('created_by_id', logged_user()->getId());
-    		  } // if
-    		  if ($this->columnExists('updated_by_id') && !$this->isColumnModified('updated_by_id')) {
-    		    $this->setColumnValue('updated_by_id', logged_user()->getId());
-    		  } // if
-  		  } // if
-  		  
-  		  // Get auto increment column name
-  		  $autoincrement_column = $this->getAutoIncrementColumn();
-  		  $autoincrement_column_modified = $this->columnExists($autoincrement_column) && $this->isColumnModified($autoincrement_column);
-  			
-  		  // Get SQL
-  		  $sql = $this->getInsertQuery();
-  		  if (!DB::execute($this->getInsertQuery())) {
-  		    return false;
-  		  } // if
-  		  
-        // If we have autoincrement field load it...
-        if (!$autoincrement_column_modified && $this->columnExists($autoincrement_column)) {
-          $this->setColumnValue($autoincrement_column, DB::lastInsertId());
-        } // if
-        
-        // Loaded...
-        $this->setLoaded(true);
-        
-        // Done...
-        return true;
-  		
-  	  // Update...	
-  		} else {
-  		  
-  		  // Set value of updated_on column...
-  		  if ($this->columnExists('updated_on') && !$this->isColumnModified('updated_on')) {
-  		    $this->setColumnValue('updated_on', DateTimeValueLib::now());
-  		  } // if
-  		  
-  		  if (function_exists('logged_user') && (logged_user() instanceof User)) {
-    		  if ($this->columnExists('updated_by_id') && !$this->isColumnModified('updated_by_id')) {
-    		    $this->setColumnValue('updated_by_id', logged_user()->getId());
-    		  } // if
-  		  } // if
-  		  
-  		  // Get update SQL
-  		  $sql = $this->getUpdateQuery();
-  		  
-  		  // Nothing to update...
-  		  if (is_null($sql)) {
-  		    return true;
-  		  } // if
-  		  
-  		  // Save...
-  		  if (!DB::execute($sql)) {
-  		    return false;
-  		  } // if
-        $this->setLoaded(true);
-        
-        // Done!
-        return true;
-  			
-  		} // if
-  		
+          if ($this->isNew()) {
+            return $this->doInsert();
+  	  } else {
+            return $this->doUpdate();
+          }
   	} // doSave
+  	
+        /**
+        * Insert data into database
+        *
+        * @access public
+        * @param void
+        * @return integer or false
+        */
+        private function doInsert() {
+          trace(__FILE__, 'doInsert():begin');
+          
+          // Lets check if we have created_on and updated_on columns and if they are empty
+          if ($this->columnExists('created_on') && !$this->isColumnModified('created_on')) {
+            $this->setColumnValue('created_on', DateTimeValueLib::now());
+          } // if
+          if ($this->columnExists('updated_on') && !$this->isColumnModified('updated_on')) {
+            $this->setColumnValue('updated_on', DateTimeValueLib::now());
+          } // if
+            
+          if (function_exists('logged_user') && (logged_user() instanceof User)) {
+            if ($this->columnExists('created_by_id') && !$this->isColumnModified('created_by_id') && (logged_user() instanceof User)) {
+              $this->setColumnValue('created_by_id', logged_user()->getId());
+            } // if
+            if ($this->columnExists('updated_by_id') && !$this->isColumnModified('updated_by_id')) {
+              $this->setColumnValue('updated_by_id', logged_user()->getId());
+            } // if
+          } // if
+            
+          // Get auto increment column name
+          $autoincrement_column = $this->getAutoIncrementColumn();
+          $autoincrement_column_modified = $this->columnExists($autoincrement_column) && $this->isColumnModified($autoincrement_column);
+              
+          // Get SQL
+          $sql = $this->getInsertQuery();
+          if (!DB::execute($this->getInsertQuery())) {
+            return false;
+          } // if
+            
+          // If we have an autoincrement field load it...
+          if (!$autoincrement_column_modified && $this->columnExists($autoincrement_column)) {
+            $this->setColumnValue($autoincrement_column, DB::lastInsertId());
+          } // if
+       
+          // Loaded...
+          $this->setLoaded(true);
+        
+          // Done...
+          return true;
+          
+        } // doInsert
+      
+  	/**
+  	* Update data into database
+  	*
+  	* @access public
+  	* @param void
+  	* @return integer or false
+  	*/
+  	private function doUpdate() {
+      trace(__FILE__, 'doUpdate():begin');
+
+      // Set value of updated_on column...
+      if ($this->columnExists('updated_on') && !$this->isColumnModified('updated_on')) {
+        $this->setColumnValue('updated_on', DateTimeValueLib::now());
+      } // if
+
+      if (function_exists('logged_user') && (logged_user() instanceof User)) {
+        if ($this->columnExists('updated_by_id') && !$this->isColumnModified('updated_by_id')) {
+          $this->setColumnValue('updated_by_id', logged_user()->getId());
+        } // if
+      } // if
+
+      // Get update SQL
+      $sql = $this->getUpdateQuery();
+
+      // Nothing to update...
+      if (is_null($sql)) {
+        return true;
+      } // if
+
+      // Save...
+      if (!DB::execute($sql)) {
+        return false;
+      } // if
+      $this->setLoaded(true);
+
+      // Done!
+      return true;
+
+  	} // doUpdate
   	
   	/**
   	* Delete object row from database
@@ -1048,7 +1113,7 @@
   	*/
   	function validateUniquenessOf() {
   	  // Don't do COUNT(*) if we have one PK column
-      $escaped_pk = is_array($pk_columns = $this->getPkColumns()) ? '*' : DB::escapeField($pk_columns);
+          $escaped_pk = is_array($pk_columns = $this->getPkColumns()) ? '*' : DB::escapeField($pk_columns);
   	  
   	  // Get columns
   	  $columns = func_get_args();
@@ -1178,6 +1243,10 @@
   	  $value = $this->getColumnValue($column);
   	  return preg_match($pattern, $value);
   	} // validateFormatOf
+
+	public function __call($name, $args) {
+          throw new Exception('Call to undefined method DataObject::'.$name.'()');
+	}
   	
   } // end class DataObject
 

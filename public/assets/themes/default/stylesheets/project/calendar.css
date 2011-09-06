@@ -1,0 +1,39 @@
+.calendar th {
+  width: 14%; 
+  text-align: center;
+}
+
+.calendar th.weekend {
+  background-color: #c8d7ff;
+}
+
+.calendar td {
+  background-color: #eee;
+}
+
+.calendar .date {
+  margin-bottom: 4px;
+  padding-right: 4px;
+  text-align: right;
+  font-weight: bold;
+}
+
+.calendar td.weekend .date {
+  background-color: #c8d7ff;
+}
+
+.calendar td.weekday .date {
+  background-color: #d9e8ff;
+}
+
+.calendar .month-nav {
+  font-weight: bold;
+}
+
+.calendar .month-nav .prev-month {
+  float: left;
+}
+
+.calendar .month-nav .next-month {
+  float: right;
+}

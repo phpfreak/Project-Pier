@@ -32,7 +32,9 @@
     function index() {
       $this->addHelper('textile');
       $project = active_project();
-      
+
+      $this->canGoOn();
+
       tpl_assign('late_milestones', $project->getLateMilestones());
       tpl_assign('today_milestones', $project->getTodayMilestones());
       tpl_assign('upcoming_milestones', $project->getUpcomingMilestones());
@@ -84,6 +86,7 @@
       if (!is_array($milestone_data)) {
         $milestone_data = array(
           'due_date' => DateTimeValueLib::now(),
+          'is_private' => config_option('default_private', false),
         ); // array
       } // if
       $milestone = new ProjectMilestone();
@@ -91,7 +94,11 @@
       tpl_assign('milestone', $milestone);
       
       if (is_array(array_var($_POST, 'milestone'))) {
-        $milestone_data['due_date'] = DateTimeValueLib::make(0, 0, 0, array_var($_POST, 'milestone_due_date_month', 1), array_var($_POST, 'milestone_due_date_day', 1), array_var($_POST, 'milestone_due_date_year', 1970));
+        if (isset($_POST['milestone_due_date'])) {
+          $milestone_data['due_date'] = DateTimeValueLib::makeFromString($_POST['milestone_due_date']);
+        } else {
+          $milestone_data['due_date'] = DateTimeValueLib::make(0, 0, 0, array_var($_POST, 'milestone_due_date_month', 1), array_var($_POST, 'milestone_due_date_day', 1), array_var($_POST, 'milestone_due_date_year', 1970));
+        }
         
         $assigned_to = explode(':', array_var($milestone_data, 'assigned_to', ''));
         
@@ -108,7 +115,9 @@
           DB::beginWork();
           
           $milestone->save();
-          $milestone->setTagsFromCSV(array_var($milestone_data, 'tags'));
+          if (plugin_active('tags')) {
+            $milestone->setTagsFromCSV(array_var($milestone_data, 'tags'));
+          }
           ApplicationLogs::createLog($milestone, active_project(), ApplicationLogs::ACTION_ADD);
           
           DB::commit();
@@ -155,7 +164,7 @@
       
       $milestone_data = array_var($_POST, 'milestone');
       if (!is_array($milestone_data)) {
-        $tag_names = $milestone->getTagNames();
+        $tag_names = plugin_active('tags') ? $milestone->getTagNames() : '';
         $milestone_data = array(
           'name'        => $milestone->getName(),
           'due_date'    => $milestone->getDueDate(),
@@ -171,7 +180,12 @@
       
       if (is_array(array_var($_POST, 'milestone'))) {
         $old_owner = $milestone->getAssignedTo(); // remember the old owner
-        $milestone_data['due_date'] = DateTimeValueLib::make(0, 0, 0, array_var($_POST, 'milestone_due_date_month', 1), array_var($_POST, 'milestone_due_date_day', 1), array_var($_POST, 'milestone_due_date_year', 1970));
+        if (isset($_POST['milestone_due_date'])) {
+          $milestone_data['due_date'] = DateTimeValueLib::makeFromString($_POST['milestone_due_date']);
+        } else {
+          $milestone_data['due_date'] = DateTimeValueLib::make(0, 0, 0, array_var($_POST, 'milestone_due_date_month', 1), array_var($_POST, 'milestone_due_date_day', 1), array_var($_POST, 'milestone_due_date_year', 1970));
+        }
+        //$milestone_data['due_date'] = DateTimeValueLib::make(0, 0, 0, array_var($_POST, 'milestone_due_date_month', 1), array_var($_POST, 'milestone_due_date_day', 1), array_var($_POST, 'milestone_due_date_year', 1970));
         
         $assigned_to = explode(':', array_var($milestone_data, 'assigned_to', ''));
         
@@ -188,7 +202,9 @@
         try {
           DB::beginWork();
           $milestone->save();
-          $milestone->setTagsFromCSV(array_var($milestone_data, 'tags'));
+          if (plugin_active('tags')) {
+            $milestone->setTagsFromCSV(array_var($milestone_data, 'tags'));
+          }
           
           ApplicationLogs::createLog($milestone, active_project(), ApplicationLogs::ACTION_EDIT);
           DB::commit();
@@ -362,6 +378,33 @@
       $this->redirectToReferer($milestone->getViewUrl());
     } // open
   
+    /**
+    * Show calendar view milestone page
+    *
+    * @access public
+    * @param void
+    * @return null
+    */
+    function calendar() {
+      $this->addHelper('textile');
+
+      $project = active_project();
+      $id = get_id();
+      if (strlen($id) == 0) {
+        $id = gmdate('Ym');
+      }
+      if (preg_match('/^(\d{4})(\d{2})$/', $id, $matches)) {
+        list (, $year, $month) = $matches;
+        tpl_assign('year', $year);
+        tpl_assign('month', $month);
+      } else {
+        flash_error(lang('id missing'));
+        $this->redirectToReferer(get_url('milestone'));
+      }
+      tpl_assign('milestones', $project->getMilestonesByMonth($year, $month));
+      tpl_assign('task_lists', $project->getTaskListsByMonth($year, $month));
+    } // calendar
+
   } // MilestoneController
 
 ?>

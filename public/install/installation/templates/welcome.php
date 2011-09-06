@@ -4,18 +4,18 @@ you meet the minimum system requirements and have the database login information
 proceeding.</p>
 <h2>System Requirements:</h2>
 <ul>
-  <li>PHP 5.0.2 or greater (MySQL, GD and SimpleXML extensions are required.)</li>
-  <li>MySQL 4.1 or greater with InnoDB support</li>
-  <li>Apache 2.0 or greater or IIS 5.0 or greater</li>
+  <li>At least PHP 5.0.2 (MySQL required, GD and SimpleXML optional)</li>
+  <li>At least MySQL 4.1 (InnoDB support preferred)</li>
+  <li>At least Apache 2.0 or IIS 5.0</li>
 </ul>
 
-<h2>Information you will need for installation:</h2>
+<h2>Information you need to supply:</h2>
 <ul>
-  <li>MySQL Host Name (usually 'localhost')</li>
-  <li>MySQL Username</li>
-  <li>MySQL Password</li>
-  <li>MySQL Database Name</li>
-  <li>The absolute URL to your installation root (ex. http://www.your-projectpier-site.com/projectpier/)</li>
+  <li>Database Host</li>
+  <li>Database User</li>
+  <li>Database Password</li>
+  <li>Database Name</li>
+  <li>Table Prefix</li>
 </ul>
 
 <h2>Installation steps:</h2>

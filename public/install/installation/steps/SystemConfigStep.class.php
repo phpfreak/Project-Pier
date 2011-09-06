@@ -27,7 +27,7 @@
     * @return ConfigStep
     */
     function __construct() {
-      $this->setName('Configuration');
+      $this->setName('Database configuration');
     } // __construct
     
     /**
@@ -53,49 +53,82 @@
       $config_form_data = array_var($_POST, 'config_form');
       if (!is_array($config_form_data)) {
         $config_form_data = array(
-          'database_type'   => $this->getFromStorage('database_type'),
-          'database_host'   => $this->getFromStorage('database_host', 'localhost'),
-          'database_user'   => $this->getFromStorage('database_user'),
-          'database_pass'   => $this->getFromStorage('database_pass'),
-          'database_name'   => $this->getFromStorage('database_name'),
-          'database_prefix' => $this->getFromStorage('database_prefix'),
-          'absolute_url'    => $this->getFromStorage('absolute_url'),
+          'database_type'    => $this->getFromStorage('database_type', 'MySQL'),
+          'database_host'    => $this->getFromStorage('database_host', 'localhost'),
+          'database_user'    => $this->getFromStorage('database_user', 'root'),
+          'database_pass'    => $this->getFromStorage('database_pass'),
+          'database_name'    => $this->getFromStorage('database_name', 'PP'),
+          'database_create'  => $this->getFromStorage('database_create' ),
+          'database_charset' => $this->getFromStorage('database_charset', 'utf8'),
+          'database_prefix'  => $this->getFromStorage('database_prefix', 'PP086_'),
         ); // array
       } // if
-      tpl_assign('installation_url', $installation_url);
       tpl_assign('config_form_data', $config_form_data);
       
-      if ($this->isSubmited()) {
-        $database_type   = (string) array_var($config_form_data, 'database_type');
-        $database_host   = (string) array_var($config_form_data, 'database_host');
-        $database_user   = (string) array_var($config_form_data, 'database_user');
-        $database_pass   = (string) array_var($config_form_data, 'database_pass');
-        $database_name   = (string) array_var($config_form_data, 'database_name');
-        $database_prefix = (string) array_var($config_form_data, 'database_prefix');
-        $absolute_url    = (string) array_var($config_form_data, 'absolute_url');
+      if ($this->isSubmitted()) {
+        $database_type    = (string) array_var($config_form_data, 'database_type');
+        $database_host    = (string) array_var($config_form_data, 'database_host');
+        $database_user    = (string) array_var($config_form_data, 'database_user');
+        $database_pass    = (string) array_var($config_form_data, 'database_pass');
+        $database_name    = (string) array_var($config_form_data, 'database_name');
+        $database_create  = (string) array_var($config_form_data, 'database_create');
+        $database_charset = (string) array_var($config_form_data, 'database_charset');
+        $database_prefix  = (string) array_var($config_form_data, 'database_prefix');
         
-        $connected = false;
         if ($this->database_connection = @mysql_connect($database_host, $database_user, $database_pass)) {
-          $connected = @mysql_select_db(array_var($config_form_data, 'database_name'), $this->database_connection);
-        } // if
-        
-        if ($connected) {
-          $this->addToStorage('database_type', $database_type);
-          $this->addToStorage('database_host', $database_host);
-          $this->addToStorage('database_user', $database_user);
-          $this->addToStorage('database_pass', $database_pass);
-          $this->addToStorage('database_name', $database_name);
-          $this->addToStorage('database_prefix', $database_prefix);
-          $this->addToStorage('absolute_url', $absolute_url);
-          return true;
+          // ---------------------------------------------------
+          //  Check if we have at least 4.1
+          // ---------------------------------------------------
+          $mysql_version = mysql_get_server_info($this->database_connection);
+          if ($mysql_version && version_compare($mysql_version, '4.1', '>=')) {
+            $this->addToStorage('database_type', $database_type);
+            $this->addToStorage('database_host', $database_host);
+            $this->addToStorage('database_user', $database_user);
+            $this->addToStorage('database_pass', $database_pass);
+            $try_select = true;
+            if ($database_create=='yes') {
+              $try_select = false;
+              if (@mysql_select_db(array_var($config_form_data, 'database_name'), $this->database_connection)) {
+                  $this->addError("Database create failed, $database_name exists. Choose another name or uncheck create option.");
+              } else {
+                $sql = "CREATE DATABASE `$database_name`";
+                if (mysql_query($sql, $this->database_connection)) {
+                  $try_select = true;
+                } else {
+                  $this->addError('Error creating database: ' . mysql_error() );
+                }
+              }
+            }
+            if ($try_select) {
+              if (@mysql_select_db(array_var($config_form_data, 'database_name'), $this->database_connection)) {
+                $this->addToStorage('database_name', $database_name);
+                $this->addToStorage('database_charset', $database_charset);
+                $this->addToStorage('database_prefix', $database_prefix);
+
+                $exist = 0;
+                $result = @mysql_query("show tables like '$database_prefix%'", $this->database_connection);
+                while ($row = @mysql_fetch_row($result)) {
+                  $exist++;
+                }
+                if ($exist==0) {
+                  return true;
+                }
+                $this->addError("There are $exist tables present with prefix '$database_prefix'. Remove those tables or use another prefix.");
+              } else {
+                $this->addError("Database '$database_name' not available on host '$database_host'.");
+              }
+            }
+          } else {
+            $this->addError('Database version is '.$mysql_version.'. Minimum is 4.1. Choose another host or upgrade.');
+          }
         } else {
-          $this->addError('Failed to connect to database with data you provided');
+          $this->addError("Failed to connect to database server '$database_host' with user '$database_user' and provided password");
         } // if
       } // if
       
       $this->setContentFromTemplate('system_config_form.php');
       return false;
-    } // excute
+    } // execute
     
     /**
     * Add error message to all messages and break the execution

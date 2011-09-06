@@ -32,18 +32,21 @@
     * @return ChecksStep
     */
     function __construct() {
-      $this->setName('Environment check');
+      $this->setName('Server check');
       
       $this->check_is_writable = array(
-        '/config/config.php',
+        '/config',
         '/public/files',
         '/cache',
         '/upload'
       ); // array
       
       $this->check_extensions = array(
-        'mysql', 'gd', 'simplexml'
+        'mysql' => true, 
+        'gd' => false, 
+        'simplexml' => false
       ); // array
+
     } // __construct
     
     /**
@@ -60,22 +63,32 @@
       if (version_compare(PHP_VERSION, '5.0.2', 'ge')) {
         $this->addToChecklist('PHP version is ' . PHP_VERSION, true);
       } else {
-        $this->addToChecklist('You PHP version is ' . PHP_VERSION . '. PHP 5.0.2 or newer is required', false);
+        $this->addToChecklist('Error: PHP version on this system is ' . PHP_VERSION . '. PHP 5.0.2 or newer is required', false);
         $all_ok = false;
       } // if
       
-      foreach ($this->check_extensions as $extension_name) {
+      foreach ($this->check_extensions as $extension_name => $required) {
         if (extension_loaded($extension_name)) {
-          $this->addToChecklist("'$extension_name' extension is loaded", true);
+          $this->addToChecklist("'$extension_name' extension is available", true);
         } else {
-          $this->addToChecklist("'$extension_name' extension is not loaded", false);
-          $all_ok = false;
+          if ($required) {
+            $this->addToChecklist("Error: '$extension_name' extension is not available but is required", false);
+            $all_ok = false;
+          } else {
+            $this->addToChecklist("Warning: '$extension_name' extension is not available (check documentation)", false);
+          }
         } // if
       } // if
       
       if (is_array($this->check_is_writable)) {
         foreach ($this->check_is_writable as $relative_folder_path) {
           $check_this = INSTALLATION_PATH . $relative_folder_path;
+
+          if (!file_exists($check_this)) {
+            $this->addToChecklist("$relative_folder_path does not exist", false);
+            $all_ok = false;
+            continue;
+          }
           
           $is_writable = false;
           if (is_file($check_this)) {
@@ -100,7 +113,7 @@
       } // if
       
       if ($all_ok) {
-        return $this->isSubmited();
+        return $this->isSubmitted();
       } // if
       
       $this->setNextDisabled(true);

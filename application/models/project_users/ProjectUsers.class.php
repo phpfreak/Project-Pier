@@ -8,15 +8,6 @@
   */
   class ProjectUsers extends BaseProjectUsers {
     
-    /** All available user permissions **/
-    const CAN_MANAGE_MESSAGES   = 'can_manage_messages';
-    const CAN_MANAGE_TASKS      = 'can_manage_tasks';
-    const CAN_MANAGE_MILESTONES = 'can_manage_milestones';
-    const CAN_UPLOAD_FILES      = 'can_upload_files';
-    const CAN_MANAGE_FILES      = 'can_manage_files';
-    const CAN_ASSIGN_TO_OWNERS  = 'can_assign_to_owners';
-    const CAN_ASSIGN_TO_OTHER   = 'can_assign_to_other';
-  
     /**
     * Return all users that are involved in specific project
     *
@@ -47,7 +38,7 @@
     } // getUsersByProject
     
     /**
-    * Return users of specific company involeved in specific project
+    * Return users of specific company involved in specific project
     *
     * @access public
     * @param Company $company
@@ -67,19 +58,41 @@
     * @param 
     * @return array
     */
-    function getProjectsByUser(User $user, $additional_conditions = null) {
+    function getProjectsByUser(User $user, $additional_conditions = null, $additional_sort = null) {
+      trace(__FILE__, "getProjectsByUser(user, $additional_conditions, $additional_sort)");
       $projects_table = Projects::instance()->getTableName(true);
+      trace(__FILE__, "getProjectsByUser():1");
       $project_users_table=  ProjectUsers::instance()->getTableName(true);
-      
+      trace(__FILE__, "getProjectsByUser():2");
+      $project_milestones_table=  ProjectMilestones::instance()->getTableName(true);
+      trace(__FILE__, "getProjectsByUser():3");
+      $empty_datetime = DB::escape(EMPTY_DATETIME);
       $projects = array();
-      
-      $sql = "SELECT $projects_table.* FROM $projects_table, $project_users_table WHERE ($projects_table.`id` = $project_users_table.`project_id` AND $project_users_table.`user_id` = " . DB::escape($user->getId()) . ')';
-      if (trim($additional_conditions) <> '') {
+
+      if (trim($additional_sort) == 'milestone') {
+        $sql = "SELECT distinct $projects_table.* FROM $projects_table";
+        $sql .= " left outer join $project_milestones_table on $project_milestones_table.`project_id` = $projects_table.`id`";
+        $sql .= " inner join $project_users_table on $projects_table.`id` = $project_users_table.`project_id`";
+        $sql .= " where $project_users_table.`user_id` = " . DB::escape($user->getId()) . " and ($project_milestones_table.`completed_on` = $empty_datetime or isnull($project_milestones_table.`completed_on`))";
+      } else {
+        $sql = "SELECT $projects_table.* FROM $projects_table, $project_users_table WHERE ($projects_table.`id` = $project_users_table.`project_id` AND $project_users_table.`user_id` = " . DB::escape($user->getId()) . ')';
+      }
+
+      if(trim($additional_conditions) <> '') {
         $sql .= " AND ($additional_conditions)";
       } // if
-      $sql .= " ORDER BY $projects_table.`name`";
-      
+
+      if(trim($additional_sort) == 'priority') {
+        $sql .= " ORDER BY isnull($projects_table.`priority`), $projects_table.`priority`, $projects_table.`name`";
+      } elseif (trim($additional_sort) == 'milestone') {
+	      $sql .= " ORDER BY isnull($project_milestones_table.`due_date`), $project_milestones_table.`due_date`, $projects_table.`name` ";
+      } else {
+        $sql .= " ORDER BY $projects_table.`name`";
+      }
+
+      trace(__FILE__, "getProjectsByUser(): sql=$sql");
       $rows = DB::executeAll($sql);
+      trace(__FILE__, "getProjectsByUser(): sql=$sql ok");
       if (is_array($rows)) {
         foreach ($rows as $row) {
           $projects[] = Projects::instance()->loadFromRow($row);
@@ -97,6 +110,7 @@
     * @return boolean
     */
     static function clearByProject(Project $project) {
+      ProjectUserPermissions::delete(array('`project_id` = ?', $project->getId()));
       return self::delete(array('`project_id` = ?', $project->getId()));
     } // clearByProject
     
@@ -107,46 +121,10 @@
     * @return boolean
     */
     static function clearByUser(User $user) {
+      // project_id 0 means permission outside any project like can manage projects
+      ProjectUserPermissions::delete(array('`user_id` = ? AND `project_id` > 0', $user->getId()));
       return self::delete(array('`user_id` = ?', $user->getId()));
     } // clearByUser
-    
-    /**
-    * This function will return array of permission columns in table. Permission column name is 
-    * used as permission ID in rest of the script
-    *
-    * @access public
-    * @param void
-    * @return array
-    */
-    function getPermissionColumns() {
-      return array(
-        self::CAN_MANAGE_MESSAGES,
-        self::CAN_MANAGE_TASKS,
-        self::CAN_MANAGE_MILESTONES,
-        self::CAN_UPLOAD_FILES,
-        self::CAN_MANAGE_FILES,
-        self::CAN_ASSIGN_TO_OWNERS,
-        self::CAN_ASSIGN_TO_OTHER,
-      ); // array
-    } // getPermissionColumns
-    
-    /**
-    * Return permission name => permission text array
-    *
-    * @param void
-    * @return array
-    */
-    static function getNameTextArray() {
-      return array(
-        ProjectUsers::CAN_MANAGE_MESSAGES   => lang('can manage messages'),
-        ProjectUsers::CAN_MANAGE_TASKS      => lang('can manage tasks'),
-        ProjectUsers::CAN_MANAGE_MILESTONES => lang('can manage milestones'),
-        ProjectUsers::CAN_UPLOAD_FILES      => lang('can upload files'),
-        ProjectUsers::CAN_MANAGE_FILES      => lang('can manage files'),
-        ProjectUsers::CAN_ASSIGN_TO_OWNERS  => lang('can assign to owners'),
-        ProjectUsers::CAN_ASSIGN_TO_OTHER   => lang('can assign to other'),
-      ); // array
-    } // getNameTextArray
     
   } // ProjectUsers 
 

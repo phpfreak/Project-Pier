@@ -67,6 +67,12 @@
             $comment->setIsPrivate(false);
           } // if
         
+          if($object instanceof ProjectMessage || $object instanceof ProjectFile) {
+            if($object->getIsPrivate()) {
+              $comment->setIsPrivate(true);
+	    } // if
+          } // if
+	  
           DB::beginWork();
           $comment->save();
           
@@ -78,20 +84,43 @@
           
           ApplicationLogs::createLog($comment, active_project(), ApplicationLogs::ACTION_ADD);
           
-          // Subscribe user to message (if $object is message)
-          if ($object instanceof ProjectMessage) {
+          // Subscribe user to object (if $object is subscribible)
+          if($object->isSubscribable()) {
             if (!$object->isSubscriber(logged_user())) {
               $object->subscribeUser(logged_user());
             } // if
           } // if
           
           DB::commit();
+
+          // Try to send notification on comments other than Messages (messages already managed by subscription)          
+          if (!($comment->getObject() instanceof ProjectMessage)) {
+            // Try to send notifications but don't break submission in case of an error
+            // define all the users to be notified - here all project users, from all companies.
+            // Restrictions if comment is private is taken into account in newOtherComment()
+            try {
+              $notify_people = array();
+              $project_companies = active_project()->getCompanies();
+              foreach ($project_companies as $project_company) {
+                $company_users = $project_company->getUsersOnProject(active_project());
+                if (is_array($company_users)) {
+                  foreach ($company_users as $company_user) {                
+                    $notify_people[] = $company_user;                 
+                  } // if
+                } // if
+              } // if
+              //notify
+              Notifier::newOtherComment($comment, $notify_people); // send notification email...
+            } catch(Exception $e) {                  
+              Logger::log("Error: Notification failed, " . $e->getMessage(), Logger::ERROR);
+            } // try
+          } // if
           
           flash_success(lang('success add comment'));
           
           $redirect_to = $comment->getViewUrl();
           if (!is_valid_url($redirect_to)) {
-            $redirect_to = $object->getViewUrl();
+            $redirect_to = $object->getObjectUrl();
           } // if
           
           $this->redirectToUrl($redirect_to);
@@ -159,6 +188,12 @@
             $comment->setIsPrivate($old_is_private);
           }
         
+          if($object instanceof ProjectMessage || $object instanceof ProjectFile) {
+            if($object->getIsPrivate()) {
+              $comment->setIsPrivate(true);
+	    } // if
+          } // if
+
           DB::beginWork();
           $comment->save();
           ApplicationLogs::createLog($comment, active_project(), ApplicationLogs::ACTION_EDIT);

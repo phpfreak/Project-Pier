@@ -15,7 +15,21 @@
   
   // Some nice to have regexps
   define('EMAIL_FORMAT', "/^([a-z0-9+_]|\\-|\\.)+@(([a-z0-9_]|\\-)+\\.)+[a-z]{2,6}\$/i");
-  define('URL_FORMAT', "/^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}((:[0-9]{1,5})?\/.*)?$/i");
+  define('URL_FORMAT',
+  '/^(https?):\/\/'.                                         // protocol
+  '(([a-z0-9$_\.\+!\*\'\(\),;\?&=-]|%[0-9a-f]{2})+'.         // username
+  '(:([a-z0-9$_\.\+!\*\'\(\),;\?&=-]|%[0-9a-f]{2})+)?'.      // password
+  '@)?(?#'.                                                  // auth requires @
+  ')((([a-z0-9][a-z0-9-]*[a-z0-9]\.)*'.                      // domain segments AND
+  '[a-z][a-z0-9-]*[a-z0-9]'.                                 // top level domain  OR
+  '|((\d|[1-9]\d|1\d{2}|2[0-4][0-9]|25[0-5])\.){3}'.
+  '(\d|[1-9]\d|1\d{2}|2[0-4][0-9]|25[0-5])'.                 // IP Address
+  ')(:\d+)?'.                                                // port
+  ')(((\/+([a-z0-9$_\.\+!\*\'\(\),;:@&=-]|%[0-9a-f]{2})*)*'. // path
+  '(\?([a-z0-9$_\.\+!\*\'\(\),;:@&=-]|%[0-9a-f]{2})*)'.      // query string
+  '?)?)?'.                                                   // path and query string optional
+  '(#([a-z0-9$_\.\+!\*\'\(\),;:@&=-]|%[0-9a-f]{2})*)?'.      // fragment
+  '$/i');
   
   define('DATE_MYSQL', 'Y-m-d H:i:s');
   define('EMPTY_DATETIME', '0000-00-00 00:00:00');

@@ -1,51 +1,37 @@
-body {
-  text-align: left;
-}
-
-body a {
+body 
+{
   color:#000066;
-	text-decoration: none;
+  text-align: left;
+  font-weight: normal;
+  font-size: 80%; 
 }
 
 a:visited    	
 { 
   color: #006;
-	text-decoration: none;
-}
-a:link    	
-{ 
-  color: #000066;
-	text-decoration: none;
 }
 
-a:active    	
-{ 
-  color: #000066;
-}
 a:hover    
 { 
-   color: #000066;
    background-color: #fffbab;
-	 border-bottom-width: 1px;
-	 border-bottom-style: dotted;
-	 bordor-bottom-color: -moz-use-text-color;
+   border-bottom-width: 1px;
+   border-bottom-style: dotted;
+   bordor-bottom-color: -moz-use-text-color;
 }
 
 #wrapper {
-  width:900px;
-	margin: 0 auto;
-	padding-top:10px;
-  text-align: center;
+  width: 900px;
+  margin: 0 auto;
+  padding-top: 10px;
   background: #FFFFFF url('../../images/layout/header.jpg') top center no-repeat;
-
 }
 
 #header {
-	top: 8px;
+  top: 8px;
   width: 870px;
   margin-top: 15px;
   margin-left: 12px;
-	margin-bottom:25px;
+  margin-bottom:25px;
   text-align: left;
   background: #FFF;
   filter:alpha(opacity=90);
@@ -55,7 +41,6 @@ a:hover
 
 #headerWrapper {
    /* background: #FFF; */
-
 }
 
 #header h1 {
@@ -69,7 +54,7 @@ a:hover
 #header h1 a {
   font-weight: bold;
   border: 0;
-  font-size: 24px;
+  font-size: 120%;
   color: #000063;
 }
 
@@ -103,53 +88,136 @@ a:hover
 }
 
 #userboxWrapper {
-  margin-left: 450px;
-  color: #666;
-  font-size: 10px; 
+  background-color: #fff;
+  float: right;
+  width: 500px;
+  z-index: 250;
 }
 
-#userbox {
-  padding: 5px 8px;
-  text-align: right;
-	border: 0px solid #ccc;
-  font-size: 11px;
-	
-}
-
-#userbox ul {
-  margin: 0;
-  padding: 0;
+/*---------- general userbox links------------------*/ 
+#account_more_menu {
+  float: right;
   list-style: none;
 }
 
-#userbox ul li {
-  display: inline;
-  margin-right: 2px;
+#account_more_menu li {
+  float: left;
+  margin: 0px 6px 0px 2px;
 }
 
-#userbox .PopupMenuWidgetDiv {
-  position: absolute;
-  border: 1px solid #000063;
-  background: white;
-  padding: 5px 10px;
-  width: 140px;
-  color: #333;
+#account_more_menu li a{
+  border: 1px solid #000066;
+  display: block;
+  padding: 0px 8px;
+  color: #000063;
+  font-size: 12px;
+  line-height: 20px;
+  background : #ffffff;
 }
 
-#userbox .PopupMenuWidgetDiv p {
+/*-------------------- submenus---------------------*/ 
+#account_more_menu li ul {
+  clear: left;
+  left: -999em; /* using left instead of display to hide menus because display: none isn't read by screen readers */
+  filter:alpha(opacity=90);
+  -moz-opacity:.90;
+  opacity:.90;
+  border: 1px solid #000066;
+  list-style: none;
   margin: 0;
-  font-weight: bolder;
+  padding: 0;
+  position: absolute;
+  z-index: 3000 !important;
 }
 
-#userbox .PopupMenuWidgetDiv ul {
-  margin-left: 12px;
-  padding-left: 5px;
+#account_more_menu li ul li {
+  background-color: #fff;
+  line-height: 20px;
+  border: none;
+  float: none;
+  list-style: none;
+  list-style-image: none !important;
+  margin: 0;
+  padding: 0;
+  height: auto;
 }
 
-#userbox .PopupMenuWidgetDiv ul li {
-  display: list-item;
+* html #account_more_menu ul li, * html #account_more_menu ul li a {
+  height: 1%;
+}
+
+#account_more_menu h6 {
+  color: #000066;
+  font-weight: bold;
+  margin: 0;
+  padding: 3px 10px !important;
+}
+
+#account_more_menu li ul li a {
+  position: relative;
+  background-image: none !important;
+  border: none;
+  border-bottom: 1px solid #d8d8d8;
   font-weight: normal;
-  list-style: disc;
+  height: auto;
+  margin: 0;
+  padding: 3px 10px !important;
+}
+
+#account_more_menu li:hover ul ul, #account_more_menu li:hover ul ul ul, #account_more_menu li.sfhover ul ul, #account_more_menu li.sfhover ul ul ul{
+  left: -999em;
+}
+
+#account_more_menu li:hover ul, #account_more_menu li li:hover ul, #account_more_menu li li li:hover ul, #account_more_menu li.sfhover ul, #account_more_menu li li.sfhover ul,  #account_more_menu li li li.sfhover ul{
+  left: auto; /* lists nested under hovered list items */
+}
+
+/*-------------------- 1st level  hover---------------------*/ 
+#account_more_menu li:hover a, #account_more_menu li.sfhover a {
+  background-color: #eef6ff;
+  position: relative;
+  z-index: 2500;
+  color: #000066;
+}
+
+/*-------------------- second level on hover---------------------*/ 
+#account_more_menu li li:hover a, #account_more_menu li li.sfhover a{
+  xbackground-color: #fff;
+  background-color: #000066;
+  xbackground-color: transparent;
+  color: #fff;
+  color: #000066;
+}
+
+#account_more_menu li:hover li a:hover, #account_more_menu li.sfhover li a:hover{
+  background-color: #eef6ff;
+  color: #000066;
+}
+
+#account_more_menu li ul li:hover a:hover {
+  background-color: #000066;
+  color: #fff;
+}
+
+/*-------------------- ie mac fixes ---------------------*/ 
+/* only IE mac will see this */
+* html>body #account_more_menu li a{
+}
+
+* html>body #account_more_menu li{
+	text-align: center;
+	white-space: nowrap;
+	width: 60px;
+}
+
+* html>body #account_more_menu li li{
+	text-align: left;
+	white-space: nowrap;
+	width: 125px;
+}
+
+* html>body #account_more_menu li li:hover ul,#account_more_menu li li.sfhover ul{
+	left: 110px;
 }
 
 /** Tabs **/
@@ -163,6 +231,7 @@ a:hover
 
 #tabs {
   float: left;
+  width: 770px;
 }
 
 #tabs ul {
@@ -182,12 +251,8 @@ a:hover
   border-right: 1px solid #000066;
   display: block;
   padding: 0px 8px;
-  text-align: center;
   color: #000063;
-  font-size: 12px;
-  font-weight: normal;
   line-height: 20px;
-  text-decoration: none;
   background : #ffffff;
 }
 
@@ -195,19 +260,17 @@ a:hover
   border: 1px solid #000066;
   color: #000066;
   background : #D9E8FF;
-  text-decoration: none;  
 }
 
 #tabs ul li.active a {
   border: 1px solid #000066;
   background : #000066;
   color : #FFF;
-    font-weight: bold;
+  font-weight: bold;
 }
 
 #tabs ul li.active a:hover {
   color: white;
-  text-decoration: none;
 }
 
 /** Crumbs **/
@@ -225,7 +288,6 @@ a:hover
   padding: 0 10px;
   width: 880px;
   line-height: 25px;
-  text-align: left;
 }
     
 #crumbs {
@@ -242,8 +304,6 @@ a:hover
   display: inline;
   line-height: 22px;
   color: white;
-  font-size: 11px;
-  font-weight: normal;
 }
 
 #crumbs ul li span {
@@ -264,16 +324,12 @@ a:hover
 }
 
 #searchBox {
-  padding: 1px 0;
   text-align: right;
+  height: 20px;
 }
 
 #searchBox input {
-  border: 1px solid #222;
-  font-size: 10 px;
   padding: 1px;
-  width: 100px;
-  background: #fff;
 }
 
 #searchBox input:focus {
@@ -281,50 +337,47 @@ a:hover
 }
 
 #searchBox button {
-  margin: 5px 0 0 2px;
-  border: 0;
-  padding: 1;
-  font-size: 11px;
-  color: #000066;
-  background: #eee;
-  height: 14px;
+  height: 20px;
 }
 
 /** Content **/
 
 #outerContentWrapper {
-  clear: both;
   background: #FFF;
-	border-left: 1px dashed #d9e8ff;
-	border-right: 1px dashed #d9e8ff;
-	padding-top: 10px;
+  border-left: 1px dashed #d9e8ff;
+  border-right: 1px dashed #d9e8ff;
+  padding-top: 0;
+  clear: both;
 }
 
 #innerContentWrapper {
   margin: 0 auto;
-  padding: 0px;
+  padding: 10px 0;
   width: 880px;
   text-align: left;
 }
 
-#innerContentWrapper  h1 {
+#innerContentWrapper h1 {
   margin: 0;
   padding: 5px 0 5px 10px;
   border: 0;
 }
 
 #pageTitle {
+  clear: both;
+  float: left;
   margin-bottom: 0;
   font-family: Verdana,"Lucida Grande",sans-serif;
   font-style: normal;
   font-variant: normal;
   font-size-adjust: none;
   font-stretch: normal;
-  margin-bottom: 15px;
-  font-size: 200%;
+  margin: 5px 0 15px 0;
+  font-size: 160%;
   font-weight: bold;
   color: #000066;
   line-height: 1.2em;
+  width: 600px;
 }
 
 #pageContent {
@@ -336,12 +389,10 @@ a:hover
   float: left;
   width: 600px;
   min-height: 400px;
-  font-size:12px;
 }
 
 #content .description{
   line-height: 130%;
-  font-size: 12px;
 }
 
 /** Sidebar **/
@@ -350,21 +401,17 @@ a:hover
   margin-top: 40px;
   margin-left: 635px;
   padding: 0 10px;
-  font-size: 10px;
   color : #000066;
 }
-
 
 #sidebar h2 {
   margin-top: 0;
   padding: 2px 2px 2px 15px;
-	font-size: 12px;
+  font-size: 110%;
   color : #fff;
-	background-color: #000066;
-	font-weight:normal;
-	
+  background-color: #000066;
+  font-weight:normal;
 }
-
 
 #sidebar .blockContent {
   margin-bottom: 10px;
@@ -376,46 +423,53 @@ a:hover
   padding-bottom:5px;
 }
 
-
-
 #sidebar .listWithDetails li {
   padding-bottom: 5px;
 }
 
 /** Page actions **/
 
+#pageActionsWrapper {
+  width: 900px;
+
+  margin: 5px auto 0 auto;
+  text-align: left;
+}
+
 #page_actions {
-  background: #D9E8FF;
-  margin-bottom: 20px;
-  height: 20px;
-  padding-left: 10px;
+  float: left;
+  background: none;
 }
 
 #page_actions ul {
   margin: 0;
-  padding: 0;
+  padding: 0 10px;
   list-style: none;
-    vertical-align: middle;
 }
 
 #page_actions ul li {
-  padding-right: 3px;
-  display: inline;
-  font-weight: normal;
-  font-size: 10px;
+  margin: 0 2px;
+  float: left;
 }
 
 #page_actions ul li a {
-  border: 0;
-  padding: 0 15px 0 0;
-  color: #444;
-  font-weight:bold;
-  text-decoration: none;
-  background: url('../../images/icons/more_down.gif') no-repeat right bottom;
+  border-bottom: 1px solid #000066;
+  border-left: 1px solid #000066;
+  border-right: 1px solid #000066;
+  xborder: 1px solid #000066;
+  display: block;
+  padding: 0px 8px;
+  color: #000063;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 20px;
+  xbackground : #ffffff;
 }
 
 #page_actions ul li a:hover {
-  color: black;
+  color: #000066;
+  background : #D9E8FF;
+  xtext-decoration: none;  
 }
 
 /** Footer **/
@@ -428,7 +482,7 @@ a:hover
   text-align: left;
   color: #999;
   line-height: 130%;
-  font-size: 9px;
+  font-size: 0.8em;
 }
 
 #copy {
@@ -530,7 +584,7 @@ div.card table tr, div.card table td {
 /** Advanced pagination **/
 
 div.advancedPagination {
-  font-size: 9px;
+  xfont-size: 9px;
   margin: 10px;
   text-align: right;
 }
@@ -560,37 +614,36 @@ div.private span {
 }
 
 .messageOptions {
-  font-size: 9px;
+  xfont-size: 9px;
   color:#000066;
   text-align: right;
 }
 
 .messageOptions a {
-  font-size: 9px;
+  xfont-size: 9px;
   color:#000066;
 }
 
 .involvedCompanies {
-  font-size: 10px;
+  xfont-size: 10px;
   color:#999;
 }
 
 .startedOnBy {
-  font-size: 10px;
+  xfont-size: 10px;
   color:#999;
 }
 
 .involvedCompanies a {
-  font-size: 10px;
+  xfont-size: 10px;
   color:#999;
 }
 
 .startedOnBy a {
-  font-size: 10px;
+  xfont-size: 10px;
   color:#999;
 }
 
 div .block {
   background: #eeeeee;
 }
-

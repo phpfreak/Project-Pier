@@ -1,0 +1,71 @@
+#people div.projectCompany {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background: #fff url('') no-repeat 10px 10px;
+  min-height: 50px;
+}
+
+* html #people div.projectCompany {
+  height: 50px;
+}
+
+#people div.projectCompanyLogo {
+  float: left;
+  width: 60px;
+}
+
+#people div.projectCompanyMeta {
+  margin-left: 60px;
+}
+
+#people div.projectCompany a.companyName {
+  font-size: 150%;
+  border: none;
+  padding-top: 3px;
+  display: block;
+  font-weight: bolder;
+}
+
+#people div.projectCompanyAddress, #people div.projectUserTitle, #people div.projectUserEmail {
+  margin-top: 5px;
+  padding-left: 5px;
+  font-size: 90%;
+  color: #666;
+  line-height: 120%;
+}
+
+#people div.projectCompanyHomepage {
+  margin-top: 5px;
+  padding-left: 5px;
+  font-size: 90%;
+  line-height: 100%;
+}
+.projectUserDisplayName {
+	margin-left: 4px;
+	font-size: 13px;
+	margin-bottom: 3px;
+}
+#people div.projectCompanyOptions {
+  margin-top: 5px;
+  padding-top: 2px;
+  font-size: 10px;
+  border-top: 1px dotted #ccc;
+}
+
+#people div.projectCompanyUsers table {
+  margin-top: 20px;
+  padding: 5px;
+  background: white;
+  width: 448px;
+}
+#people div.projectCompanyUsers table th {
+	font-size: 12px;
+}
+#people div.projectCompanyUsers table td {
+	padding: 10px;
+}
+
+#people div.projectUserTitle, #people div.projectUserEmail {
+  margin: 0;
+}

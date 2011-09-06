@@ -40,7 +40,7 @@
         </ul>
 <?php } // if ?>
       </div>
-      <input type="hidden" name="submited" value="submited" />
+      <input type="hidden" name="submitted" value="submitted" />
     </form>
     <div id="footer">&copy; <?php echo date('Y') ?> <a href="http://www.projectpier.org/">ProjectPier</a>. All rights reserved.</div>
   </div>

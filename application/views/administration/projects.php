@@ -7,6 +7,7 @@
   
   if (Project::canAdd(logged_user())) {
     add_page_action(lang('add project'), get_url('project', 'add'));
+    add_page_action(lang('copy project'), get_url('project', 'copy'));
   } // if
 
 ?>

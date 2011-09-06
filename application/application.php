@@ -8,25 +8,36 @@
   * @version 1.0
   * @http://www.projectpier.org/
   */
-  
+  trace(__FILE__, 'begin');
   define('FILE_STORAGE_FILE_SYSTEM', 'fs');
   define('FILE_STORAGE_MYSQL', 'mysql');
-  
+  define('TOKEN_COOKIE_NAME', 'pp086b2' . TABLE_PREFIX);
+  //$installation_root = config_option('installation_root', dirname($_SERVER['PHP_SELF']) );
+  $path=$_SERVER['PHP_SELF'];
+  $path=substr($path, 0, strpos($path, 'index.php'));
+  $installation_root = $path;
+  define('ROOT_URL', $installation_root);
+
   // Init flash!
   Flash::instance();
-  Localization::instance()->loadSettings(DEFAULT_LOCALIZATION, ROOT . '/language');
-  include_once APPLICATION_PATH . '/functions.php';
-  
+  $language = config_option('installation_base_language', 'en_us');
+  if (isset($_SESSION['language'])) {
+    $language = $_SESSION['language'];
+  }
+  Localization::instance()->loadSettings($language, ROOT . '/language');
+ 
   try {
+    trace(__FILE__, 'CompanyWebsite::init()');
     CompanyWebsite::init();
     
     if (config_option('upgrade_check_enabled', false)) {
       VersionChecker::check(false);
     } // if
-    
     if (config_option('file_storage_adapter', 'mysql') == FILE_STORAGE_FILE_SYSTEM) {
+      trace(__FILE__, 'CompanyWebsite::init() - use file storage');
       FileRepository::setBackend(new FileRepository_Backend_FileSystem(FILES_DIR));
     } else {
+      trace(__FILE__, 'CompanyWebsite::init() - use mysql storage');
       FileRepository::setBackend(new FileRepository_Backend_MySQL(DB::connection()->getLink(), TABLE_PREFIX));
     } // if
     
@@ -34,17 +45,17 @@
     if (trim(PUBLIC_FOLDER) == '') {
       PublicFiles::setRepositoryUrl(with_slash(ROOT_URL) . 'files');
     } else {
-      PublicFiles::setRepositoryUrl(with_slash(ROOT_URL) . 'public/files');
+      PublicFiles::setRepositoryUrl(with_slash(ROOT_URL) . PUBLIC_FOLDER . '/files');
     } // if
     
   // Owner company or administrator doen't exist? Let the user create them
   } catch(OwnerCompanyDnxError $e) {
     Env::executeAction('access', 'complete_installation');
   } catch(AdministratorDnxError $e) {
-    Env::executeAction('access', 'complete_installation');
-    
+    Env::executeAction('access', 'complete_installation');    
   // Other type of error? We need to break here
   }  catch(Exception $e) {
+    trace(__FILE__, '- catch '.$e.__toString());
     if (Env::isDebugging()) {
       Env::dumpError($e);
     } else {
@@ -52,5 +63,4 @@
       Env::executeAction('error', 'system');
     } // if
   } // if
-
 ?>

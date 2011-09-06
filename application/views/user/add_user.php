@@ -19,7 +19,6 @@
   add_stylesheet_to_page('admin/user_permissions.css');
 
 ?>
-<script type="text/javascript" src="<?php echo get_javascript_url('modules/addUserForm.js') ?>"></script>
 <form action="<?php echo $company->getAddUserUrl() ?>" method="post">
 
 <?php tpl_display(get_template_path('form_errors')) ?>
@@ -57,10 +56,10 @@
   <fieldset>
     <legend><?php echo lang('password') ?></legend>
     <div>
-      <?php echo radio_field('user[password_generator]', array_var($user_data, 'password_generator') == 'random', array('value' => 'random', 'class' => 'checkbox', 'id' => 'userFormRandomPassword', 'onclick' => 'App.modules.addUserForm.generateRandomPasswordClick()')) ?> <?php echo label_tag(lang('user password generate'), 'userFormRandomPassword', false, array('class' => 'checkbox'), '') ?>
+      <?php echo radio_field('user[password_generator]', array_var($user_data, 'password_generator') == 'random', array('value' => 'random', 'class' => 'checkbox', 'id' => 'userFormRandomPassword')) ?> <?php echo label_tag(lang('user password generate'), 'userFormRandomPassword', false, array('class' => 'checkbox'), '') ?>
     </div>
     <div>
-      <?php echo radio_field('user[password_generator]', array_var($user_data, 'password_generator') == 'specify', array('value' => 'specify', 'class' => 'checkbox', 'id' => 'userFormSpecifyPassword', 'onclick' => 'App.modules.addUserForm.generateSpecifyPasswordClick()')) ?> <?php echo label_tag(lang('user password specify'), 'userFormSpecifyPassword', false, array('class' => 'checkbox'), '') ?>
+      <?php echo radio_field('user[password_generator]', array_var($user_data, 'password_generator') == 'specify', array('value' => 'specify', 'class' => 'checkbox', 'id' => 'userFormSpecifyPassword')) ?> <?php echo label_tag(lang('user password specify'), 'userFormSpecifyPassword', false, array('class' => 'checkbox'), '') ?>
     </div>
     <div id="userFormPasswordInputs">
       <div>
@@ -74,9 +73,6 @@
       </div>
     </div>
   </fieldset>
-  <script type="text/javascript">
-    App.modules.addUserForm.generateRandomPasswordClick();
-  </script>
 <?php } // if ?>
 
 <?php if ($company->isOwner()) { ?>
@@ -90,71 +86,29 @@
       <?php echo label_tag(lang('is auto assign'), null, true) ?>
       <?php echo yes_no_widget('user[auto_assign]', 'userFormAutoAssign', array_var($user_data, 'auto_assign'), lang('yes'), lang('no')) ?>
     </div>
+
+    <div>
+      <?php echo label_tag(lang('use LDAP'), null, true) ?>
+      <?php echo yes_no_widget('user[use_LDAP]', 'userFormUseLDAP', array_var($user_data, 'use_LDAP'), lang('yes'), lang('no')) ?>
+    </div>
   </div>
 <?php } else { ?>
   <input type="hidden" name="user[is_admin]" value="0" />
   <input type="hidden" name="user[auto_assign]" value="0" />
+  <input type="hidden" name="user[use_LDAP]" value="0" />
 <?php } // if ?>
-  
-<?php if ($user->isNew()) { ?>
+
   <div class="formBlock">
     <?php echo label_tag(lang('send new account notification'), null, true) ?>
     <?php echo yes_no_widget('user[send_email_notification]', 'userFormEmailNotification', array($user_data, 'send_email_notification'), lang('yes'), lang('no')) ?>
     <br /><span class="desc"><?php echo lang('send new account notification desc') ?></span>
   </div>
-  
-<?php if (isset($projects) && is_array($projects) && count($projects)) { ?>
-  <fieldset>
-    <legend><?php echo lang('permissions') ?></legend>
 
-<?php
-  $quoted_permissions = array();
-  foreach ($permissions as $permission_id => $permission_text) {
-    $quoted_permissions[] = "'$permission_id'";
-  } // foreach
-?>
-    <script type="text/javascript" src="<?php echo get_javascript_url('modules/updateUserPermissions.js') ?>"></script>
-    <script type="text/javascript">
-      App.modules.updateUserPermissions.project_permissions = new Array(<?php echo implode(', ', $quoted_permissions) ?>);
-    </script>
-    
-    <div id="userPermissions">
-      <div id="userProjects">
-<?php foreach ($projects as $project) { ?>
-        <table class="blank">
-          <tr>
-            <td class="projectName">
-              <?php echo checkbox_field('user[project_permissions_' . $project->getId() . ']', array_var($user_data, 'project_permissions_' . $project->getId()), array('id' => 'projectPermissions' . $project->getId(), 'onclick' => 'App.modules.updateUserPermissions.projectCheckboxClick(' . $project->getId() . ')')) ?> 
-<?php if ($project->isCompleted()) { ?>
-              <label for="projectPermissions<?php echo $project->getId() ?>" class="checkbox"><del class="help" title="<?php echo lang('project completed on by', format_date($project->getCompletedOn()), $project->getCompletedByDisplayName()) ?>"><?php echo clean($project->getName()) ?></del></label>
-<?php } else { ?>
-              <label for="projectPermissions<?php echo $project->getId() ?>" class="checkbox"><?php echo clean($project->getName()) ?></label>
-<?php } // if ?>
-            </td>
-            <td class="permissionsList">
-<?php if (array_var($user_data, 'project_permissions_' . $project->getId())) { ?>
-              <div id="projectPermissionsBlock<?php echo $project->getId() ?>">
-<?php } else { ?>
-              <div id="projectPermissionsBlock<?php echo $project->getId() ?>" style="display: none">
-<?php } // if ?>
-                <div class="projectPermission">
-                  <?php echo checkbox_field('user[project_permissions_' . $project->getId() . '_all]', array_var($user_data, 'project_permissions_' . $project->getId()), array('id' => 'projectPermissions' . $project->getId() . 'All', 'onclick' => 'App.modules.updateUserPermissions.projectAllCheckboxClick(' . $project->getId() . ')')) ?> <label for="projectPermissions<?php echo $project->getId() ?>All" class="checkbox"><?php echo lang('all') ?></label>
-                </div>
-<?php foreach ($permissions as $permission_name => $permission_text) { ?>
-                <div class="projectPermission">
-                  <?php echo checkbox_field('user[project_permission_' . $project->getId() . '_' . $permission_name . ']', array_var($user_data, 'project_permission_' . $project->getId() . '_' . $permission_name), array('id' => 'projectPermission' . $project->getId() . $permission_name, 'onclick' => 'App.modules.updateUserPermissions.projectPermissionCheckboxClick(' . $project->getId() . ')')) ?> <label for="projectPermission<?php echo $project->getId() . $permission_name ?>" class="checkbox normal"><?php echo clean($permission_text) ?></label>
-                </div>
-<?php } // foreach ?>
-              </div>
-            </td>
-          </tr>
-        </table>
-<?php } // foreach ?>
-      </div>
-    </div>
-  </fieldset>
-<?php } // if ?>
-<?php } // if ?>
+  <div class="formBlock">
+    <?php echo label_tag(lang('add welcome task'), null, true) ?>
+    <?php echo yes_no_widget('user[add_welcome_task]', 'userFormAddWelcomeTask', array($user_data, 'add_welcome_task'), lang('yes'), lang('no')) ?>
+    <br /><span class="desc"><?php echo lang('add welcome task desc') ?></span>
+  </div>
 
   <?php echo submit_button($user->isNew() ? lang('add user') : lang('edit user')) ?>
 </form>

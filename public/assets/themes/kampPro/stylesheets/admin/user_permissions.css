@@ -1,0 +1,13 @@
+/*#userPermissions {
+  border-top: 1px solid #ccc;
+}*/
+
+#userPermissions table {
+  padding: 0px;
+  border-width: 1px 0;
+  border-collapse: collapse;
+}
+
+#userPermissions td.projectName {
+	
+}

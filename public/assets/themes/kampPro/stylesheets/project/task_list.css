@@ -1,0 +1,87 @@
+div.taskList {
+  font-size: 110%;
+  position: relative;
+}
+
+div.taskList .desc {
+  padding: 0px;
+  padding-left: 4px;
+  padding-bottom: 0;
+}
+
+div.taskList .openTasks, .taskList .completedTasks {
+  margin: 10px;
+}
+
+div.taskList td.taskCheckbox {
+  padding-top: 4px;
+}
+.taskList .header {
+	border: none;
+}
+div.taskList span.assignedTo {
+  font-weight: bolder;
+}
+.taskList .block {
+	border: none;
+	background: none;
+}
+div.taskList .addTask {
+  padding: 10px;
+  margin-left: 12px;
+  font-size: 13px;
+  color: #6a6a6a;
+  border-bottom: 1px solid #c6c6c6;
+  background: #eaeaea;
+}
+div.taskList .header a {
+	font-size: 18px;
+	padding-top: 5px;
+	padding-bottom: 2px;
+	display: block;
+}
+div.taskList .addTask a {
+	color: #d31b00;
+	border: none;
+	text-decoration: underline;
+}
+div.taskList .addTask a:hover {
+	color: #fff;
+	border: none;
+	background:#d31b00; 
+}
+div.taskList .options {
+  padding: 10px;
+  padding-top: 0;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+div.taskList .completedTasks {
+  color: #666;
+  font-size: 90%;
+}
+.completedTasks .taskText  {
+	text-decoration:line-through;
+	position: relative;
+}
+div.taskList .completedTasks td {
+  padding: 0 2px; 
+  line-height: 16px;
+}
+div.taskList span.taskCompletedOnBy {
+  font-style: italic;
+  color: #333;
+  float: left;
+}
+
+div.taskList .taskListTags {
+  margin: 10px;
+  display: none;
+  font-size: 90%;
+}
+
+div.taskList .taskListTags span {
+  font-weight: bolder;
+}

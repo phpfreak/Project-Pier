@@ -30,7 +30,7 @@
     <?php echo text_field('form[company_name]', array_var($form_data, 'company_name'), array('id' => 'companyName', 'class' => 'long')) ?>
   </div>
   
-  <input type="hidden" name="form[submited]" value="submited" />
+  <input type="hidden" name="form[submitted]" value="submitted" />
   
   <?php echo submit_button('submit') ?>
   

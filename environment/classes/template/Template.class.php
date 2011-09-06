@@ -35,7 +35,7 @@
     } // assign
     
     /**
-    * Display template and retur output as string
+    * Display template and return output as string
     *
     * @param string $template Template path (absolute path or path relative to 
     *   the templates dir)
@@ -48,6 +48,9 @@
         $this->includeTemplate($template);
       } catch(Exception $e) {
         ob_end_clean();
+        echo '<xmp>';
+        echo $e->__toString();
+        echo '</xmp>';
         throw $e;
       } // try
       return ob_get_clean();

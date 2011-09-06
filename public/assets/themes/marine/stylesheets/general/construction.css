@@ -1,0 +1,662 @@
+/*[fmt]2A10-1A0B-3*/
+body  {
+ background-color: #F0F0F0;
+ color: #666666;
+ margin: 0;
+ padding: 0;
+}
+
+#wrapper  {
+ background: url(../../images/layout/bg_header.png) repeat-x;
+}
+
+* html #wrapper  {
+ height: 1%;
+}
+
+#header  {
+ margin: 0 auto;
+ padding-top: 5px;
+ text-align: left;
+ width: 890px;
+}
+
+#headerWrapper  {
+}
+
+#header h1  {
+ border: 0;
+ float: left;
+ margin: 0;
+ padding: 10px 0 10px 10px;
+ max-width: 332px;
+}
+
+#header h1 a  {
+ border: 0;
+ font-weight: normal;
+}
+
+#systemNotices  {
+ margin: 0 auto;
+ padding: 10px 0;
+ text-align: left;
+ width: 890px;
+}
+
+#systemNotices ul  {
+ margin: 0;
+ padding: 0 0 0 15px;
+}
+
+#systemNotices a, #systemNotices a:hover  {
+ border: 0;
+ text-decoration: underline;
+}
+
+/*--------------------  top user nav ---------------------*/
+#userboxWrapper  {
+ background: #D8D8D8 url(../../images/layout/bg_userbox.png) repeat-x;
+ border: 1px solid #C1C1C1;
+ color: #666666;
+ float: right;
+ font-size: 13px;
+ margin-bottom: 15px;
+ margin-right: 0px;
+ width: 540px;
+ z-index: 250;
+}
+
+#userbox  {
+ padding: 0 5px;
+}
+
+#userbox p  {
+ float: left;
+ margin: 0;
+ padding: 5px;
+}
+
+/*-------------------- general userbox links---------------------*/
+#account_more_menu  {
+ float: right;
+ list-style: none;
+ margin: 5px 0;
+ padding: 0;
+}
+
+#account_more_menu li  {
+ background: #D8D8D8 url(../../images/layout/bg_dropdown.png) repeat-x;
+ border: 1px solid #C1C1C1;
+ float: left;
+ list-style: none;
+ margin: 0;
+ margin-left: 2px;
+ padding: 0 !important;
+}
+
+#account_more_menu li a  {
+ background-image: url(../../images/layout/bg_dropdown_arrow.png);
+ background-position: top right;
+ background-repeat: no-repeat;
+ border: none;
+ color: #444444;
+ display: block;
+ padding: 0px 32px 0px 6px;
+}
+
+/*-------------------- submenus---------------------*/
+#account_more_menu ul  {
+ background-color: #FFFFFF;
+ border: 1px solid #CCCCCC;
+ clear: left;
+ font-weight: normal;
+/*height: auto;*/
+ left: -999em;
+/*using left instead of display to hide menus because display: none isn't read by screen readers*/
+ line-height: 120%;
+ list-style: none;
+ margin: 0;
+ padding: 0;
+ position: absolute;
+ width: 12em;
+ z-index: 1000 !important;
+}
+
+#account_more_menu ul li  {
+ background-image: none !important;
+ border: none;
+ float: none;
+ font-size: 12px;
+ list-style: none;
+ list-style-image: none !important;
+ margin: 0;
+ padding: 0;
+}
+
+* html #account_more_menu ul li, * html #account_more_menu ul li a  {
+ height: 1%;
+}
+
+#account_more_menu h6  {
+ background-color: #F5F5F5;
+ border-bottom: 1px solid #8DBBCE;
+ color: #333333;
+ font-size: 12px;
+ font-weight: bold;
+ margin: 0;
+ padding: 3px 10px !important;
+}
+
+/*-------------------- second level links ---------------------*/
+#account_more_menu ul li span  {
+ margin: 0;
+ padding: 3px 10px !important;
+}
+
+#account_more_menu ul li a  {
+ background-image: none !important;
+ border: none;
+ border-bottom: 1px solid #D8D8D8;
+ font-size: 12px;
+ font-weight: normal;
+ height: auto;
+ line-height: 1.2em;
+ margin: 0;
+ padding: 3px 10px !important;
+}
+
+#account_more_menu ul li a:hover  {
+ background-color: #E9F2F7;
+ color: #0079AF;
+ text-decoration: none;
+}
+
+#account_more_menu li:hover ul ul, #account_more_menu li:hover ul ul ul, #account_more_menu li.sfhover ul ul, #account_more_menu li.sfhover ul ul ul  {
+ left: -999em;
+}
+
+#account_more_menu li:hover ul, #account_more_menu li li:hover ul, #account_more_menu li li li:hover ul, #account_more_menu li.sfhover ul, #account_more_menu li li.sfhover ul, #account_more_menu li li li.sfhover ul  {
+ left: auto;
+/*lists nested under hovered list items*/
+}
+
+/*-------------------- 1st level  hover---------------------*/
+#account_more_menu li:hover a, #account_more_menu li.sfhover a  {
+ background-color: #F8F8F8;
+ color: #0079AF;
+}
+
+/*-------------------- second level on hover---------------------*/
+#account_more_menu li li:hover a, #account_more_menu li li.sfhover a  {
+ background-color: transparent;
+ color: #0079AF;
+}
+
+#account_more_menu li:hover li a:hover, #account_more_menu li.sfhover li a:hover  {
+ background-color: #EEF6FF;
+ color: #0079AF;
+}
+
+/*-------------------- ie mac fixes ---------------------
+only IE mac will see this*/
+* html>body #account_more_menu li a  {
+}
+
+* html>body #account_more_menu li  {
+ text-align: center;
+ white-space: nowrap;
+ width: 60px;
+}
+
+* html>body #account_more_menu li li  {
+ text-align: left;
+ white-space: nowrap;
+ width: 125px;
+}
+
+* html>body #account_more_menu li li:hover ul, #account_more_menu li li.sfhover ul  {
+ left: 110px;
+}
+
+/*======================================== Main Menu Tabs============================================*/
+#tabsWrapper  {
+ clear: both;
+ margin: 10px auto 0;
+ padding: 0;
+ width: 890px;
+}
+
+#tabs  {
+ float: left;
+ margin: 0;
+ padding: 0;
+ text-align: left;
+}
+
+#tabs ul  {
+ list-style: none;
+ list-style-image: none;
+ margin: 0;
+ padding: 0 5px;
+}
+
+#tabs ul li  {
+ background: #C5C5C5 url('../../images/layout/bg_tab.png') repeat-x;
+ border: 1px solid #A6A6A6;
+ border-bottom: 0;
+ float: left;
+ list-style: none;
+ margin: 0 5px 0 0;
+}
+
+#tabs ul li a  {
+ background-repeat: no-repeat;
+ border: 0;
+ color: #666666;
+ display: block;
+ font-size: 14px;
+ line-height: 28px;
+ padding: 0 15px;
+ text-decoration: none;
+}
+
+#tabs ul li a:hover  {
+ color: #000000;
+ text-decoration: none;
+}
+
+#tabs ul li.active  {
+ background: #8DBBCE url(../../images/layout/bg_tab_on.png) repeat-x top right;
+ border: 1px solid #4987A0;
+ border-bottom: 1px solid #8DBBCE !important;
+ font-weight: bold;
+ margin-bottom: -1px;
+ position: relative;
+}
+
+#tabs ul li.active a  {
+ color: #FFFFFF;
+ font-weight: bold;
+}
+
+#tabs ul li.active a:hover  {
+ color: #FFFFFF;
+ text-decoration: none;
+}
+
+/** Crumbs **/
+#crumbsWrapper  {
+ background-color: #559AB6;
+ background-image: url(../../images/layout/bg_crumbs.png);
+ background-repeat: repeat-x;
+ border-bottom: 1px solid #4887A0;
+ border-top: 1px solid #4887A0;
+ clear: both;
+ float: left;
+ height: 28px;
+ margin: 0 auto;
+ width: 100%;
+}
+
+#crumbsBlock  {
+ font-size: 13px;
+ line-height: 28px;
+ margin: 0 auto;
+ padding: 0 10px;
+ text-align: left;
+ width: 890px;
+}
+
+* html #crumbsBlock  {
+ padding: 3px 10px;
+}
+
+#crumbs  {
+ float: left;
+}
+
+#crumbs ul  {
+ list-style: none;
+ margin: 0;
+ padding: 0;
+}
+
+#crumbs ul li  {
+ color: #FFFFFF;
+ display: inline;
+ font-size: 13px;
+ font-weight: bold;
+ line-height: 22px;
+ border-right: 1px solid #8DBBCE;
+ padding: 0 5px;
+}
+
+#crumbs ul li span  {
+ font-weight: bold;
+}
+
+#crumbs ul li a  {
+ border: 0;
+ color: rgb(40, 80, 95);
+ font-weight: bold;
+ margin: 0 3px;
+ text-decoration: none;
+}
+
+#crumbs ul li a:hover  {
+ background: transparent;
+ color: #000000;
+ text-decoration: none;
+}
+
+#searchBox  {
+ padding: 0 10px;
+ text-align: right;
+}
+
+#searchBox input  {
+ background-color: #FFFFFF;
+ background-image: url(../../images/layout/bg_inputs.png);
+ background-repeat: no-repeat;
+ border: 1px solid #999999;
+ font-family: calibri, tahoma, verdana, arial, helvetica, sans-serif;
+ font-size: 12px;
+ padding: 2px 5px;
+ width: 150px;
+}
+
+#searchBox input:focus  {
+ background: #F8F8F8;
+ border: 1px solid #666666;
+}
+
+#searchBox button  {
+ display: none;
+ font-size: 11px;
+}
+
+/** Content **/
+#outerContentWrapper  {
+ clear: both;
+}
+
+/*--------------------  Page actions ---------------------*/
+#page_actionsWrapper  {
+ height: 28px;
+ background-color: #EEF6FF;
+ background-color: #B5CD73;
+ background-image: url(../../images/layout/bg_pageactions.png);
+ background-repeat: repeat-x;
+ border: 1px solid #9BB15A;
+ padding: 0;
+}
+
+#page_actionsBlock  {
+ font-size: 13px;
+ line-height: 28px;
+ margin: 0 auto;
+ padding: 0 10px;
+ text-align: left;
+ width: 890px;
+}
+
+#page_actions  {
+ float: left;
+}
+
+/*clearing hacks*/
+#page_actions  {
+ overflow: hidden;
+}
+
+#page_actions ul  {
+ list-style: none;
+ list-style-image: none;
+ margin: 0;
+ padding: 0;
+}
+
+#page_actions ul li  {
+ float: left;
+ font-size: 12px;
+ font-weight: bold;
+ margin: 0;
+ padding: 0;
+}
+
+#page_actions ul li a  {
+ line-height: 28px;
+ border: 0;
+ border-left: 1px solid #DAE6B5;
+ border-right: 1px solid #9BB15A;
+ color: #5C6C2D;
+ display: block;
+ padding: 0px 8px;
+ text-decoration: none;
+}
+
+#page_actions ul li a:hover  {
+ color: #000000;
+}
+
+/*-------------------- main content wrapper---------------------*/
+#innerContentWrapper  {
+ background-image: url(../../images/layout/bg_innercontent.png);
+ background-repeat: repeat-y;
+ margin: 0px auto;
+ padding: 10px 15px;
+ text-align: left;
+ width: 890px;
+}
+
+#pageTitle  {
+ color: #000000;
+ font-size: 22px;
+ font-weight: bold;
+ margin-left: 15px;
+ width: 640px;
+}
+
+#pageContent  {
+}
+
+#content  {
+ float: left;
+ min-height: 300px;
+ padding: 5px 15px;
+ width: 640px;
+}
+
+/*--------------------  Sidebar ---------------------*/
+#sidebar  {
+ font-size: 12px;
+ margin-left: 680px;
+ padding: 10px 15px;
+}
+
+#sidebar h2  {
+ font-size: 14px;
+ margin-top: 0;
+}
+
+#sidebar li  {
+ padding: 2px 0;
+}
+
+#sidebar .blockContent  {
+ line-height: 120%;
+ margin-bottom: 10px;
+ padding: 0 5px;
+}
+
+#sidebar .blockContent form div a  {
+}
+
+#sidebar .listWithDetails li  {
+ padding-bottom: 5px;
+ /*[empty]overflow:;*/
+}
+
+/*--------------------  Footer ---------------------*/
+#footer  {
+ background-image: url(../../images/layout/bg_footer.png);
+ background-repeat: no-repeat;
+ clear: both;
+ color: #999999;
+ font-size: 10px;
+ margin: 0 auto;
+ padding: 20px;
+ text-align: left;
+ width: 880px;
+}
+
+#footer a  {
+ border-bottom-color: #CCCCCC;
+ color: #999999;
+}
+
+#copy  {
+ float: left;
+}
+
+#productSignature  {
+ text-align: right;
+}
+
+#listOfRssFeeds  {
+ list-style: none;
+ list-style-image: none;
+ padding: 0 0 0 4px;
+}
+
+#listOfRssFeeds li  {
+ background: url('../../images/icons/feed.gif') no-repeat;
+ line-height: 12px;
+ list-style-image: none;
+ margin: 2px 0;
+ padding-left: 16px;
+}
+
+/** Helper classes **/
+.clear  {
+ clear: both;
+ height: 1px;
+ overflow: hidden;
+}
+
+#error, #success  {
+ border: 1px solid #CCCCCC;
+ clear: both;
+ cursor: pointer;
+ font-weight: bold;
+ margin: 10px 15px;
+ padding: 5px 10px;
+ text-align: left;
+}
+
+#error  {
+ background-color: #F8E9E0;
+ background-image: url(../../images/layout/bg_alert.png);
+ background-repeat: repeat-x;
+ border: 1px solid #EFCAB9;
+ padding: 5px;
+}
+
+#success  {
+ background: url(../../images/layout/bg_success.png) repeat-x top center;
+ background-color: #FAF9E4;
+ border: 1px solid #F2EEB7;
+ margin-bottom: 10px;
+ padding: 5px;
+}
+
+#innerContentWrapper #success, #innerContentWrapper #error  {
+ float: left;
+ width: 640px;
+}
+
+/** User card **/
+div.card  {
+ background: #F5F5F5 url('../../images/logtypes/old.gif') repeat-x top right;
+ border: 1px solid #E0E0E0;
+ padding: 10px;
+}
+
+* html div.card  {
+ padding-top: 5px;
+}
+
+div.card div.cardIcon  {
+ background: #F5F5F5 url('../../images/logtypes/old.gif') repeat-x top right;
+ border: 1px solid #E0E0E0;
+ float: left;
+ margin: 5px;
+ padding: 5px;
+}
+
+div.card div.cardData  {
+ margin-left: 80px;
+}
+
+div.card div.cardData h2  {
+ margin-top: 0;
+}
+
+div.card div.cardBlock  {
+ margin-bottom: 25px;
+ padding-left: 10px;
+}
+
+div.card div.cardBlock span  {
+ color: #333333;
+ font-weight: bold;
+}
+
+div.card table  {
+ margin-top: 10px;
+}
+
+div.card table, div.card table tr, div.card table td  {
+ border: 0;
+}
+
+div.card table tr, div.card table td  {
+ padding: 2px;
+}
+
+/** / user card *
+* Advanced pagination **/
+div.advancedPagination  {
+ margin: 10px;
+ text-align: right;
+}
+
+div.advancedPagination span  {
+ line-height: 20px;
+}
+
+div.advancedPagination select  {
+ padding: 0;
+}
+
+/** /Advanced pagination *
+* Private **/
+div.private  {
+ background: url('../../images/icons/private.gif') no-repeat;
+ float: right;
+ height: 12px;
+ overflow: hidden;
+ width: 50px;
+}
+
+div.private span  {
+ display: none;
+}
+
+#sidebar .listWithDetails li a  {
+ width: 100%;
+ overflow: hidden;
+ display: inline-block;
+}
+

@@ -138,3 +138,7 @@ table.formBlock th {
 table.formBlock td.optionLabel {
   width: 150px;
 }
+
+select {
+  width: 300px;
+}

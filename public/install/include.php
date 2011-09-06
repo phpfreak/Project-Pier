@@ -14,17 +14,20 @@
   error_reporting(E_ALL);
   
   if (function_exists('date_default_timezone_set')) {
-    date_default_timezone_set('gmt');
+    date_default_timezone_set('GMT');
   } // if
   
   define('INSTALLER_PATH', dirname(__FILE__));
   define('INSTALLATION_PATH', realpath(INSTALLER_PATH . '/../../'));
   
   // Check the config
-  $config_is_set = require_once INSTALLATION_PATH . '/config/config.php';
+  $config_is_set = @include_once INSTALLATION_PATH . '/config/config.php';
   if ($config_is_set) {
-    die('<strong>Installation error:</strong> ProjectPier is already installed');
+    //die('<strong>Installation error:</strong> ProjectPier is already installed');
   } // if
+
+  $installation_root = dirname($_SERVER['PHP_SELF']);
+  define('ROOT_URL', $installation_root);
   
   // Include library
   require_once INSTALLATION_PATH . '/environment/functions/general.php';
@@ -39,7 +42,7 @@
   require_once INSTALLER_PATH . '/library/classes/Output.class.php';
   require_once INSTALLER_PATH . '/library/classes/Output_Html.class.php';
   require_once INSTALLER_PATH . '/library/classes/Output_Console.class.php';
-  require_once INSTALLER_PATH . '/installation/acInstallation.class.php';
+  require_once INSTALLER_PATH . '/installation/installation.class.php';
   
   require_once INSTALLATION_PATH . '/environment/classes/template/Template.class.php';
 

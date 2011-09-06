@@ -10,13 +10,16 @@
     <div class="content">
 <?php if ($message->getCreatedBy() instanceof User) { ?>
       <div class="messageAuthor"><?php echo lang('posted on by', format_datetime($message->getCreatedOn()), $message->getCreatedBy()->getCardUrl(), clean($message->getCreatedBy()->getDisplayName())) ?></div>
+<?php } else { ?>
+      <div class="messageAuthor"><?php echo lang('posted on', format_datetime($message->getCreatedOn())) ?></div>
 <?php } // if ?>
       <div class="messageText">
         <?php echo do_textile($message->getText()) ?>
         <p><a href="<?php echo $message->getViewUrl() ?>"><?php echo lang('read more') ?></a></p>
       </div>
-    
+<?php if (plugin_active('files')) { ?>    
     <?php echo render_object_files($message, $message->canEdit(logged_user())) ?>
+<?php } // if ?>
       <div class="messageCommentCount">
 <?php if ($message->countComments()) { ?>
         <span><?php echo lang('comments') ?>:</span> <a href="<?php echo $message->getViewUrl() ?>#objectComments"><?php echo $message->countComments() ?></a>
@@ -24,9 +27,11 @@
         <span><?php echo lang('comments') ?>:</span> <?php echo $message->countComments() ?>
 <?php } // if ?>
       </div>
+<?php if (plugin_active('tags')) { ?>
       <div class="messageTags">
         <span><?php echo lang('tags') ?>:</span> <?php echo project_object_tags($message, $message->getProject()) ?>
       </div>    
+<?php } // if ?>
 <?php
   $options = array();
   if ($message->canEdit(logged_user())) {

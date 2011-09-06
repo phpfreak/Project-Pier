@@ -12,10 +12,11 @@
   
     // General
     'invalid email address' => 'Email address format is not valid',
+    'id missing' => 'Required ID value is missing',
    
     // Company validation errors
     'company name required' => 'Company / organization name is required',
-    'company homepage invalid' => 'Homepage value is not a valid URL',
+    'company homepage invalid' => 'Homepage value is not a valid URL (http://www.example.com)',
     
     // User validation errors
     'username value required' => 'Username value is required',
@@ -27,12 +28,13 @@
     'passwords dont match' => 'Passwords don\'t match',
     'old password required' => 'Old password value is required',
     'invalid old password' => 'Old password is not valid',
+    'user homepage invalid' => 'Homepage value is not a valid URL (http://www.example.com)',
     
     // Avatar
     'invalid upload type' => 'Invalid file type. Allowed types are %s',
     'invalid upload dimensions' => 'Invalid image dimensions. Max size is %sx%s pixels',
     'invalid upload size' => 'Invalid image size. Max size is %s',
-    'invalid upload failed to move' => 'Failed to move uplaoded file',
+    'invalid upload failed to move' => 'Failed to move uploaded file',
     
     // Registration form
     'terms of services not accepted' => 'In order to create an account you need to read and accept our terms of services',
@@ -42,8 +44,8 @@
     'failed to load project' => 'Failed to load active project',
     
     // Login form
-    'username value missing' => 'Please insert your username',
-    'password value missing' => 'Please insert your password',
+    'username value missing' => 'Please enter your username',
+    'password value missing' => 'Please enter your password',
     'invalid login data' => 'Failed to log you in. Please check your login data and try again',
     
     // Add project form
@@ -61,38 +63,14 @@
     // Add milestone form
     'milestone name required' => 'Milestone name value is required',
     'milestone due date required' => 'Milestone due date value is required',
-    
+
     // Add task list
     'task list name required' => 'Task list name value is required',
     'task list name unique' => 'Task list name must be unique in project',
     
     // Add task
     'task text required' => 'Task text is required',
-    
-    // Add project form
-    'form name required' => 'Form name is required',
-    'form name unique' => 'Form name must be unique',
-    'form success message required' => 'Success message is required',
-    'form action required' => 'Form action is required',
-    'project form select message' => 'Please select message',
-    'project form select task lists' => 'Please select task list',
-    
-    // Submit project form
-    'form content required' => 'Please insert content into text field',
-    
-    // Validate project folder
-    'folder name required' => 'Folder name is required',
-    'folder name unique' => 'Folder name need to be unique in this project',
-    
-    // Validate add / edit file form
-    'folder id required' => 'Please select folder',
-    'filename required' => 'Filename is required',
-    
-    // File revisions (internal)
-    'file revision file_id required' => 'Revision needs to be connected with a file',
-    'file revision filename required' => 'Filename required',
-    'file revision type_string required' => 'Unknown file type',
-    
+
     // Test mail settings
     'test mail recipient required' => 'Recipient address is required',
     'test mail recipient invalid format' => 'Invalid recipient address format',
@@ -101,7 +79,7 @@
     // Mass mailer
     'massmailer subject required' => 'Message subject is required',
     'massmailer message required' => 'Message body is required',
-    'massmailer select recepients' => 'Please select users that will receive this email',
+    'massmailer select recipients' => 'Please select users that will receive this email',
     
   ); // array
 

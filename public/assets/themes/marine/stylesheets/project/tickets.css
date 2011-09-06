@@ -1,0 +1,52 @@
+/** Tickets display **/
+
+#tickets .critical, #tickets_legend .critical {
+  background-color: #ffbaba;
+}
+
+#tickets .major, #tickets_legend .major {
+  background-color: #fcffb1;
+}
+
+#tickets .minor, #tickets_legend .minor {
+  background-color: #d6e7ff;
+}
+
+#tickets .trivial, #tickets_legend .trivial {
+  background-color: #ffffff;
+}
+
+#tickets .tickets_header {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+#tickets_legend {
+  width: 120px;
+}
+
+#tickets_legend .legend {
+  border: 1px solid #000000;
+  padding: 2px;
+  margin-bottom: 2px;
+}
+
+#tickets_legend ul {
+  list-style: none;
+}
+
+#tickets_legend li .legend {
+  list-style: none;
+}
+/** Ticket display */
+#ticket {
+ background: #ffd;
+ border: 1px outset #996;
+ margin-top: 1em;
+ padding: .5em 1em;
+ position: relative;
+}
+
+#ticket table.properties {
+ width: 100%;
+}

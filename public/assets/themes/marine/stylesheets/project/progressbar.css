@@ -1,0 +1,38 @@
+DIV.progressBar
+{
+	position: relative;
+	height: 15px;
+	width: 200px;
+	padding: 0;
+	border: 1px solid #C1C1C1;
+	z-index: 1;
+	float: right;
+	margin-left: 10px;
+}
+DIV.progressBarCompleted
+{
+	height: 100%;
+	position: absolute;
+	xbackground: #6f6;
+	background: rgb(207, 226, 154);
+	float: left;
+	z-index: 5;
+	left: 0;
+	top: 0;
+}
+DIV.progressBarText
+{
+	text-align: center;
+	width: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 100;
+	background: none;
+	float: left;
+	/*[disabled]xfont-size:11px;*/
+	/*[disabled]xfont-family:Verdana;*/
+	font-weight: normal;
+	line-height: 16px;
+	/*[disabled]xcolor:#000;*/
+}

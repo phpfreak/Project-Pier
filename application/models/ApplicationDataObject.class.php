@@ -94,6 +94,7 @@
     * @return User
     */
     function getCreatedBy() {
+      trace(__FILE__,'getCreatedBy()');
       if (is_null($this->created_by)) {
         if ($this->columnExists('created_by_id')) {
           $this->created_by = Users::findById($this->getCreatedById());

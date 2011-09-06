@@ -24,10 +24,6 @@ table.applicationLogs td {
   border-bottom: 1px solid #e8e8e8;
 }
 
-table.applicationLogs td.logTypeIcon {
-  width: 50px;
-}
-
 table.applicationLogs .logProject, table.applicationLogs .logTakenOnBy {
   text-align: right;
 }
@@ -38,4 +34,59 @@ table.applicationLogs .logProject {
 
 table.applicationLogs .logTakenOnBy {
   width: 250px;
+}
+
+
+table.applicationLogs td.logTypeIcon {
+  width: 60px;
+}
+
+table.applicationLogs td.logTypeIcon span{
+  padding: 2px;
+  font-size: 8px;
+  color:#FFF;
+}
+
+table.applicationLogs td.logTypeIcon span.logComments{
+  /* Example to play with background colors using image     */
+  /* Uncomment the next line to use image background colors */
+  /* Be sure to remove any text from the image              */
+  /* background: transparent url(../images/logtypes/comments.gif) left; */
+}
+
+.logComments {
+  background-color: #FF5724;
+}
+.logCompanies {
+  background-color: #000;
+}
+.logProjectFileRevisions {
+  background-color: #FF8A29;
+}
+.logProjectFiles {
+  background-color: #FF8A29;
+}
+.logProjectFolders {
+  background-color: #000;
+  color: #FF8A29;
+}
+.logProjectForms {
+  background-color: #000;
+  color: yellow;
+}
+.logProjectMessages {
+  background-color: #D02703;
+}
+.logProjectMilestones {
+  background-color: #000;
+  color: #AAF7B5;
+}
+.logProjects {
+  background-color: #000;
+}
+.logProjectTaskLists {
+  background-color: #00530B;
+}
+.logProjectTasks {
+  background-color: #038813;
 }

@@ -1,0 +1,10 @@
+﻿<?xml version="1.1" encoding="UTF-8"?>
+<versions format="1.1">
+  <version number="1.1">
+    <details_url>http://projectpier.org/project/Marine</details_url>
+    <signature>Marine 1.1</signature>
+    <release_notes><![CDATA[Bugfix Release]]></release_notes>
+    <release_date>2008-04-08 00:00:00</release_date>
+    <change_log>http://projectpier.org/project/Marine</change_log>
+  </version>
+</versions>

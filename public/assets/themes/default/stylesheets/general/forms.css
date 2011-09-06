@@ -27,7 +27,7 @@ input, textarea, select {
   border: 1px solid #ababab;
   padding: 3px;
   font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 11px;
+  xfont-size: 11px;
   background: white;
 }
 
@@ -144,7 +144,7 @@ form div.formBlock label {
 
 .objectOption div.optionDesc {
   clear: left;
-  font-size: 10px;
+  xfont-size: 10px;
   padding: 0 5px 5px 5px;
   color: #333;
 }

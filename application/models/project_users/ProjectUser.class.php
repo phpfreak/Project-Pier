@@ -2,12 +2,20 @@
 
   /**
   * ProjectUser class
-  * Generated on Wed, 15 Mar 2006 22:57:46 +0100 by DataObject generation tool
   *
   * @http://www.projectpier.org/
   */
   class ProjectUser extends BaseProjectUser {
+
+    private $permissions = array();
+   
+    function getPermissions() {
+      trace(__FILE__,'getPermissions()');
+      if (count($this->permissions) == 0) {
+        $this->permissions = ProjectUserPermissions::getPermissionsForProjectUser($this);
+      }
+      return $this->permissions;
+    } // getPermissions
   
   } // ProjectUser 
-
 ?>

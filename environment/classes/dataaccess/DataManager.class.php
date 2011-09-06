@@ -4,7 +4,7 @@
   * Data manager class
   *
   * This class implements methods for managing data objects, database rows etc. One 
-  * of its features is automatinc caching of loaded data.
+  * of its features is automatic caching of loaded data.
   *
   * @package System
   * @version 1.0
@@ -162,6 +162,7 @@
     * @throws DBQueryError
     */
     function find($arguments = null) {
+      trace(__FILE__,'find():begin');
       
       // Collect attributes...
       $one        = (boolean) array_var($arguments, 'one', false);
@@ -177,19 +178,23 @@
       
       // Prepare SQL
       $sql = "SELECT * FROM " . $this->getTableName(true) . " $where_string $order_by_string $limit_string";
+      trace(__FILE__,'find():'.$sql);
       
       // Run!
       $rows = DB::executeAll($sql);
       
       // Empty?
       if (!is_array($rows) || (count($rows) < 1)) {
+        trace(__FILE__,'find():found 0');
         return null;
       } // if
       
       // If we have one load it, else loop and load many
       if ($one) {
+        trace(__FILE__,'find():found 1');
         return $this->loadFromRow($rows[0]);
       } else {
+        trace(__FILE__,'find():found '.count($rows));
         $objects = array();
         foreach ($rows as $row) {
           $object = $this->loadFromRow($row);
@@ -199,6 +204,7 @@
         } // foreach
         return count($objects) ? $objects : null;
       } // if
+      trace(__FILE__,'find():end (impossible)');
     } // find
     
     /**
@@ -209,6 +215,7 @@
     * @return array
     */
     function findAll($arguments = null) {
+      trace(__FILE__,'findAll()');
       if (!is_array($arguments)) {
         $arguments = array();
       } // if
@@ -224,6 +231,7 @@
     * @return array
     */
     function findOne($arguments = null) {
+      trace(__FILE__,'findOne()');
       if (!is_array($arguments)) {
         $arguments = array();
       } // if
@@ -241,6 +249,7 @@
     * @return object
     */
     function findById($id, $force_reload = false) {
+      trace(__FILE__,"findById($id, $force_reload)");
       return $this->load($id, $force_reload);
     } // findById
     
@@ -269,9 +278,12 @@
     * @return boolean
     */
     function delete($conditions = null) {
+      trace(__FILE__,"delete($conditions)");
       $conditions = $this->prepareConditions($conditions);
       $where_string = trim($conditions) == '' ? '' : "WHERE $conditions";
-      return DB::execute("DELETE FROM " . $this->getTableName(true) . " $where_string");
+      $sql = "DELETE FROM " . $this->getTableName(true) . " $where_string";
+      trace(__FILE__,"delete($conditions) sql=".$sql);
+      return DB::execute($sql);
     } // delete
     
     /**
@@ -327,12 +339,13 @@
     * @return DataObject
     */
     function load($id, $force_reload = false) {
-    
+      trace(__FILE__,"load($id, $force_reload)");    
       // Is manager ready to do the job?
       if (!$this->isReady()) {
         return null;
       } // if
-      
+
+      trace(__FILE__,"cache check");    
       // If caching and we dont need to reload check the cache...
       if (!$force_reload && $this->getCaching()) {
         $item = $this->getCachedItem($id);
@@ -341,11 +354,14 @@
         } // if
       } // if
       
+      trace(__FILE__,"get object from row");    
       // Get object from row...
       $object = $this->loadFromRow($this->loadRow($id));
       
+      trace(__FILE__,"check item");    
       // Check item...
       if (!instance_of($object, $this->getItemClass())) {
+        trace(__FILE__,"item not ".$this->getItemClass());    
         return null;
       } // if
       
@@ -357,6 +373,7 @@
         return $object;
       } // if
       
+      trace(__FILE__,"item not loaded");    
       // Item not loaded...
       return null;
       
@@ -370,11 +387,13 @@
     * @return array
     */
     function loadRow($id) {
+      trace(__FILE__,"loadRow($id)");   
       $sql = sprintf("SELECT %s FROM %s WHERE %s", 
         implode(', ', $this->getLoadColumns(true)), 
         $this->getTableName(true), 
         $this->getConditionsById($id)
       ); // sprintf
+      trace(__FILE__,"loadRow($id) sql=$sql");   
       
       return DB::executeOne($sql);
     } // loadRow
@@ -387,6 +406,7 @@
     * @return DataObject
     */
     function loadFromRow($row) {
+      trace(__FILE__,"loadFromRow(row):begin");   
     
       // Is manager ready?
       if (!$this->isReady()) {
@@ -650,9 +670,32 @@
     * @return boolean
     */
     function isReady() {
+      trace(__FILE__,'isReady() = class_exists '.$this->item_class);    
       return class_exists($this->item_class);
     } // end func isReady
+
+    /**
+    * Get object type name of objects managed by this manager
+    *
+    * @access public
+    * @param void
+    * @return string
+    */
+    function getObjectTypeName() {
+      return $this->getItemClass()->getObjectTypeName();
+    } // getObjectTypeName
     
+    /**
+    * Define an action to take when an undefined method is called.
+    *
+    * @param name The name of the method that is undefined.
+    * @param args Arguments passed to the undefined method.
+    * @return throws UndefinedMethodException
+    */
+  function __call($name, $args) {
+	  throw new UndefinedMethodException('Call to undefined method DataManager::'.$name.'()',$name,$args);
+  }
+
   } // end func DataManager
 
 ?>

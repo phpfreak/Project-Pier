@@ -9,8 +9,18 @@
     <div class="userDetails">
       <div class="userName"><a href="<?php echo $user->getCardUrl() ?>"><?php echo clean($user->getDisplayName()) ?></a></div>
 <?php if ($company->isOwner()) { ?>
-      <div class="userIsAdmin"><span><?php echo lang('administrator') ?>:</span> <?php echo $user->isAdministrator() ? lang('yes') : lang('no') ?></div>
-      <div class="userAutoAssign"><span><?php echo lang('auto assign') ?>:</span> <?php echo $user->getAutoAssign() ? lang('yes') : lang('no') ?></div>
+<?php if ($user->isAdministrator()) { ?>
+      <span class="userIsAdmin"><?php echo lang('administrator') ?>, </span>
+<?php } // if  ?>
+<?php if ($user->getAutoAssign()) { ?>
+      <span class="userAutoAssign"><span><?php echo lang('auto assign') ?>, </span>
+<?php } // if  ?>
+<?php if ($user->getUseLDAP()) { ?>
+      <span class="userUseLDAP"><span><?php echo lang('LDAP') ?>, </span>
+<?php } // if  ?>
+<?php if ($user->canManageProjects()) { ?>
+      <span class="userCanManageProjects"><?php echo lang('can manage projects') ?></span>
+<?php } // if  ?>
 <?php } // if  ?>
 <?php
   $options = array();

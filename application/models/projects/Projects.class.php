@@ -13,6 +13,7 @@
     */
     const ORDER_BY_DATE_CREATED = 'created_on';
     const ORDER_BY_NAME = 'name';
+    const ORDER_BY_PRIORITY = 'priority';
     
     /**
     * Return all projects

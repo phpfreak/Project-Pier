@@ -26,7 +26,7 @@
 <?php } // foreach ?>
   </div>
 
-  <?php echo submit_button(lang('save')) ?>&nbsp;<button type="reset"><?php echo lang('reset') ?></button>
+  <div style="float:right"><button style="margin-top: 10px;" type="reset"><?php echo lang('reset') ?></button>&nbsp;<?php echo submit_button(lang('save')) ?></div>
 </form>
 <?php } else { ?>
 <p><?php echo lang('config category is empty') ?></p>

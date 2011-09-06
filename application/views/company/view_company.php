@@ -31,3 +31,8 @@
   $this->assign('users', $company->getUsers());
   $this->includeTemplate(get_template_path('list_users', 'administration'));
 ?>
+<h2><?php echo lang('projects') ?></h2>
+<?php
+  $this->assign('active_projects', $company->getActiveProjects());
+  $this->includeTemplate(get_template_path('list_projects', 'administration'));
+?>

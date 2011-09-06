@@ -61,7 +61,54 @@
       return $default;
     } // if
   } // get_file_line
-  
+
+  /**
+  * Return directories
+  *
+  * @access public
+  * @param string $dir
+  * @param integer $full_path
+  * @return array
+  */
+  function get_dirs($dir, $full_path = true) {
+    // Check dir...
+    if (!is_dir($dir)) {
+      return false;
+    } // if
+    
+    // Prepare input data...
+    $dir = with_slash($dir);
+    // We have a dir...
+    if (!is_dir($dir)) {
+      return null;
+    } // if
+    
+    // Open dir and prepare result
+    $d = dir($dir);
+    $dirs = array();
+    
+    // Loop dir entries
+    while (false !== ($entry = $d->read())) {
+      
+      // Valid entry?
+      if (($entry <> '.') && ($entry <> '..')) {
+      
+        // Get file path...
+        $path = $dir . $entry;
+        
+        // Check if we have a valid directory
+        if (is_dir($path)) {
+          $dirs[] = $full_path ? $path : $entry;
+        } // if
+      } // if
+    } // while
+    
+    // Done... close dir...
+    $d->close();
+    // And return...
+    return count($dirs) > 0 ? $dirs : null;
+  } // get_dirs
+
   /**
   * Return the files from specific directory. This function can filter result
   * by file extension (accepted param is single extension or array of extensions)
@@ -69,7 +116,7 @@
   * @example get_files($dir, array('doc', 'pdf', 'xst'))
   *
   * @param string $dir Dir that need to be scaned
-  * @param mixed $extension Singe or multiple file extensions that need to be
+  * @param mixed $extension Single or multiple file extensions that need to be
   *   mached. If null no check is performed...
   * @param boolean $base_name_only Return only filenames. If this option is set to
   *   false this function will return full paths.
@@ -229,6 +276,8 @@
   * @return null
   */
   function force_mkdir($path, $chmod = null) {
+    return mkdir($path, $chmod, true);
+
     if (is_dir($path)) {
       return true;
     } // if
@@ -320,7 +369,7 @@
   } // insert_before_file_extension
   
   /**
-  * Forward specific file to the browser. Download can be forced (dispolition: attachment) or passed as inline file
+  * Forward specific file to the browser. Download can be forced (disposition: attachment) or passed as inline file
   *
   * @access public
   * @param string $path File path
@@ -354,35 +403,51 @@
   * Was:
   * function download_contents($content, $type, $name, $size, $force_download = false) {
   */
-  function download_contents($content, $type, $name, $size, $force_download = true) {
-  if (connection_status() != 0) return false; // check connection
+  function download_contents($content, $type, $name, $size, $force_download = true, $from_filesystem = false) {
+    if (connection_status() != 0) return false; // check connection
 
-  if ($force_download) {
-
-  /** SAVR 10/20/06
-  * Was:
-  * header("Cache-Control: public");
-  */
-  header("Cache-Control: public, must-revalidate");
-  header("Pragma: hack");
-
-  } else {
-  header("Cache-Control: no-store, no-cache, must-revalidate");
-  header("Cache-Control: post-check=0, pre-check=0", false);
-  header("Pragma: no-cache");
-  } // if
-  header("Expires: " . gmdate("D, d M Y H:i:s", mktime(date("H") + 2, date("i"), date("s"), date("m"), date("d"), date("Y"))) . " GMT");
-  header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
-  header("Content-Type: $type");
-  header("Content-Length: " . (string) $size);
-
-  // Prepare disposition
-  $disposition = $force_download ? 'attachment' : 'inline';
-  header("Content-Disposition: $disposition; filename=\"" . $name) . "\"";
-  header("Content-Transfer-Encoding: binary");
-  print $content;
-
-  return((connection_status() == 0) && !connection_aborted());
+    if ($force_download) {
+      /** SAVR 10/20/06
+      * Was:
+      * header("Cache-Control: public");
+      */
+      header("Cache-Control: public, must-revalidate");
+      header("Pragma: hack");
+    } else {
+      header("Cache-Control: no-store, no-cache, must-revalidate");
+      header("Cache-Control: post-check=0, pre-check=0", false);
+      header("Pragma: no-cache");
+    } // if
+    header("Expires: " . gmdate("D, d M Y H:i:s", mktime(date("H") + 2, date("i"), date("s"), date("m"), date("d"), date("Y"))) . " GMT");
+    header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+    header("Content-Type: $type");
+    header("Content-Length: " . (string) $size);
+    // Prepare disposition
+    $disposition = $force_download ? 'attachment' : 'inline';
+    // http://www.ietf.org/rfc/rfc2183.txt
+    $download_name = strtr($name, " ()<>@,;:\\/[]?=*%'\"", '--------------------');
+    $download_name = normalize($download_name);
+    header("Content-Disposition: $disposition; filename=$download_name");
+    header("Content-Transfer-Encoding: binary");
+    if ($from_filesystem) {
+      if (!is_readable($content)) return false;
+      if (!ini_get('safe_mode')) @set_time_limit(0);
+      $chunksize = 1*(1024*1024); // how many bytes per chunk
+      $buffer = '';
+      $handle = fopen($content, 'rb');
+      if ($handle === false) {
+        return false;
+      }
+      while (!feof($handle)) {
+        $buffer = fread($handle, $chunksize);
+        print $buffer;
+        flush();
+      }
+      return fclose($handle);
+    } else {
+      print $content;
+    }
+    return((connection_status() == 0) && !connection_aborted());
   } // download_contents
   
   /**

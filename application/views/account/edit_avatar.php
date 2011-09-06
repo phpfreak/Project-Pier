@@ -46,12 +46,18 @@
     <legend><?php echo lang('current avatar') ?></legend>
 <?php if ($user->hasAvatar()) { ?>
     <img src="<?php echo $user->getAvatarUrl() ?>" alt="<?php echo clean($user->getDisplayName()) ?> avatar" />
-    <p><a href="<?php echo $user->getDeleteAvatarUrl() ?>" onclick="return confirm('<?php echo lang('confirm delete current avatar') ?>')"><?php echo lang('delete current avatar') ?></a></p>
 <?php } else { ?>
     <?php echo lang('no current avatar') ?>
 <?php } // if ?>
-  </fieldset>
-  
+<?php if ($user->getUseGravatar()) { ?>
+  <div>
+    <?php echo lang('avatar from gravatar') ?>
+  </div>
+<?php } else { ?>
+<?php if ($user->hasAvatar()) { ?>
+    <p><a href="<?php echo $user->getDeleteAvatarUrl() ?>" onclick="return confirm('<?php echo lang('confirm delete current avatar') ?>')"><?php echo lang('delete current avatar') ?></a></p>
+<?php } // if ?>    
+
   <div>
     <?php echo label_tag(lang('new avatar'), 'avatarFormAvatar', true) ?>
     <?php echo file_field('new avatar', null, array('id' => 'avatarFormAvatar')) ?>
@@ -61,5 +67,7 @@
   </div>
   
   <?php echo submit_button(lang('update avatar')) ?>
+<?php } // if ?>    
+  </fieldset>
   
 </form>

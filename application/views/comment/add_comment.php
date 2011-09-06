@@ -24,7 +24,7 @@
     <?php echo textarea_field("comment[text]", array_var($comment_data, 'text'), array('class' => 'comment', 'id' => 'addCommentText')) ?>
   </div>
     
-<?php if (logged_user()->isMemberOfOwnerCompany()) { ?>
+<?php if (logged_user()->isMemberOfOwnerCompany() && !$comment_form_object->getIsPrivate()) { ?>
   <fieldset>
     <legend><?php echo lang('options') ?></legend>
     

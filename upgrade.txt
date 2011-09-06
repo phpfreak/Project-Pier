@@ -1,53 +1,33 @@
            		
-~~~~~~~~~~~~~~~~~~~~~
-Upgrading ProjectPier
-~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Upgrading to ProjectPier 0.8.6
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-General Notice: We are not changing the built-in upgrade checker in ProjectPier for pre-release
-versions of 0.8.  0.8.0-dev and 0.8.0-RC1 and 0.8.0 (the final release) will all be
-considered 0.8 as far as the upgrade checking utility is concerned.  That means that if you
-have installed a pre-release version -dev or -RC1, you will not receive upgrade notification 
-within ProjectPier.
+ProjectPier 0.8.6 is NOT database compatible with previous versions.
 
-All versions of ProjectPier 0.8 are database compatible with each other and with activeCollab 0.7.1.
+Upgrade instructions 
 
-There is not an upgrade script for ProjectPier 0.8.  A set of instructions is provided below, but use
-them at your own risk.  Make sure you have backed up all your data (files and database) so that you
-can return to your previous version if necessary.  
+1) Make a copy of your 0.8.0.3 database
 
-When upgrading, do NOT run the installation scripts!
+2) Make a new database from your copy (this ensures the copy is okay)
 
-1) Backup your database
+3) Archive your 0.8.0.3 copy in a safe place
 
-2) Backup your installation files (you will need your existing /config/config.php to complete this 
-   installation).
+4) Run the script 0803-086.php in public/upgrade/templates/db_migration against the copy of step 1.
 
-3) Unzip the ProjectPier package to a new directory on your hard drive, then upload to your server, 
-   overwriting the existing activeCollab or ProjectPier installation files.
+5) If step 4 completes without errors, run the same script against your production database else stop and report.
 
-5) Add the following lines to /config/config.php that you backed up in step 2 (NOT the one you just
-   unzipped, the one you backed up from your existing installation!!)
-   define('SHOW_MESSAGE_BODY', true); 
-   define('SHOW_COMMENT_BODY', true); 
-   define('SHOW_MILESTONE_BODY', true); 
-   define('TOKEN_COOKIE_NAME', '93c65403ce6b695a583e9e4c8c5b25e687283ee8');
+6) Install 0.8.6 on a fresh database.
 
-   SHOW_MESSAGE_BODY = Set this to true or false, it determines whether to include message text in new 
-                       message notification emails.
+After the complete installation:
 
-   SHOW_COMMENT_BODY = Set this to true or false, it determines whether to include comment text in new 
-                       comment notification emails.
+7) Edit 0.8.6 /config/config.php and set the values equal to the values of your 0.8.0.3 production database
 
-   SHOW_MILESTONE_BODY = Set this to true or false, it determines whether to include milestone text in new
-                         milestone notification emails.
+8) Open the browser on your 0.8.6 site and login with your 0.8.0.3 user id and password
 
-   TOKEN_COOKIE_NAME = set this to any unique string of characters, the exact length is not important.  This
-                       is required, but only used to differentiate between installations when there are
-                       multiple installations on the same server.
-   
-   Change from: define('PRODUCT_VERSION', '0.7.1');
-            to: define('PRODUCT_VERSION', '0.8.0');
+9) Drop the 0.8.6 database
 
-6) Upload /config/config.php that you just edited to your server, overwriting the existing file.
+10) Enjoy 0.8.6
 
-7) You should be ready to go now.
+
+

@@ -35,6 +35,7 @@
         $page = 1;
       }
       
+      $this->canGoOn();
       $conditions = logged_user()->isMemberOfOwnerCompany() ? 
         array('`project_id` = ?', active_project()->getId()) :
         array('`project_id` = ? AND `is_private` = ?', active_project()->getId(), 0);
@@ -103,7 +104,8 @@
       $message_data = array_var($_POST, 'message');
       if (!is_array($message_data)) {
         $message_data = array(
-          'milestone_id' => array_var($_GET, 'milestone_id')
+          'milestone_id' => array_var($_GET, 'milestone_id'),
+          'is_private' => config_option('default_private', false),
         ); // array
       } // if
       tpl_assign('message_data', $message_data);
@@ -130,7 +132,9 @@
           DB::beginWork();
           $message->save();
           $message->subscribeUser(logged_user());
-          $message->setTagsFromCSV(array_var($message_data, 'tags'));
+          if (plugin_active('tags')) {
+            $message->setTagsFromCSV(array_var($message_data, 'tags'));
+          }
           
           if (is_array($uploaded_files)) {
             foreach ($uploaded_files as $uploaded_file) {
@@ -209,7 +213,7 @@
       
       $message_data = array_var($_POST, 'message');
       if (!is_array($message_data)) {
-        $tag_names = $message->getTagNames();
+        $tag_names = plugin_active('tags') ? $message->getTagNames() : '';
         $message_data = array(
           'milestone_id' => $message->getMilestoneId(),
           'title' => $message->getTitle(),
@@ -245,7 +249,9 @@
           
           DB::beginWork();
           $message->save();
-          $message->setTagsFromCSV(array_var($message_data, 'tags'));
+          if (plugin_active('tags')) {
+            $message->setTagsFromCSV(array_var($message_data, 'tags'));
+          }
           
           ApplicationLogs::createLog($message, $message->getProject(), ApplicationLogs::ACTION_EDIT);
           DB::commit();
@@ -385,9 +391,9 @@
       } // if
       
       if ($message->subscribeUser(logged_user())) {
-        flash_success('success subscribe to message');
+        flash_success(lang('success subscribe to message'));
       } else {
-        flash_error('error subscribe to message');
+        flash_error(lang('error subscribe to message'));
       } // if
       $this->redirectToUrl($message->getViewUrl());
     } // subscribe
@@ -411,9 +417,9 @@
       } // if
       
       if ($message->unsubscribeUser(logged_user())) {
-        flash_success('success unsubscribe to message');
+        flash_success(lang('success unsubscribe to message'));
       } else {
-        flash_error('error unsubscribe to message');
+        flash_error(lang('error unsubscribe to message'));
       } // if
       $this->redirectToUrl($message->getViewUrl());
     } // unsubscribe

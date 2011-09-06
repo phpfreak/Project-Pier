@@ -1,5 +1,5 @@
 ------------------------------------------------------------
- <?php echo lang('dont reply wraning') ?> 
+ <?php echo lang('do not reply warning') ?> 
 ------------------------------------------------------------
 
 <?php echo lang('new message posted', $new_message->getTitle(), $new_message->getProject()->getName()) ?>. 
@@ -18,10 +18,10 @@ if ((!defined('SHOW_MESSAGE_BODY')) or (SHOW_MESSAGE_BODY == true)) {
 
 <?php echo lang('view new message') ?>:
 
-- <?php echo str_replace('&amp;', '&', $new_message->getViewUrl()) ?> 
+- <?php echo str_replace('&amp;', '&', externalUrl($new_message->getViewUrl())) ?> 
 
-Company: <?php echo owner_company()->getName() ?> 
+Company: <?php echo owner_company()->getName() ?>
 Project: <?php echo $new_message->getProject()->getName() ?> 
 
 --
-<?php echo ROOT_URL ?>
+<?php echo externalUrl(ROOT_URL) ?>

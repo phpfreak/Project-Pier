@@ -6,6 +6,11 @@
   * @http://www.projectpier.org/
   */
 
+  // ---------------------------------------------------
+  //  Directories
+  // ---------------------------------------------------
+  set_include_path(ROOT . PATH_SEPARATOR . APPLICATION_PATH);
+
   // Environment path is used by many environment classes. If not
   // defined do it now
   if (!defined('ENVIRONMENT_PATH')) define('ENVIRONMENT_PATH', dirname(__FILE__));
@@ -18,7 +23,7 @@
   } else {
     putenv('TZ=GMT');
   } // if
-  
+
   if (defined('DEBUG') && DEBUG) {
     //set_time_limit(120);
     ini_set('display_errors', 1);
@@ -27,7 +32,10 @@
     ini_set('display_errors', 0);
   } // if
   
-  if (!ini_get('session.auto_start') || (strtolower(ini_get('session.auto_start')) == 'off')) session_start(); // Start the session
+  if (!ini_get('session.auto_start') || (strtolower(ini_get('session.auto_start')) == 'off')) {
+    if(!session_id()) session_regenerate_id();
+    session_start(); // Start the session
+  }
   
   include_once ENVIRONMENT_PATH . '/classes/Env.class.php';
   include_once ENVIRONMENT_PATH . '/constants.php';

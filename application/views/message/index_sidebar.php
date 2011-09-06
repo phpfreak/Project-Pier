@@ -4,7 +4,7 @@
   <div class="blockContent">
     <ul class="listWithDetails">
 <?php foreach ($important_messages as $important_message) { ?>
-      <li><a href="<?php echo $important_message->getViewUrl() ?>"><?php echo clean($important_message->getTitle()) ?></a><br />
+      <li class="<?php echo odd_even_class($ln) ?>"><a href="<?php echo $important_message->getViewUrl() ?>"><?php echo clean($important_message->getTitle()) ?></a><br />
       <span class="desc"><?php echo lang('comments on message', $important_message->countComments()) ?></span></li>
 <?php } // foreach ?>
     </ul>

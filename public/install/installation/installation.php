@@ -4,7 +4,7 @@
   * Main installation file. Load specific steps and prepare the installation
   *
   * @package ScriptInstaller
-  * @subpackage AC installation
+  * @subpackage installation
   * @version 1.0
   * @http://www.projectpier.org/
   */
@@ -19,9 +19,9 @@
   $installer = new ScriptInstaller('ProjectPier installation', 'This wizard will guide you through the ProjectPier installation process');
   
   // Add steps
-  define('ACI_WELCOME', $installer->addStep(new WelcomeStep()));
-  define('ACI_CHECKS', $installer->addStep(new ChecksStep()));
-  define('ACI_SYSTEM_CONFIG', $installer->addStep(new SystemConfigStep()));
-  define('ACI_FINISH', $installer->addStep(new FinishStep()));
+  define('INSTALL_WELCOME', $installer->addStep(new WelcomeStep()));
+  define('INSTALL_CHECKS', $installer->addStep(new ChecksStep()));
+  define('INSTALL_SYSTEM_CONFIG', $installer->addStep(new SystemConfigStep()));
+  define('INSTALL_FINISH', $installer->addStep(new FinishStep()));
   
 ?>

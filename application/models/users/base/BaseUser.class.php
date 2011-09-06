@@ -210,6 +210,17 @@
     } // setTitle() 
     
     /**
+    * Return value of 'homepage' field
+    *
+    * @access public
+    * @param void
+    * @return string 
+    */
+    function getHomepage() {
+      return $this->getColumnValue('homepage');
+    } // getHomepage()
+    
+    /**
     * Return value of 'avatar_file' field
     *
     * @access public
@@ -230,7 +241,29 @@
     function setAvatarFile($value) {
       return $this->setColumnValue('avatar_file', $value);
     } // setAvatarFile() 
+
+    /**
+    * Return value of 'title' field
+    *
+    * @access public
+    * @param void
+    * @return string 
+    */
+    function getUseGravatar() {
+      return $this->getColumnValue('use_gravatar');
+    } // getTitle()
     
+    /**
+    * Set value of 'use_gravatar' field
+    *
+    * @access public   
+    * @param string $value
+    * @return boolean
+    */
+    function setUseGravatar($value) {
+      return $this->setColumnValue('use_gravatar', $value);
+    } // setTitle() 
+        
     /**
     * Return value of 'office_number' field
     *
@@ -516,7 +549,28 @@
     function setAutoAssign($value) {
       return $this->setColumnValue('auto_assign', $value);
     } // setAutoAssign() 
+
+    /**
+    * Return value of 'use_LDAP' field
+    *
+    * @access public
+    * @param void
+    * @return boolean 
+    */
+    function getUseLDAP() {
+      return $this->getColumnValue('use_LDAP');
+    } // getUseLDAP()
     
+    /**
+    * Set value of 'use_LDAP' field
+    *
+    * @access public   
+    * @param boolean $value
+    * @return boolean
+    */
+    function setUseLDAP($value) {
+      return $this->setColumnValue('use_LDAP', $value);
+    } // setUseLDAP() 
     
     /**
     * Return manager instance

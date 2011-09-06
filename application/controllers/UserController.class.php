@@ -64,8 +64,8 @@
       } // if
       
       $projects = $company->getProjects();
-      $permissions = ProjectUsers::getNameTextArray();
-      
+      $permissions = PermissionManager::getPermissionsText();      
+
       tpl_assign('user', $user);
       tpl_assign('company', $company);
       tpl_assign('projects', $projects);
@@ -92,7 +92,12 @@
             } // if
           } // if
           $user->setPassword($password);
-          
+
+          if (config_option('check_email_unique', '1')=='1') {
+            if (!$user->validateUniquenessOf('email')) {
+              throw new Error(lang('email address is already used'));
+            }
+          }
           DB::beginWork();
           $user->save();
           ApplicationLogs::createLog($user, null, ApplicationLogs::ACTION_ADD);
@@ -107,13 +112,12 @@
                 foreach ($permissions as $permission => $permission_text) {
                   $permission_value = array_var($user_data, 'project_permission_' . $project->getId() . '_' . $permission) == 'checked';
                   
-                  $setter = 'set' . Inflector::camelize($permission);
-                  $relation->$setter($permission_value);
+                  $user->setProjectPermission($project,$permission,$permission_value);
                 } // foreach
                 
                 $relation->save();
               } // if
-            } // forech
+            } // foreach
           } // if
           
           DB::commit();
@@ -126,9 +130,35 @@
           } catch(Exception $e) {
           
           } // try
+
+          // Add task to Welcome project...
+          try {
+            if (array_var($user_data, 'add welcome task')) {
+              $task_data = array(
+                'text' => lang('welcome task text', $user->getName(), get_url('account', 'edit') ),
+                'due date' => DateTimeValueLib::now() + (7 * 24 * 60 * 60), 
+                'assigned_to_company_id' => $user->getCompanyId(),
+                'assigned_to_user_id' => $user->getId(),
+              );
+              $task_list = ProjectTaskLists::instance()->findById(2, true);
+              DB::beginWork();
+              $task = new ProjectTask();
+              $task->setFromAttributes($task_data);
+              $task_list->attachTask($task);
+              $task->save();
+              DB::commit();
+            } // if
+          } catch(Exception $e) {
+            DB::rollback();         
+          } // try
           
           flash_success(lang('success add user', $user->getDisplayName()));
-          $this->redirectToUrl($company->getViewUrl()); // Translate to profile page
+
+          $projects = $company->getProjects();
+          if (is_array($projects) || count($projects)) {
+            $this->redirectToUrl( get_url('account', 'update_permissions', $user->getId() )); // Continue to permissions page
+          } // if
+          $this->redirectToUrl($company->getViewUrl());
           
         } catch(Exception $e) {
           DB::rollback();
@@ -226,6 +256,23 @@
       tpl_assign('user', $user);
     } // card
   
+    /**
+    * Show user time
+    *
+    * @access public
+    * @param void
+    * @return null
+    */
+    function time() {
+      if (!logged_user()->isAdministrator(owner_company())) {
+        flash_error(lang('no access permissions'));
+        $this->redirectTo('dashboard');
+      } // if
+
+      $this->setLayout('dashboard');
+      tpl_assign('users', owner_company()->getUsers());
+    } // time
+
   } // UserController
 
 ?>
