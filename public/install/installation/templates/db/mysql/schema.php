@@ -359,6 +359,7 @@ CREATE TABLE `<?php echo $table_prefix ?>project_user_permissions` (
 
 CREATE TABLE `<?php echo $table_prefix ?>users` (
   `id` int(10) unsigned NOT NULL auto_increment,
+  `company_id` smallint(5) unsigned NOT NULL default '0',
   `username` varchar(50) <?php echo $default_collation ?> NOT NULL default '',
   `email` varchar(100) <?php echo $default_collation ?> default NULL,
   `token` varchar(50) <?php echo $default_collation ?> NOT NULL default '',
