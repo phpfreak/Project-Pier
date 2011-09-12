@@ -377,6 +377,5 @@ CREATE TABLE `<?php echo $table_prefix ?>users` (
   UNIQUE KEY `username` (`username`),
   KEY `email` (`email`),
   KEY `last_visit` (`last_visit`),
-  KEY `company_id` (`company_id`),
   KEY `last_login` (`last_login`)
 );
