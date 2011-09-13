@@ -17,7 +17,7 @@
   function render_user_box(User $user) {
     tpl_assign('_userbox_user', $user);
     tpl_assign('_userbox_contact', $user->getContact());
-    tpl_assign('_userbox_projects', $user->getActiveProjects());
+    tpl_assign('_userbox_projects', $user->getActiveMainProjects());
     return tpl_fetch(get_template_path('user_box', 'application'));
   } // render_user_box
   

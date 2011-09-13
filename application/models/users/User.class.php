@@ -67,6 +67,13 @@
     private $active_projects;
     
     /**
+    * Cached value of active main projects
+    *
+    * @var array
+    */
+    private $active_main_projects;
+
+    /**
     * Cached value of finished projects
     *
     * @var array
@@ -486,7 +493,28 @@
       } // if
       return $this->projects;
     } // getProjects
-    
+ 
+    /**
+    * Return array of active main projects that this user have access
+    *
+    * @access public
+    * @param void
+    * @return array
+    */
+    function getActiveMainProjects($sort = 'name') {
+      trace(__FILE__, "getActiveMainProjects($sort)");
+      if (is_null($this->active_main_projects)) {
+        trace(__FILE__, '- initialize cache: active_main_projects');
+        $this->active_main_projects = array();
+      } // if
+      if (!isset($this->active_main_projects[$sort])) {
+        $projects_table = Projects::instance()->getTableName(true);
+        $empty_datetime = DB::escape(EMPTY_DATETIME);
+        $this->active_main_projects[$sort] = ProjectUsers::getProjectsByUser($this, "$projects_table.`completed_on` = $empty_datetime AND $projects_table.`parent_id` = 0", $sort);
+      } // if
+      return $this->active_main_projects[$sort];
+    } // getActiveMainProjects
+   
     /**
     * Return array of active projects that this user have access
     *
@@ -951,7 +979,7 @@
     * @return null
     */
     function getCardUrl() {
-      return get_url('user', 'card', $this->getId());
+      return get_url('contacts', 'card', $this->getId());
     } // getCardUrl
     
     /**
