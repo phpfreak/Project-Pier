@@ -68,7 +68,7 @@ CREATE TABLE `<?php echo $table_prefix ?>companies` (
   `phone_number` varchar(50) <?php echo $default_collation ?> default NULL,
   `fax_number` varchar(50) <?php echo $default_collation ?> default NULL,
   `logo_file` varchar(50) <?php echo $default_collation ?> default NULL,
-  `is_favorite` tinyint(1) unsigned NOT NULL default 0,
+  `is_favorite` tinyint(1) UNSIGNED NOT NULL default 0,
   `timezone` float(4,2) NOT NULL default '0.0',
   `hide_welcome_info` tinyint(1) unsigned NOT NULL default '0',
   `created_on` datetime NOT NULL default '0000-00-00 00:00:00',

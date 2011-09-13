@@ -251,6 +251,7 @@
           $administrator_contact->setEmail(array_var($form_data, 'admin_email'));
           $administrator_contact->setUserId($administrator->getId());
           $administrator_contact->setDisplayName($administrator->getUsername());
+          $administrator_contact->save();
           
           // Create a company
           $company = new Company();

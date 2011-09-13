@@ -151,7 +151,7 @@
     * @return string 
     */
     function getDisplayName() {
-      return $this->getColumnValue('display_name');
+      return $this->getColumnValue('username');
     } // getDisplayName()
     
     /**
@@ -162,7 +162,7 @@
     * @return boolean
     */
     function setDisplayName($value) {
-      return $this->setColumnValue('display_name', $value);
+      return true;  // handled by contact now
     } // setDisplayName() 
     
     /**
