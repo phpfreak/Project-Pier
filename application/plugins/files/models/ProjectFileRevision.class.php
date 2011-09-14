@@ -2,7 +2,6 @@
 
   /**
   * ProjectFileRevision class
-  * Generated on Tue, 04 Jul 2006 06:46:08 +0200 by DataObject generation tool
   *
   * @http://www.projectpier.org/
   */
@@ -116,7 +115,7 @@
     */
     function getFilePath() {
       return FileRepository::getFilePath($this->getRepositoryId());
-    } // getFileContent
+    } // getFilePath
 
     /**
     * Return value of 'filename' field
@@ -142,7 +141,11 @@
     * @return string
     */
     function getFileContent() {
-      return FileRepository::getFileContent($this->getRepositoryId());
+      try {
+        return FileRepository::getFileContent($this->getRepositoryId());
+      } catch(Exception $e) {
+        return '';
+      }
     } // getFileContent
     
     // ---------------------------------------------------
