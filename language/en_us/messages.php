@@ -265,6 +265,23 @@
     'log delete projectforms' => '\'%s\' deleted',
   
     'log add projects' => '%s added',
+    'log edit projects' => '%s added',
+    'log open projects' => '%s opened',
+    'log close projects' => '%s opened',
+    'log delete projects' => '%s deleted',
+
+    'log add users' => '%s added',
+    'log edit users' => '%s updated',
+    'log delete users' => '%s deleted',
+
+    'log add companies' => '%s added',
+    'log edit companies' => '%s updated',
+    'log delete companies' => '%s deleted',
+
+    'log add contacts' => '%s added',
+    'log edit contacts' => '%s updated',
+    'log delete contacts' => '%s deleted',
+
   ); // array
 
 ?>

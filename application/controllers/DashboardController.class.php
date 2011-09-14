@@ -46,7 +46,11 @@
           }
           krsort($projects_activity_log);
         } // if
-        $activity_log = ApplicationLogs::getOverallLogs($include_private, $include_silent, $project_ids, config_option('dashboard_logs_count', 15));
+        if (logged_user()->isAdministrator()) {
+          $activity_log = ApplicationLogs::getOverallLogs($include_private, $include_silent, null, config_option('dashboard_logs_count', 150));
+        } else {
+          $activity_log = ApplicationLogs::getOverallLogs($include_private, $include_silent, $project_ids, config_option('dashboard_logs_count', 150));
+        }
       } // if
       if (plugin_active('files')) {
         $my_files = $logged_user->getImportantFiles();

@@ -136,3 +136,18 @@ table.applicationLogs .project td.logTypeIcon  {
  border-left: 8px solid #336633 !important;
 }
 
+table.applicationLogs .user td.logTypeIcon  {
+ border-left: 8px solid #FF0000 !important;
+}
+
+table.applicationLogs .file_revision td.logTypeIcon  {
+ border-left: 8px solid #C89744 !important;
+}
+
+table.applicationLogs .contact td.logTypeIcon  {
+ border-left: 8px solid #002244 !important;
+}
+
+table.applicationLogs .company td.logTypeIcon  {
+ border-left: 8px solid #226644 !important;
+}

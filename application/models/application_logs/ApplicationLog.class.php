@@ -71,6 +71,32 @@
              $now->getMonth() == $day_after->getMonth() && 
              $now->getYear() == $day_after->getYear();
     } // isYesterday
+
+    /**
+    * Return project id with log entry or associated object
+    *
+    * @access public
+    * @param void
+    * @return integer
+    */
+    function getProjectId() {
+      $project_id = parent::getProjectId();
+      if ($project_id>0) { 
+         return $project_id;
+      }
+      try {
+        $object = $this->getObject();
+        if ($object instanceof Project) {
+          return $object->getId();
+        }
+        if ($object instanceof ProjectDataObject) {
+          return $object->getProjectId();
+        }
+      } catch(Exception $e) {
+        return false;
+      }
+      return false;
+    } // getProjectId
   
     /**
     * Return project
