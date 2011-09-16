@@ -17,16 +17,26 @@
   $options_pagination = array('page' => '#PAGE#');
   if ($closed) $options_pagination['closed'] = true;
 ?>
-<?php if(isset($tickets) && is_array($tickets) && count($tickets)) { ?>
 <div id="tickets">
+<fieldset id="ticketsFilters">
+<?php
+      $this->assign('tickets', $tickets);
+      $this->assign('categories', $categories);
+      $this->assign('grouped_users', $grouped_users);
+      $this->assign('filtered', $filtered);
+      $this->assign('params', $params);
+      $this->includeTemplate(get_template_path('tickets_filters', 'tickets'))
+?>
+</fieldset>
+<?php if(isset($tickets) && is_array($tickets) && count($tickets)) { ?>
   <div id="messagesPaginationTop"><?php echo advanced_pagination($tickets_pagination, get_url('tickets', 'index', $options_pagination)) ?></div>
 <?php
-  $this->assign('ticketsheader', lang('tickets'));
+  //$this->assign('ticketsheader', lang('tickets'));
   $this->assign('tickets', $tickets);
   $this->includeTemplate(get_template_path('view_tickets', 'tickets'));
 ?>
   <div id="messagesPaginationBottom"><?php echo advanced_pagination($tickets_pagination, get_url('tickets', 'index', $options_pagination)) ?></div>
-</div>
 <?php } else { ?>
 <p><?php echo lang('no tickets in project') ?></p>
 <?php } // if ?>
+</div>

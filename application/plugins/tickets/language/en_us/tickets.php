@@ -145,6 +145,11 @@
     // Tickets
     'my tickets' => 'My tickets',
 
+    'filters' => 'Filters',  
+    'new' => 'New',  
+    'pending' => 'Pending',  
+    'updated on' => 'Updated on',  
+
   ); // array
 
 ?>    

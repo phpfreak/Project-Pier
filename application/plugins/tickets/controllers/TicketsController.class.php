@@ -50,27 +50,58 @@
     * @return array
     */
     function index() {
+
       $page = (integer) array_var($_GET, 'page', 1);
-      $category = (integer) array_var($_GET, 'category', 0);
-      $priority = array_var($_GET, 'priority', FALSE);
-      $type = array_var($_GET, 'type', FALSE);
-      if($page < 0) $page = 1;
+      if ($page < 0) {
+        $page = 1;
+      }
       
-      $closed = (boolean) array_var($_GET, 'closed', false);
-      $conditions = DB::prepareString('`closed_on` '.($closed ? '>' : '=').' ? and `project_id` = ?', array(EMPTY_DATETIME, active_project()->getId()));
-      if(!logged_user()->isMemberOfOwnerCompany()) {
-        $conditions .= DB::prepareString(' AND `is_private` = ?', array(0) );
-      } // if
-      if ($category>0) $conditions .= DB::prepareString(' AND `category_id` = ?', array($category));
-      if ($priority) $conditions .= DB::prepareString(' AND `priority` = ?', array($priority));
-      if ($type) $conditions .= DB::prepareString(' AND `type` = ?', array($type));
-    
-      if ($closed) {
-        $order = '`closed_on` DESC';
-      } else {
-        $order = '`created_on` DESC';
-      } // if
+      $this->canGoOn();
+
+      $params = array();
       
+      $params['sort_by'] = array_var($_GET, 'sort_by', Cookie::getValue('ticketsSortBy', 'id'));
+      $expiration = Cookie::getValue('remember'.TOKEN_COOKIE_NAME) ? REMEMBER_LOGIN_LIFETIME : null;
+      Cookie::setValue('ticketsSortBy', $params['sort_by'], $expiration);
+      
+      $conditions = DB::prepareString('`project_id` = ?', array(active_project()->getId()));
+      if ($params['status'] = array_var($_GET, 'status')) {
+        $conditions .= DB::prepareString(' AND `status` IN (?)', array(explode(',', $params['status'])));
+      } // if
+      if ($params['priority'] = array_var($_GET, 'priority')) {
+        $conditions .= DB::prepareString(' AND `priority` IN (?)', array(explode(',', $params['priority'])));
+      } // if
+      if ($params['type'] = array_var($_GET, 'type')) {
+        $conditions .= DB::prepareString(' AND `type` IN (?)', array(explode(',', $params['type'])));
+      } // if
+      if ($params['category_id'] = array_var($_GET, 'category_id')) {
+        $conditions .= DB::prepareString(' AND `category_id` IN (?)', array(explode(',', $params['category_id'])));
+      } // if
+      if ($params['assigned_to_user_id'] = array_var($_GET, 'assigned_to_user_id')) {
+        $conditions .= DB::prepareString(' AND `assigned_to_user_id` IN (?)', array(explode(',', $params['assigned_to_user_id'])));
+      } // if
+      if ($params['created_by_id'] = array_var($_GET, 'created_by_id')) {
+        $conditions .= DB::prepareString(' AND `created_by_id` IN (?)', array(explode(',', $params['created_by_id'])));
+      } // if
+      $params['order'] = (array_var($_GET, 'order') != 'DESC' ? 'ASC' : 'DESC');
+      
+      $filtered = $params['status']!="" || $params['priority']!="" || $params['type']!="" || $params['category_id']!="" || $params['assigned_to_user_id']!="" || $params['created_by_id']!="";
+
+      // Clean up empty and malformed parameters
+      foreach ($params as $key => $value) {
+        $value = preg_replace("/,+/", ",", $value); // removes multiple commas
+        $value = preg_replace("/^,?(.*),?$/", "$1", $value); // removes commas at both ends
+        $params[$key] = $value;
+        if ($value=="") {
+          unset($params[$key]); // deletes empty keys
+        } // if
+      } // foreach
+      
+      $order = '`'.$params['sort_by'].'` '.$params['order'].'';
+      if (!logged_user()->isMemberOfOwnerCompany()) {
+        $conditions .= DB::prepareString(' AND `is_private` = ?', array(0));
+      } // if
+
       list($tickets, $pagination) = ProjectTickets::paginate(
         array(
           'conditions' => $conditions,
@@ -80,7 +111,10 @@
         $page
       ); // paginate
       
-      tpl_assign('closed', $closed);
+      tpl_assign('filtered', $filtered);
+      tpl_assign('params', $params);
+      tpl_assign('grouped_users', active_project()->getUsers(true));
+      tpl_assign('categories', ProjectCategories::getProjectCategories(active_project()));
       tpl_assign('tickets', $tickets);
       tpl_assign('tickets_pagination', $pagination);
       

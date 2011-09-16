@@ -341,6 +341,17 @@
     function isClosed() {
       return $this->getClosedOn() instanceof DateTimeValue;
     } // isClosed
+
+    /**
+    * Returns true if this ticket has a due date set
+    *
+    * @access public
+    * @param void
+    * @return boolean
+    */
+    function hasDueDate() {
+      return $this->getDueDate() instanceof DateTimeValue;
+    } // hasDueDate
     
     // ---------------------------------------------------
     //  Permissions
