@@ -66,7 +66,7 @@
       
       $conditions = DB::prepareString('`project_id` = ?', array(active_project()->getId()));
       if ($params['status'] = array_var($_GET, 'status')) {
-        $conditions .= DB::prepareString(' AND `status` IN (?)', array(explode(',', $params['status'])));
+        $conditions .= DB::prepareString(' AND `state` IN (?)', array(explode(',', $params['status'])));
       } // if
       if ($params['priority'] = array_var($_GET, 'priority')) {
         $conditions .= DB::prepareString(' AND `priority` IN (?)', array(explode(',', $params['priority'])));
