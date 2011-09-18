@@ -16,7 +16,9 @@
   * @return array
   */
   function get_ticket_statuses() {
-    return array('new', 'open', 'pending', 'closed');
+    $types = array('opened', 'confirmed', 'not reproducable', 'test and confirm', 'fixed', 'closed');
+    return $types;
+    // return array('new', 'open', 'pending', 'closed');
     //return get_array('ProjectTicket.status');
   } // get_ticket_statuses
   
