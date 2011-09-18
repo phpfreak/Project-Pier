@@ -235,7 +235,6 @@
           // Create the administrator user
           $administrator = new User();
           $administrator->setId(1);
-          $administrator->setCompanyId(1);
           $administrator->setUsername(array_var($form_data, 'admin_username'));
           $administrator->setEmail(array_var($form_data, 'admin_email'));
           $administrator->setPassword($admin_password);
