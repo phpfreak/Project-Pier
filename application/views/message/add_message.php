@@ -1,7 +1,7 @@
 <?php
 
   set_page_title($message->isNew() ? lang('add message') : lang('edit message'));
-  project_tabbed_navigation(PROJECT_TAB_MESSAGES);
+  project_tabbed_navigation();
   project_crumbs(array(
     array(lang('messages'), get_url('message', 'index')),
     array($message->isNew() ? lang('add message') : lang('edit message'))

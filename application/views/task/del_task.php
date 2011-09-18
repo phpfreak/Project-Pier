@@ -1,7 +1,7 @@
 <?php
 
   set_page_title(lang('delete task'));
-  project_tabbed_navigation(PROJECT_TAB_TASKS);
+  project_tabbed_navigation();
   project_crumbs(lang('delete task'));
 
 ?>

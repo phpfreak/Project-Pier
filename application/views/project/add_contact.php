@@ -1,7 +1,7 @@
 <?php
 
   set_page_title(lang('add contact'));
-  project_tabbed_navigation(PROJECT_TAB_PEOPLE);
+  project_tabbed_navigation();
   project_crumbs(array(
     array(lang('people'), get_url('project','people')),
     lang('add contact')));

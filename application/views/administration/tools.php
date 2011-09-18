@@ -1,6 +1,6 @@
 <?php
   set_page_title(lang('administration tools'));
-  administration_tabbed_navigation(ADMINISTRATION_TAB_TOOLS);
+  administration_tabbed_navigation();
   administration_crumbs(lang('administration tools'));
 ?>
 <?php if (isset($tools) && is_array($tools) && count($tools)) { ?>

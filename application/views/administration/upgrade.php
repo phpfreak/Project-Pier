@@ -2,7 +2,7 @@
 
   // Set page title and set crumbs to index
   set_page_title(lang('upgrade'));
-  administration_tabbed_navigation(ADMINISTRATION_TAB_UPGRADE);
+  administration_tabbed_navigation();
   administration_crumbs(lang('upgrade'));
 
 ?>

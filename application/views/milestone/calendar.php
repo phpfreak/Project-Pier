@@ -1,7 +1,7 @@
 <?php
 
   set_page_title(lang('milestones'));
-  project_tabbed_navigation(PROJECT_TAB_MILESTONES);
+  project_tabbed_navigation();
   project_crumbs(array(
     array(lang('milestones'), get_url('milestone', 'index')),
     array(lang('view calendar'))

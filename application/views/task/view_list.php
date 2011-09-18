@@ -1,7 +1,7 @@
 <?php
 
   set_page_title($task_list->getName());
-  project_tabbed_navigation(PROJECT_TAB_TASKS);
+  project_tabbed_navigation();
   project_crumbs(array(
     array(lang('tasks'), get_url('task')),
     array($task_list->getName())

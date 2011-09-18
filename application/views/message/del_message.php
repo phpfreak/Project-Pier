@@ -1,7 +1,7 @@
 <?php
 
   set_page_title(lang('delete message'));
-  project_tabbed_navigation(PROJECT_TAB_MESSAGES);
+  project_tabbed_navigation();
   project_crumbs(lang('delete message'));
 
 ?>

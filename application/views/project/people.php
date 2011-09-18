@@ -1,7 +1,7 @@
 <?php
 
   set_page_title(lang('people'));
-  project_tabbed_navigation(PROJECT_TAB_PEOPLE);
+  project_tabbed_navigation();
   project_crumbs(lang('people'));
   
   if (active_project()->canChangePermissions(logged_user())) {
