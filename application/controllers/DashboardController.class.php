@@ -325,6 +325,7 @@
       $from_date = DateTimeValueLib::makeFromString('monday'.(date('w')==1?'':' last week'));
       $to_date = $from_date->advance(60*60*24*7*3, false); // +3 weeks
       $upcoming_milestones = ProjectMilestones::getActiveMilestonesInPeriodByUser(logged_user(), $from_date, $to_date);
+      $upcoming_tickets = array();
       if (plugin_active('tickets')) {
         $upcoming_tickets = ProjectTickets::getOpenTicketsInPeriodByUser(logged_user(), $from_date, $to_date);
       }
