@@ -1,11 +1,12 @@
 <?php
 
   set_page_title(lang('delete message'));
-  project_tabbed_navigation(PROJECT_TAB_WIKI);
+  project_tabbed_navigation();
   project_crumbs(array(
-			array(lang('wiki'), get_url('wiki')),
-			array($revision->getName(), $page->getViewUrl()),
-			array(lang('delete wiki page'))));
+	array(lang('wiki'), get_url('wiki')),
+	array($revision->getName(), $page->getViewUrl()),
+	array(lang('delete wiki page'))
+  ));
 
 ?>
 <form action="<?php echo $page->getDeleteUrl() ?>" method="post">

@@ -1,6 +1,6 @@
 <?php
   set_page_title(lang('edit logo'));
-  project_tabbed_navigation(PROJECT_TAB_LINKS);
+  project_tabbed_navigation();
   project_crumbs(array(
     array(lang('links'), get_url('links')),
     array(lang('edit logo'))

@@ -14,7 +14,7 @@ trace(__FILE__,'begin');
   }
 
   set_page_title(lang('wiki'));
-  project_tabbed_navigation(PROJECT_TAB_WIKI);
+  project_tabbed_navigation();
   project_crumbs($project_crumbs);
  
 ?>

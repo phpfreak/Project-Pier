@@ -6,7 +6,7 @@ trace(__FILE__,'begin');
  */
 
   set_page_title((!$iscurrev ? lang('viewing revision of', $revision->getRevision(), $revision->getName()) : $revision->getName() . ' [' . $revision->getPageId() . ']' ));
-  project_tabbed_navigation(PROJECT_TAB_WIKI);
+  project_tabbed_navigation();
   project_crumbs( array(
 		array(lang('wiki'), get_url('wiki')),
 		array($revision->getName()))

@@ -1,7 +1,7 @@
 <?php
 
 set_page_title(lang('wiki all pages'));
-project_tabbed_navigation(PROJECT_TAB_WIKI);
+project_tabbed_navigation();
 project_crumbs(array(
   array(lang('wiki'), get_url('wiki')),
   array(lang('wiki all pages'), $page->getAllPagesUrl()))

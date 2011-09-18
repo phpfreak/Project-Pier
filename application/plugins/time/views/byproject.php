@@ -1,6 +1,6 @@
 <?php
   set_page_title(lang('time manager'));
-  administration_tabbed_navigation(ADMINISTRATION_TAB_TIME);
+  administration_tabbed_navigation();
   administration_crumbs(lang('time manager'));
 
   add_page_action(lang('unbilled time'), get_url('administration', 'time', array('status' => '0')));

@@ -1,7 +1,7 @@
 <?php
   trace(__FILE__,'begin');
   set_page_title(lang('project links'));
-  project_tabbed_navigation(PROJECT_TAB_LINKS);
+  project_tabbed_navigation();
   project_crumbs(array(
     array(lang('links'), get_url('links', 'index')),
     array(lang('index'))

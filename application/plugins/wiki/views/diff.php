@@ -5,16 +5,16 @@
  * @copyright 2008
  */
 
-	set_page_title('Comparing revision ' . $rev1->getRevision() .' against revision ' . $rev2->getRevision());
-  project_tabbed_navigation(PROJECT_TAB_WIKI);
+  set_page_title('Comparing revision ' . $rev1->getRevision() .' against revision ' . $rev2->getRevision());
+  project_tabbed_navigation();
   project_crumbs(array(
-		array(lang('wiki'), get_url('wiki')),
-		array($revision->getName(), $page->getViewUrl()),
-		array(lang('wiki page diff')))
-	);
+	array(lang('wiki'), get_url('wiki')),
+	array($revision->getName(), $page->getViewUrl()),
+	array(lang('wiki page diff'))
+  ));
 
 	
-	$css = <<< CSSSNP
+  $css = <<< CSSSNP
 .ins {
 	background-color: #dfd;
 	text-decoration: underline;
@@ -26,7 +26,7 @@
 }
 CSSSNP;
 	
-	add_inline_css_to_page($css);
+  add_inline_css_to_page($css);
   
  
 ?>

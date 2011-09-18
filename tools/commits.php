@@ -1,20 +1,47 @@
 <?php
 
-  //var_dump($_POST); die();
-
-  echo "file 34239 /public_html/pp088/language/en_us
-commit 3223 reinier is slim
-file 34239 /public_html/pp088/language/en_us/en_us.php
-commit 333 1e commit
-file 34239 /public_html/pp088/language/en_us/objects.php
-commit 33123 2e commit
-file 35239 /public_html/pp088/application/controllers
-file 35239 /public_html/pp088/application/controllers/TaskController.class.php
-commit 3523 3e commit
-file 35559 /public_html/pp088/application/controllers/ProjectController.class.php
-commit 3555 4e commit
-";
+  echo "file 58 /public_html/pp088/tools/commits.php
+file 59 /public_html/pp088/application/plugins/wiki/views/delete.php
+file 60 /public_html/pp088/application/plugins/wiki/views/diff.php
+file 61 /public_html/pp088/application/plugins/wiki/views/edit.php
+file 62 /public_html/pp088/application/plugins/wiki/views/view.php
+file 63 /public_html/pp088/application/plugins/time/views/index.php
+file 64 /public_html/pp088/application/plugins/time/views/view.php
+file 65 /public_html/pp088/application/plugins/wiki/views/all_pages.php
+file 66 /public_html/pp088/application/plugins/time/views/bytask.php
+file 67 /public_html/pp088/application/plugins/time/views/byuser.php
+file 68 /public_html/pp088/application/plugins/time/views/add_time.php
+file 69 /public_html/pp088/application/plugins/time/views/byproject.php
+file 70 /public_html/pp088/application/plugins/links/views/edit_logo.php
+file 71 /public_html/pp088/application/plugins/links/views/index.php
+file 72 /public_html/pp088/application/plugins/links/views/edit_link.php
+commit 16 remove invalid constants from plugins";
 die();
+
+  //var_dump($_POST); die();
+echo "file 26 /public_html/pp088/application/plugins/tickets/helpers/tickets.php
+file 27 /public_html/pp088/application/plugins/tickets/views/index_sidebar.php
+file 28 /public_html/pp088/application/plugins/tickets/views/tickets_sidebar.php
+commit 11 ticket filters
+file 30 /public_html/pp088/application/controllers/AccessController.class.php
+commit 12 installation fix (company_id no longer with user)
+file 30 /public_html/pp088/application/controllers/DashboardController.class.php
+commit 13 initialize upcoming_tickets (gave error in log)";
+die();
+
+  echo "file 11 /public_html/pp088/application/plugins/files/models/ProjectFileRevision.class.php
+commit 6 handle missing content (happens when storage is manipulated outside of PP)
+file 12 /public_html/pp088/language/en_us/messages.php
+file 13 /public_html/pp088/public/assets/themes/marine/stylesheets/application_logs.css
+file 14 /public_html/pp088/application/controllers/DashboardController.class.php
+file 15 /public_html/pp088/application/models/application_logs/ApplicationLog.class.php
+commit 7 application log improvements";
+die();
+
+  echo "file 2 /public_html/pp088/tools/time.php
+commit 2 test program for time differences ";
+die();
+
   
   if(file_exists('../config/config.php')) {
     require_once '../config/config.php';  	

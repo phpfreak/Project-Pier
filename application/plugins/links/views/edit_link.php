@@ -1,7 +1,7 @@
 <?php
 
   set_page_title($project_link->isNew() ? lang('add link') : lang('edit link'));
-  project_tabbed_navigation(PROJECT_TAB_LINKS);
+  project_tabbed_navigation();
   project_crumbs(array(
     array(lang('links'), get_url('links')),
     array($project_link->isNew() ? lang('add link') : lang('edit link'))
