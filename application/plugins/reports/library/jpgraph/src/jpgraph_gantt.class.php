@@ -1590,7 +1590,7 @@ class TextProperty {
 	$aImg->SetFont($this->iFFamily,$this->iFStyle,$this->iFSize);
 	if( is_string($this->iText) ) {
 	    if( strlen($this->iText) == 0 ) return 0;
-	    $tmp = split("\t",$this->iText);
+	    $tmp = explode("\t",$this->iText);
 	    if( count($tmp) <= 1 || !$aUseTabs ) {
 		return $aImg->GetTextWidth($this->iText)+2*$extra_margin;
 	    }
@@ -1713,7 +1713,7 @@ class TextProperty {
 		}
 	    }
 	    else {
-		$tmp = split("\t",$this->iText);
+		$tmp = explode("\t",$this->iText);
 		$n = min(count($tmp),count($aX));
 		for($i=0; $i < $n; ++$i) {
 		    $aImg->StrokeText($aX[$i],$aY,$tmp[$i]);
