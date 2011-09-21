@@ -36,7 +36,8 @@
       tpl_assign('page', null);
       tpl_assign('links', $links);
       tpl_assign('folders', active_project()->getFolders());
-      tpl_assign('folder_tree', ProjectFolders::getProjectFolderTree(active_project())); 
+      //tpl_assign('folder_tree', ProjectFolders::getProjectFolderTree(active_project())); 
+      tpl_assign('folder_tree', array() ); 
       $this->setSidebar(get_template_path('index_sidebar', 'files'));    
     } // index
     
