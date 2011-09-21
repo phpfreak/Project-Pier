@@ -31,6 +31,9 @@
       $this->addHelper('textile');
       $this->addHelper('files', 'files');
       $links = ProjectLinks::getAllProjectLinks(active_project());
+      tpl_assign('current_folder', null);
+      tpl_assign('order', null);
+      tpl_assign('page', null);
       tpl_assign('links', $links);
       tpl_assign('folders', active_project()->getFolders());
       tpl_assign('folder_tree', ProjectFolders::getProjectFolderTree(active_project())); 
