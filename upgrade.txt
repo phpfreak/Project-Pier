@@ -1,9 +1,9 @@
            		
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Upgrading to ProjectPier 0.8.6
+Upgrading to ProjectPier 0.8.8
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-ProjectPier 0.8.6 is NOT database compatible with previous versions.
+ProjectPier 0.8.8 is NOT database compatible with previous versions.
 
 Upgrade instructions 
 
