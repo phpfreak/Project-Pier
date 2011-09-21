@@ -1,6 +1,6 @@
 <?php
   set_page_title(lang('time manager'));
-  administration_tabbed_navigation();
+  administration_tabbed_navigation('time');
   administration_crumbs(lang('time manager'));
 
   add_page_action(lang('unbilled time'), get_url('administration', 'time', array('status' => '0')));
@@ -65,7 +65,7 @@
     </td>
     <td class="timeHours"><?php echo $time->getHours() ?></td>
     <td class="timeFiles">
-      <?php echo render_object_files_brief($time, (!status) && $time->canEdit(logged_user())) ?>
+      <?php echo render_object_files_brief($time, $time->canEdit(logged_user())) ?>
     </td>
     <td class="timeEdit">
 <?php
