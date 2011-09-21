@@ -1,7 +1,7 @@
 <?php
 
   set_page_title($milestone->getName());
-  project_tabbed_navigation();
+  project_tabbed_navigation('milestones');
   project_crumbs(array(
     array(lang('milestones'), get_url('milestone', 'index')),
     array($milestone->getName())

@@ -2,7 +2,7 @@
 
   // Set page title and set crumbs to index
   set_page_title(lang('weekly schedule'));
-  dashboard_tabbed_navigation();
+  dashboard_tabbed_navigation('weekly_schedule');
   dashboard_crumbs(lang('weekly schedule'));
   add_stylesheet_to_page('dashboard/weekly_schedule.css');
   add_stylesheet_to_page('project/calendar.css');

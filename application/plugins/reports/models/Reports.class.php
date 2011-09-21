@@ -64,8 +64,10 @@ class Reports  {
 
       $rows = $this->displayProjectGantt($project, $graph, 0);
       $subprojects = $project->getSubprojects();
-      foreach($subprojects as $subproject) {
-        $rows = $this->displayProjectGantt($subproject, $graph, $rows++);
+      if (is_array($subprojects)) {
+        foreach($subprojects as $subproject) {
+          $rows = $this->displayProjectGantt($subproject, $graph, $rows++);
+        }
       }
 
       //send data
@@ -102,6 +104,7 @@ class Reports  {
       /*
       * Milestone
       */      
+      $milestonehidden = array();         
       $milestones = $project->getMilestones();
       $mymilestone = array();
       if (is_array($milestones)) {

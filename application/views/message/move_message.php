@@ -1,7 +1,7 @@
 <?php 
   trace(__FILE__,':begin');
   set_page_title(lang('move message'));
-  dashboard_tabbed_navigation();
+  dashboard_tabbed_navigation('messages');
   trace(__FILE__,':crumbs');
   project_crumbs(lang('move message'));
   trace(__FILE__,':build page');

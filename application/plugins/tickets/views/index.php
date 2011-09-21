@@ -1,7 +1,7 @@
 <?php 
 
   // Set page title and set crumbs to index
-  $title = ($closed ? 'closed' : 'open').' tickets';
+  $title = 'tickets';
   set_page_title(lang($title));
   project_tabbed_navigation(PROJECT_TAB_TICKETS);
   project_crumbs(array(
@@ -15,7 +15,6 @@
   add_stylesheet_to_page('project/tickets.css');
 
   $options_pagination = array('page' => '#PAGE#');
-  if ($closed) $options_pagination['closed'] = true;
 ?>
 <div id="tickets">
 <fieldset id="ticketsFilters">

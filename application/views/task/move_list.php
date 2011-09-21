@@ -1,7 +1,7 @@
 <?php 
   trace(__FILE__,':begin');
   set_page_title(lang('move task list'));
-  dashboard_tabbed_navigation();
+  dashboard_tabbed_navigation('tasks');
   trace(__FILE__,':crumbs');
   project_crumbs(lang('move task list'));
   trace(__FILE__,':build page');

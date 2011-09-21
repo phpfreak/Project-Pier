@@ -44,7 +44,7 @@
   function project_tabbed_navigation($selected = 'overview') {
     add_filter('tabbed_navigation_items', 'project_tabbed_navigation_filter');
 
-    add_tabbed_navigation_item('project', 'overview', get_url('project', 'index'));
+    add_tabbed_navigation_item('overview', 'overview', get_url('project', 'index'));
     add_tabbed_navigation_item('milestones', 'milestones', get_url('milestone', 'index'));
     add_tabbed_navigation_item('tasks', 'tasks', get_url('task', 'index'));
     add_tabbed_navigation_item('messages', 'messages', get_url('message', 'index'));

@@ -10,7 +10,7 @@
     ));
   } elseif (!logged_user()->isMemberOfOwnerCompany() && ($contact->canEdit(logged_user()))) {
     set_page_title(lang('update profile'));
-    account_tabbed_navigation();
+    account_tabbed_navigation('contact');
     account_crumbs(lang('update profile'));
   } else {
     administration_tabbed_navigation(ADMINISTRATION_TAB_CLIENTS);

@@ -1,7 +1,7 @@
 <?php
 
   set_page_title($message->getTitle());
-  project_tabbed_navigation();
+  project_tabbed_navigation('messages');
   project_crumbs(array(
     array(lang('messages'), get_url('message', 'index')),
     array(lang('view message'))

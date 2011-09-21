@@ -1,7 +1,7 @@
 <?php
 
   set_page_title(lang('delete milestone'));
-  project_tabbed_navigation();
+  project_tabbed_navigation('milestones');
   project_crumbs(lang('delete milestone'));
 
 ?>

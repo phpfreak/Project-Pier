@@ -1,7 +1,7 @@
 <?php
   trace(__FILE__,':begin');
   set_page_title(lang('copy task list'));
-  project_tabbed_navigation();
+  project_tabbed_navigation('tasks');
   project_crumbs(lang('copy task'));
 
 ?>

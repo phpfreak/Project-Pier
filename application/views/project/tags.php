@@ -1,7 +1,7 @@
 <?php
 
   set_page_title(lang('tags'));
-  project_tabbed_navigation();
+  project_tabbed_navigation('tags');
   project_crumbs(lang('tags'));
 
 ?>
