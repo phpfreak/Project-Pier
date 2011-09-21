@@ -619,10 +619,13 @@
     * @return array
     */
     function getTags() {
-      if (!$this->isTaggable()) {
-        throw new Error('Object not taggable');
+      if (plugin_active('tags')) {
+        if (!$this->isTaggable()) {
+          throw new Error('Object not taggable');
+        }
+        return Tags::getTagsByObject($this, get_class($this->manager()));
       }
-      return Tags::getTagsByObject($this, get_class($this->manager()));
+      return array();
     } // getTags
     
     /**
@@ -633,10 +636,13 @@
     * @return array
     */
     function getTagNames() {
-      if (!$this->isTaggable()) {
-        throw new Error('Object not taggable');
-      } // if
-      return Tags::getTagNamesByObject($this, get_class($this->manager()));
+      if (plugin_active('tags')) {
+        if (!$this->isTaggable()) {
+          throw new Error('Object not taggable');
+        } // if
+        return Tags::getTagNamesByObject($this, get_class($this->manager()));
+      }
+      return array();
     } // getTagNames
     
     /**
@@ -666,11 +672,14 @@
     * @return boolean
     */
     function setTags() {
-      if (!$this->isTaggable()) {
-        throw new Error('Object not taggable');
+      if (plugin_active('tags')) {
+        if (!$this->isTaggable()) {
+          throw new Error('Object not taggable');
+        }
+        $args = array_flat(func_get_args());
+        return Tags::setObjectTags($args, $this, get_class($this->manager()), null);
       }
-      $args = array_flat(func_get_args());
-      return Tags::setObjectTags($args, $this, get_class($this->manager()), null);
+      return array();
     } // setTags
     
     /**
@@ -681,10 +690,13 @@
     * @return boolean
     */
     function clearTags() {
-      if (!$this->isTaggable()) {
-        throw new Error('Object not taggable');
+      if (plugin_active('tags')) {
+        if (!$this->isTaggable()) {
+          throw new Error('Object not taggable');
+        }
+        return Tags::clearObjectTags($this, get_class($this->manager()));
       }
-      return Tags::clearObjectTags($this, get_class($this->manager()));
+      return array();
     } // clearTags
     
     // ---------------------------------------------------
