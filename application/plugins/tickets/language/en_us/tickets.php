@@ -121,7 +121,7 @@
     'major' => 'Major',
     'minor' => 'Minor',
     'trivial' => 'Trivial',
-    'opened' => 'Opened',
+    'opened' => 'New',
     'confirmed' => 'Confirmed',
     'not reproducable' => 'Not reproducable',
     'test and confirm' => 'Test and confirm',

@@ -12,13 +12,6 @@
   $crumbs[] = array(lang($title));
   project_crumbs($crumbs);
   
-  if ($ticket->canChangeStatus(logged_user())) {
-    if ($ticket->isClosed()) {
-      add_page_action(lang('open ticket'), $ticket->getOpenUrl());
-    } else {
-      add_page_action(lang('close ticket'), $ticket->getCloseUrl());
-    }
-  }
   add_stylesheet_to_page('project/tickets.css');
   add_stylesheet_to_page('application_logs.css');
 ?>
@@ -128,6 +121,15 @@
   </div>
 </div>
 
+<?php
+  if ($ticket->canChangeStatus(logged_user())) {
+    if ($ticket->isClosed()) {
+      echo '<b><a href="' .  $ticket->getOpenUrl() . '">' . lang('open ticket') . '</a></b>';
+    } else {
+      echo '<b><a href="' .  $ticket->getCloseUrl() . '">' . lang('close ticket') . '</a></b>';
+    }
+  }
+?>
 <?php if ($canEdit) { ?>
   <?php echo submit_button($ticket->isNew() ? lang('add ticket') : lang('save')) ?>
 <?php } // if?>

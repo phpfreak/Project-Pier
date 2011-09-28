@@ -33,8 +33,10 @@
     $statuses = get_ticket_statuses();
     $options = array();
     foreach($statuses as $status) {
-      $option_attributes = $status == $selected ? array('selected' => 'selected') : null;
-      $options[] = option_tag(lang($status), $status, $option_attributes);
+      if ($status != 'closed') {
+        $option_attributes = $status == $selected ? array('selected' => 'selected') : null;
+        $options[] = option_tag(lang($status), $status, $option_attributes);
+      }
     } // foreach
     return select_box($name, $options, $attributes);
   } // select_ticket_type
@@ -128,8 +130,10 @@
     $types = array('opened', 'confirmed', 'not reproducable', 'test and confirm', 'fixed', 'closed');
     $options = array();
     foreach($types as $type) {
-      $option_attributes = $type == $selected ? array('selected' => 'selected') : null;
-      $options[] = option_tag(lang($type), $type, $option_attributes);
+      if ($type != 'closed') {
+        $option_attributes = $type == $selected ? array('selected' => 'selected') : null;
+        $options[] = option_tag(lang($type), $type, $option_attributes);
+      }
     } // foreach
     return select_box($name, $options, $attributes);
   } // select_ticket_state
