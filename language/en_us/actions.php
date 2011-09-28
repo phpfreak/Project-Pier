@@ -117,7 +117,7 @@
     'send notification' => 'Send notification',
 
     // Download
-    'task download header' => "Project\tTask List\tStatus\tDescription\tId\tStatus\tInfo\tAssigned to\tTask\r\n",
+    'task download header' => "Project\tMilestone\tTask List\tStatus\tDescription\tId\tStatus\tInfo\tAssigned to\tTask\r\n",
     '%s items downloaded' => '%s items in download',
     'nothing to download' => "No data available in '%s' to download",
     'download task lists' => 'Download all tasks',

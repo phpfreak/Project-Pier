@@ -350,6 +350,11 @@
       } else {
         $download_text = '';
       }
+      $milestone_name='';
+      $milestone=$this->getMilestone();
+      if ($milestone instanceof ProjectMilestone) {
+        $milestone_name=$milestone->getName();
+      }
       $project_name=$this->getProject()->getName();
       $task_list_name=$this->getName();
       if ($this->isCompleted()) {
@@ -360,7 +365,7 @@
       $desc = $this->getDescription();
       $desc = strtr($desc,"\r\n\t","   ");
       $desc100 = substr($desc,0,100);
-      $task_list_info = "{$project_name}$sep{$task_list_name}$sep{$task_list_status}$sep{$desc100}$sep";
+      $task_list_info = "{$project_name}$sep{$milestone_name}$sep{$task_list_name}$sep{$task_list_status}$sep{$desc100}$sep";
       $tasks = $this->getTasks();
       if (is_array($tasks)) {
         foreach($tasks as $task) {
@@ -384,6 +389,7 @@
           $download_text .= "$task_line\r\n";
         }
       }
+      //die($download_text);
       return $download_text;
     }
     
