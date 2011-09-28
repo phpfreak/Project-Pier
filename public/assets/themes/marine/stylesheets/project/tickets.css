@@ -57,3 +57,7 @@
 #ticket select {
  width: 145px;
 }
+
+.status {
+ text-decoration: none;
+}

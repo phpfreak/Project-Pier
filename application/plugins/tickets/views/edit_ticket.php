@@ -19,7 +19,16 @@
     <div class="private" title="<?php echo lang('private ticket') ?>"><span><?php echo lang('private ticket') ?></span></div>
 <?php } // if ?>
 <h2><?php echo lang('ticket #', $ticket->getId()); ?></h2>
-<h3 class="status"><?php echo lang('status') ?>: <strong><?php echo lang($ticket->getStatus()); ?></strong></h3>
+<h3 class="status"><?php echo lang('status') ?>: <?php echo lang($ticket->getStatus()); ?> <span class="button">
+<?php
+  if ($ticket->canChangeStatus(logged_user())) {
+    if ($ticket->isClosed()) {
+      echo '<a href="' .  $ticket->getOpenUrl() . '">(' . lang('open ticket') . ')</a>';
+    } else {
+      echo '<a href="' .  $ticket->getCloseUrl() . '">(' . lang('close ticket') . ')</a>';
+    }
+  }
+?></span></h3>
 
 <form action="<?php echo $ticket->getEditUrl() ?>" method="post">
 
@@ -121,15 +130,6 @@
   </div>
 </div>
 
-<?php
-  if ($ticket->canChangeStatus(logged_user())) {
-    if ($ticket->isClosed()) {
-      echo '<b><a href="' .  $ticket->getOpenUrl() . '">' . lang('open ticket') . '</a></b>';
-    } else {
-      echo '<b><a href="' .  $ticket->getCloseUrl() . '">' . lang('close ticket') . '</a></b>';
-    }
-  }
-?>
 <?php if ($canEdit) { ?>
   <?php echo submit_button($ticket->isNew() ? lang('add ticket') : lang('save')) ?>
 <?php } // if?>
