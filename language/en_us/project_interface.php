@@ -116,6 +116,7 @@
     'open by' => 'opened by',
     'upload by' => 'uploaded by',
     'created by' => 'Created by',
+    'created on' => 'Created',
     
     'project description' => 'Description',
     'project status' => 'Project status',

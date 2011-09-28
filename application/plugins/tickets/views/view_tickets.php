@@ -52,10 +52,10 @@
     </th>
     <th width="60" align="center">
       <a href="<?php
-        if (array_var($params, 'sort_by') == 'status' && array_var($params, 'order') == 'ASC') {
-          echo get_url('tickets', 'index', array_merge($params, array('sort_by' => 'status', 'order' =>'DESC')));
+        if (array_var($params, 'sort_by') == 'state' && array_var($params, 'order') == 'ASC') {
+          echo get_url('tickets', 'index', array_merge($params, array('sort_by' => 'state', 'order' =>'DESC')));
         } else {
-          echo get_url('tickets', 'index', array_merge($params, array('sort_by' => 'status', 'order' => 'ASC')));
+          echo get_url('tickets', 'index', array_merge($params, array('sort_by' => 'state', 'order' => 'ASC')));
         }
           ?>"><?php echo lang("status") ?></a>
     </th>
@@ -67,6 +67,15 @@
           echo get_url('tickets', 'index', array_merge($params, array('sort_by' => 'priority', 'order' => 'ASC')));
         }
           ?>"><?php echo lang("priority") ?></a>
+    </th>
+    <th width="60" align="center">
+      <a href="<?php
+        if (array_var($params, 'sort_by') == 'created_on' && array_var($params, 'order') == 'ASC') {
+          echo get_url('tickets', 'index', array_merge($params, array('sort_by' => 'created_on', 'order' =>'DESC')));
+        } else {
+          echo get_url('tickets', 'index', array_merge($params, array('sort_by' => 'created_on', 'order' => 'ASC')));
+        }
+          ?>"><?php echo lang("created on") ?></a>
     </th>
     <th width="60" align="center">
       <a href="<?php
@@ -103,8 +112,9 @@
           <?php echo "<a href=\"".$ticket->getAssignedTo()->getCardUrl()."\">".clean($ticket->getAssignedTo()->getObjectName())."</a>" ?>
 <?php } // if{ ?>
     </td>
-    <td><?php echo $ticket->getStatus(); ?></td>
-    <td><?php echo $ticket->getPriority(); ?></td>
+    <td><?php echo lang($ticket->getStatus()); ?></td>
+    <td><?php echo lang($ticket->getPriority()); ?></td>
+    <td><?php echo $ticket->getCreatedOn()->format("Y-m-d"); ?></td>
     <td><?php echo $ticket->hasDueDate() ? $ticket->getDueDate()->format("Y-m-d") : ''; ?></td>
     <td><?php echo $ticket->getUpdatedOn() ? $ticket->getUpdatedOn()->format("Y-m-d") : lang('n/a') ?></td>
   </tr>
