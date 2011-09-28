@@ -370,7 +370,7 @@
             $task_completion_info = format_date($task->getCompletedOn());
           } else {
             $task_status = lang('open');
-            $task_completion_info = lang('open');
+            $task_completion_info = format_date($task->getDueDate());
           }
           if ($task->getAssignedTo()) {
             $task_assignee = $task->getAssignedTo()->getObjectName();
