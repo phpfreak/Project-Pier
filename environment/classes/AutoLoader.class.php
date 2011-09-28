@@ -139,7 +139,8 @@
       /* generate php index file */
       $index_content = "<?php\n";
       foreach ($this->class_index as $class_name => $class_file) {
-        $index_content .= "\t\$GLOBALS['autoloader_classes'][". var_export(strtoupper($class_name), true) . "] = " . var_export($class_file, true) . ";\n";
+        // $index_content .= "\t\$GLOBALS['autoloader_classes'][". var_export(strtoupper($class_name), true) . "] = " . var_export($class_file, true) . ";\n";
+        $index_content .= "\t\$GLOBALS['autoloader_classes'][". var_export(strtoupper($class_name), true) . "] = ROOT." . var_export($class_file, true) . ";\n";
       } // foreach
       $index_content .= "?>";
       if (!@file_put_contents($this->getIndexFilename(), $index_content)) {
@@ -208,7 +209,10 @@
       /* searching for classes */
       if (preg_match_all("%(interface|class)\s+(\w+)\s+(extends\s+(\w+)\s+)?(implements\s+\w+\s*(,\s*\w+\s*)*)?{%im", $buf, $result)) {
         foreach ($result[2] as $class_name) {
-          $this->class_index[$class_name] = str_replace('\\', '/', $path);
+          $absolute_path = str_replace('\\', '/', $path);
+          $relative_path = str_replace(ROOT, '', $absolute_path);
+          $this->class_index[$class_name] = $relative_path;
+          // $this->class_index[$class_name] = $absolute_path;  // 0.8.6 way
         } // if
       } // if
     } // parseFile
@@ -220,7 +224,7 @@
     /**
     * Add directory that need to be scaned
     *
-    * @param stirng $path Direcotry path
+    * @param string $path Directory path
     * @return null
     */
     function addDir($path) {
