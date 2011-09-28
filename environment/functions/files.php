@@ -447,6 +447,8 @@
       }
       return fclose($handle);
     } else {
+      print $content;
+/*
       header("X-ProjectPier-Storage: mysql");
       header("X-ProjectPier-Size: " . $size);
       // 0.8.8 $content = repository id
@@ -466,6 +468,7 @@
       }
       header("X-ProjectPier-Debug4: " . mysql_error());
       mysql_free_result($result);
+*/
     }
     return((connection_status() == 0) && !connection_aborted());
   } // download_contents
