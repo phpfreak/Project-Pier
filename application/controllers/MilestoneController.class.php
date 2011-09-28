@@ -430,6 +430,12 @@
         flash_error(lang('id missing'));
         $this->redirectToReferer(get_url('milestone', 'index'));
       }
+
+      $view_type = array_var($_GET, 'view', Cookie::getValue('milestonesViewType', 'list'));
+      $expiration = Cookie::getValue('remember'.TOKEN_COOKIE_NAME) ? REMEMBER_LOGIN_LIFETIME : null;
+      Cookie::setValue('milestonesViewType', $view_type, $expiration);
+
+      tpl_assign('view_type', $view_type);
       tpl_assign('milestones', $project->getMilestonesByMonth($year, $month));
       tpl_assign('task_lists', $project->getTaskListsByMonth($year, $month));
     } // calendar
