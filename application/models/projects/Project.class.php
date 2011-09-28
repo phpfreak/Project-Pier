@@ -392,6 +392,23 @@
       } // if
       return $this->subprojects;
     } // getSubprojects
+
+    // ---------------------------------------------------
+    // Page Attachments
+    // ---------------------------------------------------
+    
+    /**
+    * This function will return all page attachments in project
+    *
+    * @param void
+    * @return array
+    */
+    function getAllPageAttachments() {
+      if (is_null($this->all_page_attachments)) {
+        $this->all_page_attachments = PageAttachments::getAllByProject($this);
+      }
+      return $this->all_page_attachments;
+    } // getAllPageAttachments
     
     // ---------------------------------------------------
     //  Messages
