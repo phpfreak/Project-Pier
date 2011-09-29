@@ -47,6 +47,5 @@
   echo render_object_options($message, $extra_options);
 ?>
 </div>
-
 <!-- Comments -->
-<div id="messageComments"><?php echo render_object_comments($message, $message->getViewUrl()) ?></div>
+<?php echo render_object_comments($message, $message->getViewUrl()) ?>
