@@ -1,6 +1,6 @@
 <?php
   
-  define('ROOT', dirname(__FILE__));
+  define('ROOT', str_replace('\\', '/', dirname(__FILE__)));
     
   define('APPLICATION_PATH', ROOT . '/application');
   define('LIBRARY_PATH',     ROOT . '/library');
