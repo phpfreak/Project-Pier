@@ -17,7 +17,7 @@ input.title { width: 530px; }
 input.checkbox, input.yes_no { background: transparent; border: 0; width: auto; }
 legend label.checkbox { font-weight: bold; }
 textarea, textarea.long { height: 150px; width: 400px; }
-textarea.short { height: 70px; width: 365px; }
+textarea.short { height: 70px; width: 90%; }
 textarea.comment { height: 150px; width: 488px; }
 textarea.editor { height: 300px; width: 530px; }
 button, button.submit, input[type=submit], button[type=submit], .submit { background-color: #599db7; background-image: url(../../images/layout/bg_crumbs.png); background-repeat: repeat-x; border: 1px solid #4887a0; color: #ffffff; font-size: 12px; font-weight: bold; letter-spacing: 1px; margin-top: 10px; padding: 4px 12px; }
@@ -37,3 +37,4 @@ form div.formBlock label { margin-top: 0; padding-top: 0; }
 .objectOption .optionLabel label { margin: 0; padding: 0; }
 .objectOption div.optionControl { margin-left: 140px; }
 .objectOption div.optionDesc { clear: left; color: #333333; font-size: 11px; padding: 0 5px 5px 5px; }
+input.datepicker { width: 100px; }
