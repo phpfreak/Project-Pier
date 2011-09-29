@@ -116,19 +116,21 @@
       if (!is_array($task_list_data)) {
         $task_list_data = array(
           'milestone_id' => array_var($_GET, 'milestone_id'),
-          'due_date' => DateTimeValueLib::now(),
+          'start_date' => DateTimeValueLib::now(),
           'is_private' => config_option('default_private', false),
-          'task0' => array( 'due_date' => DateTimeValueLib::now() ),
-          'task1' => array( 'due_date' => DateTimeValueLib::now() ),
-          'task2' => array( 'due_date' => DateTimeValueLib::now() ),
-          'task3' => array( 'due_date' => DateTimeValueLib::now() ),
-          'task4' => array( 'due_date' => DateTimeValueLib::now() ),
-          'task5' => array( 'due_date' => DateTimeValueLib::now() ),
+          'task0' => array( 'start_date' => DateTimeValueLib::now() ),
+          'task1' => array( 'start_date' => DateTimeValueLib::now() ),
+          'task2' => array( 'start_date' => DateTimeValueLib::now() ),
+          'task3' => array( 'start_date' => DateTimeValueLib::now() ),
+          'task4' => array( 'start_date' => DateTimeValueLib::now() ),
+          'task5' => array( 'start_date' => DateTimeValueLib::now() ),
         ); // array
       } else {
         for ($i = 0; $i < 6; $i++) {
           $due_date = $_POST["task_list_task{$i}_due_date"];
           $task_list_data["task{$i}"]['due_date'] = $due_date;
+          $start_date = $_POST["task_list_task{$i}_start_date"];
+          $task_list_data["task{$i}"]['start_date'] = $start_date;
         }   
       } // if
       
@@ -136,10 +138,11 @@
       tpl_assign('task_list', $task_list);
       
       if (is_array(array_var($_POST, 'task_list'))) {
+        if (isset($_POST['task_list_start_date'])) {
+          $task_list_data['start_date'] = DateTimeValueLib::makeFromString($_POST['task_list_start_date']);
+        }
         if (isset($_POST['task_list_due_date'])) {
           $task_list_data['due_date'] = DateTimeValueLib::makeFromString($_POST['task_list_due_date']);
-        } else {
-          $task_list_data['due_date'] = DateTimeValueLib::make(0, 0, 0, array_var($_POST, 'task_list_due_date_month', 1), array_var($_POST, 'task_list_due_date_day', 1), array_var($_POST, 'task_list_due_date_year', 1970));
         }
         //$task_list_data['due_date'] = DateTimeValueLib::make(0, 0, 0, array_var($_POST, 'task_list_due_date_month', 1), array_var($_POST, 'task_list_due_date_day', 1), array_var($_POST, 'task_list_due_date_year', 1970));
         $task_list->setFromAttributes($task_list_data);
@@ -151,14 +154,16 @@
         for ($i = 0; $i < 6; $i++) {
           if (isset($task_list_data["task{$i}"]) && is_array($task_list_data["task{$i}"]) && (trim(array_var($task_list_data["task{$i}"], 'text')) <> '')) {
             $assigned_to = explode(':', array_var($task_list_data["task{$i}"], 'assigned_to', ''));
+            if (isset($_POST["task_list_task{$i}_start_date"])) {
+              $start_date = DateTimeValueLib::makeFromString($_POST["task_list_task{$i}_start_date"]);
+            }
             if (isset($_POST["task_list_task{$i}_due_date"])) {
               $due_date = DateTimeValueLib::makeFromString($_POST["task_list_task{$i}_due_date"]);
-            } else {
-              $due_date = DateTimeValueLib::make(0, 0, 0, array_var($_POST, "task_list_task{$i}_due_date_month", 1), array_var($_POST, "task_list_task{$i}_due_date_day", 1), array_var($_POST, "task_list_task{$i}_due_date_year", 1970));
             }
             $tasks[] = array(
               'text' => array_var($task_list_data["task{$i}"], 'text'),
               'order' => 1 + $i ,
+              'start_date' => $start_date,
               'due_date' => $due_date,
               'assigned_to_company_id' => array_var($assigned_to, 0, 0),
               'assigned_to_user_id' => array_var($assigned_to, 1, 0),
@@ -238,6 +243,7 @@
           'priority' => $task_list->getPriority(),
           'score' => $task_list->getScore(),
           'description' => $task_list->getDescription(),
+          'start_date' => $task_list->getStartDate(),
           'due_date' => $task_list->getDueDate(),
           'milestone_id' => $task_list->getMilestoneId(),
           'tags' => is_array($tag_names) && count($tag_names) ? implode(', ', $tag_names) : '',
@@ -249,10 +255,11 @@
       
       if (is_array(array_var($_POST, 'task_list'))) {
         $old_is_private = $task_list->isPrivate();
+       if (isset($_POST['task_list_start_date'])) {
+          $task_list_data['start_date'] = DateTimeValueLib::makeFromString($_POST['task_list_start_date']);
+        }
        if (isset($_POST['task_list_due_date'])) {
           $task_list_data['due_date'] = DateTimeValueLib::makeFromString($_POST['task_list_due_date']);
-        } else {
-          $task_list_data['due_date'] = DateTimeValueLib::make(0, 0, 0, array_var($_POST, 'task_list_due_date_month', 1), array_var($_POST, 'task_list_due_date_day', 1), array_var($_POST, 'task_list_due_date_year', 1970));
         }
         //$task_list_data['due_date'] = DateTimeValueLib::make(0, 0, 0, array_var($_POST, 'task_list_due_date_month', 1), array_var($_POST, 'task_list_due_date_day', 1), array_var($_POST, 'task_list_due_date_year', 1970));
         $task_list->setFromAttributes($task_list_data);
