@@ -303,6 +303,11 @@
     return preg_match(URL_FORMAT, $url);
   } // end func is_valid_url 
   
+
+  function ignore_error($errno, $errstr, $errfile, $errline) {
+    return true;
+  }
+
   /**
   * Redirect to specific URL (header redirection)
   *
@@ -324,7 +329,11 @@
       $to = str_replace('&amp;', '&', $to);
     } // if
 
-    if(ob_get_level()>0) while(@ob_end_clean());
+    if (ob_get_level()>0) {
+      set_error_handler('ignore_error');
+      while(@ob_end_clean());
+      restore_error_handler();
+    }
     header('Location: ' . $to);
     if ($die) {
       session_write_close();
@@ -510,4 +519,69 @@
     return $protocol . $_SERVER['HTTP_HOST'] . $relative_url; 
   }
 
+  /**
+  * This function returns true if string begins with certain string
+  * 
+  * @param string $string
+  * @param string $search
+  * @return boolean
+  */
+  function string_begins_with($string, $search) {
+    return (strncmp($string, $search, strlen($search)) == 0);
+  }
+
+  /**
+  * This function will return chunked content unchunked
+  * 
+  * @param string $data
+  * @return $unchunked_data
+  * source: php.net
+  */
+  function http_unchunk($data) {
+    $fp = 0;
+    $outData = '';
+    while ($fp < strlen($data)) {
+        $rawnum = substr($data, $fp, strpos(substr($data, $fp), "\r\n") + 2);
+        $num = hexdec(trim($rawnum));
+        $fp += strlen($rawnum);
+        $chunk = substr($data, $fp, $num);
+        $outData .= $chunk;
+        $fp += strlen($chunk);
+    }
+    return $outData;
+  }
+
+  /**
+  * This function will return content from url
+  * Note: Handles chunked content
+  * 
+  * @param string $host
+  * @param string $port
+  * @param string $url (within host)
+  * @return $string with content
+  */
+  function get_content_from_url($host, $port, $url) {
+    $reply='';
+    $fp = fsockopen($host, $port, $errno, $errstr, 30);
+    if (!$fp) {
+      //echo "$errstr ($errno)<br />\n";
+      return false;
+    } else {
+      $out = "GET /$url HTTP/1.0\r\n";
+      $out .= "Host: $host\r\n";
+      $out .= "Connection: Close\r\n\r\n";
+      fwrite($fp, $out);
+      while (!feof($fp)) {
+        $reply .= fgets($fp, 1024);
+      }
+      fclose($fp);
+    }
+    $start_of_data = strpos($reply, "\r\n\r\n")+4;
+    $headers = substr($reply, 0, $start_of_data);
+    $data = substr($reply, $start_of_data);
+    if (strpos(strtolower($headers), "transfer-encoding: chunked") !== FALSE) {
+      $data = http_unchunk($data);
+    }
+    return $data;
+  }
 ?>

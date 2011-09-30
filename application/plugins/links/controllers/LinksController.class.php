@@ -203,11 +203,40 @@
 
       if (is_array($logo)) {
         try {
-          move_uploaded_file($logo["tmp_name"], ROOT . "/tmp/" . $logo["name"]);
-          $logo["tmp_name"] = ROOT . "/tmp/" . $logo["name"];
-          if (!isset($logo['name']) || !isset($logo['type']) || !isset($logo['size']) || !isset($logo['tmp_name']) || !is_readable($logo['tmp_name'])) {
-            throw new InvalidUploadError($logo, lang('error upload file'));
-          } // if
+          if (1) {
+            $x1 = 0 + array_var($_POST, 'x1');
+            $y1 = 0 + array_var($_POST, 'y1');
+            $x2 = 0 + array_var($_POST, 'x2');
+            $y2 = 0 + array_var($_POST, 'y2');
+            $url = $link->getUrl();
+            if (!string_begins_with($url, 'http://')) $url = 'http://' . $url;
+            //die("$x1 $y1 $x2 $y2 $url");
+            $img_data = get_content_from_url('wimg.ca', 80, $url);
+            if ($img_data) {
+              $src_img = imagecreatefromstring($img_data);
+              $dst_img = imagecreatetruecolor(50, 50);
+              imagecopyresized($dst_img, $src_img, 0, 0, $x1, $y1, 50, 50, abs($x2-$x1), abs($y2-$y1) );
+
+              // Output and free from memory
+              //header('Content-Type: image/png');
+              $tempname = tempnam(ROOT . '/tmp/', 'links-snapshot' );
+              imagepng($dst_img, $tempname);
+
+              $logo["name"]='links-snapshot';
+              $logo["tmp_name"]=$tempname;
+              $logo["type"]='image/png';
+              $logo["size"]='1';
+
+              imagedestroy($dst_img);
+              imagedestroy($src_img);
+            }
+          } else {
+            move_uploaded_file($logo["tmp_name"], ROOT . "/tmp/" . $logo["name"]);
+            $logo["tmp_name"] = ROOT . "/tmp/" . $logo["name"];
+            if (!isset($logo['name']) || !isset($logo['type']) || !isset($logo['size']) || !isset($logo['tmp_name']) || !is_readable($logo['tmp_name'])) {
+              throw new InvalidUploadError($logo, lang('error upload file'));
+            } // if
+          }
           
           $valid_types = array('image/jpg', 'image/jpeg', 'image/pjpeg', 'image/gif', 'image/png');
           $max_width   = config_option('max_logo_width', 50);
