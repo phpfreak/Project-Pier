@@ -97,6 +97,10 @@
     <p class="desc"><?php echo lang('new avatar notice') ?></p>
 <?php } // if ?>
   </div>
+  <div>
+    <?php echo label_tag(lang('use gravatar'), 'contactFormUseGravatar', true) ?>
+    <?php echo yes_no_widget('contact[use_gravatar]', 'contactFormUseGravatar', array_var($contact_data, 'use_gravatar'), lang('yes'), lang('no')) ?>
+  </div>
 
   <fieldset>
     <legend><?php echo lang('phone numbers') ?></legend>

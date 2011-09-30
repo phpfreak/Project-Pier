@@ -21,7 +21,6 @@
   add_stylesheet_to_page('admin/user_permissions.css');
 
 ?>
-<script type="text/javascript" src="<?php echo get_javascript_url('modules/addContactForm.js') ?>"></script>
 <h2><?php echo $contact->getDisplayName() ?></h2>
 <?php if ($contact->hasAvatar()) { ?>
   <div class="contactAvatar"><img src="<?php echo $contact->getAvatarUrl() ?>" alt="<?php echo clean($contact->getDisplayName()) ?> <?php echo lang('avatar') ?>" /></div>
@@ -67,13 +66,11 @@
       </div>
     </div>
   </fieldset>
-  <script type="text/javascript">
-    App.modules.addContactForm.generateRandomPasswordClick();
-  </script>
 <?php } // if ?>
 
 <?php if ($company->isOwner()) { ?>
-  <div class="formBlock">
+  <fieldset>
+    <legend><?php echo lang('options') ?></legend>
 <?php if (!$contact->isAccountOwner()) { ?>
     <div>
       <?php echo label_tag(lang('is administrator'), null, true) ?>
@@ -84,10 +81,21 @@
       <?php echo label_tag(lang('is auto assign'), null, true) ?>
       <?php echo yes_no_widget('user[auto_assign]', 'userFormAutoAssign', array_var($user_data, 'auto_assign'), lang('yes'), lang('no')) ?>
     </div>
-  </div>
+    <div>
+      <?php echo label_tag(lang('use LDAP'), null, true) ?>
+      <?php echo yes_no_widget('user[use_LDAP]', 'userFormUseLDAP', array_var($user_data, 'use_LDAP'), lang('yes'), lang('no')) ?>
+    </div>
+
+    <div>
+      <?php echo label_tag(lang('can manage projects'), null, true) ?>
+      <?php echo yes_no_widget('user[can_manage_projects]', 'userFormCanManageProjects', array_var($user_data, 'can_manage_projects'), lang('yes'), lang('no')) ?>
+    </div>
+  </fieldset>
 <?php } else { ?>
   <input type="hidden" name="user[is_admin]" value="0" />
   <input type="hidden" name="user[auto_assign]" value="0" />
+  <input type="hidden" name="user[use_LDAP]" value="0" />
+  <input type="hidden" name="user[can_manage_projects]" value="0" />
 <?php } // if ?>
   
   <div class="formBlock">
