@@ -573,6 +573,10 @@ only IE mac will see this*/
   border-bottom: 1px solid #cccccc;
 }
 
+#userPermissions table {
+  table-layout: auto;
+}
+
 td.projectPermission {
   vertical-align: middle;
 }
