@@ -586,6 +586,7 @@
         // $user->setCompanyId($company->getId());
         
         try {
+          $password = ''; 
           // Generate random password
           if (array_var($user_data, 'password_generator') == 'random') {
             $password = substr(sha1(uniqid(rand(), true)), rand(0, 25), 13);
@@ -608,7 +609,6 @@
 
           $granted = (trim(array_var($user_data, 'can_manage_projects')) == '1') ? 1 : 0;
           $user->setPermission(PermissionManager::CAN_MANAGE_PROJECTS, $granted);
-
 
           ApplicationLogs::createLog($user, null, ApplicationLogs::ACTION_EDIT);
           

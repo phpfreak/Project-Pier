@@ -638,13 +638,15 @@
       if (!isset($this->importantfiles[$sort])) {
         $files = array();
         $projects = $this->getActiveProjects();
-        foreach($projects as $project) {
-          $projectfiles = ProjectFiles::getImportantProjectFiles($project);
-          $i=0;
-          while (isset($projectfiles[$i])){
-            $files[] = $projectfiles[$i];
-            unset($projectfiles[$i]);
-            $i++;
+        if (is_array($projects)) {
+          foreach($projects as $project) {
+            $projectfiles = ProjectFiles::getImportantProjectFiles($project);
+            $i=0;
+            while (isset($projectfiles[$i])){
+              $files[] = $projectfiles[$i];
+              unset($projectfiles[$i]);
+              $i++;
+            }
           }
         }
         usort($files, "filenamecmp");
