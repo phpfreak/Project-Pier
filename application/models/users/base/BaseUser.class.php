@@ -254,6 +254,28 @@
     } // setUpdatedOn() 
     
     /**
+    * Return value of 'updated_by_id' field
+    *
+    * @access public
+    * @param void
+    * @return integer 
+    */
+    function getUpdatedById() {
+      return $this->getColumnValue('updated_by_id');
+    } // getUpdatedById()
+    
+    /**
+    * Set value of 'updated_by_id' field
+    *
+    * @access public   
+    * @param integer $value
+    * @return boolean
+    */
+    function setUpdatedById($value) {
+      return $this->setColumnValue('updated_by_id', $value);
+    } // setUpdatedById() 
+    
+    /**
     * Return value of 'last_login' field
     *
     * @access public

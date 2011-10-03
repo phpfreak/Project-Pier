@@ -329,7 +329,7 @@
       $project_user->setUserId($this->getId());
       $project_user->setProjectId(0);
 
-      $value = in_array($permission,$project_user->getPermissions()) ? true : $this->isAdministrator();
+      $value = in_array($permission,$project_user->getPermissions()) ? true : false;
       return $value;
     } // canManageProjects
 

@@ -208,6 +208,28 @@
     function setIsFavorite($value) {
       return $this->setColumnValue('is_favorite', $value);
     } // setIsFavorite() 
+    
+    /**
+    * Return value of 'use_gravatar' field
+    *
+    * @access public
+    * @param void
+    * @return boolean
+    */
+    function getUseGravatar() {
+      return $this->getColumnValue('use_gravatar');
+    } // getUseGravatar()
+
+    /**
+    * Set value of 'use_gravatar' field
+    *
+    * @access public
+    * @param string $value
+    * @return boolean
+    */
+    function setUseGravatar($value) {
+      return $this->setColumnValue('use_gravatar', $value);
+    } // setUseGravatar() 
 
     /**
     * Return value of 'office_number' field

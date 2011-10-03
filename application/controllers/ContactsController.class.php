@@ -229,6 +229,7 @@
           'fax_number' => $contact->getFaxNumber(),
           'mobile_number' => $contact->getMobileNumber(),
           'home_number' => $contact->getHomeNumber(),
+          'use_gravatar'  => $contact->getUseGravatar(),
           'tags' => is_array($tag_names) ? implode(', ', $tag_names) : '',
         ); // array
         
@@ -565,11 +566,13 @@
       $user_data = array_var($_POST, 'user');
       if (!is_array($user_data)) {
         $user_data = array(
-          'username' => $user->getUsername(),
-          'email' => $user->getEmail(),
-          'timezone' => $user->getTimezone(),
-          'is_admin' => $user->isAdministrator(),
-          'auto_assign' => $user->getAutoAssign()
+          'username'     => $user->getUsername(),
+          'email'        => $user->getEmail(),
+          'timezone'     => $user->getTimezone(),
+          'is_admin'     => $user->isAdministrator(),
+          'auto_assign'  => $user->getAutoAssign(),
+          'use_LDAP'     => $user->getUseLDAP(),
+          'can_manage_projects' => $user->canManageProjects() ? '1' : '0'
         ); // array
       } // if
       
@@ -602,6 +605,11 @@
           
           DB::beginWork();
           $user->save();
+
+          $granted = (trim(array_var($user_data, 'can_manage_projects')) == '1') ? 1 : 0;
+          $user->setPermission(PermissionManager::CAN_MANAGE_PROJECTS, $granted);
+
+
           ApplicationLogs::createLog($user, null, ApplicationLogs::ACTION_EDIT);
           
           DB::commit();

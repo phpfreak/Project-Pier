@@ -350,6 +350,7 @@
     * @return string
     */
     function getAvatarUrl() {
+      if ($this->getUseGravatar()) return 'http://www.gravatar.com/avatar/' . md5( strtolower( trim( $this->getEmail() ))) . '?s=50'; 
       return $this->hasAvatar() ? PublicFiles::getFileUrl($this->getAvatarFile()) : get_image_url('avatar.gif');
     } // getAvatarUrl
     
