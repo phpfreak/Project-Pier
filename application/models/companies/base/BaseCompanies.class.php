@@ -14,7 +14,7 @@
     * @var array
     * @static
     */
-    static private $columns = array('id' => DATA_TYPE_INTEGER, 'client_of_id' => DATA_TYPE_INTEGER, 'name' => DATA_TYPE_STRING, 'email' => DATA_TYPE_STRING, 'homepage' => DATA_TYPE_STRING, 'address' => DATA_TYPE_STRING, 'address2' => DATA_TYPE_STRING, 'city' => DATA_TYPE_STRING, 'state' => DATA_TYPE_STRING, 'zipcode' => DATA_TYPE_STRING, 'country' => DATA_TYPE_STRING, 'phone_number' => DATA_TYPE_STRING, 'fax_number' => DATA_TYPE_STRING, 'logo_file' => DATA_TYPE_STRING, 'is_favorite' => DATA_TYPE_BOOLEAN, 'timezone' => DATA_TYPE_FLOAT, 'hide_welcome_info' => DATA_TYPE_BOOLEAN, 'created_on' => DATA_TYPE_DATETIME, 'created_by_id' => DATA_TYPE_INTEGER, 'updated_on' => DATA_TYPE_DATETIME, 'updated_by_id' => DATA_TYPE_INTEGER);
+    static private $columns = array('id' => DATA_TYPE_INTEGER, 'client_of_id' => DATA_TYPE_INTEGER, 'name' => DATA_TYPE_STRING, 'description' => DATA_TYPE_STRING, 'email' => DATA_TYPE_STRING, 'homepage' => DATA_TYPE_STRING, 'address' => DATA_TYPE_STRING, 'address2' => DATA_TYPE_STRING, 'city' => DATA_TYPE_STRING, 'state' => DATA_TYPE_STRING, 'zipcode' => DATA_TYPE_STRING, 'country' => DATA_TYPE_STRING, 'phone_number' => DATA_TYPE_STRING, 'fax_number' => DATA_TYPE_STRING, 'logo_file' => DATA_TYPE_STRING, 'is_favorite' => DATA_TYPE_BOOLEAN, 'timezone' => DATA_TYPE_FLOAT, 'hide_welcome_info' => DATA_TYPE_BOOLEAN, 'created_on' => DATA_TYPE_DATETIME, 'created_by_id' => DATA_TYPE_INTEGER, 'updated_on' => DATA_TYPE_DATETIME, 'updated_by_id' => DATA_TYPE_INTEGER);
   
     /**
     * Construct

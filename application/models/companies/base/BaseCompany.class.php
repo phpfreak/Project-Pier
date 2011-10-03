@@ -78,6 +78,28 @@
     } // setName() 
     
     /**
+    * Return value of 'description' field
+    *
+    * @access public
+    * @param void
+    * @return string 
+    */
+    function getDescription() {
+      return $this->getColumnValue('description');
+    } // getDescription()
+        
+    /**
+    * Set value of 'description' field
+    *
+    * @access public   
+    * @param string $value
+    * @return boolean
+    */
+    function setDescription($value) {
+      return $this->setColumnValue('description', $value);
+    } // setDescription() 
+    
+    /**
     * Return value of 'email' field
     *
     * @access public

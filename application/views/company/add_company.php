@@ -34,6 +34,11 @@
     <?php echo label_tag(lang('timezone'), 'clientFormTimezone', true)?>
     <?php echo select_timezone_widget('company[timezone]', array_var($company_data, 'timezone'), array('id' => 'clientFormTimezone', 'class' => 'long')) ?>
   </div>
+    
+  <div>
+    <?php echo label_tag(lang('description'), 'clientFormDescription') ?>
+    <?php echo textarea_field('company[description]', array_var($company_data, 'description'), array('id' => 'clientFormDescription')) ?>
+  </div>
   
   <fieldset>
     <legend><?php echo lang('company online') ?></legend>
