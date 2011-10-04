@@ -30,6 +30,7 @@
   }
 
   function use_permitted($user, $project, $source) {
+    if (!($project instanceof Project)) return false;
     if ($user->isAdministrator()) return true;
     if ($user->getProjectPermission($project, $source . '-access')) {
       return true;
