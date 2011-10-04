@@ -52,6 +52,7 @@
   <div class="content">
     <ul>
 <?php foreach ($subprojects as $subproject) { ?>
+<?php tpl_assign('project', $subproject); ?>
     <li><a href="<?php echo $subproject->getOverviewUrl() ?>"><?php echo clean($subproject->getName()) ?></a> <?php $this->includeTemplate(get_template_path('view_progressbar', 'project')); ?></li>
 <?php } // foreach ?>
     </ul>
