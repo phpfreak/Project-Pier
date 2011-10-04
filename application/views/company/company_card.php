@@ -14,6 +14,9 @@
     <h2><?php echo clean($company->getName()) ?></h2>
     
     <div class="cardBlock">
+<?php if ($company->getDescription()) { ?>
+      <div><?php echo $company->getDescription() ?></div>
+<?php } // if ?>
 <?php if ($company->getEmail()) { ?>
       <div><span><?php echo lang('email address') ?>:</span> <a href="mailto:<?php echo $company->getEmail() ?>"><?php echo $company->getEmail() ?></a></div>
 <?php } // if ?>
