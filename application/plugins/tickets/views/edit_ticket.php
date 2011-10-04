@@ -59,7 +59,7 @@
 <?php if (is_null($ticket->getUpdatedBy())) { ?>
       <td><?php echo $ticket->getUpdatedByDisplayName(); ?></td>
 <?php } else { ?>
-      <td><?php echo lang('updated on by', format_datetime($ticket->getUpdatedOn()), $ticket->getUpdatedBy()->getCardUrl(), $ticket->getUpdatedByDisplayName(), lang($ticket->getUpdated())); ?></td>
+      <td><?php echo lang('updated on by', format_datetime($ticket->getUpdatedOn()), $ticket->getUpdatedBy()->getCardUrl(), $ticket->getUpdatedByDisplayName(), $ticket->getUpdated()); ?></td>
 <?php } // if?>
     </tr>
     

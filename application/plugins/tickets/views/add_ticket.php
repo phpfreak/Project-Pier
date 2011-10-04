@@ -47,6 +47,11 @@
     <?php echo assign_to_select_box("ticket[assigned_to]", active_project(), array_var($ticket_data, 'assigned_to'), array('id' => 'ticketFormAssignedTo')) ?>
   </div>
 
+  <div>
+      <?php echo label_tag(lang('milestone'), 'ticketFormMilestone') ?>
+      <?php echo select_milestone("ticket[milestone_id]", active_project(), array_var($ticket_data, 'milestone_id'), array('id' => 'ticketFormMilestone')) ?>
+  </div>
+
   <br />
   <div class="description">
     <?php echo label_tag(lang('description'), 'messageFormDescription', true) ?>
