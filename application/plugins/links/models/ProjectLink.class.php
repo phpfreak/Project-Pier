@@ -191,7 +191,7 @@
     * @return string
     */
     function getEditUrl() {
-      return get_url('links', 'edit_link', array('id' => $this->getId(), 'active_project' => active_project()->getId()));
+      return get_url('links', 'edit_link', array('id' => $this->getId(), 'active_project' => $this->getProjectId()));
     } // getEditUrl
 
     /**
@@ -201,7 +201,7 @@
     * @return string
     */
     function getEditLogoUrl() {
-      return get_url('links', 'edit_logo', array('id' => $this->getId(), 'active_project' => active_project()->getId()));
+      return get_url('links', 'edit_logo', array('id' => $this->getId(), 'active_project' => $this->getProjectId()));
     } // getEditLogoUrl
         
     /**
@@ -211,7 +211,7 @@
     * @return string
     */
     function getDeleteUrl() {
-      return get_url('links', 'delete_link', array('id' => $this->getId(), 'active_project' => active_project()->getId()));
+      return get_url('links', 'delete_link', array('id' => $this->getId(), 'active_project' => $this->getProjectId()));
     } // getEditUrl
     
     /**
@@ -242,7 +242,7 @@
     * @return string
     */
     function getObjectUrl() {
-      return get_url('links', 'index', array('active_project' => active_project()->getId()));
+      return get_url('links', 'index', array('active_project' => $this->getProjectId()));
     } // getObjectUrl
     
   } // ProjectLink 

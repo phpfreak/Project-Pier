@@ -50,6 +50,3 @@ CSSSNP;
 <tr><td><?php echo lang('wiki page revision created')?>:</td><td><?php echo format_date($rev2->getCreatedOn()) ?></td></tr>
 <tr><td><?php echo lang('wiki page revision log message')?>:</td><td><?php echo $rev2->getLogMessage() ?></td></tr>
 </table>
-
-
-

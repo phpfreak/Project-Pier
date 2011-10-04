@@ -288,4 +288,4 @@ PRIMARY KEY(`user_id`,`project_id`,`permission_id`)
     } // fixConfigFile
       
   } // PearUpgradeScript
-
+?>

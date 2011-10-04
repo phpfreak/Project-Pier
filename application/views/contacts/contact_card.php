@@ -17,7 +17,7 @@
       <div><?php if ($contact->getTitle()) { ?><span><?php echo lang('contact title') ?>:</span> <?php echo clean($contact->getTitle()); } ?></div>
       <div><span><?php echo lang('company') ?>:</span> <a href="<?php echo $contact->getCompany()->getCardUrl() ?>"><?php echo clean($contact->getCompany()->getName()) ?></a></div>
     </div>
-    
+<?php if ( logged_user()->isMemberOfOwnerCompany() || ($contact->getCompanyId() == logged_user()->getCompanyId()) ) { ?>
     <h2><?php echo lang('contact online') ?></h2>
     
     <div class="cardBlock">
@@ -55,6 +55,7 @@
       <span><a href="<?php echo get_url('dashboard', 'search_by_tag', array('tag' => $tag->getTag())); ?>"><?php echo $tag->getTag();?></a></span>
 <?php } // foreach ?>
     </div>
+<?php } // if ?>
 <?php } // if ?>
   </div>
 </div>

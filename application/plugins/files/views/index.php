@@ -35,4 +35,4 @@
 
 ?>
 <?php $this->assign('files', $files) ?>
-<?php $this->includeTemplate(get_template_path('list_files', 'files')) ?>	
+<?php $this->includeTemplate(get_template_path('list_files', 'files')) ?>

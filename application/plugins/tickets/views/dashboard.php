@@ -19,4 +19,3 @@
 <?php } else { ?>
 <p><?php echo lang('no tickets in project') ?></p>
 <?php } // if ?>
-

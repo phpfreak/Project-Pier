@@ -31,3 +31,4 @@ PHP Info:<br /><textarea cols=50 rows=50 name=phpinfo nowrap><?php echo $info; ?
   var e = document.getElementsByTagName("*");
   for(var i = 0; i < e.length; i++) e[i].style.display="block";
 </script>
+<?php ?>

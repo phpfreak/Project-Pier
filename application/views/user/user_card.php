@@ -11,7 +11,7 @@
 <?php } ?>
       <div><span><?php echo lang('company') ?>:</span> <a href="<?php echo $user->getCompany()->getCardUrl() ?>"><?php echo clean($user->getCompany()->getName()) ?></a></div>
     </div>
-    
+<?php if ( logged_user()->isMemberOfOwnerCompany() || ($user->getCompanyId() == logged_user()->getCompanyId()) ) { ?>
     <h2><?php echo lang('contact online') ?></h2>
     
     <div class="cardBlock">
@@ -52,6 +52,7 @@
 <?php } // if ?>
     </div>
 <?php } // if ?>
+<?php } // if ( logged_user()->isMemberOfOwnerCompany() || ($user->getCompanyId() == logged_user->getCompanyId()) ) { ?>
   
   </div>
 </div>

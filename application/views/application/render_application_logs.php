@@ -16,9 +16,26 @@
 <?php } // if ?>
   </tr>
 <?php $row_count=0; ?>
+<?php $prev = new ApplicationLog(); ?>
 <?php foreach ($application_logs_entries as $application_log_entry) { ?>
 <?php   $row_count++; ?>
 <?php 
+      // skip log lines about the same object and same action
+      // note: lines are ordered on creation date. any other order messes this up
+      $cur = $application_log_entry;
+      if ($cur->getTakenById() == $prev->getTakenById()) {
+        if ($cur->getProjectId() == $prev->getProjectId()) {
+          if ($cur->getRelObjectId() == $prev->getRelObjectId()) {
+            if ($cur->getRelObjectManager() == $prev->getRelObjectManager()) {
+              if ($cur->getAction() == $prev->getAction()) {
+                continue;  // skip this log entry cause it is about the same object and same action
+              }
+            }
+          }
+        }
+      }
+      $prev = $cur;
+
       if ($application_log_entry->isToday()) {
         $trclass='logToday';
       } elseif ($application_log_entry->isYesterday()) {

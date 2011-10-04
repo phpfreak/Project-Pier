@@ -66,4 +66,3 @@ if (config_option('per_project_activity_logs',0) == 1) {
   } // if
 } //if
 ?>
-

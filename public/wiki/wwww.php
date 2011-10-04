@@ -163,4 +163,4 @@ if (isset($_REQUEST['page'])) {
  </div>
 </div>
 </div>
-</body></html>
+</body></html><?php ?>

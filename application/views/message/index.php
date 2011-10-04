@@ -49,4 +49,3 @@
 <?php } else { ?>
 <p><?php echo lang('no messages in project') ?></p>
 <?php } // if ?>
-

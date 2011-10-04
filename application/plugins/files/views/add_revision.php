@@ -23,4 +23,3 @@
   </div>
   <?php echo submit_button(lang('save')) ?> <a href="<?php echo $file->getDetailsUrl() ?>"><?php echo lang('cancel') ?></a>
 </form>
-

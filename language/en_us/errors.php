@@ -1,6 +1,6 @@
 <?php
 
-  /**
+  /** 
   * Error messages
   *
   * @version 1.0

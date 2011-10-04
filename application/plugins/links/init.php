@@ -76,3 +76,4 @@
       DB::execute("DROP TABLE IF EXISTS `".TABLE_PREFIX."project_links`");
     }
   }
+?>

@@ -80,4 +80,3 @@ function selectend (img, selection) {
   </fieldset>
   <?php echo submit_button(lang('upload')) ?> <a href="<?php echo get_url('links'); ?>"><?php echo lang('cancel') ?></a>
 </form>
-	

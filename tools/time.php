@@ -1,4 +1,4 @@
-<html>
+<?php ?><html>
 <body>
 <script type="text/javascript">
 function formatDate(date, fmt) {
@@ -107,4 +107,4 @@ window.onload=showtime;
   echo '</xmp>';
 ?>
 </body>
-</html>
+</html><?php ?>
