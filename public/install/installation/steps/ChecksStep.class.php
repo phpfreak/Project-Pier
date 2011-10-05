@@ -37,6 +37,7 @@
       $this->check_is_writable = array(
         '/config',
         '/public/files',
+        '/tmp',
         '/cache',
         '/upload'
       ); // array
