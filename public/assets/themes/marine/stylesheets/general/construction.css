@@ -577,6 +577,10 @@ only IE mac will see this*/
   table-layout: auto;
 }
 
+#im {
+  table-layout: auto;
+}
+
 td.projectPermission {
   vertical-align: middle;
 }
