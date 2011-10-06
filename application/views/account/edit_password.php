@@ -38,26 +38,20 @@
 
 ?>
 <form action="<?php echo $user->getEditPasswordUrl($redirect_to) ?>" method="post">
-
-  <?php tpl_display(get_template_path('form_errors')) ?>
-  
+<?php tpl_display(get_template_path('form_errors')) ?>
 <?php if (!logged_user()->isAdministrator()) { ?>
   <div>
     <?php echo label_tag(lang('old password'), 'passwordFormOldPassword', true) ?>
     <?php echo password_field('password[old_password]') ?>
   </div>
 <?php } // if ?>
-  
   <div>
-    <?php echo label_tag(lang('password'), 'passwordFormOldPassword', true) ?>
+    <?php echo label_tag(lang('password'), 'passwordFormNewPassword', true) ?>
     <?php echo password_field('password[new_password]') ?>
   </div>
-  
   <div>
-    <?php echo label_tag(lang('password again'), 'passwordFormOldPassword', true) ?>
+    <?php echo label_tag(lang('password again'), 'passwordFormNewPasswordAgain', true) ?>
     <?php echo password_field('password[new_password_again]') ?>
   </div>
-  
   <?php echo submit_button(lang('change password')) ?>
-  
 </form>

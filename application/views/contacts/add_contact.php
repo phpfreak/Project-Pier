@@ -1,30 +1,58 @@
 <?php
 
   set_page_title($contact->isNew() ? lang('add contact') : lang('edit contact'));
-  if ($company instanceof Company && $company->isOwner()) {
-    administration_tabbed_navigation(ADMINISTRATION_TAB_COMPANY);
-    administration_crumbs(array(
-      array(lang('company'), $company->getViewUrl()),
-      ($contact->isNew() ? null : array($contact->getDisplayName(), $contact->getCardUrl())),
-      array($contact->isNew() ? lang('add contact') : lang('edit contact'))
-    ));
-  } elseif (!logged_user()->isMemberOfOwnerCompany() && ($contact->canEdit(logged_user()))) {
+  $user = $contact->getUserAccount();
+  if ($user->getId() == logged_user()->getId()) {
     set_page_title(lang('update profile'));
-    account_tabbed_navigation('contact');
+    account_tabbed_navigation();
     account_crumbs(lang('update profile'));
   } else {
-    administration_tabbed_navigation(ADMINISTRATION_TAB_CLIENTS);
-    administration_crumbs(array(
-      array(lang('clients'), get_url('administration', 'clients')),
-      ($company instanceof Company ? array($company->getName(), $company->getViewUrl()) : null),
-      ($contact->isNew() ? null : array($contact->getDisplayName(), $contact->getCardUrl())),
-      array($contact->isNew() ? lang('add contact') : lang('edit contact'))
+    set_page_title(lang('update profile'));
+    if ($company instanceof Company && $company->isOwner()) {
+      if (logged_user()->isAdministrator()) {
+        administration_tabbed_navigation(ADMINISTRATION_TAB_COMPANY);
+        administration_crumbs(array(
+          array(lang('company'), $company->getViewUrl()),
+          array(lang('update profile'))
+        ));
+      } else {
+        set_page_title(lang('update profile'));
+        account_tabbed_navigation('contact');
+        account_crumbs(lang('update profile'));
+      }
+    } else {
+       if ($contact->canEdit(logged_user())) {
+         set_page_title(lang('update profile'));
+         account_tabbed_navigation('contact');
+         account_crumbs(lang('update profile'));
+      } else {
+        administration_tabbed_navigation(ADMINISTRATION_TAB_CLIENTS);
+        administration_crumbs(array(
+          array(lang('clients'), get_url('administration', 'clients')),
+          array($company->getName(), $company->getViewUrl()),
+          array($user->getDisplayName(), $user->getCardUrl()),
+          array(lang('update profile'))
+        ));
+      } // if
+    } // if
+  } // if
+  
+  if ($user->canUpdateProfile(logged_user())) {
+    add_page_action(array(
+      lang('update profile')  => $user->getEditProfileUrl(),
+      lang('change password') => $user->getEditPasswordUrl()
     ));
   } // if
+  
+  if ($user->canUpdatePermissions(logged_user())) {
+    add_page_action(array(
+      lang('permissions')  => $user->getUpdatePermissionsUrl()
+    ));
+  } // if
+
   add_stylesheet_to_page('admin/user_permissions.css');
 
 ?>
-<script type="text/javascript" src="<?php echo get_javascript_url('modules/addContactForm.js') ?>"></script>
 <form action="<?php if ($contact->isNew()) { echo ($company instanceof Company ? $company->getAddContactUrl() : get_url('contacts', 'add')); } else { echo $contact->getEditUrl(); } ?>" method="post" enctype="multipart/form-data">
 
 <?php tpl_display(get_template_path('form_errors')) ?>
@@ -39,7 +67,7 @@
   <fieldset>
     <legend><?php echo label_tag(lang('company'), 'contactFormCompany', true) ?></legend>
     <div>
-      <?php echo radio_field('contact[company][what]', array_var(array_var($contact_data, 'company'), 'what') != 'new', array('value' => 'existing', 'id'=>'contactFormExistingCompany', 'onclick' => 'App.modules.addContactForm.toggleCompanyForms()')); ?>
+      <?php echo radio_field('contact[company][what]', array_var(array_var($contact_data, 'company'), 'what') != 'new', array('value' => 'existing', 'id'=>'contactFormExistingCompany')); ?>
       <?php echo label_tag(lang('existing company'), 'contactFormExistingCompany', false, array('class' => 'checkbox')) ?>
     </div>
     <div id="contactFormExistingCompanyControls">
@@ -47,7 +75,7 @@
     </div>
   
     <div>
-      <?php echo radio_field('contact[company][what]', array_var(array_var($contact_data, 'company'), 'what') == 'new', array('value' => 'new', 'id'=>'contactFormNewCompany', 'onclick' => 'App.modules.addContactForm.toggleCompanyForms()')); ?>
+      <?php echo radio_field('contact[company][what]', array_var(array_var($contact_data, 'company'), 'what') == 'new', array('value' => 'new', 'id'=>'contactFormNewCompany')); ?>
       <?php echo label_tag(lang('new company'), 'contactFormNewCompany', false, array('class'=>'checkbox'))?>
     </div>
     <div id="contactFormNewCompanyControls">
@@ -130,7 +158,7 @@
 <?php if (is_array($im_types) && count($im_types)) { ?>
   <fieldset>
     <legend><?php echo lang('instant messengers') ?></legend>
-    <table class="blank">
+    <table id="im" class="blank">
       <tr>
         <th colspan="2"><?php echo lang('im service') ?></th>
         <th><?php echo lang('value') ?></th>
@@ -138,10 +166,10 @@
       </tr>
 <?php foreach ($im_types as $im_type) { ?>
       <tr>
-        <td style="vertical-align: middle"><img src="<?php echo $im_type->getIconUrl() ?>" alt="<?php echo $im_type->getName() ?> icon" /></td>
-        <td style="vertical-align: middle"><label class="checkbox" for="<?php echo 'profileFormIm' . $im_type->getId() ?>"><?php echo $im_type->getName() ?></label></td>
-        <td style="vertical-align: middle"><?php echo text_field('contact[im_' . $im_type->getId() . ']', array_var($contact_data, 'im_' . $im_type->getId()), array('id' => 'profileFormIm' . $im_type->getId())) ?></td>
-        <td style="vertical-align: middle"><?php echo radio_field('contact[default_im]', array_var($contact_data, 'default_im') == $im_type->getId(), array('value' => $im_type->getId())) ?></td>
+        <td><img src="<?php echo $im_type->getIconUrl() ?>" alt="<?php echo $im_type->getName() ?> icon" /></td>
+        <td><label class="checkbox" for="<?php echo 'profileFormIm' . $im_type->getId() ?>"><?php echo $im_type->getName() ?></label></td>
+        <td><?php echo text_field('contact[im_' . $im_type->getId() . ']', array_var($contact_data, 'im_' . $im_type->getId()), array('id' => 'profileFormIm' . $im_type->getId())) ?></td>
+        <td><?php echo radio_field('contact[default_im]', array_var($contact_data, 'default_im') == $im_type->getId(), array('value' => $im_type->getId())) ?></td>
       </tr>
 <?php } // foreach ?>
     </table>
@@ -161,12 +189,12 @@
     <legend><?php echo lang('user account'); ?></legend>
     
     <div>
-      <?php echo radio_field('contact[user][add_account]', array_var($user_data, 'add_account') != 'yes', array('value' => 'no', 'id'=>'contactFormNoUserAccount', 'onclick' => 'App.modules.addContactForm.toggleUserAccountForm()')); ?>
+      <?php echo radio_field('contact[user][add_account]', array_var($user_data, 'add_account') != 'yes', array('value' => 'no', 'id'=>'contactFormNoUserAccount' )); ?>
       <?php echo label_tag(lang('no'), 'contactFormNoUserAccount', false, array('class' => 'checkbox'), '') ?>
     </div>
     
     <div>
-      <?php echo radio_field('contact[user][add_account]', array_var($user_data, 'add_account') == 'yes', array('value' => 'yes', 'id'=>'contactFormAddUserAccount', 'onclick' => 'App.modules.addContactForm.toggleUserAccountForm()')); ?>
+      <?php echo radio_field('contact[user][add_account]', array_var($user_data, 'add_account') == 'yes', array('value' => 'yes', 'id'=>'contactFormAddUserAccount' )); ?>
       <?php echo label_tag(lang('yes'), 'contactFormAddUserAccount', false, array('class' => 'checkbox'), '') ?>
     </div>
 
@@ -189,10 +217,10 @@
       <fieldset>
         <legend><?php echo lang('password') ?></legend>
         <div>
-          <?php echo radio_field('contact[user][password_generator]', array_var($user_data, 'password_generator') == 'random', array('value' => 'random', 'class' => 'checkbox', 'id' => 'userFormRandomPassword', 'onclick' => 'App.modules.addContactForm.generateRandomPasswordClick()')) ?> <?php echo label_tag(lang('user password generate'), 'userFormRandomPassword', false, array('class' => 'checkbox'), '') ?>
+          <?php echo radio_field('contact[user][password_generator]', array_var($user_data, 'password_generator') == 'random', array('value' => 'random', 'class' => 'checkbox', 'id' => 'userFormRandomPassword' )) ?> <?php echo label_tag(lang('user password generate'), 'userFormRandomPassword', false, array('class' => 'checkbox'), '') ?>
         </div>
         <div>
-          <?php echo radio_field('contact[user][password_generator]', array_var($user_data, 'password_generator') == 'specify', array('value' => 'specify', 'class' => 'checkbox', 'id' => 'userFormSpecifyPassword', 'onclick' => 'App.modules.addContactForm.generateSpecifyPasswordClick()')) ?> <?php echo label_tag(lang('user password specify'), 'userFormSpecifyPassword', false, array('class' => 'checkbox'), '') ?>
+          <?php echo radio_field('contact[user][password_generator]', array_var($user_data, 'password_generator') == 'specify', array('value' => 'specify', 'class' => 'checkbox', 'id' => 'userFormSpecifyPassword' )) ?> <?php echo label_tag(lang('user password specify'), 'userFormSpecifyPassword', false, array('class' => 'checkbox'), '') ?>
         </div>
         <div id="userFormPasswordInputs">
           <div>

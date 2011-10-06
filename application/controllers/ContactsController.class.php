@@ -80,7 +80,6 @@
             throw new InvalidUploadError($avatar, lang('error upload file'));
           } // if
           
-
           $valid_types = array('image/jpg', 'image/jpeg', 'image/pjpeg', 'image/gif', 'image/png');
           $max_width   = config_option('max_avatar_width', 50);
           $max_height  = config_option('max_avatar_height', 50);
@@ -104,8 +103,6 @@
         $contact->setFromAttributes($contact_data);
 
         try {          
-          DB::beginWork();
-
           // Company info
           if ($_POST['contact']['company']['what'] == 'existing') {
             $company_id = $_POST['contact']['company_id'];
@@ -128,7 +125,6 @@
             if (array_var($user_data, 'password_generator') == 'random') {
               // Generate random password
               $password = substr(sha1(uniqid(rand(), true)), rand(0, 25), 13);
-
             } else {
               // Validate user input
               $password = array_var($user_data, 'password');
@@ -140,6 +136,15 @@
               } // if
             } // if
             $user->setPassword($password);
+
+            if (logged_user()->isAdministrator()) {
+              $user->setIsAdmin( array_var($user_data, 'is_admin') );
+              $user->setAutoAssign( array_var($user_data, 'auto_assign') );
+            } else {
+              $user->setIsAdmin( 0 );
+              $user->setAutoAssign( 0 );
+            }
+
             $user->save();
             
             $contact->setUserId($user->getId());
@@ -583,7 +588,6 @@
       
       if (is_array(array_var($_POST, 'user'))) {
         $user->setFromAttributes($user_data);
-        // $user->setCompanyId($company->getId());
         
         try {
           $password = ''; 
@@ -603,11 +607,20 @@
             } // if
             $user->setPassword($password);
           } // if
+
+          $granted = 0;
+          if (logged_user()->isAdministrator()) {
+            $user->setIsAdmin( array_var($user_data, 'is_admin') );
+            $user->setAutoAssign( array_var($user_data, 'auto_assign') );
+            $granted = (trim(array_var($user_data, 'can_manage_projects')) == '1') ? 1 : 0;
+          } else {
+            $user->setIsAdmin( 0 );
+            $user->setAutoAssign( 0 );
+          }
           
           DB::beginWork();
           $user->save();
 
-          $granted = (trim(array_var($user_data, 'can_manage_projects')) == '1') ? 1 : 0;
           $user->setPermission(PermissionManager::CAN_MANAGE_PROJECTS, $granted);
 
           ApplicationLogs::createLog($user, null, ApplicationLogs::ACTION_EDIT);
