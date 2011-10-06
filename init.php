@@ -105,7 +105,11 @@
     DB::execute('UNLOCK TABLES');
     DB::execute('SET AUTOCOMMIT=1');
     DB::execute("SET SQL_MODE=''");
-    DB::execute("SET STORAGE_ENGINE=INNODB");  // try to set to INNODB, don't care if it fails
+    try {
+      DB:execute("SET STORAGE_ENGINE=INNODB");  // try to set to INNODB
+    } catch(Exception $e) {
+      // don't care if it fails
+    }
     //
     //Failed to import file '/home/sharec/public_html/pp088/tmp/Riot.zip' to the file repository (unique file id: a25a6e76db0b741ec4f30d6bbae79db37024c28a)
     // DB::execute('SET SESSION max_allowed_packet=16777216');  // 16 MB
