@@ -1,6 +1,6 @@
 <?php
   set_page_title(lang('settings'));
-  project_tabbed_navigation(PROJECT_TAB_SETTINGS);
+  project_tabbed_navigation('settings');
   project_crumbs(lang('settings'));
 
 ?>
