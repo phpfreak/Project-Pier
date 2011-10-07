@@ -106,7 +106,7 @@
     DB::execute('SET AUTOCOMMIT=1');
     DB::execute("SET SQL_MODE=''");
     try {
-      DB:execute("SET STORAGE_ENGINE=INNODB");  // try to set to INNODB
+      DB::execute("SET STORAGE_ENGINE=INNODB");  // try to set to INNODB
     } catch(Exception $e) {
       // don't care if it fails
     }
