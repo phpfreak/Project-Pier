@@ -2,7 +2,7 @@
 
   set_page_title($contact->isNew() ? lang('add contact') : lang('edit contact'));
   $user = $contact->getUserAccount();
-  if ($user->getId() == logged_user()->getId()) {
+  if ($user instanceof User && $user->getId() == logged_user()->getId()) {
     set_page_title(lang('update profile'));
     account_tabbed_navigation();
     account_crumbs(lang('update profile'));
@@ -37,14 +37,14 @@
     } // if
   } // if
   
-  if ($user->canUpdateProfile(logged_user())) {
+  if ($user instanceof User && $user->canUpdateProfile(logged_user())) {
     add_page_action(array(
       lang('update profile')  => $user->getEditProfileUrl(),
       lang('change password') => $user->getEditPasswordUrl()
     ));
   } // if
   
-  if ($user->canUpdatePermissions(logged_user())) {
+  if ($user instanceof User && $user->canUpdatePermissions(logged_user())) {
     add_page_action(array(
       lang('permissions')  => $user->getUpdatePermissionsUrl()
     ));
