@@ -29,5 +29,5 @@
 <div class="wikiPageLocked"><?php echo lang('wiki page locked by', $page->getLockedByUser()->getUserName()); ?></div>
 <?php } // if ?>
 <div id="wiki-page-content">
-<?php //echo plugin_manager()->apply_filters('wiki_text', do_textile($revision->getContent())); ?>
+<?php echo plugin_manager()->apply_filters('wiki_text', do_textile($revision->getContent())); ?>
 </div>
