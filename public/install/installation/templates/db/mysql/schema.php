@@ -341,7 +341,7 @@ CREATE TABLE `<?php echo $table_prefix ?>searchable_objects` (
   PRIMARY KEY  (`rel_object_manager`,`rel_object_id`,`column_name`),
   KEY `project_id` (`project_id`),
   FULLTEXT KEY `content` (`content`)
-) ENGINE=MyISAM;
+);
 
 CREATE TABLE `<?php echo $table_prefix ?>user_im_values` (
   `user_id` int(10) unsigned NOT NULL default '0',
