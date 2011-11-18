@@ -576,6 +576,12 @@
         $from = "$name <$mail_from>";
       }
 
+      // from must be address known on server when authentication is selected
+      $smtp_authenticate = config_option('smtp_authenticate', false);
+      if ($smtp_authenticate) $from = config_option('smtp_username');
+
+      trace("mailer->send($to, $from, $subject, $body, $type, $encoding)");
+
       $result = $mailer->send($to, $from, $subject, $body, $type, $encoding);
       $mailer->close();
       
