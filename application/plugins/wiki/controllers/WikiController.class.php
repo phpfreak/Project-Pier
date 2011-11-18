@@ -53,7 +53,7 @@ Class WikiController extends ApplicationController {
     trace(__FILE__,'index() - tpl_assign');
     tpl_assign('page', $page);
     tpl_assign('revision', $revision);
-    //$this->_load_sidebar();
+    $this->_load_sidebar();
   }// index
   
   /**
