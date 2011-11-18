@@ -167,13 +167,15 @@ function utf8_strrev($str, $reverse_numbers = true){
       // load every plugin language files
       $dirs = get_dirs(PLUGINS_DIR,false);
       foreach ($dirs as $plugin_dir) {
-        $locale_dir = PLUGINS_DIR.'/'.$plugin_dir.'/language/' . $locale;
-        if (is_dir($locale_dir)) {
-          $this->loadLanguageFiles($locale_dir);
-        } else {
-          //$locale_dir = PLUGINS_DIR.'/'.$plugin_dir.'/language/en_us';
+        if (plugin_active($plugin_dir)) {  // plugin_dir is same as plugin name
+          $locale_dir = PLUGINS_DIR.'/'.$plugin_dir.'/language/' . $locale;
           if (is_dir($locale_dir)) {
             $this->loadLanguageFiles($locale_dir);
+          } else {
+            //$locale_dir = PLUGINS_DIR.'/'.$plugin_dir.'/language/en_us';
+            if (is_dir($locale_dir)) {
+              $this->loadLanguageFiles($locale_dir);
+            } // if
           } // if
         } // if
       } // foreach
