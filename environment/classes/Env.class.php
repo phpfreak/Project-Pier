@@ -241,7 +241,9 @@
     */
     static function getTemplatePath($template, $controller_name = null) {
       trace(__FILE__,"getTemplatePath($template, $controller_name)");
-      // Look for template file in core and plugin directories
+      // Look for template file in theme, core and plugin directories
+      $template_path=THEMES_DIR.'/'.config_option('theme')."/views/$controller_name/$template.php";
+      if (is_readable($template_path)) return $template_path;
       $template_path=APPLICATION_PATH."/views/$controller_name/$template.php";
       if (is_readable($template_path)) return $template_path;
       $template_path_plugin='';
@@ -261,7 +263,10 @@
     * @return string
     */
     static function getLayoutPath($layout) {
-      return APPLICATION_PATH . "/layouts/$layout.php";
+      if (file_exists(THEMES_DIR.'/'.config_option('theme')."/layouts/$layout.php"))
+        return THEMES_DIR.'/'.config_option('theme')."/layouts/$layout.php";
+      else
+        return APPLICATION_PATH . "/layouts/$layout.php";
     } // getLayoutPath
     
     /**

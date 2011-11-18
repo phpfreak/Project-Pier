@@ -802,7 +802,10 @@
   * @return string
   */
   function get_javascript_url($file_name) {
-    return get_public_url('assets/javascript/' . $file_name);
+    if (file_exists(THEMES_DIR.'/'.config_option('theme')."/javascript/$file_name"))
+      return get_public_url('assets/themes/'.config_option('theme')."/javascript/$file_name");
+    else
+      return get_public_url('assets/javascript/' . $file_name);
   } // get_javascript_url
   
   /**
