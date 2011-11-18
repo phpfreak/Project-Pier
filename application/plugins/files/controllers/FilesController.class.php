@@ -422,7 +422,7 @@
         trace(__FILE__,"_download_revision(...):from db");
         $is_fs = false;
         $contents = &$revision->getFileContent();
-        $contents = $repository_id;
+        //$contents = $repository_id;
       }
       if ($html) {
         echo '<html><img src='.$revision->getDownloadUrl().'></html>'; die();
