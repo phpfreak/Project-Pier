@@ -34,8 +34,8 @@ if (is_array($permissions)) {
 <?php if ($company->countUsers() > 0) { ?>
   <div class="projectCompany">
     <div class="projectCompanyLogo"><img src="<?php echo $company->getLogoUrl() ?>" alt="<?php echo clean($company->getName()) ?>" /></div>
-    <div class="projectCompanyMeta">
-      <div class="projectCompanyTitle">
+    <div class="projectCompanyMeta block">
+      <div class="header">
 <?php if ($company->isOwner()) { ?>
         <label><?php echo clean($company->getName()) ?></label>
         <input type="hidden" name="project_company_<?php echo $company->getId() ?>" value="checked" />
@@ -43,7 +43,7 @@ if (is_array($permissions)) {
      <?php echo checkbox_field('project_company_' . $company->getId(), $company->isProjectCompany(active_project()), array('id' => 'project_company_' . $company->getId() )) ?> <label for="<?php echo 'project_company_' . $company->getId() ?>" class="checkbox"><?php echo clean($company->getName()) ?></label>
 <?php } // if ?>
       </div>
-      <div class="projectCompanyUsers" id="project_company_users_<?php echo $company->getId() ?>">
+      <div class="projectCompanyUsers content" id="project_company_users_<?php echo $company->getId() ?>">
         <table class="blank">
 <?php if ($users = $company->getUsers()) { ?>
 <?php foreach ($users as $user) { ?>
@@ -65,12 +65,12 @@ if (is_array($permissions)) {
               <img src="<?php echo icon_url('ok.gif') ?>" alt="" /> <label class="checkbox"><strong><?php echo lang('all permissions') ?><strong></label>
 <?php } else { ?>
               <div class="projectUserPermissions" id="user_<?php echo $user->getId() ?>_permissions">
-<?php echo select_box( 'source', $sources ); ?>
-<?php echo select_box( 'name', $names );  ?>
-<?php echo 'add permission' ?>
+<?php //echo select_box( 'source', $sources ); ?>
+<?php //echo select_box( 'name', $names );  ?>
+<?php //echo 'add permission' ?>
      <div><?php echo checkbox_field('project_user_' . $user->getId() . '', $user->hasAllProjectPermissions(active_project()), array('id' => 'project_user_' . $user->getId() . '', 'class' => 'checkbox selectall' )) ?> <label for="<?php echo 'project_user_' . $user->getId() . '_all' ?>" class="checkbox" ><strong><?php echo lang('all permissions') ?><strong></label></div>
 <?php foreach ($permissions as $permission_id => $permission_text) { ?>            
-                <div><?php echo checkbox_field('project_user_' . $user->getId() . "-$permission_id", $user->getProjectPermission(active_project(), $permission_id), array('id' => 'project_user_' . $user->getId() . "-$permission_id")) ?> <label for="<?php echo 'project_user_' . $user->getId() . "-$permission_id" ?>" class="checkbox normal"><?php echo $permission_text ?></label></div>
+                <div><?php echo checkbox_field('project_user_' . $user->getId() . "_$permission_id", $user->getProjectPermission(active_project(), $permission_id), array('id' => 'project_user_' . $user->getId() . "_$permission_id")) ?> <label for="<?php echo 'project_user_' . $user->getId() . "_$permission_id" ?>" class="checkbox normal"><?php echo $permission_text ?></label></div>
 <?php } // foreach ?>
               </div>
 <?php } // if ?>
