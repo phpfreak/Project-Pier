@@ -8,7 +8,6 @@ INSERT INTO `<?php echo $table_prefix ?>config_categories` (`name`, `is_system`,
 INSERT INTO `<?php echo $table_prefix ?>config_categories` (`name`, `is_system`, `category_order`) VALUES ('mailing', 0, 2);
 INSERT INTO `<?php echo $table_prefix ?>config_categories` (`name`, `is_system`, `category_order`) VALUES ('features', 0, 3);
 INSERT INTO `<?php echo $table_prefix ?>config_categories` (`name`, `is_system`, `category_order`) VALUES ('database', 0, 9);
-INSERT INTO `<?php echo $table_prefix ?>config_categories` (`name`, `is_system`, `category_order`) VALUES ('tickets', 0, 4);
 
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('system', 'project_logs_per_page', '10', 'IntegerConfigHandler', 1, 0, NULL);
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('system', 'messages_per_page', '5', 'IntegerConfigHandler', 1, 0, NULL);
@@ -44,9 +43,7 @@ INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'ldap_secure_connection', 'no', 'SecureLDAPConnectionConfigHandler', 0, 0, 'Values: no, tls');
 
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('features', 'per_project_activity_logs', '0', 'BoolConfigHandler', 0, 0, 'Show recent activity logs per project on the owner company dashboard (like BaseCamp) rather than all mashed together');
-INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('features', 'logs_show_icons', '1', 'BoolConfigHandler', 0, 0, 'Show file icons');
-INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('features', 'files_show_icons', '1', 'BoolConfigHandler', 0, 0, 'Show file icons');
-INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('features', 'files_show_thumbnails', '1', 'BoolConfigHandler', 0, 0, 'Show file thumbnails');
+INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('features', 'logs_show_icons', '1', 'BoolConfigHandler', 0, 0, 'Show log icons');
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'categories_per_page', '25', 'IntegerConfigHandler', 0, 0, NULL);
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('features', 'default_private', '1', 'BoolConfigHandler', 0, 0, 'Default setting for private option');
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('features', 'send_notification_default', '0', 'BoolConfigHandler', 0, 0, 'Default setting for Send notification option');
@@ -64,7 +61,6 @@ INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'default_action', 'index', 'DefaultDashboardActionConfigHandler', 0, 26, 'Action to perform after login (e.g. show dashboard)');
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('system', 'product_name', 'ProjectPier', 'StringConfigHandler', 1, 0, NULL);
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('system', 'product_version', '0.8.8', 'StringConfigHandler', 1, 0, NULL);
-INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('tickets', 'tickets_default_categories', 'information request\r\nchange request\r\nincident report\r\ncomplaint\r\ndefect report\r\ngeneral/other', 'TextConfigHandler', 0, 3, NULL);
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'installation_welcome_text', 'Welcome to ProjectPier 0.8.8', 'StringConfigHandler', 0, 11, NULL);
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'installation_welcome_logo', '<img src="public/assets/themes/marine/images/projectpier-logo.png" style="position: relative; left: 0px; top: 0px;">', 'StringConfigHandler', 0, 10, 'Logo to display above login user/pass');
 
@@ -104,6 +100,8 @@ INSERT INTO `<?php echo $table_prefix ?>file_types` (`extension`, `icon`, `is_se
 INSERT INTO `<?php echo $table_prefix ?>file_types` (`extension`, `icon`, `is_searchable`, `is_image`) VALUES ('txt', 'doc.png', 1, 0);
 INSERT INTO `<?php echo $table_prefix ?>file_types` (`extension`, `icon`, `is_searchable`, `is_image`) VALUES ('php', 'doc.png', 1, 0);
 INSERT INTO `<?php echo $table_prefix ?>file_types` (`extension`, `icon`, `is_searchable`, `is_image`) VALUES ('mp4', 'video.png', 1, 0);
+INSERT INTO `<?php echo $table_prefix ?>file_types` (`extension`, `icon`, `is_searchable`, `is_image`) VALUES ('ppt', 'doc.png', 0, 0);
+INSERT INTO `<?php echo $table_prefix ?>file_types` (`extension`, `icon`, `is_searchable`, `is_image`) VALUES ('pptx', 'doc.png', 0, 0);
 
 INSERT INTO `<?php echo $table_prefix ?>im_types` (`name`, `icon`) VALUES ('ICQ', 'icq.gif');
 INSERT INTO `<?php echo $table_prefix ?>im_types` (`name`, `icon`) VALUES ('AIM', 'aim.gif');

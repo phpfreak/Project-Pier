@@ -109,6 +109,15 @@ CREATE TABLE IF NOT EXISTS `{$tp}project_folders` (
 );
 ";
     DB::execute($sql);
+
+    $sql = "
+INSERT INTO `{tp}config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('features', 'files_show_icons', '1', 'BoolConfigHandler', 0, 0, 'Show file icons');
+";
+    DB::execute($sql);
+    $sql = "
+INSERT INTO `{$tp}config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('features', 'files_show_thumbnails', '1', 'BoolConfigHandler', 0, 0, 'Show file thumbnails');
+";
+    DB::execute($sql);
   }
   
   /**
@@ -127,6 +136,8 @@ CREATE TABLE IF NOT EXISTS `{$tp}project_folders` (
         DB::execute("DROP TABLE IF EXISTS `".TABLE_PREFIX."project_files`;");
         DB::execute("DROP TABLE IF EXISTS `".TABLE_PREFIX."project_folders`;");
         DB::execute("DELETE FROM `".TABLE_PREFIX."application_logs` where rel_object_manager='files';");
+        DB::execute("DELETE FROM `".TABLE_PREFIX."config_options` where name='files_show_icons';");
+        DB::execute("DELETE FROM `".TABLE_PREFIX."config_options` where name='files_show_thumbnails';");
     }
   }
   trace(__FILE__,':end');
