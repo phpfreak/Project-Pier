@@ -128,6 +128,24 @@
     // ---------------------------------------------------
     
     /**
+    * Try to execute query, ignore the result
+    *
+    * @access public
+    * @param string $sql
+    * @return true
+    */
+    static function attempt($sql) {
+      $arguments = func_get_args();
+      array_shift($arguments);
+      $arguments = count($arguments) ? array_flat($arguments) : null;
+      try {
+        self::connection()->execute($sql, $arguments);
+      } catch(Exception $e) {
+      }
+      return true;
+    } // execute
+
+    /**
     * Execute query and return result
     *
     * @access public
