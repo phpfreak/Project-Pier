@@ -22,6 +22,17 @@
     private $completed_projects;
 
     /**
+    * Return display name of company
+    *
+    * @access public
+    * @param void
+    * @return string
+    */
+    function getDisplayName() {
+      return $this->getName();
+    } // getDisplayName
+
+    /**
     * Return array of all company members
     *
     * @access public
