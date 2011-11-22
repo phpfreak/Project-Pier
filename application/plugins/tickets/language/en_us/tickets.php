@@ -149,6 +149,7 @@
     'new' => 'New',  
     'pending' => 'Pending',  
     'updated on' => 'Updated on',  
+    'most recent' => 'Newest',
 
   ); // array
 

@@ -70,6 +70,8 @@
     'config option name dashboard action my_tasks_by_name' => 'My Tasks - ordered by name',
     'config option name dashboard action my_tasks_by_priority' => 'My Tasks - ordered by priority',
     'config option name dashboard action my_tasks_by_milestone' => 'My Tasks - ordered by milestone',
+    'config option name dashboard action contacts' => 'Contacts',
+    'config option name dashboard action search_contacts' => 'Search contacts',
 
     // LDAP authentication support
     'config option name ldap_domain' => 'LDAP domain',
