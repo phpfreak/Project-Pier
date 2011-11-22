@@ -1,5 +1,5 @@
 ------------------------------------------------------------
- <?php echo lang('dont reply warning') ?> 
+ <?php echo lang('do not reply warning') ?> 
 ------------------------------------------------------------
 
 <?php echo lang('detached files from ticket', $ticket->getSummary(), $ticket->getProject()->getName()) ?>.

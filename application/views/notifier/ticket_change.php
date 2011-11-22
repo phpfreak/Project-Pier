@@ -1,5 +1,5 @@
 ------------------------------------------------------------
- <?php echo lang('dont reply wraning') ?> 
+ <?php echo lang('do not reply warning') ?> 
 ------------------------------------------------------------
 
 <?php echo lang('new comment posted', $ticket->getSummary()) ?>. 
