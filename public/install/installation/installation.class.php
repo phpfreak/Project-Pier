@@ -129,7 +129,7 @@
         'DB_NAME'              => $database_name,
         'DB_PREFIX'            => $database_prefix,
         'DB_CHARSET'           => $database_charset,
-        'DB_PERSIST'           => 'false'
+        'DB_PERSIST'           => false
       ); // array
       
       tpl_assign('table_prefix', $database_prefix);

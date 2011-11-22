@@ -52,11 +52,11 @@
       if ($installation->execute()) {
         $all_ok = true;
         $this->installer->clearStorage(); // lets clear data from session... its a DB pass we are talking about here
-		    $path=$_SERVER['PHP_SELF'];
-		    $path=substr($path, 0, strpos($path, 'public'));
+        $path=$_SERVER['PHP_SELF'];
+        $path=substr($path, 0, strpos($path, 'public'));
       } else {
         $all_ok = false;
-		    $path='';
+        $path='';
       } // if
       
       tpl_assign('all_ok', $all_ok);
