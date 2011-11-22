@@ -545,7 +545,8 @@
     */
     function getFinishedProjects() {
       if (is_null($this->finished_projects)) {
-        $this->finished_projects = ProjectUsers::getProjectsByUser($this, '`completed_on` > ' . DB::escape(EMPTY_DATETIME));
+        $projects_table = Projects::instance()->getTableName(true);
+        $this->finished_projects = ProjectUsers::getProjectsByUser($this, "$projects_table.`completed_on` > " . DB::escape(EMPTY_DATETIME));
       } // if
       return $this->finished_projects;
     } // getFinishedProjects
