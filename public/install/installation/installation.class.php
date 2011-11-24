@@ -136,7 +136,7 @@
       
       @mysql_query("rollback", $this->database_connection);
       @mysql_query("unlock tables", $this->database_connection);
-      @mysql_query("SET NAMES '$database_charset'", $this->database_connection);
+      @mysql_query("SET NAMES ? COLLATE ?",  $database_charset, 'utf8_unicode_ci', $this->database_connection);
       @mysql_query("SET SQL_MODE=''", $this->database_connection);
       @mysql_query("SET STORAGE_ENGINE=INNODB", $this->database_connection);
       tpl_assign('default_collation', 'collate utf8_unicode_ci');
