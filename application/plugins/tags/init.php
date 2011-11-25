@@ -31,7 +31,7 @@
 CREATE TABLE IF NOT EXISTS `{$tp}tags` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `project_id` int(10) unsigned NOT NULL default '0',
-  `tag` varchar(30) $cs $co NOT NULL default '',
+  `tag` varchar(50) $cs $co NOT NULL default '',
   `rel_object_id` int(10) unsigned NOT NULL default '0',
   `rel_object_manager` varchar(50) $cs $co NOT NULL default '',
   `created_on` datetime default NULL,

@@ -47,7 +47,7 @@
     $co = 'collate '.config_option('collation', 'utf8_unicode_ci');
     $sql = "
 CREATE TABLE IF NOT EXISTS `{$tp}project_forms` (
-  `id` smallint(5) unsigned NOT NULL auto_increment,
+  `id` int(10) unsigned NOT NULL auto_increment,
   `project_id` int(10) unsigned NOT NULL default '0',
   `name` varchar(50) NOT NULL default '',
   `description` text $cs $co NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `{$tp}project_forms` (
   `updated_by_id` int(10) unsigned NOT NULL default '0',
   `is_visible` tinyint(1) unsigned NOT NULL default '0',
   `is_enabled` tinyint(1) unsigned NOT NULL default '0',
-  `order` smallint(6) NOT NULL default '0',
+  `order` tinyint(3) NOT NULL default '0',
   PRIMARY KEY  (`id`)
 );";
     // create table wiki_pages

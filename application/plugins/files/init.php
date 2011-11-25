@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `{$tp}project_files` (
     DB::execute($sql);
     $sql = "
 CREATE TABLE IF NOT EXISTS `{$tp}project_folders` (
-  `id` smallint(5) unsigned NOT NULL auto_increment,
+  `id` int(10) unsigned NOT NULL auto_increment,
   `project_id` int(10) unsigned NOT NULL default '0',
   `name` varchar(50) $cs $co NOT NULL default '',
   `parent_id` int(10) unsigned NOT NULL default '0',
