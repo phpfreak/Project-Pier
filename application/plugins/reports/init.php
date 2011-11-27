@@ -20,4 +20,6 @@
     }
   }
 
+  function reports_activate() {
+  }
 ?>
