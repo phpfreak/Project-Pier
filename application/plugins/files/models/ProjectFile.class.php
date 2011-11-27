@@ -647,11 +647,7 @@
     * @return string
     */
     function getObjectName() {
-      $info = pathinfo($this->getFilename());
-      if (array_key_exists('extension', $info)) {
-        return basename($info['basename'],'.'.$info['extension']);
-      }
-      return basename($info['basename']);
+      return end(explode('/',$this->getFilename()));
     } // getObjectName
     
     /**
