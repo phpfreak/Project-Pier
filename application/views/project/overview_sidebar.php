@@ -78,6 +78,9 @@
 <?php if (active_project()->canDelete(logged_user())) { ?>
       <li><a href="<?php echo active_project()->getDeleteUrl(); ?>"><?php echo lang('delete project') ?></a></li>
 <?php } // if ?>    
+<?php if (logged_user()->isAdministrator() || active_project()->canChangePermissions(logged_user())) { ?>
+      <li><a href="<?php echo get_url('project_settings', 'users'); ?>"><?php echo lang('users'); ?></a></li>
+<?php } // if ?>
 
     </ul>
   </div>

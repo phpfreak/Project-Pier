@@ -1,15 +1,16 @@
 <?php
 
   set_page_title(lang('users'));
-  project_tabbed_navigation(PROJECT_TAB_SETTINGS);
+  project_tabbed_navigation('project_settings');
   project_crumbs(array(
     array(lang('settings'), get_url('project_settings')),
     lang('users')));
   
   if (active_project()->canChangePermissions(logged_user())) {
-    add_page_action(lang('permissions'), get_url('project_settings', 'permissions'));
+    //add_page_action(lang('permissions'), get_url('project_settings', 'permissions'));
+    add_page_action(lang('permissions'), active_project()->getPermissionsUrl());
   } // if
-  
+
   add_stylesheet_to_page('project/people.css');
 
 ?>
@@ -81,7 +82,6 @@
 <?php } // foreach?>
 </div>
 <?php } // if ?>
-
 <?php if (active_project()->canChangePermissions(logged_user())) { ?>
-<div class="hint"><?php echo lang('project permissions form hint', get_url('project_settings', 'permissions')) ?></div>
+<div class="hint"><?php echo lang('project permissions form hint', active_project()->getPermissionsUrl()) ?></div>
 <?php } // if ?>
