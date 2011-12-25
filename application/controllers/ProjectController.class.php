@@ -253,8 +253,14 @@
       $project = new Project();
       
       $project_data = array_var($_POST, 'project');
+      $page_name = 'project_overview';
+      $page_attachments = PageAttachments::getAttachmentsByPageNameAndProject($page_name, $project);
+      $redirect_to = urldecode(array_var($_GET, 'redirect_to'));
+      
       tpl_assign('project', $project);
       tpl_assign('project_data', $project_data);
+      tpl_assign('page_attachments', $page_attachments);
+      tpl_assign('redirect_to', $redirect_to);
       
       // Submitted...
       if (is_array($project_data)) {
