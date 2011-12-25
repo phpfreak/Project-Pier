@@ -215,14 +215,9 @@ foreach ($calendar[$current_date_str] as $event) {
       <h2><?php echo lang('legend'); ?></h2>
       <ul>
 <?php foreach ($projects as $project) { ?>
-        <li id="projectLabel<?php echo $project->getId(); ?>" class="projectLabel projectColor<?php echo $projects_index[$project->getId()]%16 ?>" onclick="App.modules.calendar.toggleProject(<?php echo $project->getId() ?>); "><?php echo $project->getName(); ?></li>
+        <li id="projectLabel<?php echo $project->getId(); ?>" class="projectLabel projectColor<?php echo $projects_index[$project->getId()]%16 ?>" ><?php echo $project->getName(); ?></li>
 <?php } // foreach ?>
       </ul>
-      <script type="text/javascript">
-      <?php foreach ($projects as $project) { ?>
-        App.modules.calendar.makeUnselectable("projectLabel<?php echo $project->getId(); ?>");
-      <?php } // foreach ?>
-      </script>
     </div>
     <div class="clear"></div>
   </div>

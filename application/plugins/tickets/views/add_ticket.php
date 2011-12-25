@@ -76,11 +76,11 @@
 <?php foreach(active_project()->getCompanies() as $company) { ?>
 <?php if(is_array($users = $company->getUsersOnProject(active_project())) && count($users)) { ?>
     <div class="companyDetails">
-      <div class="companyName"><?php echo checkbox_field('ticket[notify_company_' . $company->getId() . ']', array_var($ticket_data, 'notify_company_' . $company->getId()), array('id' => 'notifyCompany' . $company->getId(), 'onclick' => 'App.modules.addMessageForm.emailNotifyClickCompany(' . $company->getId() . ')')) ?> <label for="notifyCompany<?php echo $company->getId() ?>" class="checkbox"><?php echo clean($company->getName()) ?></label></div>
+      <div class="companyName"><?php echo checkbox_field('ticket[notify_company_' . $company->getId() . ']', array_var($ticket_data, 'notify_company_' . $company->getId()), array('id' => 'notifyCompany' . $company->getId())) ?> <label for="notifyCompany<?php echo $company->getId() ?>" class="checkbox"><?php echo clean($company->getName()) ?></label></div>
       <div class="companyMembers">
         <ul>
 <?php foreach($users as $user) { ?>
-          <li><?php echo checkbox_field('ticket[notify_user_' . $user->getId() . ']', array_var($message_data, 'notify_user_' . $user->getId()), array('id' => 'notifyUser' . $user->getId(), 'onclick' => 'App.modules.addMessageForm.emailNotifyClickUser(' . $company->getId() . ', ' . $user->getId() . ')')) ?> <label for="notifyUser<?php echo $user->getId() ?>" class="checkbox"><?php echo clean($user->getDisplayName()) ?></label></li>
+          <li><?php echo checkbox_field('ticket[notify_user_' . $user->getId() . ']', array_var($message_data, 'notify_user_' . $user->getId()), array('id' => 'notifyUser' . $user->getId())) ?> <label for="notifyUser<?php echo $user->getId() ?>" class="checkbox"><?php echo clean($user->getDisplayName()) ?></label></li>
 <?php } // foreach ?>
         </ul>
       </div>

@@ -16,11 +16,6 @@
     $quoted_permissions[] = "'$permission_id'";
   } // foreach
 ?>
-<script type="text/javascript" src="<?php echo get_javascript_url('modules/updatePermissionsForm.js') ?>"></script>
-<script type="text/javascript">
-  App.modules.updatePermissionsForm.owner_company_id = <?php echo owner_company()->getId() ?>;
-  App.modules.updatePermissionsForm.project_permissions = new Array(<?php echo implode(', ', $quoted_permissions) ?>);
-</script>
 
 <?php if (isset($companies) && is_array($companies) && count($companies)) { ?>
 <form action="<?php echo ($project_init ? active_project()->getPermissionsUrl(array('project_init' => 1)) : active_project()->getPermissionsUrl()); ?>" method="post">
@@ -35,7 +30,7 @@
         <label><?php echo clean($company->getName()) ?></label>
         <input type="hidden" name="project_company_<?php echo $company->getId() ?>" value="checked" />
 <?php } else { ?>
-        <?php echo checkbox_field('project_company_' . $company->getId(), $company->isProjectCompany(active_project()), array('id' => 'project_company_' . $company->getId(), 'onclick' => "App.modules.updatePermissionsForm.companyCheckboxClick(" . $company->getId() . ")")) ?> <label for="<?php echo 'project_company_' . $company->getId() ?>" class="checkbox"><?php echo clean($company->getName()) ?></label>
+        <?php echo checkbox_field('project_company_' . $company->getId(), $company->isProjectCompany(active_project()), array('id' => 'project_company_' . $company->getId())) ?> <label for="<?php echo 'project_company_' . $company->getId() ?>" class="checkbox"><?php echo clean($company->getName()) ?></label>
 <?php } // if ?>
       </div>
       <div class="projectCompanyUsers" id="project_company_users_<?php echo $company->getId() ?>">
@@ -48,7 +43,7 @@
               <img src="<?php echo icon_url('ok.gif') ?>" alt="" /> <label class="checkbox"><?php echo clean($user->getDisplayName()) ?></label>
               <input type="hidden" name="<?php echo 'project_user_' . $user->getId() ?>" value="checked" />
 <?php } else { ?>
-              <?php echo checkbox_field('project_user_' . $user->getId(), $user->isProjectUser(active_project()), array('id' => 'project_user_' . $user->getId(), 'onclick' => "App.modules.updatePermissionsForm.userCheckboxClick(" . $user->getId() . ", " . $company->getId() . ")")) ?> <label class="checkbox" for="<?php echo 'project_user_' . $user->getId() ?>"><?php echo clean($user->getDisplayName()) ?></label>
+              <?php echo checkbox_field('project_user_' . $user->getId(), $user->isProjectUser(active_project()), array('id' => 'project_user_' . $user->getId())) ?> <label class="checkbox" for="<?php echo 'project_user_' . $user->getId() ?>"><?php echo clean($user->getDisplayName()) ?></label>
 <?php } // if ?>
   
 <?php if ($user->isAdministrator()) { ?>
@@ -58,9 +53,9 @@
             <td>
 <?php if (!$company->isOwner()) { ?>
               <div class="projectUserPermissions" id="user_<?php echo $user->getId() ?>_permissions">
-                <div><?php echo checkbox_field('project_user_' . $user->getId() . '_all', $user->hasAllProjectPermissions(active_project()), array('id' => 'project_user_' . $user->getId() . '_all', 'onclick' => "App.modules.updatePermissionsForm.userPermissionAllCheckboxClick(" . $user->getId() . ")")) ?> <label for="<?php echo 'project_user_' . $user->getId() . '_all' ?>" class="checkbox" style="font-weight: bolder"><?php echo lang('all permissions') ?></label></div>
+                <div><?php echo checkbox_field('project_user_' . $user->getId() . '_all', $user->hasAllProjectPermissions(active_project()), array('id' => 'project_user_' . $user->getId() . '_all')) ?> <label for="<?php echo 'project_user_' . $user->getId() . '_all' ?>" class="checkbox" style="font-weight: bolder"><?php echo lang('all permissions') ?></label></div>
 <?php foreach ($permissions as $permission_id => $permission_text) { ?>            
-                <div><?php echo checkbox_field('project_user_' . $user->getId() . "_$permission_id", $user->hasProjectPermission(active_project(), $permission_id), array('id' => 'project_user_' . $user->getId() . "_$permission_id", 'onclick' => "App.modules.updatePermissionsForm.userPermissionCheckboxClick(" . $user->getId() . ")")) ?> <label for="<?php echo 'project_user_' . $user->getId() . "_$permission_id" ?>" class="checkbox normal"><?php echo $permission_text ?></label></div>
+                <div><?php echo checkbox_field('project_user_' . $user->getId() . "_$permission_id", $user->hasProjectPermission(active_project(), $permission_id), array('id' => 'project_user_' . $user->getId() . "_$permission_id")) ?> <label for="<?php echo 'project_user_' . $user->getId() . "_$permission_id" ?>" class="checkbox normal"><?php echo $permission_text ?></label></div>
 <?php } // foreach ?>
               </div>
 <?php } // if ?>
