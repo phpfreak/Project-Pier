@@ -166,8 +166,6 @@ INSERT INTO `<?php echo $table_prefix ?>project_user_permissions` (`user_id`, `p
 INSERT INTO `<?php echo $table_prefix ?>project_user_permissions` (`user_id`, `project_id`, `permission_id`) VALUES (1, 1, 11);
 INSERT INTO `<?php echo $table_prefix ?>project_user_permissions` (`user_id`, `project_id`, `permission_id`) VALUES (1, 1, 12);
 INSERT INTO `<?php echo $table_prefix ?>project_user_permissions` (`user_id`, `project_id`, `permission_id`) VALUES (1, 1, 13);
-INSERT INTO `<?php echo $table_prefix ?>project_user_permissions` (`user_id`, `project_id`, `permission_id`) VALUES (1, 1, 14);
-INSERT INTO `<?php echo $table_prefix ?>project_user_permissions` (`user_id`, `project_id`, `permission_id`) VALUES (1, 1, 15);
 
 INSERT INTO `<?php echo $table_prefix ?>plugins` (`plugin_id`, `name`, `installed`) VALUES (1, 'files', 0);
 INSERT INTO `<?php echo $table_prefix ?>plugins` (`plugin_id`, `name`, `installed`) VALUES (2, 'form', 0);
@@ -176,3 +174,5 @@ INSERT INTO `<?php echo $table_prefix ?>plugins` (`plugin_id`, `name`, `installe
 INSERT INTO `<?php echo $table_prefix ?>plugins` (`plugin_id`, `name`, `installed`) VALUES (5, 'tickets', 0);
 INSERT INTO `<?php echo $table_prefix ?>plugins` (`plugin_id`, `name`, `installed`) VALUES (6, 'time', 0);
 INSERT INTO `<?php echo $table_prefix ?>plugins` (`plugin_id`, `name`, `installed`) VALUES (7, 'wiki', 0);
+INSERT INTO `<?php echo $table_prefix ?>plugins` (`plugin_id`, `name`, `installed`) VALUES (8, 'reports', 0);
+INSERT INTO `<?php echo $table_prefix ?>plugins` (`plugin_id`, `name`, `installed`) VALUES (9, 'wikilinks', 0);

@@ -38,11 +38,11 @@
       
       <table class="blank">
         <tr>
-          <td><?php echo radio_field('project_form[action]', array_var($project_form_data, 'action') == ProjectForm::ADD_COMMENT_ACTION, array('value' => ProjectForm::ADD_COMMENT_ACTION, 'id' => 'projectFormActionAddComment', 'onclick' => 'App.modules.addProjectForm.formActionClick()')) ?> <?php echo label_tag(lang('project form action add comment'), 'projectFormActionAddComment', false, array('class' => 'checkbox'), '') ?></td>
+          <td><?php echo radio_field('project_form[action]', array_var($project_form_data, 'action') == ProjectForm::ADD_COMMENT_ACTION, array('value' => ProjectForm::ADD_COMMENT_ACTION, 'id' => 'projectFormActionAddComment')) ?> <?php echo label_tag(lang('project form action add comment'), 'projectFormActionAddComment', false, array('class' => 'checkbox'), '') ?></td>
           <td><?php echo lang('add comment to message short') ?>: <?php echo select_message('project_form[message_id]', active_project(), array_var($project_form_data, 'message_id'), array('id' => 'projectFormActionSelectMessage')) ?></td>
         </tr>
         <tr>
-          <td><?php echo radio_field('project_form[action]', array_var($project_form_data, 'action') == ProjectForm::ADD_TASK_ACTION, array('value' => ProjectForm::ADD_TASK_ACTION , 'id' => 'projectFormActionAddTask', 'onclick' => 'App.modules.addProjectForm.formActionClick()')) ?> <?php echo label_tag(lang('project form action add task'), 'projectFormActionAddTask', false, array('class' => 'checkbox'), '') ?></td>
+          <td><?php echo radio_field('project_form[action]', array_var($project_form_data, 'action') == ProjectForm::ADD_TASK_ACTION, array('value' => ProjectForm::ADD_TASK_ACTION , 'id' => 'projectFormActionAddTask')) ?> <?php echo label_tag(lang('project form action add task'), 'projectFormActionAddTask', false, array('class' => 'checkbox'), '') ?></td>
           <td><?php echo lang('add task to list short') ?>: <?php echo select_task_list('project_form[task_list_id]', active_project(), array_var($project_form_data, 'task_list_id'), false, array('id' => 'projectFormActionSelectTaskList')) ?></td>
         </tr>
       </table>

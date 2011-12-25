@@ -16,7 +16,7 @@
 <?php tpl_display(get_template_path('form_errors')) ?>
   
   <div>
-    <?php echo radio_field('contact[what]', array_var($contact_data, 'what', 'existing') == 'existing', array('value' => 'existing', 'id' => 'contactFormExistingContact', 'onclick' => 'App.modules.addContactToProjectForm.toggleAttachForms()')); ?>
+    <?php echo radio_field('contact[what]', array_var($contact_data, 'what', 'existing') == 'existing', array('value' => 'existing', 'id' => 'contactFormExistingContact')); ?>
     <?php echo label_tag(lang('attach existing contact'), 'contactFormExistingContact', false, array('class'=>'checkbox')); ?>
   </div>
   
@@ -33,7 +33,7 @@
 
 
   <div>
-    <?php echo radio_field('contact[what]', array_var($contact_data, 'what', 'existing') == 'new', array('value' => 'new', 'id'=>'contactFormNewContact', 'onclick' => 'App.modules.addContactToProjectForm.toggleAttachForms()')); ?>
+    <?php echo radio_field('contact[what]', array_var($contact_data, 'what', 'existing') == 'new', array('value' => 'new', 'id'=>'contactFormNewContact')); ?>
     <?php echo label_tag(lang('new contact'), 'contactFormNewContact', false, array('class'=>'checkbox'))?>
   </div>
 
@@ -55,7 +55,7 @@
       <fieldset>
         <legend><?php echo lang('company'); ?> <span class="label_required">*</span></legend>
         <div>
-          <?php echo radio_field('contact[new][company][what]', array_var($company_data, 'what', 'existing') == 'existing', array('value' => 'existing', 'id'=>'contactFormExistingCompany', 'onclick' => 'App.modules.addContactForm.toggleCompanyForms()')); ?>
+          <?php echo radio_field('contact[new][company][what]', array_var($company_data, 'what', 'existing') == 'existing', array('value' => 'existing', 'id'=>'contactFormExistingCompany')); ?>
           <?php echo label_tag(lang('existing company'), 'contactFormExistingCompany', false, array('class' => 'checkbox')) ?>
         </div>
         <div id="contactFormExistingCompanyControls">
@@ -63,7 +63,7 @@
         </div>
 
         <div>
-          <?php echo radio_field('contact[new][company][what]', array_var($company_data, 'what', 'existing') == 'new', array('value' => 'new', 'id'=>'contactFormNewCompany', 'onclick' => 'App.modules.addContactForm.toggleCompanyForms()')); ?>
+          <?php echo radio_field('contact[new][company][what]', array_var($company_data, 'what', 'existing') == 'new', array('value' => 'new', 'id'=>'contactFormNewCompany')); ?>
           <?php echo label_tag(lang('new company'), 'contactFormNewCompany', false, array('class'=>'checkbox'))?>
         </div>
         <div id="contactFormNewCompanyControls">
@@ -146,12 +146,12 @@
         <legend><?php echo lang('user account'); ?></legend>
 
         <div>
-          <?php echo radio_field('contact[new][user][add_account]', array_var($user_data, 'add_account', 'no') == 'no', array('value' => 'no', 'id'=>'contactFormNoUserAccount', 'onclick' => 'App.modules.addContactForm.toggleUserAccountForm()')); ?>
+          <?php echo radio_field('contact[new][user][add_account]', array_var($user_data, 'add_account', 'no') == 'no', array('value' => 'no', 'id'=>'contactFormNoUserAccount')); ?>
           <?php echo label_tag(lang('no'), 'contactFormNoUserAccount', false, array('class' => 'checkbox'), '') ?>
         </div>
 
         <div>
-          <?php echo radio_field('contact[new][user][add_account]', array_var($user_data, 'add_account', 'no') == 'yes', array('value' => 'yes', 'id'=>'contactFormAddUserAccount', 'onclick' => 'App.modules.addContactForm.toggleUserAccountForm()')); ?>
+          <?php echo radio_field('contact[new][user][add_account]', array_var($user_data, 'add_account', 'no') == 'yes', array('value' => 'yes', 'id'=>'contactFormAddUserAccount')); ?>
           <?php echo label_tag(lang('yes'), 'contactFormAddUserAccount', false, array('class' => 'checkbox'), '') ?>
         </div>
 
@@ -174,10 +174,10 @@
           <fieldset>
             <legend><?php echo lang('password') ?></legend>
             <div>
-              <?php echo radio_field('contact[new][user][password_generator]', array_var($user_data, 'password_generator', 'random') == 'random', array('value' => 'random', 'class' => 'checkbox', 'id' => 'userFormRandomPassword', 'onclick' => 'App.modules.addContactForm.generateRandomPasswordClick()')) ?> <?php echo label_tag(lang('user password generate'), 'userFormRandomPassword', false, array('class' => 'checkbox'), '') ?>
+              <?php echo radio_field('contact[new][user][password_generator]', array_var($user_data, 'password_generator', 'random') == 'random', array('value' => 'random', 'class' => 'checkbox', 'id' => 'userFormRandomPassword')) ?> <?php echo label_tag(lang('user password generate'), 'userFormRandomPassword', false, array('class' => 'checkbox'), '') ?>
             </div>
             <div>
-              <?php echo radio_field('contact[new][user][password_generator]', array_var($user_data, 'password_generator', 'random') == 'specify', array('value' => 'specify', 'class' => 'checkbox', 'id' => 'userFormSpecifyPassword', 'onclick' => 'App.modules.addContactForm.generateSpecifyPasswordClick()')) ?> <?php echo label_tag(lang('user password specify'), 'userFormSpecifyPassword', false, array('class' => 'checkbox'), '') ?>
+              <?php echo radio_field('contact[new][user][password_generator]', array_var($user_data, 'password_generator', 'random') == 'specify', array('value' => 'specify', 'class' => 'checkbox', 'id' => 'userFormSpecifyPassword')) ?> <?php echo label_tag(lang('user password specify'), 'userFormSpecifyPassword', false, array('class' => 'checkbox'), '') ?>
             </div>
             <div id="userFormPasswordInputs">
               <div>
@@ -191,9 +191,6 @@
               </div>
             </div>
           </fieldset>
-          <script type="text/javascript">
-            App.modules.addContactForm.generateRandomPasswordClick();
-          </script>
 
           <div class="formBlock">
             <?php echo label_tag(lang('send new account notification'), null, true) ?>
@@ -206,10 +203,6 @@
     
     </fieldset>
   </div>
-
-  <script type="text/javascript">
-    App.modules.addContactToProjectForm.toggleAttachForms();
-  </script>
 
   <?php echo submit_button(lang('add contact')) ?>
 <?php if ($project_init) { ?>

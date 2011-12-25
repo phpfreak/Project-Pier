@@ -84,9 +84,6 @@
       <?php echo label_tag(lang('timezone'), 'contactFormNewCompanyTimezone', true)?>
       <?php echo select_timezone_widget('contact[company][timezone]', owner_company()->getTimezone(), array('id' => 'contactFormNewCompanyTimezone', 'class' => 'long combobox')) ?>
     </div>
-    <script type="text/javascript">
-    App.modules.addContactForm.toggleCompanyForms();
-    </script>
   </fieldset>
 
 <?php } else { ?>
@@ -234,9 +231,6 @@
           </div>
         </div>
       </fieldset>
-      <script type="text/javascript">
-        App.modules.addContactForm.generateRandomPasswordClick();
-      </script>
 
       <div class="formBlock">
         <?php echo label_tag(lang('send new account notification'), null, true) ?>
@@ -244,9 +238,6 @@
         <br /><span class="desc"><?php echo lang('send new account notification desc') ?></span>
       </div>
     </div>
-    <script type="text/javascript">
-      App.modules.addContactForm.toggleUserAccountForm();
-    </script>
 <?php } // if ?>
   </fieldset>
 
