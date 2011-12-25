@@ -16,5 +16,6 @@ return array(
   'download' => 'Download',
   'freemind version' => 'Freemind Version 0.9.0',
   'mindmap' => "Mind Map",
+  'legend' => 'Legend',
 );
 ?>
