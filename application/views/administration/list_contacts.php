@@ -25,7 +25,7 @@ $user = $contact->getUserAccount();
       <span class="userIsAdmin"><?php echo lang('administrator') ?>, </span>
 <?php } // if  ?>
 <?php if ($user->getAutoAssign()) { ?>
-      <span class="userAutoAssign"><span><?php echo lang('auto assign') ?>, </span>
+      <span class="userAutoAssign"><?php echo lang('auto assign') ?>, </span>
 <?php } // if  ?>
 <?php if ($user->getUseLDAP()) { ?>
       <span class="userUseLDAP"><span><?php echo lang('LDAP') ?>, </span>

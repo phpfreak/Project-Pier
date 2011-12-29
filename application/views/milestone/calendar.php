@@ -142,8 +142,8 @@
 <?php
     } // for
 ?>
-<?php if ($dom <= $daysInMonth) { ?>
     </tr>
+<?php if ($dom <= $daysInMonth) { ?>
     <tr valign="top">
 <?php
       $dow = 1;

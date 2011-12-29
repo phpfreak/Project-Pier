@@ -1,5 +1,6 @@
 <?php ?>
 <script type="text/javascript">
+//<![CDATA[
 $(function() {
   $('.selectall').click(function() {
     var checked_status = this.checked;
@@ -113,4 +114,5 @@ post = function(url, d){
   $.ajaxSetup({url:url,global:false,async:false,type:"POST"});
   $.ajax({data: postdata});
 }
+//]]>
 </script>

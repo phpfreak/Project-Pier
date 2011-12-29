@@ -86,6 +86,7 @@
         <li><a href="<?php echo $message->getViewUrl() ?>"><?php echo clean($message->getTitle()) ?></a>
 <?php if ($message->getCreatedBy() instanceof User) { ?>
         <span class="desc">(<?php echo lang('posted on by', format_date($message->getUpdatedOn()), $message->getCreatedByCardUrl(), clean($message->getCreatedByDisplayName())) ?>)</span>
+        </li>
 <?php } // if ?>
 <?php } // if ?>
 <?php } // foreach ?>
@@ -127,9 +128,9 @@
 <?php if ($milestone->hasTickets()) { ?>
   <div class="milestone-progress-wrapper">
       <div class="progress clearfix">
-        <div style="width:<?php print $milestone->getPercentageByTicketState('resolved'); ?>%;" class="resolved"><img height="14" width="1" src="<?php print image_url('clear.gif'); ?>" alt=""></div>
-          <div style="width: <?php print $milestone->getPercentageByTicketState('in_progress'); ?>%;" class="in-progress"><img height="14" width="1" src="<?php print image_url('clear.gif'); ?>" alt=""></div>
-          <div style="width: <?php print $milestone->getPercentageByTicketState('open'); ?>%;" class="open"><img height="14" width="1" src="<?php print image_url('clear.gif'); ?>" alt=""></div>
+        <div style="width:<?php print $milestone->getPercentageByTicketState('resolved'); ?>%;" class="resolved"><img height="14" width="1" src="<?php print image_url('clear.gif'); ?>" alt=""></img></div>
+          <div style="width: <?php print $milestone->getPercentageByTicketState('in_progress'); ?>%;" class="in-progress"><img height="14" width="1" src="<?php print image_url('clear.gif'); ?>" alt=""></img></div>
+          <div style="width: <?php print $milestone->getPercentageByTicketState('open'); ?>%;" class="open"><img height="14" width="1" src="<?php print image_url('clear.gif'); ?>" alt=""></img></div>
       </div>
     <div class="ticket-details">
       <?php print $milestone->getPercentageByTicketState('resolved'); ?>% completed -
@@ -155,7 +156,7 @@
           | <span class="ticket-due-date">Due: <?php echo format_date($ticket->getDueDate())  ?></span>
           <?php } ?>)
         </span>
-
+        </li>
 <?php } // foreach ?>
       </ul>
 <?php } // if ?>
