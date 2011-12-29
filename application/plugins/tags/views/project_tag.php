@@ -64,6 +64,16 @@
 </ul>
 <?php } // if ?>
 
+<?php if (isset($tagged_objects['wiki']) && is_array($tagged_objects['wiki']) && count($tagged_objects['wiki'])) { ?>
+<h2><?php echo lang('wiki') ?></h2>
+<ul>
+<?php foreach ($tagged_objects['wiki'] as $wiki_page) { ?>
+<?php $rev = $wiki_page->getLatestRevision(); ?>
+  <li><a href="<?php echo $rev->getDetailsUrl() ?>"><?php echo clean($rev->getName()) ?></a> <span class="desc">- <?php echo lang('posted on by', format_date($rev->getCreatedOn()), $rev->getCreatedByCardUrl(), clean($rev->getCreatedByDisplayName())) ?></span></li>
+<?php } // foreach?>
+</ul>
+<?php } // if ?>
+
 <?php } else { ?>
 <p><?php echo lang('no objects tagged with', clean($tag)) ?></p>
 <?php } // if ?>
