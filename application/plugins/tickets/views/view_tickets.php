@@ -4,8 +4,8 @@
   $params = array();
 } // if ?>
   <table width="100%" cellpadding="2" border="0">
-  <tr bgcolor="#f4f4f4">
-    <th width="40">
+  <tr>
+    <th>
       <a href="<?php
         if (array_var($params, 'sort_by') == 'id' && array_var($params, 'order') == 'ASC') {
           echo get_url('tickets', 'index', array_merge($params, array('sort_by' => 'id', 'order' =>'DESC')));
@@ -23,7 +23,7 @@
         }
           ?>"><?php echo lang("summary") ?></a>
     </th>
-    <th width="95">
+    <th>
       <a href="<?php
         if (array_var($params, 'sort_by') == 'type' && array_var($params, 'order') == 'ASC') {
           echo get_url('tickets', 'index', array_merge($params, array('sort_by' => 'type', 'order' =>'DESC')));
@@ -32,7 +32,7 @@
         }
           ?>"><?php echo lang("type") ?></a>
     </th>
-    <th width="115">
+    <th>
       <a href="<?php
         if (array_var($params, 'sort_by') == 'category_id' && array_var($params, 'order') == 'ASC') {
           echo get_url('tickets', 'index', array_merge($params, array('sort_by' => 'category_id', 'order' =>'DESC')));
@@ -41,7 +41,7 @@
         }
           ?>"><?php echo lang("category") ?></a>
     </th>
-    <th width="60" align="center">
+    <th>
       <a href="<?php
         if (array_var($params, 'sort_by') == 'assigned_to_user_id' && array_var($params, 'order') == 'ASC') {
           echo get_url('tickets', 'index', array_merge($params, array('sort_by' => 'assigned_to_user_id', 'order' =>'DESC')));
@@ -50,7 +50,7 @@
         }
           ?>"><?php echo lang("assigned to") ?></a>
     </th>
-    <th width="60" align="center">
+    <th>
       <a href="<?php
         if (array_var($params, 'sort_by') == 'state' && array_var($params, 'order') == 'ASC') {
           echo get_url('tickets', 'index', array_merge($params, array('sort_by' => 'state', 'order' =>'DESC')));
@@ -59,7 +59,7 @@
         }
           ?>"><?php echo lang("status") ?></a>
     </th>
-    <th width="60" align="center">
+    <th>
       <a href="<?php
         if (array_var($params, 'sort_by') == 'priority' && array_var($params, 'order') == 'ASC') {
           echo get_url('tickets', 'index', array_merge($params, array('sort_by' => 'priority', 'order' =>'DESC')));
@@ -68,7 +68,7 @@
         }
           ?>"><?php echo lang("priority") ?></a>
     </th>
-    <th width="60" align="center">
+    <th>
       <a href="<?php
         if (array_var($params, 'sort_by') == 'created_on' && array_var($params, 'order') == 'ASC') {
           echo get_url('tickets', 'index', array_merge($params, array('sort_by' => 'created_on', 'order' =>'DESC')));
@@ -77,7 +77,7 @@
         }
           ?>"><?php echo lang("created on") ?></a>
     </th>
-    <th width="60" align="center">
+    <th>
       <a href="<?php
         if (array_var($params, 'sort_by') == 'due_date' && array_var($params, 'order') == 'ASC') {
           echo get_url('tickets', 'index', array_merge($params, array('sort_by' => 'due_date', 'order' =>'DESC')));
@@ -86,7 +86,7 @@
         }
           ?>"><?php echo lang("due date") ?></a>
     </th>
-    <th width="60" align="center">
+    <th>
       <a href="<?php
         if (array_var($params, 'sort_by') == 'updated_on' && array_var($params, 'order') == 'ASC') {
           echo get_url('tickets', 'index', array_merge($params, array('sort_by' => 'updated_on', 'order' =>'DESC')));
@@ -99,8 +99,8 @@
 <?php foreach ($tickets as $ticket) { ?>
   <tr class="<?php echo $ticket->getPriority(); ?>">
 <?php $ticket_description = strlen($ticket->getDescription()) > 200 ? clean(substr($ticket->getDescription(), 0, 200))."&hellip;" : clean($ticket->getDescription()); ?>
-    <td><a href="<?php echo $ticket->getViewUrl() ?>" alt="<?php echo $ticket_description ?>" title="<?php echo $ticket_description ?>"><?php echo $ticket->getId() ?></a></td>
-    <td><a href="<?php echo $ticket->getViewUrl() ?>" alt="<?php echo $ticket_description ?>" title="<?php echo $ticket_description ?>"><?php echo $ticket->getSummary() ?></a></td>
+    <td><a href="<?php echo $ticket->getViewUrl() ?>" title="<?php echo $ticket_description ?>"><?php echo $ticket->getId() ?></a></td>
+    <td><a href="<?php echo $ticket->getViewUrl() ?>" title="<?php echo $ticket_description ?>"><?php echo $ticket->getSummary() ?></a></td>
     <td><?php echo lang($ticket->getType()) ?></td>
     <td>
 <?php if ($ticket->getCategory()) { ?>

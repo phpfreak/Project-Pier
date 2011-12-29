@@ -136,7 +136,7 @@
       $anchor = '#' . $anchor;
     } // if
     
-    return with_slash(ROOT_URL) . 'index.php?' . implode('&', $url_params) . $anchor;
+    return with_slash(ROOT_URL) . 'index.php?' . implode('&amp;', $url_params) . $anchor;
   } // get_url
   
   // ---------------------------------------------------
