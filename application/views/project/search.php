@@ -12,7 +12,8 @@
     <input type="hidden" name="c" value="project" />
     <input type="hidden" name="a" value="search" />
     <input type="hidden" name="active_project" value="<?php echo active_project()->getId() ?>" />
-    <?php echo submit_button(lang('search')) ?>
+    <?php echo submit_button(lang('search')); ?>
+    <?php echo lang('search hint'); ?>
   </form>
 </div>
 

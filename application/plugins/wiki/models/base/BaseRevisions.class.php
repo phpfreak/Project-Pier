@@ -1,38 +1,38 @@
 <?php
 
-/**
- * BaseRevisions
- * 
- * @package ProjectPier Wiki
- * @author Alex Mayhew
- * @copyright 2008
- * @version $Id$
- * @access public
- */
-Class BaseRevisions extends DataManager {
+  /**
+  * BaseRevisions
+  * 
+  * @package ProjectPier Wiki
+  * @author Alex Mayhew
+  * @copyright 2008
+  * @version $Id$
+  * @access public
+  */
+  class BaseRevisions extends DataManager {
 	
-	static private $columns = array(
-  'id' 						=> DATA_TYPE_INTEGER, 
-  'page_id'				=> DATA_TYPE_INTEGER,
-	'created_on' 		=> DATA_TYPE_DATETIME, 
-	'created_by_id'	=> DATA_TYPE_INTEGER, 
-	'name' 					=> DATA_TYPE_STRING, 
-	'project_id' 		=> DATA_TYPE_INTEGER, 
-	'revision' 			=> DATA_TYPE_INTEGER, 
-	'content' 			=> DATA_TYPE_STRING,
-	'log_message'		=> DATA_TYPE_STRING,
-	);
+  static private $columns = array(
+    'id'            => DATA_TYPE_INTEGER, 
+    'page_id'       => DATA_TYPE_INTEGER,
+    'created_on'    => DATA_TYPE_DATETIME, 
+    'created_by_id' => DATA_TYPE_INTEGER, 
+    'name'          => DATA_TYPE_STRING, 
+    'project_id'    => DATA_TYPE_INTEGER, 
+    'revision'      => DATA_TYPE_INTEGER, 
+    'content'       => DATA_TYPE_STRING,
+    'log_message'   => DATA_TYPE_STRING,
+  );
 	
 
   /**
-   * Construct
-   * 
-   * @return void
-   */
+  * Construct
+  * 
+  * @return void
+  */
   function __construct()
   {
     parent::__construct('Revision', 'wiki_revisions');
-  }// __construct
+  } // __construct
 
 	/**
    * Return array of object columns
@@ -73,7 +73,7 @@ Class BaseRevisions extends DataManager {
   } // getPkColumns
   
   /**
-  * Return name of first auto_incremenent column if it exists
+  * Return name of first auto_increment column if it exists
   *
   * @access public
   * @param void
@@ -83,21 +83,21 @@ Class BaseRevisions extends DataManager {
     return 'id';
   } // getAutoIncrementColumn
   
-/**
- * Returns an instance of the Wiki class
- *
- * @return
- */
+  /**
+  * Returns an instance of the Wiki class
+  *
+  * @return
+  */
   function instance()
   {
-		static $instance;
-		if(!instance_of($instance, 'Revisions')){
-			$instance = new Revisions;
-		}
-		return $instance;
-	}
+    static $instance;
+    if(!instance_of($instance, 'Revisions')){
+      $instance = new Revisions;
+    }
+    return $instance;
+  }
 	
-	/**
+  /**
   * Return number of rows in this table
   *
   * @access public
@@ -112,7 +112,7 @@ Class BaseRevisions extends DataManager {
     } // if
   } // count
 
-	/**
+  /**
   * Delete rows that match specific conditions. If $conditions is NULL all rows from table will be deleted
   *
   * @access public
@@ -223,5 +223,4 @@ Class BaseRevisions extends DataManager {
   } // paginate
 	
 }
-
 ?>
