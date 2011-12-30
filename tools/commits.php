@@ -1,20 +1,41 @@
 <?php
-echo "file 2659 /public_html/pp088/application/views/company/company_card.php
-commit 56 show description in card
-file 2660 /public_html/pp088/application/views/project/overview.php
-commit 57 fix subproject progress
-file 2661 /public_html/pp088/application/controllers/ContactsController.class.php
-commit 58 $password defined properly
-file 2662 /public_html/pp088/application/models/users/User.class.php
-commit 59 handle no active projects situation
-file 2663 /public_html/pp088/endings.php
-commit 60 utility to check files with extra space after last ?>
-file 2664 /public_html/pp088/application/permissions.php
-commit 61 handle situation when no project available
-file 2665 /public_html/pp088/application/plugins/tickets/views/add_ticket.php
-file 2666 /public_html/pp088/application/plugins/tickets/views/edit_ticket.php
-commit 62 milestone in add ticket, remove lang() in edit for now";
+
+echo "file 6786 /public_html/pp088/tools/changes_list.php
+file 6801 /public_html/pp088/tools/commits.php
+commit 104 backup tools";
 die();
+
+echo "file 6799 /public_html/pp088/application/plugins/tags/views/project_tag.php
+commit 102 tags for wiki fix url (3034)
+file 6802 /public_html/pp088/application/plugins/wiki/models/WikiPage.class.php
+file 6803 /public_html/pp088/application/plugins/wiki/models/base/BaseRevisions.class.php
+file 6807 /public_html/pp088/application/plugins/wiki/models/base/BaseWikiPage.class.php
+file 6808 /public_html/pp088/application/plugins/wiki/models/Revision.class.php
+file 6811 /public_html/pp088/public/assets/themes/marine/stylesheets/project/search_results.css
+file 6810 /public_html/pp088/application/views/project/search.php
+file 6809 /public_html/pp088/application/plugins/wiki/models/base/BaseRevision.class.php
+commit 103 search support for wiki (3034)";
+
+die();
+
+echo "file 5236 /public_html/pp088/application/plugins/form/views/add_project_form.php
+file 5350 /public_html/pp088/application/plugins/tickets/views/add_ticket.php
+file 5477 /public_html/pp088/application/views/contacts/add_contact.php
+file 5497 /public_html/pp088/application/views/dashboard/weekly_schedule.php
+file 5562 /public_html/pp088/application/views/project/add_contact.php
+file 5580 /public_html/pp088/application/views/project_settings/permissions.php
+file 6712 /public_html/pp088/public/install/installation/templates/db/mysql/initial_data.php
+file 6730 /public_html/pp088/public/patch/086-088.txt
+commit 99 miscellaneous";
+die();
+
+echo "file 6789 /public_html/pp088/application/layouts/inlinejs.php
+file 6788 /public_html/pp088/application/functions.php
+file 6790 /public_html/pp088/application/views/administration/list_contacts.php
+file 6791 /public_html/pp088/application/views/milestone/calendar.php
+file 6792 /public_html/pp088/application/views/milestone/view_milestone.php
+file 6793 /public_html/pp088/application/plugins/tickets/views/view_tickets.php
+commit 99 fix html issues (navale)";
 
   echo "file 73 /public_html/pp088/application/views/task/add_list.php
 commit 17 add send notification checkbox
