@@ -1,5 +1,5 @@
 <?php
- /**
+  /**
   * PermissionManager
   *
   * @author Brett Edgar (TheWalrus) True Digital Security, Inc. www.truedigitalsecurity.com
@@ -24,6 +24,11 @@ class PermissionManager {
   const CAN_MANAGE_PROJECTS          = 'projects-manage';
   const CAN_CHANGE_STATUS_MILESTONES = 'milestones-change_status';
   const CAN_ACCESS_FORMS             = 'forms-access';
+
+  const CAN_ACCESS                   = 'access';
+  const CAN_ADD                      = 'add';
+  const CAN_VIEW                     = 'view';
+  const CAN_DELETE                   = 'delete';
   
   function init() {
     if (isset($this) && ($this instanceof PermissionManager)) {
@@ -100,6 +105,7 @@ class PermissionManager {
   static function removePermission($source,$name) {
     $permission = Permissions::findOne(array('conditions' => "`source` = '".$source."' and `permission` = '".$name."'"));
     if (isset($permission) && $permission instanceof Permission) {
+      PermissionManager::removeUserPermissions($permission);
       $permission->delete();
       return true; // permission removed
     }
@@ -114,15 +120,23 @@ class PermissionManager {
     $permissions = Permissions::findAll(array('conditions' => "`source` = '".$source."'"));
     if (is_array($permissions)) {
       foreach ($permissions as $permission) {
-	  $userpermissions = ProjectUserPermissions::findAll(array('conditions' => "`permission_id` = '".$permission->getId()."'"));
-	  foreach ($userpermissions as $userpermission) {
-	      $userpermission->delete();
-	  }
+        PermissionManager::removeUserPermissions($permission);
         $permission->delete();
       }
       return true; // permission source removed
     }
     return false; // permission source does not exist
+  }
+
+  /*
+  * Remove all user permissions for the specified permission from the database
+  *
+  */  
+  static function removeUserPermissions($permission) {
+    $user_permissions = ProjectUserPermissions::findAll(array('conditions' => "`permission_id` = '".$permission->getId()."'"));
+    foreach ($user_permissions as $user_permission) {
+      $user_permission->delete();
+    }
   }
   
 }
