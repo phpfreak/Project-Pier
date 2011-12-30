@@ -6,6 +6,48 @@
   * @http://www.activeingredient.com.au
   */
   class ProjectLink extends BaseProjectLink {
+
+    /**
+    * This type of object is taggable
+    *
+    * @var boolean
+    */
+    protected $is_taggable = true;
+    
+    /**
+    * This type of object is searchable
+    *
+    * @var boolean
+    */
+    protected $is_searchable = true;
+    
+    /**
+    * Array of searchable columns
+    *
+    * @var array
+    */
+    protected $searchable_columns = array('title', 'description');
+    
+    /**
+    * This type of object is commentable
+    *
+    * @var boolean
+    */
+    protected $is_commentable = false;
+    
+    /**
+    * This type of object is a file container
+    *
+    * @var boolean
+    */
+    protected $is_file_container = false;
+    
+    /**
+    * This type of object is subscribable
+    *
+    * @var boolean
+    */
+    protected $is_subscribable = false;
     
     /**
     * asUrl

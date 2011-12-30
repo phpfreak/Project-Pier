@@ -25,7 +25,8 @@
 <?php } ?>
   <div class="block">
   <div class="header"><a href="<?php echo $link->asUrl() ?>" title="<?php echo $link->getTitle() ?>" target="_blank"><?php echo $link->getTitle() ?></a></div>
-  <div class="content"><div><?php echo clean($link->getDescription()) ?></div><?php if ($link->getCreatedBy() instanceof User) { ?><span><?php echo lang('created by') ?>:</span> <a href="<?php echo $link->getCreatedBy()->getCardUrl() ?>"><?php echo clean($link->getCreatedBy()->getDisplayName()) ?></a> <?php } ?></div>
+  <div class="content"><div><?php echo clean($link->getDescription()) ?></div><?php if ($link->getCreatedBy() instanceof User) { ?><span><?php echo lang('created by') ?>:</span> <a href="<?php echo $link->getCreatedBy()->getCardUrl() ?>"><?php echo clean($link->getCreatedBy()->getDisplayName()) ?></a> <?php } ?><?php echo render_object_tags($link); ?>
+</div>
 <?php
   $options = array();
   if ($link->canEdit(logged_user(),active_project())) {

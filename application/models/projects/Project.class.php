@@ -1023,6 +1023,7 @@
         'tickets'    => Tags::getProjectObjects($this, $tag, 'ProjectTickets', $exclude_private),
         'files'      => Tags::getProjectObjects($this, $tag, 'ProjectFiles', $exclude_private),
         'wiki'       => Tags::getProjectObjects($this, $tag, 'Wiki', $exclude_private),
+        'links'      => Tags::getProjectObjects($this, $tag, 'ProjectLinks', $exclude_private),
       ); // array
     } // getObjectsByTag
     

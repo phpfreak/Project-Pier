@@ -63,6 +63,9 @@
           DB::beginWork();
           $project_link->save();
           ApplicationLogs::createLog($project_link, active_project(), ApplicationLogs::ACTION_ADD);
+          if (plugin_active('tags')) {
+            $project_link->setTagsFromCSV($project_link_data['tags']);
+          }
           DB::commit();
           
           flash_success(lang('success add link'));
@@ -104,14 +107,16 @@
       $project_link_data = array_var($_POST, 'project_link');
       
       if (!is_array($project_link_data)) {
+        $tag_names = plugin_active('tags') ? $project_link->getTagNames() : '';
         $project_link_data = array(
           'title'       => $project_link->getTitle(),
           'url'         => $project_link->getUrl(),
           'description' => $project_link->getDescription(),
           'folder_id'   => $project_link->getFolderId(),
+          'tags' => is_array($tag_names) ? implode(', ', $tag_names) : '',
         ); // array
       } // if
-      
+
       tpl_assign('project_link_data', $project_link_data);
       tpl_assign('project_link', $project_link);
       
@@ -123,6 +128,9 @@
           DB::beginWork();
           $project_link->save();
           ApplicationLogs::createLog($project_link, active_project(), ApplicationLogs::ACTION_EDIT);
+          if (plugin_active('tags')) {
+            $project_link->setTagsFromCSV($project_link_data['tags']);
+          }
           DB::commit();
           
           flash_success(lang('success edit link'));
