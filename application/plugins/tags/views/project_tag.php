@@ -69,7 +69,7 @@
 <ul>
 <?php foreach ($tagged_objects['wiki'] as $wiki_page) { ?>
 <?php $rev = $wiki_page->getLatestRevision(); ?>
-  <li><a href="<?php echo $rev->getDetailsUrl() ?>"><?php echo clean($rev->getName()) ?></a> <span class="desc">- <?php echo lang('posted on by', format_date($rev->getCreatedOn()), $rev->getCreatedByCardUrl(), clean($rev->getCreatedByDisplayName())) ?></span></li>
+  <li><a href="<?php echo $rev->getViewUrl() ?>"><?php echo clean($rev->getName()) ?></a> <span class="desc">- <?php echo lang('posted on by', format_date($rev->getCreatedOn()), $rev->getCreatedByCardUrl(), clean($rev->getCreatedByDisplayName())) ?></span></li>
 <?php } // foreach?>
 </ul>
 <?php } // if ?>
