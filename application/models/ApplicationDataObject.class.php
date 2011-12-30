@@ -78,7 +78,7 @@
     * @param void
     * @return DateTime
     */
-    function getOjectUpdateTime() {
+    function getObjectUpdateTime() {
       return $this->columnExists('updated_on') ? $this->getUpdatedOn() : $this->getObjectCreationTime();
     } // getOjectUpdateTime
     
