@@ -60,6 +60,10 @@
       );";
     // create table
     DB::execute($sql);
+    //add_permission('links', PermissionManager::CAN_ACCESS);
+    //add_permission('links', PermissionManager::CAN_ADD);  // = add/edit
+    //add_permission('links', PermissionManager::CAN_DELETE);
+    //add_permission('links', PermissionManager::CAN_VIEW);
   }
 
   /**
@@ -74,6 +78,9 @@
     // sample drop table
     if ($purge) {
       DB::execute("DROP TABLE IF EXISTS `".TABLE_PREFIX."project_links`");
+      // permissions not implemented yet for links 
+      //remove_permission_source('links');
+      // TODO: Remove any logo files
     }
   }
 ?>

@@ -36,6 +36,13 @@
     <?php echo label_tag(lang('folder'), 'linkFormFolder', true) ?>
     <?php echo select_project_folder('project_link[folder_id]', active_project(), array_var($project_link_data, 'folder_id'), array('id' => 'linkFormFolder')) ?>
   </div>
-  
+
+<?php if (plugin_active('tags')) { ?>  
+  <fieldset>
+    <legend><?php echo lang('tags') ?></legend>
+    <?php echo project_object_tags_widget('project_link[tags]', $project, array_var($project_link_data, 'tags'), array('id' => 'linkFormTags', 'class' => 'long')) ?>
+  </fieldset>
+<?php } // if ?>  
+
   <?php echo submit_button($project_link->isNew() ? lang('add link') : lang('edit link')) ?>
 </form>
