@@ -1,1 +1,2 @@
-#searchForm { border: 1px solid #ccc; background: #e8e8e8; padding: 0 10px 10px 10px; text-align: center; }
+#searchForm { border: 1px solid #ccc; background: #e8e8e8; padding: 5px 5px; text-align: center; }
+#searchForm button.submit { margin-top: 0px; padding: 2px 6px; }
