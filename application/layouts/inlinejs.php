@@ -114,5 +114,24 @@ post = function(url, d){
   $.ajaxSetup({url:url,global:false,async:false,type:"POST"});
   $.ajax({data: postdata});
 }
+
+$(function(){
+  $("#filter").keyup(function () {
+    var filter = $(this).val(), count = 0, s = "", i = 0;
+    $(".filtered:first li").each(function () {
+        s = $(this).text();
+        i = s.lastIndexOf("-");
+        if (i>=0) s = s.substring(0,i);
+        if (s.search(new RegExp(filter, "i")) < 0) {
+            $(this).hide();
+        } else {
+            $(this).show();
+            count++;
+        }
+    });
+    $("#filter-count").text(count + ' <?php echo lang('shown/lc'); ?>' );
+  });
+});
+
 //]]>
 </script>
