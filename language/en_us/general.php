@@ -2,6 +2,11 @@
 
   // Return array of langs
   return array(
+    'i18n' => 'Internationalizion',
+    'country code' => 'Country code',
+    'language code' => 'Language code',
+    'editor' => 'Editor',
+    'edit values' => 'Edit values',
     'invalid reference' => 'invalid reference',
     'username' => 'Username',
     'password' => 'Password',
@@ -18,6 +23,7 @@
     'search hint' => '4 characters or more',
     'search results' => 'Search results',
     'search results for' => 'Search results for \'%s\'',
+    'shown/lc' => 'shown',
     'account' => 'Account',
     'settings' => 'Settings',
     'index' => 'Index',
