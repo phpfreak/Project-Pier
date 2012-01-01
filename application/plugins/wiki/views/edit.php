@@ -34,14 +34,19 @@ trace(__FILE__,'begin');
 <?php echo label_tag(lang('wiki page content'), 'wikiFormContent', true) ?>
 <?php echo textarea_field('wiki[content]', $revision->getContent(), array('cols' => 400, 'class' => 'shot', 'id' => 'wikiFormContent')) ?>
 </div>
-<div id-"wiki-field-log">
+<div id="wiki-field-log">
 <?php 
   echo label_tag(lang('wiki log message'), 'wikiFormLog');
   echo text_field('wiki[log_message]', ($page->isNew() ? lang('wiki page created') : ''), array('class' => 'long', 'id' => 'wikiFormLog'));
+?>
+<?php 
   if (plugin_active('tags')) {
     echo label_tag(lang('tags'), 'wikiFormTags');
-    echo text_field('wiki[tags]', $tags, array('class' => 'long', 'id' => 'wikiFormLog'));
+    echo text_field('wiki[tags]', $tags, array('class' => 'long', 'id' => 'wikiFormTags'));
   }
+?>
+<div id="wiki-options">
+<?php 
   echo label_tag(lang('wiki set as index page'), 'wikiFormIndexYes');
   echo yes_no_widget('wiki[project_index]', 'wikiFormIndex', $page->getProjectIndex(), lang('yes'), lang('no'));
   echo label_tag(lang('wiki set as sidebar page'), 'wikiFormSidebarYes');
