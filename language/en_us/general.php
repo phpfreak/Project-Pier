@@ -3,6 +3,7 @@
   // Return array of langs
   return array(
     'i18n' => 'Internationalizion',
+    'i18n locale value' => 'Locale value',
     'country code' => 'Country code',
     'language code' => 'Language code',
     'click to edit' => 'Click to edit, Esc to cancel, Enter to save',
