@@ -67,6 +67,29 @@
   } // select_company
 
   /**
+  * Render select user box
+  *
+  * @param integer $selected ID of selected user
+  * @param array $attributes Additional attributes
+  * @return string
+  */
+  function select_user($name, $selected = null, $attributes = null) {
+    $users = Users::getAll();
+    $options = array(option_tag(lang('none'), 0));
+    if (is_array($users)) {
+      foreach ($users as $user) {
+        $option_attributes = $user->getId() == $selected ? array('selected' => 'selected') : null;
+        $user_name = $user->getUsername();
+        if ($user->isAdministrator()) {
+          $user_name .= ' (' . lang('administrator') . ')';
+        }
+        $options[] = option_tag($user_name, $user->getId(), $option_attributes);
+      } // foreach
+    } // if
+    return select_box($name, $options, $attributes);
+  } // select_company
+
+  /**
   * Render select contact box
   *
   * @param integer $selected ID of selected contact
