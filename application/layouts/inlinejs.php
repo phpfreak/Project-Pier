@@ -134,7 +134,7 @@ $(function(){
 });
 
 $(function(){
-  $("#i18n_values .edit").editable('<?php echo get_url('i18n', 'edit_value'); ?>', { 
+  $("#i18n_values .edit").editable('<?php echo get_url('i18n', 'edit_value', null, null, false, '&'); ?>', { 
     indicator : '<?php echo lang('saving'); ?>',
     tooltip   : '<?php echo lang('click to edit'); ?>',
     style     : 'inherit' 
