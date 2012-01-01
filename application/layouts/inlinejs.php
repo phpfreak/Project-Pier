@@ -118,7 +118,9 @@ post = function(url, d){
 $(function(){
   $("#filter").keyup(function () {
     var filter = $(this).val(), count = 0, s = "", i = 0;
-    $(".filtered:first li").each(function () {
+    // speed trick: hide all filtered objects first, do manipulations, show them again
+    $(".filtered").each(function () { $(this).hide() });
+    $(".filtered:first li,.filtered:first tr").each(function () {
         s = $(this).text();
         i = s.lastIndexOf("-");
         if (i>=0) s = s.substring(0,i);
@@ -129,6 +131,7 @@ $(function(){
             count++;
         }
     });
+    $(".filtered").each(function () { $(this).show() });
     $("#filter-count").text(count + ' <?php echo lang('shown/lc'); ?>' );
   });
 });
