@@ -40,7 +40,7 @@ trace(__FILE__,'begin');
   echo text_field('wiki[log_message]', ($page->isNew() ? lang('wiki page created') : ''), array('class' => 'long', 'id' => 'wikiFormLog'));
   if (plugin_active('tags')) {
     echo label_tag(lang('tags'), 'wikiFormTags');
-    echo text_field('wiki[tags]', '', array('class' => 'long', 'id' => 'wikiFormLog'));
+    echo text_field('wiki[tags]', $tags, array('class' => 'long', 'id' => 'wikiFormLog'));
   }
   echo label_tag(lang('wiki set as index page'), 'wikiFormIndexYes');
   echo yes_no_widget('wiki[project_index]', 'wikiFormIndex', $page->getProjectIndex(), lang('yes'), lang('no'));

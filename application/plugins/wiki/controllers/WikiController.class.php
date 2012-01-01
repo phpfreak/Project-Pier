@@ -301,7 +301,7 @@ Class WikiController extends ApplicationController {
       flash_error(lang('wiki page locked by', $page->getLockedByUser()->getUsername()));
       $this->redirectToUrl($page->getViewUrl());
     } // if
-    
+
     //Here we will edit a wiki page
     if(null !== ($data = array_var($_POST, 'wiki'))){
       //If we have received data
@@ -363,7 +363,6 @@ Class WikiController extends ApplicationController {
     } else if(array_var($_GET, 'revision')){
       //If we want to make a new revision based off a revision
       $revision = $page->getRevision($_GET['revision']);
-  
     } else {
       $revision = $page->getLatestRevision();
     }//if
@@ -372,6 +371,9 @@ Class WikiController extends ApplicationController {
     tpl_assign('revision', $revision);
     //Assign the page object
     tpl_assign('page', $page);
+    $tag_names = plugin_active('tags') ? $page->getTagNames() : '';
+    $tags = is_array($tag_names) ? implode(', ', $tag_names) : '';
+    tpl_assign('tags', $tags);
     //Set the template
     $this->setTemplate('edit');		
     $this->setSidebar(get_template_path('textile_help_sidebar'));
