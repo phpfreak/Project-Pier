@@ -15,6 +15,7 @@
     'overview' => 'Overview',
     'refresh' => 'Refresh',
     'search' => 'Search',
+    'search hint' => '4 characters or more',
     'search results' => 'Search results',
     'search results for' => 'Search results for \'%s\'',
     'account' => 'Account',
