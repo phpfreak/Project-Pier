@@ -1,17 +1,20 @@
 <?php
 
-function walk($path) {
+$counter = 0;
+
+function walk($path, $filter) {
   //echo 'walking '.$path."\n";
   if (is_dir($path)) {
-    walk_dir($path);
+    walk_dir($path, $filter);
   }
   if(is_file($path)) {
-    walk_file($path);
+    walk_file($path, $filter);
   }
 }
 
-function walk_dir($path) {
+function walk_dir($path, $filter) {
   if (preg_match('/\/language\/(.*)$/', $path, $matches)) { 
+    if (strpos($path, $filter)===false) return;
     $locale = $matches[1];
     //$locale = 'is_is';
     add2database($locale, $path);
@@ -19,7 +22,7 @@ function walk_dir($path) {
     if ($dh = opendir($path)) {
       while (($file = readdir($dh)) !== false) {
         if($file != '.' && $file != '..') {
-          walk($path.'/'.$file);
+          walk($path.'/'.$file, $filter);
         }
       }
       closedir($dh);
@@ -27,10 +30,11 @@ function walk_dir($path) {
   }
 }
 
-function walk_file($path) {
+function walk_file($path, $filter) {
 }
 
 function add2database($locale, $path) {
+  global $counter;
   echo "$path\n";
   $localefile = $locale . '.php';
   $parts = explode('_', $locale);
@@ -38,14 +42,13 @@ function add2database($locale, $path) {
   $cc = $parts[1];
   if ($dh = opendir($path)) {
 
-    $sql = "insert into `pp088_i18n_locale` (`name`, `description`, `country_code`, `language_code`) values( '$locale', 'Imported $path', '$cc', '$lc' ) ON DUPLICATE KEY UPDATE `id`=`id`;";
+    $sql = "insert into `".DB_PREFIX."i18n_locales` (`name`, `description`, `country_code`, `language_code`) values( '$locale', 'Imported $path', '$cc', '$lc' ) ON DUPLICATE KEY UPDATE `id`=`id`;";
     mysql_query($sql);
 
-    $sql = "select id from `pp088_i18n_locale` where `country_code` = '$cc' and `language_code` = '$lc';";
+    $sql = "select id from `".DB_PREFIX."i18n_locales` where `country_code` = '$cc' and `language_code` = '$lc';";
     $result = mysql_query($sql);
     $row = mysql_fetch_assoc($result);
     $locale_id = $row['id'];
-
     while (($file = readdir($dh)) !== false) {
       if ($file != '.' && $file != '..' && $file != $localefile) {
         $category=$file;
@@ -54,10 +57,10 @@ function add2database($locale, $path) {
           $category=substr($file,0,$i);
         }            
 
-        $sql = "insert into `pp088_i18n_category` (`name`, `description`) values( '$category', 'Imported $path/$file' ) ON DUPLICATE KEY UPDATE `id`=`id`;";
+        $sql = "insert into `".DB_PREFIX."i18n_categories` (`name`, `description`) values( '$category', 'Imported $path/$file' ) ON DUPLICATE KEY UPDATE `id`=`id`;";
         mysql_query($sql);
 
-        $sql = "select id from `pp088_i18n_category` where `name` = '$category';";
+        $sql = "select id from `".DB_PREFIX."i18n_categories` where `name` = '$category';";
         $result = mysql_query($sql);
         $row = mysql_fetch_assoc($result);
         $category_id = $row['id'];
@@ -65,9 +68,11 @@ function add2database($locale, $path) {
         $filepath="$path/$file";
         $items = include $filepath;
         foreach($items as $k => $v) {
-          $sql = "insert into `pp088_i18n_value` (`locale_id`, `category_id`, `name`, `description`) values( '$locale_id', '$category_id', '$k', '$v' );";
+          $counter++;
+          $sql = "insert into `".DB_PREFIX."i18n_values` (`locale_id`, `category_id`, `name`, `description`) values( '$locale_id', '$category_id', '$k', '".mysql_real_escape_string($v)."');";
           mysql_query($sql);
-          //echo "$sql\n";
+          $e = mysql_error();
+          echo "$counter : $e : $sql\n";
         }
       }
     }
@@ -94,8 +99,8 @@ function add2database($locale, $path) {
 
       echo '</head><body>';
       echo '<xmp>';
-      walk('../language');
-      walk('../application/plugins');
+      walk('../language', 'en_us');
+      walk('../application/plugins', 'en_us');
       echo '</xmp>';
       echo '</body></html>';
     }
