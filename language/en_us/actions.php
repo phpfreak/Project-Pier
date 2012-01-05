@@ -121,7 +121,10 @@
     '%s items downloaded' => '%s items in download',
     'nothing to download' => "No data available in '%s' to download",
     'download task lists' => 'Download all tasks',
+
+    // Internationalization
+    'i18n edit locale values' => 'Edit locale values',
     
   ); // array
 
-?>
+?>	

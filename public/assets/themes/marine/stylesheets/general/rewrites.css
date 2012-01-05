@@ -9,7 +9,7 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, 
 table  {
  border-collapse: collapse;
  border-spacing: 0;
- table-layout: fixed;
+ xtable-layout: fixed;
 }
 
 fieldset, img  {
@@ -31,7 +31,7 @@ q:before, q:after  {
 body  {
  color: #333333;
  font-family: calibri, candara, tahoma, arial, helvetica, sans-serif;
- font-size: 13px;
+ font-size: 1em;
  line-height: 150%;
 }
 
@@ -70,16 +70,16 @@ h1, h2, h3, h4  {
 }
 
 h1  {
- font-size: 20px;
+ font-size: 1.5em;
  padding: 0;
 }
 
 h2  {
- font-size: 16px;
+ font-size: 1.25em;
 }
 
 h3  {
- font-size: 14px;
+ font-size: 1.1em;
  text-decoration: underline;
 }
 
@@ -107,7 +107,7 @@ dd  {
 
 code  {
  background: #E8E8E8;
- font-size: 14px;
+ font-size: 1.25em;
  overflow: auto;
  padding: 0 2px;
 }
@@ -115,7 +115,7 @@ code  {
 pre  {
  background: #F1F1F1;
  border: 1px solid #E5E5E5;
- font-size: 14px;
+ font-size: 1.25em;
  overflow: auto;
  padding: 10px;
 }
@@ -144,7 +144,7 @@ th, td  {
 th  {
  font-weight: bold;
  background: #F1F1F1 url(../../images/logtypes/bg_th.gif) repeat-x left bottom !important;
- font-size: 12px;
+ xfont-size: 12px;
  padding: 2px 5px;
 }
 
@@ -164,7 +164,7 @@ table.blank td  {
 /** Classes **/
 .desc, .desc a  {
  color: #666666;
- font-size: 12px;
+ xfont-size: 12px;
  font-style: italic;
  font-weight: normal;
  white-space:-moz-pre-wrap !important;
@@ -257,14 +257,14 @@ table.blank td  {
 
 .hint, .important, .success  {
  border: 1px solid #CCCCCC;
- font-size: 12px;
+ xfont-size: 12px;
  margin: 10px 0;
  padding: 5px 10px;
 }
 
 .header  {
  font-weight: bold;
- font-size: 14px;
+ font-size: 1.1em;
  padding: 2px 5px 4px;
 }
 
@@ -347,7 +347,7 @@ a.checkboxLink img  {
 .assignedTo  {
  font-weight: bold;
  color: #666;
- font-size: 12px !important;
+ xfont-size: 12px !important;
 }
 
 a.selected  {

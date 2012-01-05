@@ -151,3 +151,11 @@ table.applicationLogs .contact td.logTypeIcon  {
 table.applicationLogs .company td.logTypeIcon  {
  border-left: 8px solid #226644 !important;
 }
+
+table.applicationLogs .i18nlocales td.logTypeIcon  {
+ border-left: 8px solid #446622 !important;
+}
+
+table.applicationLogs .i18nlocalevalues td.logTypeIcon  {
+ border-left: 8px solid #446622 !important;
+}

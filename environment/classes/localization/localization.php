@@ -1,10 +1,10 @@
 <?php
 
   /**
-  * Shortcut method for retriving single lang value
+  * Shortcut function for retrieving single lang value
   *
   * @access public
-  * @param string $neme
+  * @param string $name
   * @return string
   */
   function lang($name) {
@@ -16,7 +16,8 @@
     } // if
     
     // Get value and if we have NULL done!
-    $value = Localization::instance()->lang($name);
+    //$value = Localization::instance()->lang($name);
+    $value = lang_from_db($name);
     if (is_null($value)) {
       return $value;
     } // if
@@ -33,4 +34,24 @@
     
   } // lang
 
+  /**
+  * Function for retrieving single lang value from database
+  *
+  * @access public
+  * @param string $name
+  * @return string
+  */
+  function lang_from_db($name) {
+    static $langs;
+    if (!is_array($langs)) $langs = array();
+    if (!array_key_exists($langs, $name)) {
+      $langs[$name] = $name;
+      $sql = "select `description` from `".TABLE_PREFIX."i18n_value` where `name` = '$name'";
+      $result = DB::executeOne($sql);
+      if ($result) {
+        $langs[$name] = $result['description'];
+      }
+    }
+    return $langs[$name];
+  }
 ?>

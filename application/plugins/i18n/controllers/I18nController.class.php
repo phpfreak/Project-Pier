@@ -248,15 +248,15 @@
     * @return null
     */
     function edit_logo() {
-      if (!$locale->canEdit(logged_user())) {
-        flash_error(lang('no access permissions'));
-        $this->redirectToReferer(get_url('i18n'));
-      } // if
-
       $locale = I18nLocales::findById(get_id());
       if (!($locale instanceof I18nLocale)) {
         flash_error(lang('locale dnx'));
         $this->redirectToReferer(get_url('i18n', 'index'));
+      } // if
+
+      if (!$locale->canEdit(logged_user())) {
+        flash_error(lang('no access permissions'));
+        $this->redirectToReferer(get_url('i18n'));
       } // if
 
       if (!function_exists('imagecreatefromjpeg')) {
@@ -322,15 +322,15 @@
     * @return null
     */
     function delete_logo() {
-      if (!$locale->canEdit(logged_user())) {
-        flash_error(lang('no access permissions'));
-        $this->redirectTo('i18n', 'index');
-      } // if
-      
       $locale = I18nLocales::findById(get_id());
       if (!($locale instanceof I18nLocale)) {
         flash_error(lang('locale dnx'));
         $this->redirectToReferer(get_url('i18n', 'index'));
+      } // if
+      
+      if (!$locale->canEdit(logged_user())) {
+        flash_error(lang('no access permissions'));
+        $this->redirectTo('i18n', 'index');
       } // if
       
       try {
@@ -351,4 +351,4 @@
         
   } // I18nLocaleController
 
-?>	
+?>
