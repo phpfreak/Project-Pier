@@ -13,6 +13,7 @@ $cs = 'character set utf8';
 $co = 'collate utf8_unicode_ci';
 
 $sql = file_get_contents("$id.sql");
+$sql = str_replace('{$tp}', DB_PREFIX, $sql);
 $sql = str_replace('<?php echo $table_prefix ?>', DB_PREFIX, $sql);
 $sql = str_replace('<?php echo $default_collation ?>', $co, $sql);
 $sql = str_replace('<?php echo $default_charset ?>', $cs, $sql);
