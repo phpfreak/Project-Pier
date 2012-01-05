@@ -29,12 +29,12 @@
     // source: emails.php
 
     'new ticket' => 'New ticket',
-
     'new ticket posted' => 'New ticket "%s" has been posted in "%s" project',
     'ticket edited' => 'Ticket "%s" has been edited in "%s" project',
     'ticket closed' => 'Ticket "%s" has been closed in "%s" project',
     'ticket opened' => 'Ticket "%s" has been opened in "%s" project',
     'attached files to ticket' => 'Some files have been attached to ticket "%s" in "%s" project',
+    'detached files from ticket' => 'Some files have been detached from ticket "%s" in "%s" project',
     'view new ticket' => 'View that ticket',
 
 
@@ -111,8 +111,6 @@
     // Tickets
     'summary' => 'Summary',
     'category' => 'Category',
-    'priority' => 'Priority',
-    'state' => 'Status',
     'assigned to' => 'Assigned to',
     'reported by' => 'Reported by',
     'closed' => 'Closed',

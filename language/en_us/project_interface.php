@@ -98,7 +98,6 @@
     'collapse additional text' => 'Collapse',
     'email notification' => 'Email notification',
     'email notification desc' => 'Notify selected people about this via email',
-    'email notification ticket desc' => 'Notify selected people about this ticket via email',
     
     'attach existing contact' => 'Attach an existing contact (from the Address Book)',
     'new contact' => 'New contact',
