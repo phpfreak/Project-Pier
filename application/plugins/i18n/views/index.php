@@ -17,7 +17,7 @@
 <?php $counter++; ?>
   <li class="item <?php echo $counter % 2 ? 'even' : 'odd' ?>">
 <?php if ($show_icon) { ?>
-  <div class="icon"><img src="<?php echo $locale->getLogoURL(); ?>" alt="<?php echo clean($locale->getTitle()) ?> logo"></div>
+  <div class="icon"><img src="<?php echo $locale->getLogoURL(); ?>" alt="<?php echo clean($locale->getName()) ?> logo"></div>
 <?php } ?>
   <div class="block">
   <div class="header"><?php echo $locale->getName() ?></div>
