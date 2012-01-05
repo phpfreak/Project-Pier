@@ -44,7 +44,7 @@
   function lang_from_db($name) {
     static $langs;
     if (!is_array($langs)) $langs = array();
-    if (!array_key_exists($langs, $name)) {
+    if (!array_key_exists($name, $langs)) {
       $langs[$name] = $name;
       $sql = "select `description` from `".TABLE_PREFIX."i18n_values` where `name` = '$name'";
       try {
