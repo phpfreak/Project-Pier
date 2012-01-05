@@ -25,8 +25,8 @@
       <div id="headerWrapper">
         <div id="header">
           <h1><a href="<?php echo get_url('dashboard') ?>"><?php echo $site_name ?></a></h1>
-          <h2><a href="<?php echo get_url('administration') ?>"><?php echo lang('administration') ?></a></h2>
           <div id="userboxWrapper"><?php echo render_user_box(logged_user()) ?></div>
+          <h2><a href="<?php echo get_url('administration') ?>"><?php echo lang('administration') ?></a></h2>
         </div>
       </div>
       <!-- /header -->

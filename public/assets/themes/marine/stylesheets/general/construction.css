@@ -30,7 +30,7 @@ body  {
  border: 0;
  float: left;
  margin: 0;
- padding: 10px 0 10px 10px;
+ padding: 8px 0 2px 10px;
  max-width: 332px;
 }
 
@@ -43,8 +43,8 @@ body  {
  border: 0;
  float: left;
  margin: 0 5px 0 0;
- padding: 10px 0 10px 10px;
- max-width: 332px;
+ padding: 0px 0 10px 10px;
+ width: 500px;
 }
 
 #header h2 a  {
@@ -72,12 +72,12 @@ body  {
 
 /*--------------------  top user nav ---------------------*/
 #userboxWrapper  {
- background: #D8D8D8 url(../../images/layout/bg_userbox.png) repeat-x;
- border: 1px solid #C1C1C1;
+ xbackground: #D8D8D8 url(../../images/layout/bg_userbox.png) repeat-x;
+ xborder: 1px solid #C1C1C1;
  color: #666666;
  float: right;
- font-size: 13px;
- margin-bottom: 15px;
+ font-size: 0.95em;
+ margin-bottom: 2px;
  margin-right: 0px;
  xwidth: 540px;
  z-index: 250;
@@ -119,7 +119,7 @@ body  {
 }
 
 #account_more_menu li a, #page_menu li a  {
- background-image: url(../../images/layout/bg_dropdown_arrow.png);
+ background-image: url(../../images/layout/bg_dropdown_arrow_24x24.png);
  background-position: top right;
  background-repeat: no-repeat;
  border: none;
@@ -146,14 +146,18 @@ body  {
  z-index: 1000 !important;
 }
 
+#account_more_menu li ul li.header, #page_menu li ul li .header {
+  font-size: 1em;
+}
+
 #account_more_menu ul li, #page_menu ul li  {
  background-image: none !important;
  border: none;
  float: none;
- font-size: 12px;
+ xfont-size: 0.95em;
  list-style: none;
  list-style-image: none !important;
- margin: 0;
+ margin: 0 0 0 0;
  padding: 0;
  white-space:pre-wrap;
  white-space:-moz-pre-wrap !important;
@@ -168,10 +172,10 @@ body  {
  background-color: #F5F5F5;
  border-bottom: 1px solid #8DBBCE;
  color: #333333;
- font-size: 12px;
+ font-size: 1em;
  font-weight: bold;
  margin: 0;
- padding: 3px 10px !important;
+ padding: 3px 5px !important;
 }
 
 /*-------------------- second level links ---------------------*/
@@ -184,8 +188,8 @@ body  {
  background-image: none !important;
  border: none;
  border-bottom: 1px solid #D8D8D8;
- font-size: 12px;
- font-weight: normal;
+ xfont-size: 1em;
+ xfont-weight: normal;
  height: auto;
  line-height: 1.2em;
  margin: 0;
@@ -199,7 +203,7 @@ body  {
 }
 
 #page_menu ul li a:hover  {
-  left: -100px;
+  left: 10px;
 }
 
 #account_more_menu li:hover ul ul, 
@@ -313,9 +317,9 @@ only IE mac will see this*/
  border: 0;
  color: #666666;
  display: block;
- font-size: 14px;
+ font-size: 1em;
  line-height: 28px;
- padding: 0 15px;
+ padding: 0 10px;
  text-decoration: none;
 }
 

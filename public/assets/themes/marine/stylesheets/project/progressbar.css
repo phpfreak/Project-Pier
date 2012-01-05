@@ -30,7 +30,7 @@ DIV.progressBarText
 	z-index: 100;
 	background: none;
 	float: left;
-	/*[disabled]xfont-size:11px;*/
+	font-size:0.8em;
 	/*[disabled]xfont-family:Verdana;*/
 	font-weight: normal;
 	line-height: 16px;

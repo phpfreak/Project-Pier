@@ -1,6 +1,6 @@
 /*[fmt]2A10-1A0B-3*/
 table.applicationLogs  {
- font-size: 13px;
+ font-size: 1em;
 }
 
 table.applicationLogs th  {
@@ -45,7 +45,6 @@ table.applicationLogs tr.logOlder td.logTypeIcon  {
 
 /*END FIX*/
 table.applicationLogs td  {
- font-size: 12px;
  padding: 2px 4px;
 }
 
@@ -152,10 +151,10 @@ table.applicationLogs .company td.logTypeIcon  {
  border-left: 8px solid #226644 !important;
 }
 
-table.applicationLogs .i18nlocales td.logTypeIcon  {
- border-left: 8px solid #446622 !important;
+table.applicationLogs .internationalization td.logTypeIcon  {
+ border-left: 8px solid #446688 !important;
 }
 
-table.applicationLogs .i18nlocalevalues td.logTypeIcon  {
- border-left: 8px solid #446622 !important;
+table.applicationLogs .locale_value td.logTypeIcon  {
+ border-left: 8px solid #442288 !important;
 }
