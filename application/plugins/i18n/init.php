@@ -48,7 +48,7 @@
         `description` text default '',
         `language_code` varchar(50) not null default '',
         `country_code` varchar(50) not null default '',
-        `image_file` varchar( 50 ) default '',
+        `logo_file` varchar( 50 ) default '',
         `editor_id` int(10) unsigned default NULL,
         `created_on` datetime not null default '0000-00-00 00:00:00',
         `created_by_id` int(10) unsigned default NULL,
