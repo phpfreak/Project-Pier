@@ -38,7 +38,7 @@
   </div>
 
   <div>
-    <?php echo label_tag(lang('state'), 'ticketFormState') ?>
+    <?php echo label_tag(lang('status'), 'ticketFormState') ?>
     <?php echo select_ticket_state("ticket[state]", array_var($ticket_data, 'state'), array('id' => 'ticketFormState')) ?>
   </div>
   
