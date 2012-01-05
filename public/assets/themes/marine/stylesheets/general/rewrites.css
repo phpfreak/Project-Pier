@@ -9,7 +9,7 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, 
 table  {
  border-collapse: collapse;
  border-spacing: 0;
- xtable-layout: fixed;
+ table-layout: fixed;
 }
 
 fieldset, img  {
@@ -139,12 +139,12 @@ th, td  {
  xwhite-space:pre-wrap;
  white-space:-moz-pre-wrap !important;
  word-wrap:break-word;
+ font-size: 0.9em;
 }
 
 th  {
  font-weight: bold;
  background: #F1F1F1 url(../../images/logtypes/bg_th.gif) repeat-x left bottom !important;
- xfont-size: 12px;
  padding: 2px 5px;
 }
 
