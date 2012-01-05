@@ -7,7 +7,7 @@
   class I18nController extends ApplicationController {
   
     /**
-    * Construct the LinksController
+    * Construct the I18nController
     *
     * @access public
     * @param void
@@ -19,7 +19,7 @@
     } // __construct
     
     /**
-    * Show links for project
+    * Show locales
     *
     * @access public
     * @param void
@@ -47,15 +47,13 @@
       
       if (is_array(array_var($_POST, 'locale'))) {
         $locale->setFromAttributes($locale_data);
-        $locale->setCreatedById(logged_user()->getId());
-        $locale->setUpdatedById(logged_user()->getId());
         
         try {
           DB::beginWork();
           $locale->save();
           ApplicationLogs::createLog($locale, 0, ApplicationLogs::ACTION_ADD);
           if (plugin_active('tags')) {
-            $locale->setTagsFromCSV($locale_data['tags']);
+            //$locale->setTagsFromCSV($locale_data['tags']);
           }
           DB::commit();
           
@@ -64,6 +62,7 @@
         } catch(Exception $e) {
           DB::rollback();
           tpl_assign('error', $e);
+          flash_success(lang('error add locale'));
         } // try
       }
       
@@ -96,7 +95,7 @@
 
       $locale_data = array_var($_POST, 'locale');
       if (!is_array($locale_data)) {
-        $tag_names = plugin_active('tags') ? $locale->getTagNames() : '';
+        //$tag_names = plugin_active('tags') ? $locale->getTagNames() : '';
         $locale_data = array(
           'name'          => $locale->getName(),
           'description'   => $locale->getDescription(),
@@ -118,7 +117,8 @@
           $locale->save();
           ApplicationLogs::createLog($locale, 0, ApplicationLogs::ACTION_EDIT);
           if (plugin_active('tags')) {
-            $locale->setTagsFromCSV($locale_data['tags']);
+            // tags currently at project level and locale NOT project level
+            //$locale->setTagsFromCSV($locale_data['tags']);
           }
           DB::commit();
           
@@ -207,106 +207,77 @@
     } // edit_value
     
     /**
-    * Delete project locale
+    * Delete locale
     *
     * @param void
     * @return null
     */
     function delete_locale() {
       
-      $locale = ProjectLinks::findById(get_id());
+      $locale = I18nLocales::findById(get_id());
       
-      if (!ProjectLink::canEdit(logged_user())) {
+      if (!I18nLocale::canEdit(logged_user())) {
         flash_error(lang('no access permissions'));
-        $this->redirectTo('links','index');
+        $this->redirectTo('i18n','index');
       } // if
       
-      if (!($project_link instanceof ProjectLink)) {
-        flash_error(lang('project link dnx'));
-        $this->redirectTo('links');
+      if (!($locale instanceof I18nLocale)) {
+        flash_error(lang('locale dnx'));
+        $this->redirectTo('i18n');
       } // if
       
       try {
         DB::beginWork();
-        $project_link->delete();
-        ApplicationLogs::createLog($project_link, active_project(), ApplicationLogs::ACTION_DELETE);
+        $locale->delete();
+        ApplicationLogs::createLog($locale, 0, ApplicationLogs::ACTION_DELETE);
         DB::commit();
         
-        flash_success(lang('success delete link', $project_link->getTitle()));
-        $this->redirectTo('links');
+        flash_success(lang('success delete locale', $locale->getName()));
+        $this->redirectTo('i18n');
       } catch(Exception $e) {
         DB::rollback();
         tpl_assign('error', $e);
       } // try
       
-    } // delete_link
+    } // delete_locale
 
     /**
-    * Show and process edit link logo form
+    * Show and process edit locale logo form
     *
     * @param void
     * @return null
     */
     function edit_logo() {
-      $link = ProjectLinks::findById(get_id());
-      if (!($link instanceof ProjectLink)) {
-        flash_error(lang('link dnx'));
-        $this->redirectToReferer(get_url('links', 'index'));
+      if (!$locale->canEdit(logged_user())) {
+        flash_error(lang('no access permissions'));
+        $this->redirectToReferer(get_url('i18n'));
       } // if
 
-      if (!$link->canEdit(logged_user())) {
-        flash_error(lang('no access permissions'));
-        $this->redirectToReferer(get_url('links'));
+      $locale = I18nLocales::findById(get_id());
+      if (!($locale instanceof I18nLocale)) {
+        flash_error(lang('locale dnx'));
+        $this->redirectToReferer(get_url('i18n', 'index'));
       } // if
 
       if (!function_exists('imagecreatefromjpeg')) {
         flash_error(lang('no image functions'));
-        $this->redirectTo('links');
+        $this->redirectTo('i18n');
       } // if
 
       $this->setTemplate('edit_logo');
       //$this->setLayout('administration');
       
-      tpl_assign('link', $link);
+      tpl_assign('locale', $locale);
       
       $logo = array_var($_FILES, 'new_logo');
 
       if (is_array($logo)) {
         try {
-          if (1) {
-            $x1 = 0 + array_var($_POST, 'x1');
-            $y1 = 0 + array_var($_POST, 'y1');
-            $x2 = 0 + array_var($_POST, 'x2');
-            $y2 = 0 + array_var($_POST, 'y2');
-            $url = $link->getUrl();
-            if (!string_begins_with($url, 'http://')) $url = 'http://' . $url;
-            //die("$x1 $y1 $x2 $y2 $url");
-            $img_data = get_content_from_url('wimg.ca', 80, $url);
-            if ($img_data) {
-              $src_img = imagecreatefromstring($img_data);
-              $dst_img = imagecreatetruecolor(50, 50);
-              imagecopyresized($dst_img, $src_img, 0, 0, $x1, $y1, 50, 50, abs($x2-$x1), abs($y2-$y1) );
-
-              // Output and free from memory
-              //header('Content-Type: image/png');
-              $tempname = tempnam(ROOT . '/tmp/', 'links-snapshot' );
-              imagepng($dst_img, $tempname);
-
-              $logo["name"]='logo-snapshot';
-              $logo["tmp_name"]=$tempname;
-              $logo["type"]='image/png';
-              $logo["size"]='1';
-
-              imagedestroy($dst_img);
-              imagedestroy($src_img);
-            }
-          } else {
-            move_uploaded_file($logo["tmp_name"], ROOT . "/tmp/" . $logo["name"]);
-            $logo["tmp_name"] = ROOT . "/tmp/" . $logo["name"];
-            if (!isset($logo['name']) || !isset($logo['type']) || !isset($logo['size']) || !isset($logo['tmp_name']) || !is_readable($logo['tmp_name'])) {
-              throw new InvalidUploadError($logo, lang('error upload file'));
-            } // if
-          }
+          move_uploaded_file($logo["tmp_name"], ROOT . "/tmp/" . $logo["name"]);
+          $logo["tmp_name"] = ROOT . "/tmp/" . $logo["name"];
+          if (!isset($logo['name']) || !isset($logo['type']) || !isset($logo['size']) || !isset($logo['tmp_name']) || !is_readable($logo['tmp_name'])) {
+            throw new InvalidUploadError($logo, lang('error upload file'));
+          } // if
           
           $valid_types = array('image/jpg', 'image/jpeg', 'image/pjpeg', 'image/gif', 'image/png');
           $max_width   = config_option('max_logo_width', 50);
@@ -316,17 +287,17 @@
             throw new InvalidUploadError($logo, lang('invalid upload type', 'JPG, GIF, PNG'));
           } // if
           
-          $old_file = $link->getLogoPath();
+          $old_file = $locale->getLogoPath();
           
           DB::beginWork();
           
-          if (!$link->setLogo($logo['tmp_name'], $max_width, $max_height, true)) {
+          if (!$locale->setLogo($logo['tmp_name'], $max_width, $max_height, true)) {
             DB::rollback();
-            flash_error(lang('error edit link logo', $e));
-            $this->redirectToUrl($link->getEditLogoUrl());
+            flash_error(lang('error edit locale logo', $e));
+            $this->redirectToUrl($locale->getEditLogoUrl());
           } // if
           
-          ApplicationLogs::createLog($link, active_project(), ApplicationLogs::ACTION_EDIT);
+          ApplicationLogs::createLog($locale, 0, ApplicationLogs::ACTION_EDIT);
           
           flash_success(lang('success edit logo'));
           DB::commit();
@@ -340,44 +311,44 @@
           DB::rollback();
         } // try
         
-        $this->redirectToUrl($link->getEditLogoUrl());
+        $this->redirectToUrl($locale->getEditLogoUrl());
       } // if
     } // edit_logo
     
     /**
-    * Delete link logo
+    * Delete locale logo
     *
     * @param void
     * @return null
     */
     function delete_logo() {
-      if (!logged_user()->isAdministrator(owner_company())) {
+      if (!$locale->canEdit(logged_user())) {
         flash_error(lang('no access permissions'));
-        $this->redirectTo('links', 'index');
+        $this->redirectTo('i18n', 'index');
       } // if
       
-      $link = links::findById(get_id());
-      if (!($link instanceof link)) {
-        flash_error(lang('link dnx'));
-        $this->redirectToReferer(get_url('links', 'index'));
+      $locale = I18nLocales::findById(get_id());
+      if (!($locale instanceof I18nLocale)) {
+        flash_error(lang('locale dnx'));
+        $this->redirectToReferer(get_url('i18n', 'index'));
       } // if
       
       try {
         DB::beginWork();
-        $link->deleteLogo();
-        $link->save();
-        ApplicationLogs::createLog($link, active_project(), ApplicationLogs::ACTION_EDIT);
+        $locale->deleteLogo();
+        $locale->save();
+        ApplicationLogs::createLog($locale, 0, ApplicationLogs::ACTION_EDIT);
         DB::commit();
         
         flash_success(lang('success delete logo'));
       } catch(Exception $e) {
         DB::rollback();
-        flash_error(lang('error delete logo'));
+        flash_error(lang('error delete logo', $e));
       } // try
       
-      $this->redirectToUrl($link->getEditLogoUrl());
+      $this->redirectToUrl($locale->getEditLogoUrl());
     } // delete_logo
         
-  } // LinksController
+  } // I18nLocaleController
 
-?>
+?>	

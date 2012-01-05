@@ -1,7 +1,7 @@
 <?php
 
   /**
-  * I18NLocale class
+  * I18nLocale class
   *
   */
   class I18nLocale extends BaseI18nLocale {
@@ -232,6 +232,16 @@
     } // getEditUrl
     
     /**
+    * Return delete locale logo URL
+    *
+    * @param void
+    * @return string
+    */
+    function getDeleteLogoUrl() {
+      return get_url('i18n', 'delete_logo', array('id' => $this->getId()));
+    } // getDeleteLogoUrl
+
+    /**
     * Return object name
     *
     * @param void
@@ -262,6 +272,6 @@
       return get_url('i18n', 'index', array());
     } // getObjectUrl
     
-  } // I18NLocale
+  } // I18nLocale
 
 ?>
