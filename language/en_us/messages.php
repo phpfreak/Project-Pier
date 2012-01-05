@@ -16,7 +16,6 @@
     'no status updates associated with object' => 'There are no status updates posted for this object',
     'no messages in project' => 'There are no messages in this project',
     'no subscribers' => 'There are no users subscribed to this message',
-    'no ticket subscribers' => 'There are no users subscribed to this ticket',
     'no contacts in company' => 'There are no contacts in this company',
 
     'no activities in project' => 'There are no activities logged for this project',
