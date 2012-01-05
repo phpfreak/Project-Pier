@@ -18,7 +18,7 @@
       'description' => DATA_TYPE_STRING,
       'language_code' => DATA_TYPE_STRING,
       'country_code' => DATA_TYPE_STRING,
-      'image_file' => DATA_TYPE_STRING,
+      'logo_file' => DATA_TYPE_STRING,
       'editor_id' => DATA_TYPE_INTEGER,
       'created_on' => DATA_TYPE_DATETIME,
       'created_by_id' => DATA_TYPE_INTEGER,
