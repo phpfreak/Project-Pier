@@ -84,7 +84,7 @@
     </tr>
 
      <tr>
-      <th><?php echo label_tag(lang('state'), 'ticketFormState') ?></th>
+      <th><?php echo label_tag(lang('status'), 'ticketFormState') ?></th>
 <?php if ($canEdit) { ?>
       <td><?php echo select_ticket_state("ticket[state]", array_var($ticket_data, 'state'), array('id' => 'ticketFormState')) ?></td>
 <?php } else { ?>
