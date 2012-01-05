@@ -46,11 +46,13 @@
     if (!is_array($langs)) $langs = array();
     if (!array_key_exists($langs, $name)) {
       $langs[$name] = $name;
-      $sql = "select `description` from `".TABLE_PREFIX."i18n_value` where `name` = '$name'";
-      $result = DB::executeOne($sql);
-      if ($result) {
-        $langs[$name] = $result['description'];
-      }
+      $sql = "select `description` from `".TABLE_PREFIX."i18n_values` where `name` = '$name'";
+      try {
+        $result = DB::executeOne($sql);
+        if ($result) {
+          $langs[$name] = $result['description'];
+        }
+      } catch(Exception $e) {}
     }
     return $langs[$name];
   }

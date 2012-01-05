@@ -42,10 +42,10 @@
   */
   function i18n_activate() {
     $sql = "
-      CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."i18n_locale` (
+      CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."i18n_locales` (
         `id` int(10) unsigned not null auto_increment,
         `name` varchar(50) not null default '',
-        `description` text default '',
+        `description` varchar(255) default '',
         `language_code` varchar(50) not null default '',
         `country_code` varchar(50) not null default '',
         `logo_file` varchar( 50 ) default '',
@@ -61,10 +61,10 @@
     // create table
     DB::execute($sql);
     $sql = "
-      CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."i18n_section` (
+      CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."i18n_categories` (
         `id` int(10) unsigned not null auto_increment,
         `name` varchar(50) not null default '',
-        `description` text default '',
+        `description` varchar(255) default '',
         `created_on` datetime not null default '0000-00-00 00:00:00',
         `created_by_id` int(10) unsigned default NULL,
         `updated_on` datetime not null default '0000-00-00 00:00:00',
@@ -74,12 +74,12 @@
     // create table
     DB::execute($sql);
     $sql = "
-      CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."i18n_value` (
+      CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."i18n_values` (
         `id` int(10) unsigned not null auto_increment,
         `locale_id` int(10) unsigned not null,
-        `section_id` int(10) unsigned not null default 0,
-        `name` varchar(50) not null default '',
-        `value` text default '',
+        `category_id` int(10) unsigned not null default 0,
+        `name` varchar(255) not null default '',
+        `description` varchar(255) default '',
         `created_on` datetime not null default '0000-00-00 00:00:00',
         `created_by_id` int(10) unsigned default NULL,
         `updated_on` datetime not null default '0000-00-00 00:00:00',
@@ -106,9 +106,9 @@
   function i18n_deactivate($purge=false) {
     // sample drop table
     if ($purge) {
-      DB::execute("DROP TABLE IF EXISTS `".TABLE_PREFIX."i18n_value`");
-      DB::execute("DROP TABLE IF EXISTS `".TABLE_PREFIX."i18n_section`");
-      DB::execute("DROP TABLE IF EXISTS `".TABLE_PREFIX."i18n_locale`");
+      DB::execute("DROP TABLE IF EXISTS `".TABLE_PREFIX."i18n_values`");
+      DB::execute("DROP TABLE IF EXISTS `".TABLE_PREFIX."i18n_categories`");
+      DB::execute("DROP TABLE IF EXISTS `".TABLE_PREFIX."i18n_locales`");
       // permissions not implemented yet for i18n 
       //remove_permission_source('i18n');
       // TODO: Remove any logo files

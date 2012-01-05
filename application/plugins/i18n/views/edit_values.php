@@ -14,8 +14,8 @@
 <form action=""><input type=text id="filter"> <span id="filter-count"></span></form>
 <table id="i18n_values" class="filtered">
   <tr>
-  <th><?php echo lang('id') ?></th>
-  <th><?php echo lang('code') ?></th>
+  <th><?php echo lang('#') ?></th>
+  <th><?php echo lang('key') ?></th>
   <th><?php echo lang('text') ?></th>
   <th><?php echo lang('created by') ?></th>
   <th><?php echo lang('updated by') ?></th>
@@ -24,7 +24,7 @@
 <?php $vid = $value->getId(); ?>
 <?php $counter++; ?>
   <tr class="item <?php echo $counter % 2 ? 'even' : 'odd' ?>">
-  <td class="id">[<?php echo $vid ?>]</td>
+  <td class="id"><?php echo $counter ?></td>
   <td class="edit" id="<?php echo $vid.'_name' ?>"><?php echo clean($value->getName()) ?></td>
   <td class="edit" id="<?php echo $vid.'_description' ?>"><?php echo clean($value->getDescription()) ?></td>
   <td><?php if ($value->getCreatedBy() instanceof User) { ?><a href="<?php echo $value->getCreatedBy()->getCardUrl() ?>"><?php echo clean($value->getCreatedBy()->getDisplayName()) ?></a> <?php } ?></td>

@@ -30,7 +30,7 @@
     * @return BaseI18nLocaleValues 
     */
     function __construct() {
-      parent::__construct('I18nLocaleValue', 'i18n_value', true);
+      parent::__construct('I18nLocaleValue', 'i18n_values', true);
     } // __construct
     
     // -------------------------------------------------------
