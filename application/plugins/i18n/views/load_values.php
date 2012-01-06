@@ -26,8 +26,8 @@
   </div>
 
   <div>
-    <?php echo radio_field('load[what]'); ?>
-    <?php echo label_tag(lang('files'), 'loadFormFile', false, array('value' => 'file', 'id'=>'loadFormWhatFile')); ?>
+    <?php echo radio_field('load[what]', false, array('value' => 'file', 'id'=>'loadFormWhatFile')); ?>
+    <?php echo label_tag(lang('files'), 'loadFormFile', false); ?>
     <?php echo select_locale('load[file]', array_var($load_data, 'locales2'), array('id' => 'loadFormFile')) ?>
   </div>
   </fieldset>
