@@ -91,8 +91,8 @@
     * @return boolean
     */
     function import($id, $locale) {
-      i18n_load('../language', $locale, $id);
-      i18n_load('../application/plugins', $locale, $id);
+      i18n_load(ROOT.'/language', $locale, $id);
+      i18n_load(ROOT.'/application/plugins', $locale, $id);
     }
 
   } // I18nLocaleValues
