@@ -31,6 +31,7 @@
   }
   if ($locale->getEditorId() == logged_user()->getId()) {
     $options[] = '<a href="' . $locale->getEditValuesUrl() . '">' . lang('edit values') . '</a>';
+    $options[] = '<a href="' . $locale->getLoadValuesUrl() . '">' . lang('load values') . '</a>';
   }
   if ($locale->canDelete(logged_user())) {
     $options[] = '<a href="' . $locale->getDeleteUrl() . '">' . lang('delete') . '</a>';

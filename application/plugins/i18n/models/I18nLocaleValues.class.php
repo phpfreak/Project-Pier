@@ -9,13 +9,13 @@
     /**
     * Return array of all locale values
     *
-    * @param Locale
+    * @param integer $id Locale id
     * @return array I18nLocaleValue
     */
-    function getLocaleValues($locale) {
+    function getLocaleValues($id) {
       trace(__FILE__,'getLocaleValues():begin');
       
-      $conditions = array('locale_id' => $locale->getId());
+      $conditions = array('`locale_id` = ?', $id);
       
       return self::findAll(array(
         'conditions' => $conditions,
@@ -55,6 +55,45 @@
       trace(__FILE__,'getCategories():end');
     } // getLocaleValues
 
+    /**
+    * Copy all values from one locale to another
+    *
+    * @param  integer  $from    Locale id to copy from
+    * @param  integer  $to      Locale id to copy to
+    * @param  boolean  $replace Replace all values
+    * @return boolean
+    */
+    function copy($from_id, $to_id, $replace = false) {
+      if ($replace) {
+        $table = $this->getTableName(true);
+        $sql = "DELETE FROM $table WHERE `locale_id` = $to_id";
+        DB::execute($sql);
+      }
+      $from_all = $this->getLocaleValues($from_id);
+      foreach($from_all as $from) {
+        $to = new I18nLocaleValue();
+        $to->setLocaleId($to_id);
+        $to->setName($from->getName());
+        $to->setDescription($from->getDescription());
+        $to->setCategoryId($from->getCategoryId());
+        $to->save();
+        $to = null;
+      }
+      return true;
+    }
+
+    /**
+    * Load all values from file system (load() is reserved)
+    *
+    * @param  integer  $from    Locale id to copy from
+    * @param  integer  $to      Locale id to copy to
+    * @param  boolean  $replace Replace all values
+    * @return boolean
+    */
+    function import($id, $locale) {
+      i18n_load('../language', $locale, $id);
+      i18n_load('../application/plugins', $locale, $id);
+    }
 
   } // I18nLocaleValues
 
