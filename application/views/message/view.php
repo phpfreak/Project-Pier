@@ -10,20 +10,24 @@
     add_page_action(lang('add message'), get_url('message', 'add'));
   } // if
   add_stylesheet_to_page('project/messages.css');
-
+  $createdBy = $message->getCreatedBy();
 ?>
-<div class="message">
-  <div class="messageDetails">
+<div class="message block">
+  <div class="header">
 <?php if ($message->isPrivate()) { ?>
     <div class="private" title="<?php echo lang('private message') ?>"><span><?php echo lang('private message') ?></span></div>
 <?php } // if ?>
 <?php if ($message->getCreatedBy() instanceof User) { ?>
-    <div class="messageAuthor"><?php echo lang('posted on by', format_datetime($message->getCreatedOn()), $message->getCreatedBy()->getCardUrl(), clean($message->getCreatedBy()->getDisplayName())) ?></div>
+    <div class="author"><?php echo lang('posted on by', format_datetime($message->getCreatedOn()), $message->getCreatedBy()->getCardUrl(), clean($message->getCreatedBy()->getDisplayName())) ?></div>
 <?php } else { ?>
-    <div class="messageAuthor"><?php echo lang('posted on', format_datetime($message->getCreatedOn())) ?></div>
+    <div class="author"><?php echo lang('posted on', format_datetime($message->getCreatedOn())) ?></div>
 <?php } // if ?>
   </div>
-  <div class="messageText">
+  <div class="content">
+<?php if (($createdBy instanceof User) && ($createdBy->getContact()->hasAvatar())) { ?>
+      <div class="avatar"><img src="<?php echo $createdBy->getContact()->getAvatarUrl() ?>" alt="<?php echo clean($createdBy->getContact()->getDisplayName()) ?>" /></div>
+<?php } // if ?>
+  <div class="text">
     <?php echo do_textile($message->getText()) ?>
 <?php if (trim($message->getAdditionalText())) { ?>
     <div class="messageSeparator"><?php echo lang('message separator') ?></div>
@@ -39,6 +43,7 @@
 <?php } // if ?>
   </div>
     <?php echo render_object_tags($message); ?>
+  </div><!-- content -->
 <?php
   $extra_options = array();
   if ($message->canDelete(logged_user())) {
