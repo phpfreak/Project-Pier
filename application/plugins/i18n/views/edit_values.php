@@ -11,7 +11,7 @@
   $counter = 0;
 ?>
 <?php if (isset($values) && is_array($values) && count($values)) { ?>
-<form action=""><input type=text id="filter"> <span id="filter-count"></span></form>
+<form action=""><?php echo lang('search') ?>: <input type=text id="filter"> <span id="filter-count"></span></form><br>
 <table id="i18n_values" class="filtered">
   <tr>
   <th><?php echo lang('#') ?></th>
