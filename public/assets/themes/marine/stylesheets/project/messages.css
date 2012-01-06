@@ -1,16 +1,20 @@
 /** Message display **/
+.message .avatar 
+{
+        padding: 10px;
+}
 .message .block .header
 {
 	font-size: 150%;
 	padding-bottom: 5px;
 }
-.message .messageDetails
+.message .details
 {
 	background: #F8F8F8;
 	border: 1px solid #E8E8E8;
 	padding: 2px 5px;
 }
-.message .messageDetails .private
+.message .private
 {
 	margin-top: 4px;
 }
@@ -32,15 +36,15 @@
 	font-size: 1.1em;
 	text-decoration: none;
 }
-.message .messageText
+.message .text
 {
-	line-height: 150%;
+	line-height: 120%;
 	padding: 10px;
-	font-size: 14px;
+	font-size: 1em;
 }
 .message .messageSeparator
 {
-	font-size: 11px;
+	font-size: 0.8em;
 	font-weight: bold;
 	text-align: center;
 }
@@ -59,7 +63,7 @@
 }
 .message .messageCommentHead
 {
-	font-size: 12px;
+	font-size: 0.9em;
 	font-weight: bold;
 }
 .message .messageCommentBody
@@ -68,4 +72,11 @@
 	border: 1px solid #CCCCCC;
 	border-width: 1px 0;
 	padding: 10px;
+}
+
+
+.message .avatar 
+{
+        float: left;
+        padding: 5px px 0 0;
 }
