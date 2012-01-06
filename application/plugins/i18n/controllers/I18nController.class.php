@@ -78,17 +78,15 @@
     * @return null
     */
     function edit_locale() {
-      
       $locale = I18nLocales::findById(get_id());
-      
-      if (!I18nLocale::canEdit(logged_user())) {
-        flash_error(lang('no access permissions'));
-        $this->redirectTo('i18n','index');
-      } // if
-      
       if (!($locale instanceof I18nLocale)) {
         flash_error(lang('locale dnx'));
-        $this->redirectTo('i18n');
+        $this->redirectTo('i18n', 'index');
+      } // if
+      
+      if (!$locale->canEdit(logged_user())) {
+        flash_error(lang('no access permissions'));
+        $this->redirectTo('i18n','index');
       } // if
       
       $this->setTemplate('edit_locale');
@@ -123,7 +121,7 @@
           DB::commit();
           
           flash_success(lang('success edit locale'));
-          $this->redirectTo('i18n');
+          $this->redirectTo('i18n', 'index');
         } catch(Exception $e) {
           DB::rollback();
           tpl_assign('error', $e);
@@ -140,56 +138,50 @@
     * @return null
     */
     function edit_values() {
-      if (!I18nLocale::canEdit(logged_user())) {
+      $locale = I18nLocales::findById(get_id());
+      if (!($locale instanceof I18nLocale)) {
+        flash_error(lang('locale dnx'));
+        $this->redirectTo('i18n', 'index');
+      } // if
+      
+      if (!$locale->canEdit(logged_user())) {
         flash_error(lang('no access permissions'));
         $this->redirectTo('i18n','index');
       } // if
       
-      $locale = I18nLocales::findById(get_id());
-      if (!($locale instanceof I18nLocale)) {
-        flash_error(lang('locale dnx'));
-        $this->redirectTo('i18n');
-      } // if
-      
       $this->setTemplate('edit_values');
       tpl_assign('locale', $locale);
-      tpl_assign('values', I18nLocaleValues::instance()->getLocaleValues($locale));
+      tpl_assign('values', I18nLocaleValues::instance()->getLocaleValues(get_id()));
+
       //tpl_assign('categories', I18nLocaleValues::instance()->getCategories($locale));
       //$this->setSidebar(get_template_path('index_sidebar'));    
     } // edit_values
 
     /**
-    * Edit value
+    * Edit value (used in Ajax calls, so die() instead of redirectTo())
     *
-    * @param void
-    * @return null
+    * @param id     format <id>_<column name>
+    * @param value  new value
+    * @return string
     */
     function edit_value() {
-      if (!I18nLocaleValue::canEdit(logged_user())) {
-        die(lang('no access permissions'));
-      } // if
-
-      //$locale_value = I18nLocaleValues::findById(get_id());
-      if (!isset($_POST['id'])) {
-        die(lang('id missing'));
-      }
-      if (!isset($_POST['value'])) {
-        die(lang('value missing'));
-      }
-
-      $id_column = $_POST['id'];
+      $id_column = array_var($_POST,'id','_');
       $id_column = explode('_', $id_column);
 
       $locale_value = I18nLocaleValues::findById($id_column[0]);
       if (!($locale_value instanceof I18nLocaleValue)) {
         die(lang('locale value dnx'));
       } // if
-      
+      if (!$locale_value->canEdit(logged_user())) {
+        die(lang('no access permissions'));
+      } // if
       if ($id_column[1] == 'name') {
-        $locale_value->setName($_POST['value']);
+        $value = array_var($_POST,'value',$locale_value->Name());
+        $locale_value->setName($value);
       }
       if ($id_column[1] == 'description') {
-        $locale_value->setDescription($_POST['value']);
+        $value = array_var($_POST,'value',$locale_value->getDescription());
+        $locale_value->setDescription($value);
       }
 
       try {
@@ -198,13 +190,67 @@
         ApplicationLogs::createLog($locale_value, 0, ApplicationLogs::ACTION_EDIT);
         DB::commit();
         
-        die($_POST['value']);
-        die(lang('success edit locale value'));
+        die($value);
+        //die(lang('success edit locale value'));
       } catch(Exception $e) {
         DB::rollback();
         die(lang('error', $e));
       } // try
     } // edit_value
+
+    /**
+    * Load values
+    *
+    * @param  $_REQUEST['id']
+    * @return null
+    */
+    function load_values() {
+      $locale = I18nLocales::findById(get_id());
+      if (!($locale instanceof I18nLocale)) {
+        flash_error(lang('locale dnx'));
+        $this->redirectTo('i18n', 'index');
+      } // if
+      if (!$locale->canEdit(logged_user())) {
+        flash_error(lang('no access permissions'));
+        $this->redirectTo('i18n','index');
+      } // if
+      $this->setTemplate('load_values');
+
+      $load = array_var($_POST, 'load');
+      if (!is_array($load)) {
+        $load = array(
+          'replace'       => false,
+        );
+      }
+
+      if (is_array(array_var($_POST, 'load'))) {
+        try {
+          DB::beginWork();
+          $replace = (int)$load['replace'];
+          if ($load['what']=='locale') {
+            $locale->copyValues($load['locale'], $replace);
+            ApplicationLogs::createLog($locale, 0, ApplicationLogs::ACTION_EDIT);
+          }
+          if ($load['what']=='file') {
+            $locale->loadValues($load['file'], $replace);
+            ApplicationLogs::createLog($locale, 0, ApplicationLogs::ACTION_EDIT);
+          }
+          DB::commit();
+          
+          flash_success(lang('success load locale'));
+          $this->redirectTo('i18n', 'index');
+        } catch(Exception $e) {
+          DB::rollback();
+          tpl_assign('error', $e);
+        } // try
+      }
+      
+      $load['locale']   = $locale;
+      $load['locales1'] = I18nLocales::getAllLocales($locale->getId());
+      $load['locales2'] = getLocalesFromFileSystem();
+      $load['max_time'] = ini_get('max_execution_time');
+      tpl_assign('load_data', $load);
+    } // load_values
     
     /**
     * Delete locale
@@ -215,15 +261,14 @@
     function delete_locale() {
       
       $locale = I18nLocales::findById(get_id());
-      
-      if (!I18nLocale::canEdit(logged_user())) {
-        flash_error(lang('no access permissions'));
-        $this->redirectTo('i18n','index');
-      } // if
-      
       if (!($locale instanceof I18nLocale)) {
         flash_error(lang('locale dnx'));
         $this->redirectTo('i18n');
+      } // if
+      
+      if (!$locale->canEdit(logged_user())) {
+        flash_error(lang('no access permissions'));
+        $this->redirectTo('i18n','index');
       } // if
       
       try {

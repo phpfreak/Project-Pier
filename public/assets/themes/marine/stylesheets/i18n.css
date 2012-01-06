@@ -1,3 +1,4 @@
 #i18n_locale li .block { margin-left: 105px; }
 #i18n_locale li { list-style-image: none !important; border: 0; }
+#i18n_values { table-layout: auto; }
 #i18n_values .id { width: 0.1em; text-align: right; }

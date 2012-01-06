@@ -55,7 +55,7 @@
     * @return null
     */
     function canAdd(User $user) {
-      return $user->isAdministrator() || $user->getId() == $this->getEditor();
+      return $user->isAdministrator();
     }
     
     /**
@@ -93,6 +93,31 @@
       } // if
       return false;
     } // canView
+
+    // ---------------------------------------------------
+    //  Loading
+    // ---------------------------------------------------
+    /**
+    * copyValues
+    *
+    * @param boolean $replace Replace all values with the new values
+    * @param integer $id Id of the locale to copy the values from
+    * @return boolean
+    */
+    function copyValues($id, $replace) {
+      return I18nLocaleValues::instance()->copy($id, $this->getId(), $replace);
+    }
+
+    /**
+    * loadValues
+    *
+    * @param boolean $replace Replace all values with the new values
+    * @param integer $locale Locale to use
+    * @return boolean
+    */
+    function loadValues($locale, $replace) {
+      return I18nLocaleValues::instance()->import($this->getId(), $locale, $replace);
+    }
 
     // ---------------------------------------------------
     //  Logo
@@ -220,6 +245,16 @@
     function getEditValuesUrl() {
       return get_url('i18n', 'edit_values', array('id' => $this->getId()));
     } // getEditValuesUrl
+        
+    /**
+    * Return load locale values URL
+    *
+    * @param void
+    * @return string
+    */
+    function getLoadValuesUrl() {
+      return get_url('i18n', 'load_values', array('id' => $this->getId()));
+    } // getLoadValuesUrl
         
     /**
     * Return delete locale URL
