@@ -62,6 +62,8 @@ ALTER TABLE `{$tp}project_task_lists` ADD `score` int(3) unsigned not null defau
 ALTER TABLE `{$tp}project_task_lists` ADD `start_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' AFTER `description`;
 ALTER TABLE `{$tp}project_tasks` ADD `start_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' AFTER `text`;
 ALTER TABLE `{$tp}project_milestones` ADD `goal` int(3) unsigned not null default '0' AFTER `assigned_to_company_id`;
+ALTER TABLE `{$tp}file_repo` ADD `seq` int(10) unsigned not null default '0' AFTER `id`;
+ALTER TABLE `{$tp}file_repo` DROP PRIMARY KEY, ADD PRIMARY KEY(`id`,`seq`);
 
 ALTER TABLE `{$tp}administration_tools` CHANGE `id` `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 ALTER TABLE `{$tp}comments` CHANGE `rel_object_manager`  `rel_object_manager` varchar(50);
