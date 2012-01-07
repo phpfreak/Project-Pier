@@ -212,5 +212,7 @@ INSERT INTO `<?php echo $table_prefix ?>permissions` (`id`, `source`, `permissio
 INSERT INTO `<?php echo $table_prefix ?>permissions` (`id`, `source`, `permission`) VALUES (24, 'tags', 'access') ON DUPLICATE KEY UPDATE `id`=`id`;
 INSERT INTO `<?php echo $table_prefix ?>permissions` (`id`, `source`, `permission`) VALUES (25, 'reports', 'access') ON DUPLICATE KEY UPDATE `id`=`id`;
 
-INSERT INTO `<?php echo $table_prefix ?>administration_tools` (`name`, `controller`, `action`, `order`) VALUES ('system_info', 'administration', 'system_info', 3);
-INSERT INTO `<?php echo $table_prefix ?>administration_tools` (`name`, `controller`, `action`, `order`) VALUES ('browse_log', 'administration', 'browse_log', 4);
+INSERT INTO `<?php echo $table_prefix ?>administration_tools` (`name`, `controller`, `action`, `order`) VALUES ('system_info', 'administration', 'system_info', 3) ON DUPLICATE KEY UPDATE `id`=`id`;
+INSERT INTO `<?php echo $table_prefix ?>administration_tools` (`name`, `controller`, `action`, `order`) VALUES ('browse_log', 'administration', 'browse_log', 4) ON DUPLICATE KEY UPDATE `id`=`id`;
+
+INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('features', 'login_show_options', '1', 'BoolConfigHandler', 0, 0, 'Show options on the login page') ON DUPLICATE KEY UPDATE `id`=`id`;
