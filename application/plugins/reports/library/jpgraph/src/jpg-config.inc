@@ -96,7 +96,8 @@ DEFINE("CYRILLIC_FROM_WINDOWS",true);
 //
 // where $locale_char_set is a GLOBAL (string) variable
 // from the application including JpGraph.
-DEFINE('LANGUAGE_CHARSET', $locale_char_set);
+DEFINE('LANGUAGE_CHARSET', 'utf-8');
+//DEFINE('LANGUAGE_CHARSET', $locale_char_set);
 
 // Japanese TrueType font used with FF_MINCHO, FF_PMINCHO, FF_GOTHIC, FF_PGOTHIC
 DEFINE('MINCHO_TTF_FONT','ipam.ttf');

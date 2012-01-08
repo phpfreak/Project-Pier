@@ -93,6 +93,7 @@
 
       $locale_data = array_var($_POST, 'locale');
       if (!is_array($locale_data)) {
+        $tag_names = '';
         //$tag_names = plugin_active('tags') ? $locale->getTagNames() : '';
         $locale_data = array(
           'name'          => $locale->getName(),
