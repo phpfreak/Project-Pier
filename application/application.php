@@ -24,7 +24,9 @@
   if (isset($_SESSION['language'])) {
     $language = $_SESSION['language'];
   }
-  Localization::instance()->loadSettings($language, ROOT . '/language');
+  if (!plugin_active('i18n')) {
+    Localization::instance()->loadSettings($language, ROOT . '/language');
+  }
  
   try {
     trace(__FILE__, 'CompanyWebsite::init()');

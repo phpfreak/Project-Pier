@@ -16,8 +16,11 @@
     } // if
     
     // Get value and if we have NULL done!
-    //$value = Localization::instance()->lang($name);
-    $value = lang_from_db($name);
+    if (plugin_active('i18n')) {
+      $value = lang_from_db($name);
+    } else {
+      $value = Localization::instance()->lang($name);
+    }
     if (is_null($value)) {
       return $value;
     } // if

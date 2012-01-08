@@ -121,10 +121,9 @@ function utf8_strrev($str, $reverse_numbers = true){
     function loadSettings($locale, $languages_dir) {
       
       $this->setLocale($locale);
-      //$this->setLanguageDirPath($languages_dir);
+      $this->setLanguageDirPath($languages_dir);
       
-      //return $this->loadLanguageSettings();
-      return true;
+      return $this->loadLanguageSettings();
       
     } // loadSettings
     
