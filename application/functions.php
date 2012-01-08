@@ -98,8 +98,8 @@
   * @param boolean $include_project_id
   * @return string
   */
-  function get_url($controller_name = null, $action_name = null, $params = null, $anchor = null, $include_project_id = true) {
-    //trace(__FILE__,"get_url($controller_name, $action_name, params?, $anchor, $include_project_id)");
+  function get_url($controller_name = null, $action_name = null, $params = null, $anchor = null, $include_project_id = true, $separator = '&amp;') {
+    //trace(__FILE__,"get_url($controller_name, $action_name, params?, $anchor, $include_project_id, $separator)");
     $controller = trim($controller_name) ? $controller_name : DEFAULT_CONTROLLER;
     $action = trim($action_name) ? $action_name : DEFAULT_ACTION;
     if (!is_array($params) && !is_null($params)) {
@@ -136,7 +136,7 @@
       $anchor = '#' . $anchor;
     } // if
     
-    return with_slash(ROOT_URL) . 'index.php?' . implode('&amp;', $url_params) . $anchor;
+    return with_slash(ROOT_URL) . 'index.php?' . implode($separator, $url_params) . $anchor;
   } // get_url
   
   // ---------------------------------------------------
