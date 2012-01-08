@@ -177,3 +177,4 @@ INSERT INTO `<?php echo $table_prefix ?>plugins` (`plugin_id`, `name`, `installe
 INSERT INTO `<?php echo $table_prefix ?>plugins` (`plugin_id`, `name`, `installed`) VALUES (7, 'wiki', 0);
 INSERT INTO `<?php echo $table_prefix ?>plugins` (`plugin_id`, `name`, `installed`) VALUES (8, 'reports', 0);
 INSERT INTO `<?php echo $table_prefix ?>plugins` (`plugin_id`, `name`, `installed`) VALUES (9, 'wikilinks', 0);
+INSERT INTO `<?php echo $table_prefix ?>plugins` (`plugin_id`, `name`, `installed`) VALUES (10, 'i18n', 0);
