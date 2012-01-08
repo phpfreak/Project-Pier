@@ -40,7 +40,7 @@
 <?php if (plugin_active('tags')) { ?>  
   <fieldset>
     <legend><?php echo lang('tags') ?></legend>
-    <?php echo project_object_tags_widget('project_link[tags]', $project, array_var($project_link_data, 'tags'), array('id' => 'linkFormTags', 'class' => 'long')) ?>
+    <?php echo project_object_tags_widget('project_link[tags]', active_project(), array_var($project_link_data, 'tags'), array('id' => 'linkFormTags', 'class' => 'long')) ?>
   </fieldset>
 <?php } // if ?>  
 

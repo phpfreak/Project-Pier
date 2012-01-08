@@ -174,13 +174,6 @@
   </fieldset>
 <?php } // if ?>
 
-<fieldset>
-<?php if (plugin_active('tags')) { ?>
-  <legend><?php echo lang('tags') ?></legend>
-  <?php echo project_object_tags_widget('contact[tags]', active_project(), array_var($contact_data, 'tags'), array('id' => 'contactFormTags', 'class' => 'long')) ?>
-</fieldset>
-<?php } // if ?>
-
 <?php if ($contact->isNew() && logged_user()->isAdministrator()) { ?>
   <fieldset>
     <legend><?php echo lang('user account'); ?></legend>
