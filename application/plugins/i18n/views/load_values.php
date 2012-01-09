@@ -32,7 +32,7 @@
   </div>
   </fieldset>
 
-  <p><?php echo lang('maximum execution time', $load['max_time']) . $load['max_time'] ?></p>
+  <p><?php echo lang('maximum execution time', $load_data['max_time']) . $load_data['max_time'] ?></p>
 
   <?php echo submit_button(lang('load')) ?>
 </form>

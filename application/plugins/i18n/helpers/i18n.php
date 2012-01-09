@@ -113,7 +113,7 @@
             $sql = "insert into `".DB_PREFIX."i18n_values` (`locale_id`, `category_id`, `name`, `description`) values( '$locale_id', '$category_id', '$k', '".mysql_real_escape_string($v)."');";
             mysql_query($sql);
             $e = mysql_error();
-            echo "$key : $e : $sql\n";
+            echo "$k : $e : $sql\n";
           }
         }
       }
