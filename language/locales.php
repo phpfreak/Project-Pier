@@ -1,5 +1,5 @@
 <?php
-
+ 
 $locales = array(
   'bg_bg' => 'Bulgarian (Bulgaria)',
   'cz_cz' => 'Czech',
@@ -11,6 +11,7 @@ $locales = array(
   'es_es' => 'Spanish',
   'es_mx' => 'Spanish (Mexico)',
   'fi_fi' => 'Finnish (Finland)',
+  'fr_fr' => 'Finnish (Finland)',
   'hu_hu' => 'Hungarian (Hungary)',
   'hu_if' => 'Hungarian (informal)',
   'is_is' => 'Islenska (Iceland)',
@@ -25,6 +26,7 @@ $locales = array(
   'sl_si' => 'Slovenian (Slovenia)',
   'sv_se' => 'Swedish (sv_se)',
   'tr_tr' => 'Turkish (Turkey)',
+  'vn_vn' => 'Vietnamese',
   'zh_cn' => 'Simplified Chinese (China)',
 );
 
