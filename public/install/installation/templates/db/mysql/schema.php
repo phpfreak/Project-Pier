@@ -141,9 +141,10 @@ CREATE TABLE IF NOT EXISTS `<?php echo $table_prefix ?>contact_im_values` (
 
 CREATE TABLE `<?php echo $table_prefix ?>file_repo` (
   `id` varchar(50) <?php echo $default_collation ?> NOT NULL default '',
+  `seq` int(10) unsigned NOT NULL default '0',
   `content` longblob NOT NULL,
   `order` int(10) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`id`),
+  PRIMARY KEY (`id`,`seq`),
   KEY `order` (`order`)
 );
 
