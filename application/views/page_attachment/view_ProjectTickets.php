@@ -1,4 +1,5 @@
 <?php
+if (plugin_active('tickets')) {
 $ticket = $attachment->getObject();
 if (!$ticket) {
 ?>
@@ -31,5 +32,6 @@ if (!$ticket) {
   </div>
 <?php
   } // if
+} // if
 } // if
 ?>

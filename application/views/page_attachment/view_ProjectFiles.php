@@ -1,4 +1,5 @@
 <?php
+if (plugin_active('files')) { 
 $file = $attachment->getObject();
 if (!$file) {
 ?>
@@ -28,5 +29,6 @@ if (!$file) {
   </div>
 <?php
   } // if
+} // if
 } // if
 ?>
