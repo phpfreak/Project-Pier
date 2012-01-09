@@ -62,10 +62,14 @@
     <a href="<?php echo get_url('page_attachment', 'add_attachment', array('page_name'=>'project_overview', 'rel_object_manager'=>'', 'order'=>$counter, 'redirect_to'=>get_url('project','edit',null,null,true)), null, true); ?>"><?php echo lang('add text snippet') ?></a> |
     <a href="<?php echo get_url('page_attachment', 'add_attachment', array('page_name'=>'project_overview', 'rel_object_manager'=>'Contacts', 'order'=>$counter, 'redirect_to'=>get_url('project','edit',null,null,true)), null, true); ?>"><?php echo lang('add contact') ?></a> |
     <a href="<?php echo get_url('page_attachment', 'add_attachment', array('page_name'=>'project_overview', 'rel_object_manager'=>'Companies', 'order'=>$counter, 'redirect_to'=>get_url('project','edit',null,null,true)), null, true); ?>"><?php echo lang('add company') ?></a> |
+<?php if (plugin_active('files')) { ?>
     <a href="<?php echo get_url('page_attachment', 'add_attachment', array('page_name'=>'project_overview', 'rel_object_manager'=>'ProjectFiles', 'order'=>$counter, 'redirect_to'=>get_url('project','edit',null,null,true)), null, true); ?>"><?php echo lang('add file') ?></a> |
+<?php } ?>
     <a href="<?php echo get_url('page_attachment', 'add_attachment', array('page_name'=>'project_overview', 'rel_object_manager'=>'ProjectMessages', 'order'=>$counter, 'redirect_to'=>get_url('project','edit',null,null,true)), null, true); ?>"><?php echo lang('add message') ?></a> |
     <a href="<?php echo get_url('page_attachment', 'add_attachment', array('page_name'=>'project_overview', 'rel_object_manager'=>'ProjectMilestones', 'order'=>$counter, 'redirect_to'=>get_url('project','edit',null,null,true)), null, true); ?>"><?php echo lang('add milestone') ?></a> |
+<?php if (plugin_active('tickets')) { ?>
     <a href="<?php echo get_url('page_attachment', 'add_attachment', array('page_name'=>'project_overview', 'rel_object_manager'=>'ProjectTickets', 'order'=>$counter, 'redirect_to'=>get_url('project','edit',null,null,true)), null, true); ?>"><?php echo lang('add ticket') ?></a>
+<?php } ?>
   </div>
   
 <?php
@@ -74,7 +78,7 @@ if (is_array($page_attachments) && count($page_attachments)) {
     $counter++;
     ?>
     <div class="pageAttachment <?php echo $counter%2 ? 'odd':'even'; ?>">
-      <?php echo label_tag(lang($page_attachment->getObjectLangName())); ?>
+      <?php echo label_tag(lang($page_attachment->getObjectLangName()), 'project[page_attachments]['.$page_attachment->getId().'][label]', false, array('class'=>'checkbox')); ?>
       <?php echo $page_attachment->render('project[page_attachments]['.$page_attachment->getId().'][text]'); ?>
       <?php echo $page_attachment->renderControl('project[page_attachments]['.$page_attachment->getId().'][rel_object_id]'); ?>
       <?php echo text_field('project[page_attachments]['.$page_attachment->getId().'][order]', $page_attachment->getOrder(), array('class' => 'short pageAttachmentOrder')) ?>
@@ -87,13 +91,18 @@ if (is_array($page_attachments) && count($page_attachments)) {
     </div>
     <div class="attachmentActions">
       <!-- TODO make these links less hard-coded -->
+      <!-- TODO make a helper for these links -->
       <a href="<?php echo get_url('page_attachment', 'add_attachment', array('page_name'=>'project_overview', 'rel_object_manager'=>'', 'order'=>$counter, 'redirect_to'=>get_url('project','edit',null,null,true)), null, true); ?>"><?php echo lang('add text snippet') ?></a> |
       <a href="<?php echo get_url('page_attachment', 'add_attachment', array('page_name'=>'project_overview', 'rel_object_manager'=>'Contacts', 'order'=>$counter, 'redirect_to'=>get_url('project','edit',null,null,true)), null, true); ?>"><?php echo lang('add contact') ?></a> |
       <a href="<?php echo get_url('page_attachment', 'add_attachment', array('page_name'=>'project_overview', 'rel_object_manager'=>'Companies', 'order'=>$counter, 'redirect_to'=>get_url('project','edit',null,null,true)), null, true); ?>"><?php echo lang('add company') ?></a> |
+<?php if (plugin_active('files')) { ?>
       <a href="<?php echo get_url('page_attachment', 'add_attachment', array('page_name'=>'project_overview', 'rel_object_manager'=>'ProjectFiles', 'order'=>$counter, 'redirect_to'=>get_url('project','edit',null,null,true)), null, true); ?>"><?php echo lang('add file') ?></a> |
+<?php } ?>
       <a href="<?php echo get_url('page_attachment', 'add_attachment', array('page_name'=>'project_overview', 'rel_object_manager'=>'ProjectMessages', 'order'=>$counter, 'redirect_to'=>get_url('project','edit',null,null,true)), null, true); ?>"><?php echo lang('add message') ?></a> |
       <a href="<?php echo get_url('page_attachment', 'add_attachment', array('page_name'=>'project_overview', 'rel_object_manager'=>'ProjectMilestones', 'order'=>$counter, 'redirect_to'=>get_url('project','edit',null,null,true)), null, true); ?>"><?php echo lang('add milestone') ?></a> |
+<?php if (plugin_active('tickets')) { ?>
       <a href="<?php echo get_url('page_attachment', 'add_attachment', array('page_name'=>'project_overview', 'rel_object_manager'=>'ProjectTickets', 'order'=>$counter, 'redirect_to'=>get_url('project','edit',null,null,true)), null, true); ?>"><?php echo lang('add ticket') ?></a>
+<?php } ?>
     </div>
 <?php  } // foreach
 } // if ?>

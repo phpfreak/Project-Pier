@@ -788,6 +788,12 @@
         $this->redirectToReferer(get_url('dashboard', 'index'));
       } // if
 
+      if (plugin_active('files')) {
+        $this->addHelper('files', 'files');
+      }
+      if (plugin_active('tickets')) {
+        $this->addHelper('tickets', 'tickets');
+      }
       // TODO find a more elegant solution for this parameter
       $page_name = 'project_overview';
       $this->setTemplate('add_project');
