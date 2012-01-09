@@ -13,6 +13,7 @@
 <?php add_javascript_to_page('jquery-ui.min.js') ?>
 <?php add_javascript_to_page('jquery.colorbox-min.js') ?>
 <?php add_javascript_to_page('jquery.imgareaselect.dev.js') ?>
+<?php add_javascript_to_page('jquery.jeditable.mini.js') ?>
 <?php echo render_page_head() ?>
   </head>
   <body>
