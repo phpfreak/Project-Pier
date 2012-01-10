@@ -1,7 +1,7 @@
 <?php
   trace(__FILE__,'begin');
   if ($current_folder instanceof Projectfolder) {
-    set_page_title($current_folder->getName() . ' '. lang('files'));
+    set_page_title($current_folder->getObjectName(true) . ' '. lang('files'));
   } else {
     set_page_title(lang('all files'));
   } // if
@@ -28,7 +28,12 @@
   
   trace(__FILE__,'ProjectFolder::canAdd');
   if (ProjectFolder::canAdd(logged_user(), active_project())) {
-    add_page_action(lang('add folder'), get_url('files', 'add_folder'));
+    if ($current_folder instanceof ProjectFolder) {
+      add_page_action(lang('add folder'), $current_folder->getAddUrl());
+    } else {
+      add_page_action(lang('add folder'), get_url('files', 'add_folder'));
+    } // if
+    //add_page_action(lang('add folder'), get_url('files', 'add_folder'));
   } // if
   
   add_stylesheet_to_page('project/files.css');

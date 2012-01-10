@@ -48,6 +48,7 @@
         $pagination = null;
       } // if
       
+      tpl_assign('project', active_project());
       tpl_assign('current_folder', null);
       tpl_assign('order', $order);
       tpl_assign('page', $page);
@@ -102,8 +103,6 @@
       tpl_assign('page', $page);
       tpl_assign('files', $files);
       tpl_assign('pagination', $pagination);
-      tpl_assign('folders', active_project()->getFolders());
-      tpl_assign('folder_tree', ProjectFolders::getProjectFolderTree(active_project()));
       tpl_assign('important_files', active_project()->getImportantFiles());
       
       $this->setSidebar(get_template_path('index_sidebar', 'files'));
@@ -128,11 +127,17 @@
       
       $folder = new ProjectFolder();
       $folder_data = array_var($_POST, 'folder');
+      if (!is_array($folder_data)) {
+        $folder_data = array(
+          'parent_id' => get_id('folder_id'),
+          'is_private' => config_option('default_private', false)
+        ); // array
+      } // if
       
       tpl_assign('folder', $folder);
       tpl_assign('folder_data', $folder_data);
       
-      if (is_array($folder_data)) {
+      if (is_array(array_var($_POST, 'folder'))) {
         $folder->setFromAttributes($folder_data);
         $folder->setProjectId(active_project()->getId());
         
@@ -443,32 +448,16 @@
         flash_error(lang('no access permissions'));
         $this->redirectToReferer(get_url('files'));
       } // if
-      
+
       $file = new ProjectFile();
       $file_data = array_var($_POST, 'file');
       if (!is_array($file_data)) {
         $file_data = array(
+          'folder_id' => get_id('folder_id'),
           'is_private' => config_option('default_private', false)
         ); // array
       } // if
-      
-      $folder = null;
-      $folder_id = get_id('folder_id');
-      if ($folder_id) {
-        $folder = ProjectFolders::findById($folder_id);
-      } // if
-      
-      if ($folder instanceof ProjectFolder) {
-        if (!is_array($file_data)) {
-          $file_data = array(
-            'folder_id' => $folder->getId(),
-            'is_private' => config_option('default_private', false),
-          ); // array
-        } else {
-          $file_data['is_private'] = config_option('default_private', false);
-        }
-      } // if
-      
+            
       tpl_assign('file', $file);
       tpl_assign('file_data', $file_data);
       

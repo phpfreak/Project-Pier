@@ -91,7 +91,7 @@
               } // if
             } elseif ($order == self::ORDER_BY_FOLDER) {
               if (!is_null($file->getFolder())) {
-                $group_by_str = $file->getFolder()->getName();            
+                $group_by_str = $file->getFolder()->getObjectName(true);            
               } else {
                 $group_by_str = lang("no folder");
               }

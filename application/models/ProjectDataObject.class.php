@@ -833,6 +833,19 @@
       } // if
       return parent::delete();
     } // delete
+
+    /**
+    * Return object path (location of the object)
+    *
+    * @param void
+    * @return string
+    */
+    function getObjectPath() {
+      $path = parent::getObjectPath();
+      $p = $this->getProject();
+      if (!is_null($p)) $path[] = $p->getObjectName();
+      return $path;
+    } // getObjectPath
     
   } // ProjectDataObject
 

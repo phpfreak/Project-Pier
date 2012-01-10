@@ -34,14 +34,14 @@
   <div class="content">
     <div id="fileIcon"><img src="<?php echo $file->getTypeIconUrl() ?>" alt="<?php echo $file->getObjectName() ?>" /></div>
     <div id="fileInfo">
-      <div class="header"><?php echo $file->getObjectName() ?><?php if ($folder instanceof ProjectFolder) { ?>
-      <span id="fileFolder" style="float: right"><span class="propertyName"><?php echo lang('folder') ?>:</span> <a href="<?php echo $folder->getBrowseUrl() ?>"><?php echo clean($folder->getName()) ?></a></span>
+      <div class="header"><?php echo $file->getObjectName() ?>
+<?php if ($folder instanceof ProjectFolder) { ?>
+      <div id="fileFolder"><span class="propertyName"><?php echo lang('folder') ?>:</span> <a href="<?php echo $folder->getBrowseUrl() ?>"><?php echo clean($folder->getObjectName(true)) ?></a></div>
 <?php } // if ?>
-</div>
 <?php if (($file->getDescription())) { ?>
       <div id="fileDescription"><?php echo do_textile($file->getDescription()) ?></div>
 <?php } // if ?>
-
+      </div>
 <!--
 <?php if ($last_revision instanceof ProjectFileRevision) { ?>
       <div id="fileLastRevision"><span class="propertyName"><?php echo lang('last revision') ?>:</span> 
@@ -67,7 +67,7 @@ if ($file->canEdit(logged_user())) $options[] = '<a href="' . $file->getAddRevis
 if ($file->canDownload(logged_user())) $options[] = '<a href="' . $file->getDownloadUrl() . '" class="downloadLink">' . lang('download') . ' <span>(' . format_filesize($file->getFilesize()) . ')</span></a>';
 ?>
 <?php if (count($options)) { ?>
-        <div id="fileOptions"><?php echo implode(' | ', $options) ?></div>
+        <div class="options"><?php echo implode(' | ', $options) ?></div>
 <?php } // if ?>
     </div>
   </div>
@@ -104,7 +104,7 @@ if ($file->canDownload(logged_user())) $options[] = '<a href="' . $file->getDown
   }
 ?>
 <?php if (count($options)) { ?>
-    <div class="revisionOptions"><?php echo implode(' | ', $options) ?></div>
+    <div class="options"><?php echo implode(' | ', $options) ?></div>
 <?php } // if ?>
   </div>
 <?php } // foreach ?>

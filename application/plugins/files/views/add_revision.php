@@ -7,7 +7,12 @@
   ));
   
   add_stylesheet_to_page('project/files.css');
+  $folder = $file->getFolder();
 ?>
+<?php if ($folder instanceof ProjectFolder) { ?>
+  <div id="fileFolder"><h2><span class="propertyName"><?php echo lang('folder') ?>:</span> <a href="<?php echo $folder->getBrowseUrl() ?>"><?php echo clean($folder->getObjectName(true)) ?></a></h2></div>
+<?php } // if ?>
+<h2><?php echo lang('file');  ?>: <?php echo $file->getObjectName(true); ?></h2>
 <form action="<?php echo $file->getAddRevisionUrl() ?>" method="post" enctype="multipart/form-data">
   <div id="fileRevisionComment">
     <?php echo label_tag(lang('revision comment'), 'fileRevisionComment') ?>

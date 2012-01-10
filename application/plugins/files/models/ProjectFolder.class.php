@@ -22,6 +22,13 @@
     private $files;
     
     /**
+    * Cached parent folder
+    *
+    * @var object
+    */
+    private $parent;
+    
+    /**
     * Return all project files
     *
     * @param void
@@ -46,6 +53,22 @@
       } // if
       return $this->files;
     } // getFiles
+
+    /**
+    * Return parent folder
+    *
+    * @param void
+    * @return object
+    */
+    function getParent() {
+      if (is_null($this->parent)) {
+        $this->parent = ProjectFolders::findById($this->getParentId());
+        if (($this->parent instanceof ProjectFolder) && ($this->parent->getProjectId() <> $this->getProjectId())) {
+          $this->parent = null;
+        } // if
+      } // if
+      return $this->parent;
+    } // getParentFolder    
   
     // ---------------------------------------------------
     //  URLs
@@ -90,6 +113,21 @@
         'active_project' => $this->getProjectId()
       )); // array
     } // getAddFileUrl
+
+    /**
+    * Return add folder URL
+    *
+    * @param void
+    * @return string
+    */
+    function getAddUrl() {
+      return get_url('files', 'add_folder', array(
+        'folder_id' => $this->getId(), 
+        'active_project' => $this->getProjectId()
+      )); // array
+    } // getAddFileUrl
+    
+
     
     /**
     * Return edit folder URL
@@ -229,8 +267,16 @@
     * @param void
     * @return string
     */
-    function getObjectName() {
-      return $this->getName();
+    function getObjectName($full = false) {
+      $name = $this->getName();
+      if ($full) {
+        $f = $this->getParent();
+        if (!is_null($f)) {
+          $n = $f->getObjectName($full);
+          return $n . '/' .$name;
+        } 
+      }
+      return $name;
     } // getObjectName
     
     /**
@@ -240,6 +286,10 @@
     * @return string
     */
     function getObjectTypeName() {
+      //$class = explode('\\', __CLASS__); 
+      //$class = strtolower(end($class)); 
+      //$class = str_replace('project', '', $class); 
+      //return lang($class);
       return lang('folder');
     } // getObjectTypeName
     
@@ -253,6 +303,23 @@
     function getObjectUrl() {
       return $this->getBrowseUrl();
     } // getObjectUrl
+
+    /**
+    * Return object path (location of the object)
+    *
+    * @param void
+    * @return string
+    */
+    function getObjectPath() {
+      $f = $this->getParent();
+      if (is_null($f)) { 
+        $path = parent::getObjectPath();
+      } else {
+        $path = $f->getObjectPath();
+      }
+      $path[] = $this->getObjectName();
+      return $path;
+    } // getObjectPath
     
   } // ProjectFolder 
 

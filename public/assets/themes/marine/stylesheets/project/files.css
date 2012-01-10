@@ -27,3 +27,5 @@ div.revisionName span { color: #333333; font-weight: normal; }
 div.revisionComment { border-bottom: 1px solid #e0e0e0; margin: 5px 0; padding: 0 8px; }
 a.downloadLink { font-weight: bold; }
 a.downloadLink span { font-weight: normal; }
+#sidebar ul { list-style: square; margin: 0 }
+#sidebar li { padding: 3px 0 0 0; }

@@ -89,7 +89,7 @@
     * @param void
     * @return Project
     */
-    function getProject() {
+    function xgetProject() {
       if (is_null($this->project)) {
         $this->project = Projects::findById($this->getProjectId());
       } // if
@@ -670,6 +670,18 @@
     function getObjectUrl() {
       return $this->getDetailsurl();
     } // getObjectUrl
+
+    /**
+    * Return object path (location of the object)
+    *
+    * @param void
+    * @return string
+    */
+    function getObjectPath() {
+      $f = $this->getFolder();
+      if (is_null($f)) return parent::getObjectPath();
+      return $f->getObjectPath();
+    } // getObjectPath
     
   } // ProjectFile 
 

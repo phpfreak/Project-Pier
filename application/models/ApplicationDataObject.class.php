@@ -170,6 +170,16 @@
     } // getUpdatedByCardUrl
 
     /**
+    * Return object path (location of the object)
+    *
+    * @param void
+    * @return string
+    */
+    function getObjectPath() {
+      return array();
+    } // getObjectPath
+
+    /**
     * Delete specific object and associated objects
     *
     * @param void

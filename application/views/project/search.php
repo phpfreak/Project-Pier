@@ -21,7 +21,7 @@
 <p><?php echo lang('search result description', $pagination->countItemsOnPage($current_page), $pagination->getTotalItems(), clean($search_string)) ?>:</p>
 <ul>
 <?php foreach ($search_results as $search_result) { ?>
-  <li><?php echo clean($search_result->getObjectTypeName()) ?>: <a href="<?php echo $search_result->getObjectUrl() ?>"><?php echo clean($search_result->getObjectName()) ?></a></li>
+  <li><?php echo clean($search_result->getObjectTypeName()) ?>: <a href="<?php echo $search_result->getObjectUrl() ?>"><?php echo clean($search_result->getObjectName()) ?> | <?php echo implode(' / ', clean($search_result->getObjectPath())) ?></a></li>
 <?php } // foreach ?>
 </ul>
 

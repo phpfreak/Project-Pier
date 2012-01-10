@@ -9,7 +9,7 @@
   * @param array $attributes Select box attributes
   * @return string
   */
-  function select_project_folder($name, $project = null, $selected = null, $attributes = null) {
+  function select_project_folder($name, $project = null, $selected = null, $exclude = null, $attributes = null) {
     if (is_null($project)) {
       $project = active_project();
     } // if
@@ -26,12 +26,17 @@
     } // if
     
     $options = array(option_tag(lang('none'), 0));
-    
-    $folders = $project->getFolders();
+
+    $folders = ProjectFolders::getProjectFolders($project);    
     if (is_array($folders)) {
+      $sorted = array();
       foreach ($folders as $folder) {
+      	$sorted[$folder->getObjectName(true)] = $folder;
+      } // foreach
+      ksort($sorted);
+      foreach ($sorted as $k => $folder) {
       	$option_attributes = $folder->getId() == $selected ? array('selected' => true) : null;
-      	$options[] = option_tag($folder->getName(), $folder->getId(), $option_attributes);
+      	$options[] = option_tag($k, $folder->getId(), $option_attributes);
       } // foreach
     } // if
     
@@ -127,28 +132,30 @@
     $options = array(option_tag(lang('none'), 0));
     
     $html = '';
-    $folders = ProjectFolders::getProjectFolderTree( active_project(), $folder->getId() );
+    if ($folder instanceof ProjectFolder) {
+      $folders = ProjectFolders::getProjectFolderTree( $project, $folder->getId() );
+    } else {
+      $folders = ProjectFolders::getProjectFolderTree( $project );
+    }
     if (is_array($folders)) {
       $html .= '<ul>';
       foreach ($folders as $folder) {
-        $class = '';
-      	$option_attributes = $folder->getId() == $selected ? $class = 'selected' : null;
-      	$options[] = option_tag($folder->getName(), $folder->getId(), $option_attributes);
-        //$html .= '<li>' . $folder->getName() . render_folder_tree( $folder ) . '</li>';
-        $html .= '<li><a href="' . $folder->getBrowseUrl() . '">' . clean($folder->getName()) . '</a>';
+        $class = $folder->getId() == $selected ? $class = 'class="selected"' : '';
+        //$html .= '<li>' . $folder->getName() . render_folder_tree( $folder, $depth, $project, $selected, $attributes ) . '</li>';
+        $html .= '<li><a href="' . $folder->getBrowseUrl() . '" ' . $class . '>' . clean($folder->getName()) . '</a>';
         if ($folder->canEdit(logged_user())) { 
-          $html .= ' <a href="' . $folder->getEditUrl() . '"' . $class . ' title="' . lang('edit folder') . '"><img src="' . icon_url('edit.gif') . '" alt="" /></a>';
+          $html .= ' <a href="' . $folder->getEditUrl() . '" class="blank" title="' . lang('edit folder') . '"><img src="' . icon_url('edit.gif') . '" alt="" /></a>';
         } // if 
         if ($folder->canDelete(logged_user())) { 
           $html .= ' <a href="' . $folder->getDeleteUrl() . '" class="blank" title="' . lang('delete folder') . '"><img src="' . icon_url('cancel_gray.gif') . '" alt="" /></a>';
         } // if 
-        $html .= render_folder_tree( $folder, $depth + 1 ); 
+        $html .= render_folder_tree( $folder, $depth + 1, $project, $selected, $attributes ); 
         $html .= '</li>';
       } // foreach
       $html .= '</ul>';
     } // if
     
     return $html;
-  } // select_project_folder
+  } // render_folder_tree
 
 ?>
