@@ -5,8 +5,8 @@
 <?php $counter = 0; ?>
 <?php $player_counter = 0; ?>
 <?php foreach ($files as $group_by => $grouped_files) { ?>
-<h2><?php echo clean($group_by) ?></h2>
-<div class="filesList">
+<div class="block"><div class="header"><h2><?php echo clean($group_by) ?></h2></div>
+<div class="content filesList">
 <?php foreach ($grouped_files as $file) { ?>
 <?php $counter++; ?>
   <div class="listedFile <?php echo $counter % 2 ? 'even' : 'odd' ?>">
@@ -64,7 +64,7 @@
   </div>
 
 <?php } // foreach ?>
-</div>
+</div></div>
 <?php } // foreach ?>
 <?php $this->includeTemplate(get_template_path('order_and_pagination', 'files')) ?>
 </div>
