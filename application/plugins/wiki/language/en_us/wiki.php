@@ -7,6 +7,7 @@
 
 return array(
   
+  'preview'                             =>  'Preview',
   'revert'                              =>  'Revert',
   'compare'                             =>  'Compare',
   'wiki page revision no'               =>  'Revision %s',
@@ -28,9 +29,9 @@ return array(
   'failure delete wiki page'            =>  'Failed to delete page error was (%s)',
   'failure restore wiki page revision'  =>  'Failed to restore revision. Error was(%s)',
   
-  'add wiki page'                       =>  'Add page',
+  'add wiki page'                       =>  'Save',
   'delete wiki page'                    =>  'Delete page',
-  'edit wiki page'                      =>  'Edit page',
+  'edit wiki page'                      =>  'Save',
   'wiki page dnx'                       =>  'Page not found',
   'wiki all pages'                      =>  'All pages',
   

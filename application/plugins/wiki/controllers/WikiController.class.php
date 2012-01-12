@@ -200,7 +200,14 @@ Class WikiController extends ApplicationController {
       $this->redirectTo('wiki');
     } //if
     
-    if(false !== ($data = array_var($_POST, 'wiki', false))){
+    //Here we will edit a wiki page
+    $preview = false;
+    $data = array_var($_POST, 'wiki', false);
+    if (false !== $data) {
+      $preview = array_key_exists('preview', $data); 
+    }
+
+    if(!$preview && $data){
       //Make a new wiki page
       $page = new WikiPage;
       //Set the Id for this project
@@ -261,9 +268,17 @@ Class WikiController extends ApplicationController {
       $page = new WikiPage;
       $page->setProjectId(active_project()->getId());	
     }// if
+    $revision = new Revision;
+
+    if (!$data) {  // there was no input POSTed
+      $data['content'] = $revision->getContent();
+    }
+    $data['preview_content'] = do_textile($data['content']);
     
+    //Assign revision object
+    tpl_assign('data', $data);
     tpl_assign('page', $page);
-    tpl_assign('revision', new Revision);
+    tpl_assign('revision', $revision);
     $this->setTemplate('edit');
     $this->setSidebar(get_template_path('textile_help_sidebar'));
     
@@ -293,7 +308,7 @@ Class WikiController extends ApplicationController {
     //Check that the user can edit this entry
     if(!$page->canEdit(logged_user())){
       flash_error(lang('no access permissions'));
-      $this->redirectTo();
+      $this->redirectTo(get_url('wiki'));
     }// if
     
     // Check that the page isn't locked
@@ -303,7 +318,14 @@ Class WikiController extends ApplicationController {
     } // if
 
     //Here we will edit a wiki page
-    if(null !== ($data = array_var($_POST, 'wiki'))){
+    $preview = false;
+    $data = array_var($_POST, 'wiki', false);
+    if (false !== $data) {
+      $preview = array_key_exists('preview', $data); 
+    }
+
+    if(!$preview && $data){
+    //if(null !== ($data = array_var($_POST, 'wiki'))){
       //If we have received data
       
       //Make a new revision
@@ -365,10 +387,16 @@ Class WikiController extends ApplicationController {
       $revision = $page->getRevision($_GET['revision']);
     } else {
       $revision = $page->getLatestRevision();
-    }//if
+    } //if
+
+    if (!$data) {  // there was no input POSTed
+      $data['content'] = $revision->getContent();
+    }
+    $data['preview_content'] = do_textile($data['content']);
     
     //Assign revision object
     tpl_assign('revision', $revision);
+    tpl_assign('data', $data);
     //Assign the page object
     tpl_assign('page', $page);
     $tag_names = plugin_active('tags') ? $page->getTagNames() : '';
