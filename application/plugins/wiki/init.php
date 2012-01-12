@@ -38,6 +38,9 @@
   *  This is good for creation of database tables etc.
   */
   function wiki_activate() {
+    $cs = 'character set '.config_option('character_set', 'utf8');
+    $co = 'collate '.config_option('collation', 'utf8_unicode_ci');
+
     $sql = "
 CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."wiki_pages` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -59,11 +62,11 @@ CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."wiki_revisions` (
   `project_id` int(10) unsigned default NULL,
   `page_id` int(10) unsigned default NULL,
   `revision` tinyint(3) unsigned default NULL,
-  `name` varchar(50) NOT NULL,
-  `content` text NOT NULL,
+  `name` varchar(50) $cs $co  NOT NULL,
+  `content` text $cs $co  NOT NULL,
   `created_on` datetime default NULL,
   `created_by_id` int(10) unsigned default NULL,
-  `log_message` varchar(255) default NULL,
+  `log_message` varchar(255) $cs $co  default NULL,
   PRIMARY KEY  (`id`)
 );";
     // create table wiki_revisions

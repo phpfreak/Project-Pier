@@ -41,14 +41,18 @@
   *  This is good for creation of database tables etc.
   */
   function i18n_activate() {
+    $tp = TABLE_PREFIX;
+    $cs = 'character set '.config_option('character_set', 'utf8');
+    $co = 'collate '.config_option('collation', 'utf8_unicode_ci');
+
     $sql = "
       CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."i18n_locales` (
         `id` int(10) unsigned not null auto_increment,
-        `name` varchar(50) not null default '',
-        `description` varchar(255) default '',
-        `language_code` varchar(50) not null default '',
-        `country_code` varchar(50) not null default '',
-        `logo_file` varchar( 50 ) default '',
+        `name` varchar(50) $cs $co not null default '',
+        `description` varchar(255) $cs $co default '',
+        `language_code` varchar(50) $cs $co not null default '',
+        `country_code` varchar(50) $cs $co not null default '',
+        `logo_file` varchar( 50 ) $cs $co default '',
         `editor_id` int(10) unsigned default NULL,
         `created_on` datetime not null default '0000-00-00 00:00:00',
         `created_by_id` int(10) unsigned default NULL,
@@ -63,8 +67,8 @@
     $sql = "
       CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."i18n_categories` (
         `id` int(10) unsigned not null auto_increment,
-        `name` varchar(50) not null default '',
-        `description` varchar(255) default '',
+        `name` varchar(50) $cs $co not null default '',
+        `description` varchar(255) $cs $co default '',
         `created_on` datetime not null default '0000-00-00 00:00:00',
         `created_by_id` int(10) unsigned default NULL,
         `updated_on` datetime not null default '0000-00-00 00:00:00',
@@ -78,8 +82,8 @@
         `id` int(10) unsigned not null auto_increment,
         `locale_id` int(10) unsigned not null,
         `category_id` int(10) unsigned not null default 0,
-        `name` varchar(255) not null default '',
-        `description` varchar(255) default '',
+        `name` varchar(255) $cs $co not null default '',
+        `description` varchar(255) $cs $co default '',
         `created_on` datetime not null default '0000-00-00 00:00:00',
         `created_by_id` int(10) unsigned default NULL,
         `updated_on` datetime not null default '0000-00-00 00:00:00',

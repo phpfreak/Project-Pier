@@ -44,14 +44,17 @@
   *  This is good for creation of database tables etc.
   */
   function links_activate() {
+    $cs = 'character set '.config_option('character_set', 'utf8');
+    $co = 'collate '.config_option('collation', 'utf8_unicode_ci');
+
     $sql = "CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."project_links` (
         `id` int(10) unsigned NOT NULL auto_increment,
         `project_id` int(10) unsigned NOT NULL default '0',
         `folder_id` INT( 10 ) NOT NULL DEFAULT 0,
-        `title` varchar(50) NOT NULL default '',
-        `url` text,
-        `description` TEXT DEFAULT '',
-        `logo_file` VARCHAR( 50 ) DEFAULT '',
+        `title` varchar(50) $cs $co NOT NULL default '',
+        `url` text $cs $co,
+        `description` TEXT $cs $co DEFAULT '',
+        `logo_file` VARCHAR(50) $cs $co DEFAULT '',
         `created_on` datetime NOT NULL default '0000-00-00 00:00:00',
         `created_by_id` int(10) unsigned default NULL,
         PRIMARY KEY  (`id`),
