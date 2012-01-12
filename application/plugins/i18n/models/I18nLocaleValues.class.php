@@ -90,7 +90,12 @@
     * @param  boolean  $replace Replace all values
     * @return boolean
     */
-    function import($id, $locale) {
+    function import($id, $locale, $replace = false) {
+      if ($replace) {
+        $table = $this->getTableName(true);
+        $sql = "DELETE FROM $table WHERE `locale_id` = $id";
+        DB::execute($sql);
+      }
       i18n_load(ROOT.'/language', $locale, $id);
       i18n_load(ROOT.'/application/plugins', $locale, $id);
     }
