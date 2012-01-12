@@ -13,7 +13,8 @@ require '../../environment/functions/general.php';
 
 function do_textile($text) {
   $textile = new Textile();
-  $text = $textile->TextileRestricted($text, false, false); 
+  //$text = $textile->TextileRestricted($text, false, false); 
+  $text = $textile->TextileThis($text, false, false); 
   //return $text;
   return add_links($text);
 } // do_textile
