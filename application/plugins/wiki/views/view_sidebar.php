@@ -8,10 +8,10 @@
 <?php if(isset($sidebar_links) && count($sidebar_links)): ?>
 <div class="sidebarBlock">
   <h2><?php echo lang('wiki all pages') ?></h2>
-	<ul>
-		<?php foreach($sidebar_links as $spage): ?>
-			<li><a href="<?php echo $spage['view_url'] ?>"><?php echo $spage['name'] ?></a></li>
-		<?php endforeach; ?>
-	</ul>
+  <ul>
+<?php foreach($sidebar_links as $spage): ?>
+  <li><a href="<?php echo $spage['view_url'] ?>"><?php echo $spage['name'] ?></a></li>
+<?php endforeach; ?>
+  </ul>
 </div>
 <?php endif; ?>

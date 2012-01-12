@@ -45,6 +45,7 @@ trace(__FILE__,'begin');
     echo text_field('wiki[tags]', $tags, array('class' => 'long', 'id' => 'wikiFormTags'));
   }
 ?>
+</div>
 <div id="wiki-options">
 <?php 
   echo label_tag(lang('wiki set as index page'), 'wikiFormIndexYes');
@@ -75,5 +76,6 @@ trace(__FILE__,'begin');
 </div>
 
 <?php echo submit_button($page->isNew() ? lang('add wiki page') : lang('edit wiki page')) ?>
+<?php echo submit_button(lang('preview'), 'p', array( 'name' => 'preview') ) ?>
 
 </form>
