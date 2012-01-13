@@ -6,9 +6,10 @@
   add_stylesheet_to_page('project/search_results.css');
 
 ?>
+
 <div id="searchForm">
   <form action="<?php echo active_project()->getSearchUrl() ?>" method="get">
-    <?php echo input_field('search_for', array_var($_GET, 'search_for')) ?>
+    <?php echo input_field('search_for', array_var($_GET, 'search_for') ) ?>
     <input type="hidden" name="c" value="project" />
     <input type="hidden" name="a" value="search" />
     <input type="hidden" name="active_project" value="<?php echo active_project()->getId() ?>" />
