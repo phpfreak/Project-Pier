@@ -202,11 +202,12 @@
     } // if
     
     $options = array(option_tag(lang('none'), 0));
-    if (is_null($projectname)) {
+    if (logged_user()->isAdministrator()) {
       $projects = Projects::getAll();
     } else {
-      $projects = Projects::getAll();
+      $projects = logged_user()->getActiveProjects();
     }
+
     if (is_array($projects)) {
       foreach ($projects as $project) {
         $option_attributes = $project->getId() == $selected ? array('selected' => 'selected') : null;
