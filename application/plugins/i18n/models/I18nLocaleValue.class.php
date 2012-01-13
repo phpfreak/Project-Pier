@@ -144,7 +144,26 @@
     function getObjectUrl() {
       return get_url('i18n', 'index', array());
     } // getObjectUrl
+
+    /**
+    * Return edit locale value URL
+    *
+    * @param void
+    * @return string
+    */
+    function getDescriptionIn($language_code, $country_code) {
+      $locale = I18nLocales::instance()->getLocale($language_code, $country_code);
+      if ($locale instanceof I18nLocale) {
+        $locale_value = $locale->getValue($this->getName());
+        if ($locale_value instanceof I18nLocaleValue) {
+          return $locale_value->getDescription();
+        }
+      }
+      return '';
+    } // getDescriptionIn
+
+
     
   } // I18nLocaleValue
 
-?>
+?>	

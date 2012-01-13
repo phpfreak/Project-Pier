@@ -153,7 +153,6 @@
       $this->setTemplate('edit_values');
       tpl_assign('locale', $locale);
       tpl_assign('values', I18nLocaleValues::instance()->getLocaleValues(get_id()));
-
       //tpl_assign('categories', I18nLocaleValues::instance()->getCategories($locale));
       //$this->setSidebar(get_template_path('index_sidebar'));    
     } // edit_values

@@ -119,6 +119,17 @@
       return I18nLocaleValues::instance()->import($this->getId(), $locale, $replace);
     }
 
+    /**
+    * Return locale value identified by name
+    *
+    * @param string name
+    * @return string
+    */
+    function getValue($name) {
+      return I18nLocaleValues::instance()->getLocaleValue($this->getId(), $name);
+    } // getEditUrl
+
+
     // ---------------------------------------------------
     //  Logo
     // ---------------------------------------------------
@@ -309,4 +320,4 @@
     
   } // I18nLocale
 
-?>
+?>	
