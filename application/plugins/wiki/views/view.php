@@ -23,6 +23,4 @@ trace(__FILE__,'begin');
   }
 ?>
 
-<div id="wiki-page-content">
-<?php echo do_textile(wiki_links($revision->getContent())); ?>
-</div>
+<div id="wiki-page-content"><?php echo do_textile(plugin_manager()->apply_filters('wiki_text', $revision->getContent())); ?></div>

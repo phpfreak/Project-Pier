@@ -35,7 +35,7 @@ trace(__FILE__,'begin');
 <?php echo textarea_field('wiki[content]', $data['content'], array('cols' => 132, 'class' => 'shot', 'id' => 'wikiFormContent')) ?>
 <?php echo submit_button(lang('preview'), 'p', array( 'name' => 'wiki[preview]') ) ?>
 <?php echo label_tag(lang('preview'), 'wikiFormPreview', false) ?>
-<?php echo "<div class=\"preview\">{$data['preview_content']}</div>"; ?>
+<div class="preview"><?php echo do_textile(plugin_manager()->apply_filters('wiki_text', $data['preview_content'])); ?></div>
 </div>
 <div id="wiki-field-log">
 <?php 

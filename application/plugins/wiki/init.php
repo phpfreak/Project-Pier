@@ -28,7 +28,8 @@
       echo '<li><a href="'.get_url('wiki', 'add').'">'.lang('add wiki page').'</a></li>';
     } // if
   }
-  
+
+  add_filter('wiki_text', 'wiki_links');
   /**
   * If you need an activation routine run from the admin panel
   *   use the following pattern for the function:

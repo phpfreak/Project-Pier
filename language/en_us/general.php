@@ -15,7 +15,7 @@
     'id' => 'Id.',
     'updated by' => 'Updated by',
     'success edit locale' => 'Locale saved',
-    'invalid reference' => 'invalid reference',
+    'invalid reference' => 'invalid reference %s',
     'username' => 'Username',
     'password' => 'Password',
     'password again' => 'Repeat password',

@@ -1,8 +1,9 @@
 <?php
-/**
- * @author Alex Mayhew
- * @copyright 2008
- */
+  /**
+  * @author Alex Mayhew
+  * @copyright 2008
+  * Improved 2011, 2012 Reinier van Loon
+  */
   set_page_title($revision->getName());
   project_tabbed_navigation(PROJECT_TAB_WIKI);
   project_crumbs(array(
@@ -28,6 +29,4 @@
 <?php if ($page->getLocked()) { ?>
 <div class="wikiPageLocked"><?php echo lang('wiki page locked by', $page->getLockedByUser()->getUserName()); ?></div>
 <?php } // if ?>
-<div id="wiki-page-content">
-<?php echo plugin_manager()->apply_filters('wiki_text', do_textile($revision->getContent())); ?>
-</div>
+<div id="wiki-page-content"><?php echo do_textile(plugin_manager()->apply_filters('wiki_text', $revision->getContent())); ?></div>
