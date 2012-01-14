@@ -11,5 +11,5 @@
   } // if
 ?>
 <?php $this->assign('on_list_page', true); ?>
-<?php $this->includeTemplate(get_template_path('task/task_list')); ?>
+<?php $this->includeTemplate(get_template_path('task_list')); ?>
 <?php echo render_object_comments($task_list, $task_list->getViewUrl()) ?>

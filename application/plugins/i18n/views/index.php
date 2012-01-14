@@ -16,10 +16,10 @@
 <?php foreach ($locales as $locale) { ?>
 <?php $counter++; ?>
   <li class="item <?php echo $counter % 2 ? 'even' : 'odd' ?>">
+  <div class="block">
 <?php if ($show_icon) { ?>
   <div class="icon"><img src="<?php echo $locale->getLogoURL(); ?>" alt="<?php echo clean($locale->getName()) ?> logo"></div>
 <?php } ?>
-  <div class="block">
   <div class="header"><?php echo $locale->getName() ?></div>
   <div class="content"><div><?php echo clean($locale->getDescription()) ?></div><?php if ($locale->getCreatedBy() instanceof User) { ?><span><?php echo lang('created by') ?>:</span> <a href="<?php echo $locale->getCreatedBy()->getCardUrl() ?>"><?php echo clean($locale->getCreatedBy()->getDisplayName()) ?></a> <?php } ?><?php // echo render_object_tags($locale); ?>
 </div>

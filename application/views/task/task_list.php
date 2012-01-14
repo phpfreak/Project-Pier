@@ -45,7 +45,7 @@
   <div class="desc"><?php echo (do_textile($task_list->getDescription())) ?></div>
 <?php } // if ?>
 <?php if (plugin_active('tags')) { ?>
-  <div class="taskListTags"><span><?php echo lang('tags') ?>:</span> <?php echo project_object_tags($task_list, $task_list->getProject()) ?></div>
+  <div class="tags"><span><?php echo lang('tags') ?>:</span> <?php echo project_object_tags($task_list, $task_list->getProject()) ?></div>
 <?php } ?>
 <?php if (count($task_list_options)) { ?>
   <div class="options"><?php echo implode(' | ', $task_list_options) ?></div>
