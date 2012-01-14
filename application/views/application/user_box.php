@@ -5,7 +5,7 @@
     <?php if(isset($_userbox_projects) && is_array($_userbox_projects) && count($_userbox_projects)) { ?>
     <li><a href="<?php echo get_url('dashboard', 'my_projects') ?>"><?php echo lang('my projects') ?></a>
       <ul>
-<?php if (Project::canAdd(logged_user())) { ?>
+<?php if (logged_user()->canManageProjects()) { ?>
         <li><a href="<?php echo get_url('project', 'add') ?>"><?php echo lang('add project') ?></a></li>
         <li><a href="<?php echo get_url('project', 'copy') ?>"><?php echo lang('copy project') ?></a></li>
 <?php } // if ?>
