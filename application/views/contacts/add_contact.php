@@ -3,43 +3,43 @@
   set_page_title($contact->isNew() ? lang('add contact') : lang('edit contact'));
   $user = $contact->getUserAccount();
   if ($user instanceof User && $user->getId() == logged_user()->getId()) {
-    set_page_title(lang('update profile'));
+    set_page_title(lang('edit contact'));
     account_tabbed_navigation();
-    account_crumbs(lang('update profile'));
+    account_crumbs(lang('edit contact'));
   } else {
-    set_page_title(lang('update profile'));
+    set_page_title(lang('edit contact'));
     if ($company instanceof Company && $company->isOwner()) {
       if (logged_user()->isAdministrator()) {
         administration_tabbed_navigation(ADMINISTRATION_TAB_COMPANY);
         administration_crumbs(array(
           array(lang('company'), $company->getViewUrl()),
-          array(lang('update profile'))
+          array(lang('edit contact'))
         ));
       } else {
-        set_page_title(lang('update profile'));
+        set_page_title(lang('edit contact'));
         account_tabbed_navigation('contact');
         account_crumbs(lang('update profile'));
       }
     } else {
        if ($contact->canEdit(logged_user())) {
-         set_page_title(lang('update profile'));
+         set_page_title(lang('edit contact'));
          account_tabbed_navigation('contact');
-         account_crumbs(lang('update profile'));
+         account_crumbs(lang('edit contact'));
       } else {
         administration_tabbed_navigation(ADMINISTRATION_TAB_CLIENTS);
         administration_crumbs(array(
           array(lang('clients'), get_url('administration', 'clients')),
           array($company->getName(), $company->getViewUrl()),
           array($user->getDisplayName(), $user->getCardUrl()),
-          array(lang('update profile'))
+          array(lang('edit contact'))
         ));
       } // if
     } // if
   } // if
   
-  if ($user instanceof User && $user->canUpdateProfile(logged_user())) {
+  if ($user instanceof User && $user->canEdit(logged_user())) {
     add_page_action(array(
-      lang('update profile')  => $user->getEditProfileUrl(),
+      lang('edit user account')  => $user->getEditUrl(),
       lang('change password') => $user->getEditPasswordUrl()
     ));
   } // if

@@ -22,21 +22,9 @@
       ));
     } // if
   } // if
-  
-  if ($user->canUpdateProfile(logged_user())) {
-    add_page_action(array(
-      lang('update profile')  => $user->getEditProfileUrl(),
-      lang('change password') => $user->getEditPasswordUrl()
-    ));
-  } // if
-  
-  if ($user->canUpdatePermissions(logged_user())) {
-    add_page_action(array(
-      lang('permissions')  => $user->getUpdatePermissionsUrl()
-    ));
-  } // if
-
 ?>
+<div class="icon"><img src="<?php echo $user->getContact()->getAvatarUrl() ?>" alt="<?php echo clean($user->getDisplayName()) ?> <?php echo lang('avatar') ?>" /></div>
+<span class="name"><?php echo lang('user') . ': ' ?><a href="<?php echo $user->getCardUrl() ?>"><?php echo clean($user->getDisplayName()) ?></a></span><?php ?><div class="clear"></div>
 <form action="<?php echo $user->getEditPasswordUrl($redirect_to) ?>" method="post">
 <?php tpl_display(get_template_path('form_errors')) ?>
 <?php if (!logged_user()->isAdministrator()) { ?>

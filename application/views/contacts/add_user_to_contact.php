@@ -21,10 +21,11 @@
   add_stylesheet_to_page('admin/user_permissions.css');
 
 ?>
-<h2><?php echo $contact->getDisplayName() ?></h2>
 <?php if ($contact->hasAvatar()) { ?>
-  <div class="contactAvatar"><img src="<?php echo $contact->getAvatarUrl() ?>" alt="<?php echo clean($contact->getDisplayName()) ?> <?php echo lang('avatar') ?>" /></div>
+  <span class="icon"><img src="<?php echo $contact->getAvatarUrl() ?>" alt="<?php echo clean($contact->getDisplayName()) ?> <?php echo lang('avatar') ?>" /></span>
 <?php } ?>
+<?php echo lang('contact').': '.$contact->getDisplayName() ?>
+<div class="clear"></div>
   
 <form action="<?php if ($user->isNew()) { echo $contact->getAddUserAccountUrl(); } else { echo $contact->getEditUserAccountUrl(); }?>" method="post">
 

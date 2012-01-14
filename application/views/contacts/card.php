@@ -15,7 +15,7 @@
   } // if
   if ($contact->canUpdateProfile(logged_user())) {
     add_page_action(array(
-      lang('update profile')  => $contact->getEditUrl(),
+      lang('edit contact')  => $contact->getEditUrl(),
     ));
   } // if
   if (logged_user()->isAdministrator() && logged_user()->getId() != $contact->getUserId()) {

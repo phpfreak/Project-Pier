@@ -1,6 +1,6 @@
 <?php
 
-  set_page_title($company->getName());
+  set_page_title(lang('company'));
   if ($company->isOwner()) {
     administration_tabbed_navigation(ADMINISTRATION_TAB_COMPANY);
     administration_crumbs(lang('company'));
@@ -26,17 +26,17 @@
 ?>
 <?php $this->includeTemplate(get_template_path('company_card', 'company')) ?>
 
-<h2><?php echo lang('contacts') ?></h2>
+<h1><?php echo lang('contacts') ?></h1>
 <?php
   $this->assign('contacts', $company->getContacts());
   $this->includeTemplate(get_template_path('list_contacts', 'administration'));
 ?>
-<h2><?php echo lang('users') ?></h2>
+<h1><?php echo lang('users') ?></h1>
 <?php
   $this->assign('users', $company->getUsers());
   $this->includeTemplate(get_template_path('list_users', 'administration'));
 ?>
-<h2><?php echo lang('projects') ?></h2>
+<h1><?php echo lang('projects') ?></h1>
 <?php
   $this->assign('active_projects', $company->getActiveProjects());
   $this->includeTemplate(get_template_path('list_projects', 'administration'));

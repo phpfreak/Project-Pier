@@ -19,20 +19,9 @@ $user = $contact->getUserAccount();
 <?php } // if ?>
       </div>
 <?php } // if ?>
-      <div class="name"><a href="<?php echo $contact->getCardUrl() ?>"><?php echo clean($contact->getDisplayName()) ?></a><?php if ($contact->getTitle() != '') echo " &mdash; ".clean($contact->getTitle()) ?></div>
-<?php if ($company->isOwner() && $contact->hasUserAccount()) { ?>
-<?php if ($user->isAdministrator()) { ?>
-      <span class="userIsAdmin"><?php echo lang('administrator') ?>, </span>
-<?php } // if  ?>
-<?php if ($user->getAutoAssign()) { ?>
-      <span class="userAutoAssign"><?php echo lang('auto assign') ?>, </span>
-<?php } // if  ?>
-<?php if ($user->getUseLDAP()) { ?>
-      <span class="userUseLDAP"><span><?php echo lang('LDAP') ?>, </span>
-<?php } // if  ?>
-<?php if ($user->canManageProjects()) { ?>
-      <span class="userCanManageProjects"><?php echo lang('can manage projects') ?></span>
-<?php } // if  ?>
+      <span class="name"><a href="<?php echo $contact->getCardUrl() ?>"><?php echo clean($contact->getDisplayName()) ?></a><?php if ($contact->getTitle() != '') echo " &dash; ".clean($contact->getTitle()) ?></span><?php ?>
+<?php if ($contact->hasUserAccount()) { ?><?php ?>
+<span class="userLink">, <?php echo lang('user') ?> <a href="<?php echo $user->getCardUrl() ?>"><?php echo clean($user->getDisplayName()) ?></a></span><?php ?>
 <?php } // if  ?>
 <?php
   $options = array();
@@ -42,17 +31,7 @@ $user = $contact->getUserAccount();
   if ($contact->canDelete(logged_user())) {
     $options[] = '<a href="' . $contact->getDeleteUrl() . '">' . lang('delete') . '</a>';
   } // if
-  if ($contact->hasUserAccount()) {
-    if ($contact->canEditUserAccount(logged_user())) {
-      $options[] = '<a href="' . $contact->getEditUserAccountUrl() . '">' . lang('edit user account') . '</a>';
-    }
-    if ($contact->canDeleteUserAccount(logged_user())) {
-      $options[] = '<a href="' . $contact->getDeleteUserAccountUrl() . '">' . lang('delete user account') . '</a>';
-    }
-    if ($user->canUpdatePermissions(logged_user())) {
-      $options[] = '<a href="' . $user->getUpdatePermissionsUrl() . '">' . lang('update permissions') . '</a>';
-    }
-  } else {
+  if (!$contact->hasUserAccount()) {
     if ($contact->canAddUserAccount(logged_user())) {
       $options[] = '<a href="' . $contact->getAddUserAccountUrl() . '">' . lang('add user account') . '</a>';
     }

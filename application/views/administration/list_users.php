@@ -7,28 +7,19 @@
   <div class="listedUser <?php echo $counter % 2 ? 'even' : 'odd' ?>">
     <div class="icon"><img src="<?php echo $user->getContact()->getAvatarUrl() ?>" alt="<?php echo clean($user->getDisplayName()) ?> <?php echo lang('avatar') ?>" /></div>
     <div class="details">
-      <div class="name"><a href="<?php echo $user->getCardUrl() ?>"><?php echo clean($user->getDisplayName()) ?></a></div>
-<?php if ($company->isOwner()) { ?>
-<?php if ($user->isAdministrator()) { ?>
-      <span class="userIsAdmin"><?php echo lang('administrator') ?>, </span>
-<?php } // if  ?>
-<?php if ($user->getAutoAssign()) { ?>
-      <span class="userAutoAssign"><?php echo lang('auto assign') ?>, </span>
-<?php } // if  ?>
-<?php if ($user->getUseLDAP()) { ?>
-      <span class="userUseLDAP"><?php echo lang('LDAP') ?>, </span>
-<?php } // if  ?>
-<?php if ($user->canManageProjects()) { ?>
-      <span class="userCanManageProjects"><?php echo lang('can manage projects') ?></span>
-<?php } // if  ?>
+      <span class="name"><a href="<?php echo $user->getCardUrl() ?>"><?php echo clean($user->getDisplayName()) ?></a></span><?php ?>
+<?php if ($company->isOwner()) { ?><?php ?>
+<?php if ($user->isAdministrator()) { ?>, <span class="userIsAdmin"><?php echo lang('administrator') ?></span><?php } // if  ?>
+<?php if ($user->getAutoAssign()) { ?>, <span class="userAutoAssign"><?php echo lang('auto assign') ?></span><?php } // if  ?>
+<?php if ($user->getUseLDAP()) { ?>, <span class="userUseLDAP"><?php echo lang('LDAP') ?></span><?php } // if  ?>
+<?php if ($user->canManageProjects()) { ?>, <span class="userCanManageProjects"><?php echo lang('can manage projects') ?></span><?php } // if  ?>
 <?php } // if  ?>
 <?php
   $options = array();
-  //if ($user->canEdit(logged_user())) $options[] = '<a href="' . $user->getEditUrl() . '">' . lang('edit') . '</a>';
-  if ($user->canUpdateProfile(logged_user())) {
-    $options[] = '<a href="' . $user->getEditProfileUrl($company->getViewUrl()) . '">' . lang('update profile') . '</a>';
+  if ($user->canEdit(logged_user())) { 
+    $options[] = '<a href="' . $user->getEditUrl() . '">' . lang('edit') . '</a>';
     $options[] = '<a href="' . $user->getEditPasswordUrl($company->getViewUrl()) . '">' . lang('change password') . '</a>';
-  } // if
+  }
   if ($user->canUpdatePermissions(logged_user())) {
     $options[] = '<a href="' . $user->getUpdatePermissionsUrl($company->getViewUrl()) . '">' . lang('permissions') . '</a>';
   } // if
