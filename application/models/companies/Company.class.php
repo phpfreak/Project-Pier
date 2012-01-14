@@ -69,7 +69,7 @@
       $contacts_table = Contacts::instance()->getTableName(true);
       
       $users = array();
-      $sql = "SELECT $users_table.* FROM $users_table, $contacts_table WHERE ($users_table.`id` = $contacts_table.`user_id` AND $contacts_table.`company_id` = ". DB::escape($this->getId()) . " ) ORDER BY $contacts_table.`display_name` ASC";
+      $sql = "SELECT $users_table.* FROM $users_table, $contacts_table WHERE ($users_table.`id` = $contacts_table.`user_id` AND $contacts_table.`company_id` = ". DB::escape($this->getId()) . " ) ORDER BY $users_table.`username` ASC";
       
       $rows = DB::executeAll($sql);
       if (is_array($rows)) {
