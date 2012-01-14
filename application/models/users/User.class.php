@@ -993,7 +993,8 @@
     * @return string
     */
     function getEditUrl() {
-      return get_url('user', 'edit', $this->getId());
+      //return get_url('user', 'edit', $this->getId());
+      return get_url('contacts', 'edit_user_account', $this->getId());
     } // getEditUrl
     
     /**
