@@ -2,7 +2,7 @@
 Version
 ~~~~~~~
 
-This is version 0.8.8 - Enjoy!
+This is version 0.8.8.sp1 - Enjoy!
 
 ~~~~~~~~~~~~~~~~~~~
 STABLE
