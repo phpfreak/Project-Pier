@@ -114,7 +114,7 @@ body  {
  float: left;
  list-style: none;
  margin: 0;
- margin-left: 0px;
+ margin-left: -1px;
  padding: 0 !important;
 }
 
@@ -200,6 +200,17 @@ body  {
  background-color: #E9F2F7;
  color: #0079AF;
  text-decoration: none;
+}
+
+#page_menu li.align-right  {
+  float: right;
+  position: relative;
+}
+
+
+#page_menu li.align-right:hover ul  {
+  right: 0px;
+  text-align: right;
 }
 
 #page_menu ul li a:hover  {
