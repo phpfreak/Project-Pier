@@ -447,28 +447,29 @@
       }
       return fclose($handle);
     } else {
-      print $content;
 /*
+      print $content;
+*/
       header("X-ProjectPier-Storage: mysql");
       header("X-ProjectPier-Size: " . $size);
       // 0.8.8 $content = repository id
       //print $content;
       $repository_id = $content;
-      $repo_table = 'pp088_file_repo';
-      $query = sprintf("SELECT `content`, `seq` FROM $repo_table WHERE `id`='%s' order by `seq` asc",
-        mysql_real_escape_string($repository_id));
+      $repo_table = TABLE_PREFIX.'file_repo';
+      $query = sprintf("SELECT `content`, `seq` FROM $repo_table WHERE `id`='%s' order by `seq` asc", mysql_real_escape_string($repository_id));
+      trace(__FILE__,$query);
       header("X-ProjectPier-Debug1: " . $query);
       $result = mysql_query($query);
       header("X-ProjectPier-Debug2: " . mysql_error());
       while ($row = mysql_fetch_assoc($result)) {
+        trace(__FILE__,$row['seq']);
         header("X-ProjectPier-Debug3-" . $row['seq'] . ": " . mysql_error());
         print $row['content'];
-        //flush();
+        flush();
         ob_flush();
       }
       header("X-ProjectPier-Debug4: " . mysql_error());
       mysql_free_result($result);
-*/
     }
     return((connection_status() == 0) && !connection_aborted());
   } // download_contents
