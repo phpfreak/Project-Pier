@@ -353,8 +353,8 @@
         trace(__FILE__,'download_file():'.$file_id);
         download_contents(FileRepository::getFilePath($repository_id), $revision->getTypeString(), $download_name, $revision->getFileSize(), !$inline, true);
       } else {
-        //download_contents($file->getFileContent(), $file->getTypeString(), $file->getFilename(), $file->getFileSize(), !$inline);
-        download_contents($revision->getFileContent(), $revision->getTypeString(), $download_name, $file->getFileSize());
+        download_contents($file->getFileContent(), $file->getTypeString(), $file->getFilename(), $file->getFileSize(), !$inline);
+        //download_contents($revision->getFileContent(), $revision->getTypeString(), $download_name, $file->getFileSize());
       }
 */
       die();
@@ -426,13 +426,13 @@
       } else {
         trace(__FILE__,"_download_revision(...):from db");
         $is_fs = false;
-        $contents = &$revision->getFileContent();
-        //$contents = $repository_id;
+        //$contents = &$revision->getFileContent();
+        $contents = $repository_id;
       }
       if ($html) {
         echo '<html><img src='.$revision->getDownloadUrl().'></html>'; die();
       }
-      trace(__FILE__,"_download_revision(...):$repository_id");
+      trace(__FILE__,"_download_revision($contents, ..., $inline, $is_fs):$repository_id");
       download_contents($contents, $revision->getTypeString(), $revision->getFileName(), $revision->getFileSize(), $inline, $is_fs);
     } // _download_revision
     
