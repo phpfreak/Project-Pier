@@ -11,7 +11,7 @@
 <?php } // if ?>
     </ul>
 <?php trace(__FILE__,'folders') ?>
-<?php echo render_folder_tree( null, 0, $project, $current_folder_id ); ?><br/>
+<?php echo render_folder_tree( null, 0, active_project(), $current_folder_id ); ?><br/>
 <?php if (ProjectFolder::canAdd(logged_user(), active_project())) { ?>
     <div><a href="<?php echo get_url('files', 'add_folder') ?>"><?php echo lang('add folder') ?></a></div>
 <?php } // if ?>
