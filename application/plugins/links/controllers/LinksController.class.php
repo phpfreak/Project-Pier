@@ -211,7 +211,8 @@
 
       if (is_array($logo)) {
         try {
-          if (1) {
+          $uploaded_file_size = array_var($logo, 'size', 0);
+          if ($uploaded_file_size == 0) {
             $x1 = 0 + array_var($_POST, 'x1');
             $y1 = 0 + array_var($_POST, 'y1');
             $x2 = 0 + array_var($_POST, 'x2');
