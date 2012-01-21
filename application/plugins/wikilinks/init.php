@@ -157,6 +157,9 @@ function replace_file_link_callback($matches) {
   if (!($object instanceof ProjectFile)) {
     return '<del>'.lang('invalid reference', $matches[0]).'</del>';
   } else {
+    if ($object->getFileType()->getIsImage()) {
+      return '<img src="'.externalUrl($object->getDownloadUrl()).'" alt="'.lang('file').'" style="max-width:100%; max-height:100%;" />';
+    }
     return '<a href="'.externalUrl($object->getViewUrl()).'" title="'.lang('file').'">'.$object->getFilename().'</a>';
   } // if
 } // replace_user_link_callback
