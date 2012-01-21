@@ -60,11 +60,13 @@
       'weekly schedule',
       get_url('dashboard', 'weekly_schedule')
     );
-    add_tabbed_navigation_item(
-      DASHBOARD_TAB_CONTACTS,
-      'contacts',
-      get_url('dashboard', 'contacts')
-    );
+    if (logged_user()->isMemberOfOwnerCompany()) {
+      add_tabbed_navigation_item(
+        DASHBOARD_TAB_CONTACTS,
+        'contacts',
+        get_url('dashboard', 'contacts')
+      );
+    } // if
     trace(__FILE__,'dashboard_tabbed_navigation:plugin hook');
     // PLUGIN HOOK
     plugin_manager()->do_action('add_dashboard_tab');

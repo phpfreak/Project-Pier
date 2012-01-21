@@ -30,6 +30,9 @@
         if ($item->getId() == 'overview') {
           $pass[]=$item;
         }
+        if ($item->getId() == 'links') {   // links are outside of permissions setup currently
+          $pass[]=$item;
+        }
       }
     }
     return $pass;

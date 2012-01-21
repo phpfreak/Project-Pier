@@ -100,7 +100,11 @@ class PluginManager {
       if ( !is_null($functions) ) {
         foreach($functions as $f) {
           trace(__FILE__,"call_user_func_array({$f['function']},..");
-          call_user_func_array($f['function'], array_slice($args, 0, (int)$f['accepted_args']));
+          try {
+            call_user_func_array($f['function'], array_slice($args, 0, (int)$f['accepted_args']));
+          } catch (Exception $e) {
+            Logger::log($e, Logger::FATAL);
+          }
         } // foreach
       } // if
     } // foreach
