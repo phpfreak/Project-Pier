@@ -29,9 +29,9 @@ return array(
   'failure delete wiki page'            =>  'Failed to delete page error was (%s)',
   'failure restore wiki page revision'  =>  'Failed to restore revision. Error was(%s)',
   
-  'add wiki page'                       =>  'Save',
+  'add wiki page'                       =>  'Add page',
   'delete wiki page'                    =>  'Delete page',
-  'edit wiki page'                      =>  'Save',
+  'edit wiki page'                      =>  'Edit page',
   'wiki page dnx'                       =>  'Page not found',
   'wiki all pages'                      =>  'All pages',
   
