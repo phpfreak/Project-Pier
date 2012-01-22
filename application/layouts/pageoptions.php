@@ -9,7 +9,7 @@
                 <li><a href="<?php echo $page_actions[1]->getURL() ?>"><?php echo clean($page_actions[1]->getTitle()) ?></a></li>
 <?php } // if ?>
 <?php if ($page_actions_count>2) { ?>
-                <li class="align-right"><a href="#" onclick="return null;">...</a>
+                <li class="align-right"><a href="#" onclick="return null;"><?php echo count($page_actions)-1 ?></a>
                   <ul>
 <?php for($i=1; $i<$page_actions_count; $i++) { ?>
                 <li><a href="<?php echo $page_actions[$i]->getURL() ?>"><?php echo clean($page_actions[$i]->getTitle()) ?></a></li>
