@@ -133,14 +133,14 @@ CREATE TABLE IF NOT EXISTS `{$tp}project_ticket_subscriptions` (
     // create table
     DB::execute($sql);
 
-    $sql = "
-INSERT INTO `{$tp}config_categories` (`name`, `is_system`, `category_order`) VALUES ('tickets', 0, 4);
-";
+    $sql = "INSERT INTO `{$tp}config_categories` (`name`, `is_system`, `category_order`) 
+VALUES ('tickets', 0, 4) ON DUPLICATE KEY UPDATE `id` = `id`;";
     DB::execute($sql);
 
-    $sql = "
-INSERT INTO `{$tp}config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('tickets', 'tickets_default_categories', 'information request\r\nchange request\r\nincident report\r\ncomplaint\r\ndefect report\r\ngeneral/other', 'TextConfigHandler', 0, 3, NULL);
-";
+    $sql = "INSERT INTO `{$tp}config_options` 
+(`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) 
+VALUES ('tickets', 'tickets_default_categories', 'information request\r\nchange request\r\nincident report\r\ncomplaint\r\ndefect report\r\ngeneral/other', 'TextConfigHandler', 0, 3, NULL); 
+ON DUPLICATE KEY UPDATE `id` = `id`";
     DB::execute($sql);
 
     // TODO add permissions
