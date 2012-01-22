@@ -137,7 +137,7 @@ Class WikiController extends ApplicationController {
       $sidebar_revision->setName(lang('wiki default sidebar name'));
       $sidebar_revision->setContent(lang('wiki default sidebar content'));
     }// if
-    $all_pages = Wiki::getPagesList(active_project());
+    $all_pages = Wiki::getAllProjectPages(active_project());
     tpl_assign('sidebar_links', $all_pages);
     
     tpl_assign('sidebar_page', $sidebar_page);
@@ -214,6 +214,7 @@ Class WikiController extends ApplicationController {
       $page->setProjectId(active_project()->getId());
       $page->setProjectIndex((logged_user()->isMemberOfOwnerCompany() ? $data['project_index'] : 0));
       $page->setPublish((logged_user()->isMemberOfOwnerCompany() ? $data['publish'] : 0));
+      $page->setParentId($data['parent_id']);
       
       $page->setProjectSidebar((logged_user()->isMemberOfOwnerCompany() ? $data['project_sidebar'] : 0));
       //Make a new revision of this page
@@ -335,6 +336,7 @@ Class WikiController extends ApplicationController {
       $page->setProjectIndex($data['project_index']);
       $page->setProjectSidebar($data['project_sidebar']);
       $page->setPublish($data['publish']);
+      $page->setParentId($data['parent_id']);
 
       // Check to see if we want to lock this page
       if (isset($data['locked'])) {
@@ -538,12 +540,13 @@ Class WikiController extends ApplicationController {
     */
   function all_pages() {
     // There isn't a wiki page for all pages
+    // So prepare a dummy page
     $page = new WikiPage;
     // Make a revision for the page
     $revision = $page->makeRevision();
     $revision->setName(lang('wiki all pages'));
 
-    $all_pages = Wiki::getPagesList(active_project());
+    $all_pages = Wiki::getAllProjectPages(active_project());
     tpl_assign('all_pages', $all_pages);
     tpl_assign('page', $page);
     tpl_assign('revision', $revision);

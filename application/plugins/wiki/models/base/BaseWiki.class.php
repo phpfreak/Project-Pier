@@ -13,6 +13,7 @@ abstract class BaseWiki extends DataManager
 {
   static private $columns = array(
     'id'              => DATA_TYPE_INTEGER, 
+    'parent_id'       => DATA_TYPE_INTEGER, 
     'project_id'      => DATA_TYPE_INTEGER, 
     'revision'        => DATA_TYPE_INTEGER,
     'project_index'   => DATA_TYPE_BOOLEAN,

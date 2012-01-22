@@ -49,6 +49,10 @@ trace(__FILE__,'begin');
   }
 ?>
 </div>
+  <div>
+    <?php echo label_tag(lang('parent page'), 'wikiFormParentId', true) ?>
+    <?php echo wiki_select_page('wiki[parent_id]', active_project(), $page->getParentId(), array('id' => 'wikiFormParentId')) ?>
+  </div>
 <div id="wiki-options">
 <?php 
   echo label_tag(lang('wiki set as index page'), 'wikiFormIndexYes');

@@ -16,7 +16,12 @@ add_inline_css_to_page('.wikiPageLocked{float:right; font-weight:bolder; border:
 <div id="wiki-page-content">
   <ul>
     <?php foreach ($all_pages as $spage) { ?>
-      <li><a href="<?php echo $spage['view_url'] ?>"><?php echo $spage['name'] ?></a></li>
+    <?php   $parent = $spage->getParent(); ?>
+    <?php   if ($parent instanceof WikiPage) { ?>
+      <li><a href="<?php echo $spage->getViewUrl() ?>"><?php echo $spage->getObjectName() ?></a> (<a href="<?php echo $parent->getViewUrl() ?>"><?php echo $parent->getObjectName() ?></a>)</li>
+    <?php   } else { ?>
+      <li><a href="<?php echo $spage->getViewUrl() ?>"><?php echo $spage->getObjectName() ?></a></li>
+    <?php   } // if  ?>
     <?php } // foreach ?>
   </ul>
 </div>

@@ -9,9 +9,14 @@
 <div class="sidebarBlock">
   <h2><?php echo lang('wiki all pages') ?></h2>
   <ul>
-<?php foreach($sidebar_links as $spage): ?>
-  <li><a href="<?php echo $spage['view_url'] ?>"><?php echo $spage['name'] ?></a></li>
-<?php endforeach; ?>
+    <?php foreach ($sidebar_links as $spage) { ?>
+    <?php   $parent = $spage->getParent(); ?>
+    <?php   if ($parent instanceof WikiPage) { ?>
+      <li><a href="<?php echo $spage->getViewUrl() ?>"><?php echo $spage->getObjectName() ?></a> (<a href="<?php echo $parent->getViewUrl() ?>"><?php echo $parent->getObjectName() ?></a>)</li>
+    <?php   } else { ?>
+      <li><a href="<?php echo $spage->getViewUrl() ?>"><?php echo $spage->getObjectName() ?></a></li>
+    <?php   } // if  ?>
+    <?php } // foreach ?>
   </ul>
 </div>
 <?php endif; ?>

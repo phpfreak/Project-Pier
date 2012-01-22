@@ -385,10 +385,26 @@
       null; 
     } // getLockedByUser
 
+    /**
+    * Answer if the page is locked
+    * 
+    * @return
+    */
     function isLocked() {
       return (bool) $this->getColumnValue('locked');
     } // isLocked
 
-  }
+    //////////////////////////////////////////
+    // Parenting ;-)
+    //////////////////////////////////////////
+    /**
+    * Return the parent page for this page or false if none
+    * 
+    * @return
+    */
+    function getParent() {
+      return Wiki::findById($this->getParentId());
+    } // getParent
 
+  }
 ?>

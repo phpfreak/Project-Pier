@@ -36,4 +36,41 @@
     }
     return '<del>'.lang('invalid reference', $matches[0]).'</del>';
   }
+
+  /**
+  * Renders select project box
+  *
+  * @param string $name Name to use in HTML for the select
+  * @param Project $project
+  * @param integer $selected Id of selected element
+  * @param array $attributes Array of additional attributes
+  * @return string
+  * @throws InvalidInstanceError
+  */
+  function wiki_select_page($name, $project, $selected = null, $attributes = null) {
+    if (is_array($attributes)) {
+      if (!isset($attributes['class'])) {
+        $attributes['class'] = 'wiki_select_page';
+      }
+    } else {
+      $attributes = array('class' => 'wiki_select_page');
+    } // if
+    
+    $options = array(option_tag(lang('none'), 0));
+    if (logged_user()->isAdministrator()) {
+      $pages = Wiki::getAllProjectPages($project);
+    } else {
+      $pages = Wiki::getAllProjectPages($project);
+    }
+
+    if (is_array($pages)) {
+      foreach ($pages as $page) {
+        $option_attributes = $page->getId() == $selected ? array('selected' => 'selected') : null;
+        $options[] = option_tag($page->getObjectName(), $page->getId(), $option_attributes);
+      } // foreach
+    } // if
+    
+    return select_box($name, $options, $attributes);
+  } // wiki_select_page
+
 ?>

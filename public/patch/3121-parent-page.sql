@@ -1,0 +1,2 @@
+ALTER TABLE `<?php echo $table_prefix ?>wiki_pages` ADD `parent_id` INT( 10 ) NOT NULL DEFAULT 0 AFTER `id`;
+CREATE UNIQUE INDEX `subpages` ON `<?php echo $table_prefix ?>wiki_pages` ( `parent_id`, `id` );

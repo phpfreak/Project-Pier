@@ -45,6 +45,7 @@
     $sql = "
 CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."wiki_pages` (
   `id` int(10) unsigned NOT NULL auto_increment,
+  `parent_id` int(10) unsigned NOT NULL default 0,
   `revision` int(10) unsigned default NULL,
   `project_id` int(10) unsigned default NULL,
   `project_sidebar` tinyint(1) unsigned default '0',
@@ -53,7 +54,8 @@ CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."wiki_pages` (
   `locked` tinyint(1) default '0',
   `locked_by_id` int(10) unsigned default NULL,
   `locked_on` datetime default '0000-00-00 00:00:00',
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY  (`id`),
+  UNIQUE INDEX `subpages` (`parent_id`, `id`)
 );";
     // create table wiki_pages
     DB::execute($sql);
