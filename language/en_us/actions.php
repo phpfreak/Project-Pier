@@ -77,6 +77,7 @@
     'move task list' => 'Move task list',
     'delete task list' => 'Delete task list',
     'download task list' => 'Download',
+    'pdf' => 'PDF',
     'reorder tasks' => 'Reorder tasks',
     
     // Task
