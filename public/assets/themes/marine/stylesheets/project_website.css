@@ -7,3 +7,5 @@ select.select_milestone, select.select_task_list, select.select_message { width:
 #project .block { margin-left: 105px; }
 
 #project .hint { padding-left: 0px; }
+
+#project .icon{ margin-left: 7px; margin-top: 7px; }

@@ -210,7 +210,7 @@ body  {
 
 #page_menu li.align-right:hover ul  {
   right: 0px;
-  text-align: right;
+  text-align: left;
 }
 
 #page_menu ul li a:hover  {
@@ -769,19 +769,54 @@ div.private span  {
  display: none;
 }
 
-div .icon { float: left; text-align: center; width: 100px; border: 0; }
+div .icon { float: left; text-align: center; width: 60px; border: 0; }
 div .block { margin-left: 0px; }
 
 .options, .object_options { margin: 2px 5px 4px 5px; }
 .options a, .object_options a { color: #4887A0; }
 
-#links li .block { margin-left: 105px; }
+#links li .block { margin-left: 0px; }
 #links li { list-style-image: none !important; border: 0; }
 #links img { background-image: none !important; border: 0; }
 #links { padding: 0; }
 #links .odd { background-color: transparent; }
 
-#memo{position:fixed;bottom:0px;right:0px;background-color:#FAF9E4;height:150px;width:150px;font-weight: bold;font-size:14px;border:1px solid black;padding:2px;z-index: 9998;filter:alpha(opacity=80);-moz-opacity:0.8;opacity: 0.8;-moz-border-radius:5px;border-radius: 5px;}
-#memo .header{text-align:center;background-color:#FAF9E4; color: black}
-#memo textarea{width:140px;height:110px;margin:0px;background:transparent;border:none;color:black}
+#oldmemo{position:fixed;bottom:0px;right:0px;background-color:#FAF9E4;height:150px;width:150px;font-weight: bold;font-size:14px;border:1px solid black;padding:2px;z-index: 9998;filter:alpha(opacity=80);-moz-opacity:0.8;opacity: 0.8;-moz-border-radius:5px;border-radius: 5px;}
+#oldmemo .header{text-align:center;background-color:#FAF9E4; color: black}
+#oldmemo textarea{width:140px;height:110px;margin:0px;background:transparent;border:none;color:black}
 #memo .content { margin-left: 0px; }
+
+
+#memo {
+  position:fixed;
+  bottom:-230px;
+  right:10px;
+  background-color:#FAF9E4;
+  height:250px;
+  width:250px; 
+  font-weight: bold;
+  font-size:14px;
+  border:1px solid black;
+  padding:2px;
+  z-index: 9998;
+  filter:alpha(opacity=90);
+  -moz-opacity:0.9;
+  opacity: 0.9;
+  -moz-border-radius:5px;
+  border-radius: 5px;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  transition: 0.2s;
+}
+#memo:hover { bottom:0; }
+#memo .header{ 
+  line-height:18px; 
+  text-align:center;
+  background-color:#FAF9E4;
+  color: black; 
+  background:url(../../images/icons/edit.gif) top right no-repeat; 
+  margin-right:2px; 
+  margin-top:2px;
+}
+#memo:hover .header { background-image:none; }
+#memo textarea{width:240px;height:210px;margin:0px;background:transparent;border:none;color:black}
