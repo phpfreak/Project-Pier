@@ -647,8 +647,8 @@
     * @param void
     * @return string
     */
-    function getDownloadUrl() {
-      return get_url('task', 'download_list', array('id' => $this->getId(), 'active_project' => $this->getProjectId()));
+    function getDownloadUrl($output = 'csv') {
+      return get_url('task', 'download_list', array('id' => $this->getId(), 'active_project' => $this->getProjectId(), 'output' => $output));
     } // getDownloadUrl
     
     /**

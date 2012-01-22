@@ -57,13 +57,66 @@
         $this->redirectToReferer(get_url('task'));
       } // if
       
+      $output = array_var($_GET, 'output', 'csv');
       $project_name = active_project()->getName();
       $task_list_name = $task_list->getName();
       $task_count = 0;
-      $download_name = "{$project_name}-{$task_list_name}-tasks.txt";
-      $download_type = 'text/csv';
-      $download_contents = $task_list->getDownloadText($task_count, "\t", true);
-      download_contents($download_contents, $download_type, $download_name, strlen($download_contents));
+      if ($output == 'pdf' ) {
+        Env::useLibrary('fpdf');
+        $download_name = "{$project_name}-{$task_list_name}-tasks.pdf";
+        $download_type = 'application/pdf';
+        $pdf = new FPDF();
+        $pdf->AddPage();
+        $pdf->SetTitle($task_list_name);
+        $pdf->SetFont('Arial','B',16);
+        $task_lists = active_project()->getOpenTaskLists();
+        $pdf->Cell(0,10, lang('project') . ': ' . active_project()->getObjectName(), 'C');
+        $pdf->Ln();
+        foreach($task_lists as $task_list) {
+          $pdf->SetFont('Arial','B',14);
+          $pdf->Write(10, lang('task list') . ': ' . $task_list->getObjectName());
+          $pdf->Ln();
+          $tasks = $task_list->getTasks();
+          $line = 0;
+          // Column widths
+          $w = array(10, 0, 0);
+          // Header
+          //for($i=0;$i<count($header);$i++)
+          //  $this->Cell($w[$i],7,$header[$i],1,0,'C');
+          //$this->Ln();
+          $pdf->SetFont('Arial','I',14);
+          foreach($tasks as $task) {
+            $line++;
+            if ($task->isCompleted()) {
+              $task_status = lang('completed');
+              $task_completion_info = format_date($task->getCompletedOn());
+            } else {
+              $task_status = lang('open');
+              $task_completion_info = '                ';
+              if ($task->getDueDate()) {
+                $task_completion_info = format_date($task->getDueDate());
+              }
+            }
+            if ($task->getAssignedTo()) {
+              $task_assignee = $task->getAssignedTo()->getObjectName();
+            } else {
+              $task_assignee = lang('not assigned');
+            }
+            $pdf->Cell($w[0],6,$line);
+            $pdf->Cell($w[1],6,$task_status . " / " . $task_completion_info . " / " . $task_assignee , "TLRB");
+            $pdf->Ln();
+            $pdf->Cell($w[0],6,'');
+            $pdf->MultiCell($w[2],6,$task->getText());
+            $pdf->Ln();
+          }
+        }
+        $pdf->Output($download_name, 'D');
+      } else {
+        $download_name = "{$project_name}-{$task_list_name}-tasks.txt";
+        $download_type = 'text/csv';
+        $download_contents = $task_list->getDownloadText($task_count, "\t", true);
+        download_contents($download_contents, $download_type, $download_name, strlen($download_contents));
+      }
       die();
     }
     

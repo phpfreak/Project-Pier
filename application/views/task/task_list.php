@@ -21,6 +21,7 @@
     $task_list_options[] = '<span><a href="'. $task_list->getViewUrl() .'#objectComments">'. lang('comments') .'('. $cc .')</a></span>';
   }
   $task_list_options[] = '<span><a href="'. $task_list->getDownloadUrl() .'">'. lang('download') . '</a></span>';
+  $task_list_options[] = '<span><a href="'. $task_list->getDownloadUrl('pdf') .'">'. lang('pdf') . '</a></span>';
 ?>
 <div class="taskList">
 <div class="block" id="taskList<?php echo $task_list->getId() ?>">
