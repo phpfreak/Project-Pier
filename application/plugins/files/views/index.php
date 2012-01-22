@@ -35,6 +35,14 @@
     } // if
     //add_page_action(lang('add folder'), get_url('files', 'add_folder'));
   } // if
+  if ($current_folder instanceof ProjectFolder) {
+    if ($current_folder->canEdit(logged_user())) {
+      add_page_action(lang('edit folder'), $current_folder->getEditUrl());
+    }
+    if ($current_folder->canDelete(logged_user())) {
+      add_page_action(lang('delete folder'), $current_folder->getDeleteUrl());
+    }
+  }
   
   add_stylesheet_to_page('project/files.css');
 
