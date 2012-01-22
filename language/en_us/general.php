@@ -9,6 +9,7 @@
     'click to edit' => 'Click to edit, Esc to cancel, Enter to save',
     'editor' => 'Editor',
     'edit values' => 'Edit values',
+    'load values' => 'Load values',
     'add locale' => 'Add locale',
     'edit locale' => 'Edit locale',
     'locale' => 'Locale',

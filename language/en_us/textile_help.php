@@ -25,6 +25,12 @@
     'superscript' => 'superscript',
     'subscript' => 'subscript',
     'no textile' => '*ignore* textile formatting',
+    'header paren' => 'Plain (parentheses) inserted between block syntax and the closing dot-space indicate classes and ids:',
+    'header curly' => 'Curly {brackets} insert arbitrary css style',
+    'header square' => 'Square [brackets] insert language attributes',
+    'header square' => 'Square [brackets] insert language attributes',
+    'output is/lc' => '<b><i>output will be</i></b>',
+    'some text/lc' => 'some text',
   ); // array
 
 ?>

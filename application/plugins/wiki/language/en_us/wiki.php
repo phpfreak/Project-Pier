@@ -79,6 +79,9 @@ return array(
 
   'wiki page locked'                    =>  'Page is locked',
   'wiki page locked by on'              =>  'Page locked by %s on %s',
+
+  'parent page' => 'Parent page',
+  'subpages' => 'Subpages',
   );
 
 ?>
