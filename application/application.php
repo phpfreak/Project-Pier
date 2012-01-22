@@ -21,6 +21,10 @@
   // Init flash!
   Flash::instance();
   $language = config_option('installation_base_language', 'en_us');
+  if (isset($_GET['language'])) {
+    $_SESSION['language'] = $_GET['language'];
+    $_GET['language'] = '';
+  }
   if (isset($_SESSION['language'])) {
     $language = $_SESSION['language'];
   }
