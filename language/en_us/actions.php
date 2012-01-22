@@ -124,9 +124,6 @@
     'download task lists' => 'Download all tasks',
 
     // Internationalization
-    'i18n edit locale values' => 'Edit values',
-    'i18n load locale values' => 'Load values',
-    
     'select language' => 'Select language',
   ); // array
 
