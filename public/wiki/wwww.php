@@ -55,6 +55,7 @@ function pp_content($project_id, $content) {
     $html .= "<h1>{$page['project_name']}</h1>";
     $html .= "<h2>{$page['page_name']}</h2>";
     $c = do_textile(pp_wiki_links($project_id, $page[page_name], $page['content']));
+    $c = $page['content'];
     $html .= "<div class=content>{$c}</div>";
     $html .= "<h3>{$page['created_on']} {$page['log_message']}</h3>";
   }
@@ -100,6 +101,7 @@ function pp_wiki_links($project_id, $page_name, $content)
 mysql_connect(DB_HOST,DB_USER,DB_PASS)
     or die("Couldn't connect!");
 mysql_select_db(DB_NAME);
+mysql_query("SET NAMES 'utf8'");
 $project_id = 0;
 $page_id = 0;
 $pages = pp_pages();
@@ -122,7 +124,7 @@ if (isset($_REQUEST['page'])) {
  <!-- header -->
  <div id="headerWrapper">
   <div id="header">
-   <h1><a href="/pp086/index.php?c=dashboard&a=index&active_project=19&1300729303">ProjectPier</a></h1>
+   <h1><a href="/pp088/index.php?c=dashboard&a=index&active_project=19&1300729303">ProjectPier</a></h1>
   </div>
  </div>
  <div id="tabsWrapper">
