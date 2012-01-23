@@ -82,11 +82,18 @@
       <?php echo label_tag(lang('is auto assign'), null, true) ?>
       <?php echo yes_no_widget('user[auto_assign]', 'userFormAutoAssign', array_var($user_data, 'auto_assign'), lang('yes'), lang('no')) ?>
     </div>
+<?php   if (extension_loaded('ldap')) { ?>
     <div>
       <?php echo label_tag(lang('use LDAP'), null, true) ?>
       <?php echo yes_no_widget('user[use_LDAP]', 'userFormUseLDAP', array_var($user_data, 'use_LDAP'), lang('yes'), lang('no')) ?>
     </div>
-
+<?php   } else { ?>
+    <input type="hidden" name="user[use_LDAP]" value="0" />
+    <div>
+      <?php echo label_tag(lang('use LDAP'), null, false) ?>
+      <?php echo lang('no ldap functions') ?>
+    </div>
+<?php   } // if ?>
     <div>
       <?php echo label_tag(lang('can manage projects'), null, true) ?>
       <?php echo yes_no_widget('user[can_manage_projects]', 'userFormCanManageProjects', array_var($user_data, 'can_manage_projects'), lang('yes'), lang('no')) ?>

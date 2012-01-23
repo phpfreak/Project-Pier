@@ -46,7 +46,8 @@
         'mysql' => true, 
         'calendar' => false, 
         'gd' => false, 
-        'simplexml' => false
+        'simplexml' => false,
+        'ldap' => false,
       ); // array
 
     } // __construct
