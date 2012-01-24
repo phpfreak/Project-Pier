@@ -63,6 +63,7 @@ INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('system', 'product_version', '0.8.8', 'StringConfigHandler', 1, 0, NULL);
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'installation_welcome_text', 'Welcome to ProjectPier 0.8.8', 'StringConfigHandler', 0, 11, NULL);
 INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'installation_welcome_logo', '<img src="public/assets/themes/marine/images/projectpier-logo.png" style="position: relative; left: 0px; top: 0px;">', 'StringConfigHandler', 0, 10, 'Logo to display above login user/pass');
+INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'dashboard_logs_count', '50', 'IntegerConfigHandler', 0, 27, NULL);
 
 INSERT INTO `<?php echo $table_prefix ?>file_types` (`id`, `extension`, `icon`, `is_searchable`, `is_image`) VALUES (0, 'xxx', 'unknown.png', 0, 0);
 INSERT INTO `<?php echo $table_prefix ?>file_types` (`extension`, `icon`, `is_searchable`, `is_image`) VALUES ('zip', 'archive.png', 0, 0);
