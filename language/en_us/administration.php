@@ -40,6 +40,8 @@
     'config category desc features' => 'Use this set of settings to enable/disable different features and choose between different methods of displaying project data',
     'config category name database' => 'Database',
     'config category desc database' => 'Use this set of settings to set database options',
+    'config category name authentication' => 'Authentication',
+    'config category desc authentication' => 'Access to all authentication settings',
     
     // ---------------------------------------------------
     //  Options
@@ -120,6 +122,19 @@
     'config option desc login_show_options' => 'If yes, options for setting language and theme are shown.',
     'config option name display_application_logs' => 'Display application logs',
     'config option desc display_application_logs' => 'If no, logging still occurs but it is not displayed anymore.',
+    'config option name dashboard_logs_count' => 'Max. number of application log lines to show',
+
+    // Authentication
+    'config option name authdb server' => 'Database server',
+    'config option desc authdb server' => 'The ip address or DNS name of the database server for authentication. Port number can be included.',
+    'config option name authdb username' => 'Database user name',
+    'config option desc authdb username' => 'The user name to access the database',
+    'config option name authdb password' => 'Database user name',
+    'config option desc authdb password' => 'The password corresponding to the user',
+    'config option name authdb database' => 'Database name',
+    'config option desc authdb database' => 'Name of the database in the database server',
+    'config option name authdb sql' => 'Select SQL',
+    'config option desc authdb sql' => 'The SQL to retrieve a single row from the table containing the user details. At least 1 field should be returned named email. $username/$password is the placeholder for the user name/password during login.',
   ); // array
 
 ?>
