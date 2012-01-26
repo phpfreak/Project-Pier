@@ -69,6 +69,7 @@
         if ($result) {
           $langs[$name] = $result['description'];
         } else {
+          $category_id = 0;
           $sql = "insert into `".TABLE_PREFIX."i18n_values` (`locale_id`, `category_id`, `name`, `description`) values( '$locale_id', '$category_id', '$name', '~{$name}');";
           try {
             mysql_query($sql);

@@ -463,7 +463,8 @@
           $this->contact = $contact;
         } else {
           $this->contact = new Contact;
-          $this->contact->setName(lang('missing contact'));
+          $this->contact->setDisplayName(lang('missing contact'));
+          $this->contact->setCompanyId(owner_company()->getId());
         }
       }
       return $this->contact;

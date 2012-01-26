@@ -14,7 +14,24 @@
     * @var array
     * @static
     */
-    static private $columns = array('id' => DATA_TYPE_INTEGER, 'username' => DATA_TYPE_STRING, 'email' => DATA_TYPE_STRING, 'token' => DATA_TYPE_STRING, 'salt' => DATA_TYPE_STRING, 'twister' => DATA_TYPE_STRING, 'created_on' => DATA_TYPE_DATETIME, 'created_by_id' => DATA_TYPE_INTEGER, 'updated_on' => DATA_TYPE_DATETIME, 'updated_by_id' => DATA_TYPE_INTEGER, 'last_login' => DATA_TYPE_DATETIME, 'last_visit' => DATA_TYPE_DATETIME, 'last_activity' => DATA_TYPE_DATETIME, 'is_admin' => DATA_TYPE_BOOLEAN, 'auto_assign' => DATA_TYPE_BOOLEAN, 'use_LDAP' => DATA_TYPE_BOOLEAN);
+    static private $columns = array(
+      'id' => DATA_TYPE_INTEGER, 
+      'username' => DATA_TYPE_STRING, 
+      'email' => DATA_TYPE_STRING, 
+      'token' => DATA_TYPE_STRING, 
+      'salt' => DATA_TYPE_STRING, 
+      'twister' => DATA_TYPE_STRING, 
+      'created_on' => DATA_TYPE_DATETIME, 
+      'created_by_id' => DATA_TYPE_INTEGER, 
+      'updated_on' => DATA_TYPE_DATETIME, 
+      'updated_by_id' => DATA_TYPE_INTEGER, 
+      'last_login' => DATA_TYPE_DATETIME, 
+      'last_visit' => DATA_TYPE_DATETIME, 
+      'last_activity' => DATA_TYPE_DATETIME, 
+      'is_admin' => DATA_TYPE_BOOLEAN, 
+      'auto_assign' => DATA_TYPE_BOOLEAN, 
+      'use_LDAP' => DATA_TYPE_BOOLEAN,
+    );
   
     /**
     * Construct
