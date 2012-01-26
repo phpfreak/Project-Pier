@@ -32,7 +32,9 @@
     * @return string
     */
     function getDisplayDescription() {
-      return Localization::instance()->lang('config option desc ' . $this->getName(), '');
+      $key = 'config option desc ' . $this->getName();
+      $desc = lang($key);
+      return strpos($desc,$key)===false ? $desc : '';
     } // getDisplayDescription
     
     /**

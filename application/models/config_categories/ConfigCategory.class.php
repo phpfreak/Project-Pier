@@ -39,7 +39,9 @@
     * @return string
     */
     function getDisplayDescription() {
-      return Localization::instance()->lang('config category desc ' . $this->getName(), '');
+      $key = 'config category desc ' . $this->getName();
+      $desc = lang($key);
+      return strpos($desc,$key)===false ? $desc : '';
     } // getDisplayDescription
     
     /**

@@ -43,6 +43,7 @@
         $this->redirectToReferer(get_url('administration'));
       } // if
       
+      $this->addHelper('textile');
       $options = $category->getOptions(false);
       $categories = ConfigCategories::getAll(false);
       

@@ -37,7 +37,7 @@
       $conditions = $include_system_options ? 
         array('`category_name` = ?', $category->getName()) : 
         array('`category_name` = ? AND `is_system` = ?', $category->getName(), false);
-        
+   
       return self::count($conditions);
     } // countOptionsByCategory
     
