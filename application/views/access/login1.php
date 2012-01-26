@@ -42,7 +42,7 @@
 <?php tpl_display(get_template_path('form_errors')) ?>
 
 <div class="container">
-  <div><?php echo config_option('installation_welcome_logo', '<img src="/public/images/logo/projectpier.png">'); ?></div>
+  <div><?php echo config_option('installation_welcome_logo', '<img src="'.get_image_url('projectpier-logo.png').'">'); ?></div>
   <div class="left">
     <div id="loginUsernameDiv">
       <label for="loginUsername"><?php echo lang('username') ?>:</label>
