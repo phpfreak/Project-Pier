@@ -139,7 +139,7 @@ VALUES ('tickets', 0, 4) ON DUPLICATE KEY UPDATE `id` = `id`;";
 
     $sql = "INSERT INTO `{$tp}config_options` 
 (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) 
-VALUES ('tickets', 'tickets_default_categories', 'information request\r\nchange request\r\nincident report\r\ncomplaint\r\ndefect report\r\ngeneral/other', 'TextConfigHandler', 0, 3, NULL); 
+VALUES ('tickets', 'tickets_default_categories', 'information request\r\nchange request\r\nincident report\r\ncomplaint\r\ndefect report\r\ngeneral/other', 'TextConfigHandler', 0, 3, NULL) 
 ON DUPLICATE KEY UPDATE `id` = `id`";
     DB::execute($sql);
 
