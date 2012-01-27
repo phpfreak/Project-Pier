@@ -57,10 +57,28 @@
 
 <?php tpl_display(get_template_path('form_errors')) ?>
 
-  <div>
-    <?php echo label_tag(lang('name'), 'contactFormDisplayName', true) ?>
-    <?php echo text_field('contact[display_name]', array_var($contact_data, 'display_name'), array('class' => 'medium', 'id' => 'contactFormDisplayName')) ?>
-  </div>
+  <fieldset>
+    <legend><?php echo label_tag(lang('name'), 'contactFormName', true) ?></legend>
+    <div>
+      <?php echo label_tag(lang('display name'), 'contactFormDisplayName', true) ?>
+      <?php echo text_field('contact[display_name]', array_var($contact_data, 'display_name'), array('class' => 'medium', 'id' => 'contactFormDisplayName')) ?>
+    </div>
+
+    <div>
+      <?php echo label_tag(lang('first name'), 'contactFormFirstName', false) ?>
+      <?php echo text_field('contact[first_name]', array_var($contact_data, 'first_name'), array('class' => 'medium', 'id' => 'contactFormFirstName')) ?>
+    </div>
+
+    <div>
+      <?php echo label_tag(lang('middle name'), 'contactFormMiddleName', false) ?>
+      <?php echo text_field('contact[middle_name]', array_var($contact_data, 'middle_name'), array('class' => 'medium', 'id' => 'contactFormMiddleName')) ?>
+    </div>
+
+    <div>
+      <?php echo label_tag(lang('last name'), 'contactFormLastName', false) ?>
+      <?php echo text_field('contact[last_name]', array_var($contact_data, 'last_name'), array('class' => 'medium', 'id' => 'contactFormLastName')) ?>
+    </div>
+  </fieldset>
   
 <?php if (logged_user()->isAdministrator()) { ?>
 <?php if (!$contact->isAdministrator()) { ?>
@@ -108,23 +126,21 @@
   
   <div>
     <fieldset>
-      <legend><?php echo lang('current avatar') ?></legend>
+      <legend><?php echo lang('avatar') ?></legend>
 <?php if ($contact->hasAvatar()) { ?>
       <img src="<?php echo $contact->getAvatarUrl() ?>" alt="<?php echo clean($contact->getDisplayName()) ?> avatar" />
       <p><?php echo checkbox_field('contact[delete_avatar]', false, array('id'=>'contactDeleteAvatar', 'class' => 'checkbox')) ?> <?php echo label_tag(lang('delete current avatar'), 'contactDeleteAvatar', false, array('class' => 'checkbox'), '') ?></p>
 <?php } else { ?>
       <p><?php echo lang('no current avatar') ?></p>
 <?php } // if ?>
-    </fieldset>
     <?php echo label_tag(lang('avatar'), 'contactFormAvatar', false) ?>
     <?php echo file_field('new avatar', null, array('id' => 'contactFormAvatar')) ?>
 <?php if ($contact->hasAvatar()) { ?>
     <p class="desc"><?php echo lang('new avatar notice') ?></p>
 <?php } // if ?>
-  </div>
-  <div>
     <?php echo label_tag(lang('use gravatar'), 'contactFormUseGravatar', true) ?>
     <?php echo yes_no_widget('contact[use_gravatar]', 'contactFormUseGravatar', array_var($contact_data, 'use_gravatar'), lang('yes'), lang('no')) ?>
+    </fieldset>
   </div>
 
   <fieldset>
@@ -151,6 +167,38 @@
     </div>
     
   </fieldset>
+
+  <fieldset>
+    <legend><?php echo lang('additional') ?></legend>
+
+    <div>
+      <?php echo label_tag(lang('language preferences'), 'contactFormLanguagePreferences') ?>
+      <?php echo text_field('contact[language_preferences]', array_var($contact_data, 'language_preferences'), array('id' => 'contactFormLanguagePreferences')) ?>
+    </div>
+   
+    <div>
+      <?php echo label_tag(lang('food preferences'), 'contactFormFoodPreferences') ?>
+      <?php echo text_field('contact[food_preferences]', array_var($contact_data, 'food_preferences'), array('id' => 'contactFormFoodPreferences')) ?>
+    </div>
+    
+    <div>
+      <?php echo label_tag(lang('license plate'), 'contactFormLicensePlate') ?>
+      <?php echo text_field('contact[license_plate]', array_var($contact_data, 'license_plate'), array('id' => 'contactFormLicensePlate')) ?>
+    </div>
+    
+    <div>
+      <?php echo label_tag(lang('department details'), 'contactFormDepartmentDetails') ?>
+      <?php echo text_field('contact[department_details]', array_var($contact_data, 'department_details'), array('id' => 'contactFormDepartmentDetails')) ?>
+    </div>
+    
+    <div>
+      <?php echo label_tag(lang('location details'), 'contactFormLocationDetails') ?>
+      <?php echo text_field('contact[location_details]', array_var($contact_data, 'location_details'), array('id' => 'contactFormLocationDetails')) ?>
+    </div>
+    
+  </fieldset>
+
+
 
 <?php if (is_array($im_types) && count($im_types)) { ?>
   <fieldset>

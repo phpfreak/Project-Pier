@@ -14,7 +14,33 @@
     * @var array
     * @static
     */
-    static private $columns = array('id' => DATA_TYPE_INTEGER, 'company_id' => DATA_TYPE_INTEGER, 'user_id' => DATA_TYPE_INTEGER, 'email' => DATA_TYPE_STRING, 'display_name' => DATA_TYPE_STRING, 'title' => DATA_TYPE_STRING, 'timezone' => DATA_TYPE_FLOAT, 'avatar_file' => DATA_TYPE_STRING, 'is_favorite' => DATA_TYPE_BOOLEAN, 'use_gravatar' => DATA_TYPE_BOOLEAN, 'office_number' => DATA_TYPE_STRING, 'fax_number' => DATA_TYPE_STRING, 'mobile_number' => DATA_TYPE_STRING, 'home_number' => DATA_TYPE_STRING, 'created_on' => DATA_TYPE_DATETIME, 'created_by_id' => DATA_TYPE_INTEGER, 'updated_on' => DATA_TYPE_DATETIME, 'updated_by_id' => DATA_TYPE_INTEGER);
+    static private $columns = array(
+      'id' => DATA_TYPE_INTEGER, 
+      'company_id' => DATA_TYPE_INTEGER, 
+      'user_id' => DATA_TYPE_INTEGER, 
+      'email' => DATA_TYPE_STRING, 
+      'display_name' => DATA_TYPE_STRING, 
+      'first_name' => DATA_TYPE_STRING, 
+      'middle_name' => DATA_TYPE_STRING, 
+      'last_name' => DATA_TYPE_STRING, 
+      'title' => DATA_TYPE_STRING, 
+      'timezone' => DATA_TYPE_FLOAT, 
+      'avatar_file' => DATA_TYPE_STRING, 
+      'is_favorite' => DATA_TYPE_BOOLEAN, 
+      'use_gravatar' => DATA_TYPE_BOOLEAN, 
+      'office_number' => DATA_TYPE_STRING, 
+      'fax_number' => DATA_TYPE_STRING, 
+      'mobile_number' => DATA_TYPE_STRING, 
+      'home_number' => DATA_TYPE_STRING, 
+      'license_plate' => DATA_TYPE_STRING, 
+      'food_preferences' => DATA_TYPE_STRING, 
+      'department_details' => DATA_TYPE_STRING, 
+      'location_details' => DATA_TYPE_STRING, 
+      'created_on' => DATA_TYPE_DATETIME, 
+      'created_by_id' => DATA_TYPE_INTEGER, 
+      'updated_on' => DATA_TYPE_DATETIME, 
+      'updated_by_id' => DATA_TYPE_INTEGER
+    );
   
     /**
     * Construct

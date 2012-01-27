@@ -123,6 +123,7 @@
     'config option name display_application_logs' => 'Display application logs',
     'config option desc display_application_logs' => 'If no, logging still occurs but it is not displayed anymore.',
     'config option name dashboard_logs_count' => 'Max. number of application log lines to show',
+    'config option desc dashboard_logs_count' => 'Limits the number of log lines to show on the dashboard',
 
     // Authentication
     'config option name authdb server' => 'Database server',
@@ -135,6 +136,15 @@
     'config option desc authdb database' => 'Name of the database in the database server',
     'config option name authdb sql' => 'Select SQL',
     'config option desc authdb sql' => 'The SQL to retrieve a single row from the table containing the user details. At least 1 field should be returned named email. $username/$password is the placeholder for the user name/password during login.',
+
+    'config option name parking space reservation url' => 'Parking space url',
+    'config option desc parking space reservation url' => 'Enter the complete url to start the parking space reservation web application',
+
+    'config option name map url' => 'Display map url',
+    'config option desc map url' => 'The url to display a map showing the location of a contact or company. $location is the placeholder for the location details.',
+    'config option name route url' => 'Display route url',
+    'config option desc route url' => 'The url to display a route showing a route from the current user (contact) to the location of a contact or company. $from/$to is the placeholder for the from address/to address.',
+
   ); // array
 
 ?>

@@ -51,16 +51,8 @@
  <?php if (trim($company->getCountry())) { ?>
       <br /><?php echo clean($company->getCountryName()) ?>
  <?php } // if ?>
- <?php $q = '';  ?>
- <?php $q .= clean($company->getAddress()); ?>
- <?php $q .= ' ' . clean($company->getAddress2()); ?>
- <?php $q .= ' ' . clean($company->getZipcode()) ?>
- <?php $q .= ' ' . clean($company->getCity()); ?>
- <?php $q .= ' ' . clean($company->getCountryName()); ?>
- <?php $q = urlencode($q);  ?>
- <?php $maps_url = config_option('maps_url','http://maps.google.com/maps?q=');  ?>
- <?php $q = $maps_url . $q;  ?>
-      <br /><a href="<?php echo $q; ?>" target=_blank><?php echo lang('show map') ?></a>
+      <br /><a href="<?php echo $company->getShowMapUrl() ?>" target=_blank><?php echo lang('show map') ?></a> | 
+      <a href="<?php echo $company->getShowRouteUrl(logged_user()->getContact()) ?>" target=_blank><?php echo lang('show route') ?></a>
    </div>
 <?php } // if ?>
  

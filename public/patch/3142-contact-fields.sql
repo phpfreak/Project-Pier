@@ -1,0 +1,11 @@
+INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'map url', 'http://maps.google.com?q=$location', 'StringConfigHandler', 0, 3, NULL);
+INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'route url', 'http://maps.google.com?saddr=$from&daddr=$to', 'StringConfigHandler', 0, 3, NULL);
+INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'parking space reservation url', '', 'StringConfigHandler', 0, 3, NULL);
+ALTER TABLE `<?php echo $table_prefix ?>contacts` ADD `first_name` VARCHAR( 50 ) <?php echo $default_charset ?> <?php echo $default_collation ?> NOT NULL DEFAULT '' AFTER `display_name`;
+ALTER TABLE `<?php echo $table_prefix ?>contacts` ADD `middle_name` VARCHAR( 50 ) <?php echo $default_charset ?> <?php echo $default_collation ?> NOT NULL DEFAULT '' AFTER `first_name`;
+ALTER TABLE `<?php echo $table_prefix ?>contacts` ADD `last_name` VARCHAR( 50 ) <?php echo $default_charset ?> <?php echo $default_collation ?> NOT NULL DEFAULT '' AFTER `middle_name`;
+ALTER TABLE `<?php echo $table_prefix ?>contacts` ADD `license_plate` VARCHAR( 50 ) <?php echo $default_charset ?> <?php echo $default_collation ?> NOT NULL DEFAULT '' AFTER `home_number`;
+ALTER TABLE `<?php echo $table_prefix ?>contacts` ADD `food_preferences` VARCHAR( 50 ) <?php echo $default_charset ?> <?php echo $default_collation ?> NOT NULL DEFAULT '' AFTER `license_plate`;
+ALTER TABLE `<?php echo $table_prefix ?>contacts` ADD `department_details` VARCHAR( 50 ) <?php echo $default_charset ?> <?php echo $default_collation ?> NOT NULL DEFAULT '' AFTER `food_preferences`;
+ALTER TABLE `<?php echo $table_prefix ?>contacts` ADD `location_details` VARCHAR( 50 ) <?php echo $default_charset ?> <?php echo $default_collation ?> NOT NULL DEFAULT '' AFTER `department_details`;
+ALTER TABLE `<?php echo $table_prefix ?>contacts` ADD `language_preferences` VARCHAR( 50 ) <?php echo $default_charset ?> <?php echo $default_collation ?> NOT NULL DEFAULT '' AFTER `location_details`;

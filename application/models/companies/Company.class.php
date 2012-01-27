@@ -313,6 +313,25 @@
     function getCountryName() {
       return lang('country ' . $this->getCountry());
     } // getCountryName
+
+    /**
+    * Return location details
+    *
+    * @access public
+    * @param void
+    * @return string
+    */
+    function getLocationDetails() {
+      $details = ''; 
+      $details .= clean($this->getAddress());
+      $details .= ' ' . clean($this->getAddress2());
+      $details .= ' ' . clean($this->getZipcode());
+      $details .= ' ' . clean($this->getCity());
+      $details .= ' ' . clean($this->getCountryName());
+      return $details;
+    } // getCountryName
+    
+
     
     /**
     * Returns true if company info is updated by the user since company is created. Company can be created
@@ -532,6 +551,39 @@
       
       return get_url('company', 'toggle_favorite', $attributes);
     } // getToggleFavoriteUrl
+
+    /**
+    * Show map page
+    *
+    * @access public
+    * @param void
+    * @return null
+    */
+    function getShowMapUrl() {
+      $location = urlencode($this->getLocationDetails());
+      $map_url = config_option('map url', 'http://maps.google.com?q=$location');
+      $map_url = str_replace('$location', $location, $map_url);
+      return $map_url;
+    } // getShowMapUrl
+
+    /**
+    * Show route page
+    *
+    * @access public
+    * @param void
+    * @return null
+    */
+    function getShowRouteUrl($contact) {
+      $to = '';
+      if ($contact instanceof Contact) {
+        $to = $contact->getLocationDetails();
+      }
+      $route_url = config_option('route url', 'http://maps.google.com?saddr=$from&daddr=$to');
+      $route_url = str_replace('$to', $to, $route_url);
+      $from = urlencode($this->getLocationDetails());
+      $route_url = str_replace('$from', $from, $route_url);
+      return $route_url;
+    } // getShowRouteUrl
     
     // ---------------------------------------------------
     //  Logo

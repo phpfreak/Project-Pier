@@ -36,6 +36,20 @@
       lang('edit user account') => $contact->getEditUserAccountUrl()
     ));
   } // if
+  if (logged_user()->isMemberOfOwnerCompany()) {
+    $url = $contact->getReserveParkingSpaceUrl();
+    if (trim($url)!='') {
+      add_page_action(array(
+        lang('reserve parking space') => $url
+      ));
+    }
+    add_page_action(array(
+      lang('show map') => $contact->getShowMapUrl()
+    ));
+    add_page_action(array(
+      lang('show route') => logged_user()->getContact()->getShowRouteUrl($contact)
+    ));
+  }
   add_stylesheet_to_page('admin/contact_list.css');
 
 ?>

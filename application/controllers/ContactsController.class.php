@@ -184,6 +184,9 @@
         }
         $contact_data = array(
           'display_name' => $contact->getDisplayName(),
+          'first_name' => $contact->getFirstName(),
+          'middle_name' => $contact->getMiddleName(),
+          'last_name' => $contact->getLastName(),
           'company_id' => $contact->getCompanyId(),
           'title' => $contact->getTitle(),
           'email' => $contact->getEmail(),
@@ -191,6 +194,10 @@
           'fax_number' => $contact->getFaxNumber(),
           'mobile_number' => $contact->getMobileNumber(),
           'home_number' => $contact->getHomeNumber(),
+          'food_preferences'  => $contact->getFoodPreferences(),
+          'license_plate'  => $contact->getLicensePlate(),
+          'location_details'  => $contact->getLocationDetails(),
+          'department_details'  => $contact->getDepartmentDetails(),
           'use_gravatar'  => $contact->getUseGravatar(),
           'tags' => is_array($tag_names) ? implode(', ', $tag_names) : '',
         ); // array

@@ -598,6 +598,50 @@
       
       return get_url('contacts', 'toggle_favorite', $attributes);
     } // getToggleFavoriteUrl
+
+    /**
+    * Reserve parking space URL
+    *
+    * @access public
+    * @param void
+    * @return null
+    */
+    function getReserveParkingSpaceUrl() {
+      return config_option('parking space reservation url', '').'?license_plate='.$this->getLicensePlate();
+    } // getReserveParkingSpaceUrl
+
+    /**
+    * Show map page
+    *
+    * @access public
+    * @param void
+    * @return null
+    */
+    function getShowMapUrl() {
+      $location = urlencode($this->getLocationDetails());
+      $map_url = config_option('map url', 'http://maps.google.com?q=$location');
+      $map_url = str_replace('$location', $location, $map_url);
+      return $map_url;
+    } // getShowMapUrl
+
+    /**
+    * Show route page
+    *
+    * @access public
+    * @param void
+    * @return null
+    */
+    function getShowRouteUrl($contact) {
+      $to = '';
+      if ($contact instanceof Contact) {
+        $to = urlencode($contact->getLocationDetails());
+      }
+      $route_url = config_option('route url', 'http://maps.google.com?saddr=$from&daddr=$to');
+      $route_url = str_replace('$to', $to, $route_url);
+      $from = urlencode($this->getLocationDetails());
+      $route_url = str_replace('$from', $from, $route_url);
+      return $route_url;
+    } // getShowRouteUrl
     
     // ---------------------------------------------------
     //  Tags
@@ -792,4 +836,4 @@
   
   } // Contact 
 
-?>
+?>	
