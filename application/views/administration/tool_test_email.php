@@ -21,3 +21,11 @@
   
   <?php echo submit_button(lang('submit')) ?>
 </form>
+
+<?php if (extension_loaded('sockets')) { ?>
+<div>Socket functions are available so mailing is possible from PHP level</div>
+<?php } else { ?>
+<div>Socket functions are NOT available. Mailing is not possible from PHP level</div>
+<?php } ?>
+<?php echo 'Note: allow_url_fopen=' . ini_get('allow_url_fopen') ?>
+
