@@ -179,3 +179,7 @@ INSERT INTO `<?php echo $table_prefix ?>plugins` (`plugin_id`, `name`, `installe
 INSERT INTO `<?php echo $table_prefix ?>plugins` (`plugin_id`, `name`, `installed`) VALUES (8, 'reports', 0);
 INSERT INTO `<?php echo $table_prefix ?>plugins` (`plugin_id`, `name`, `installed`) VALUES (9, 'wikilinks', 0);
 INSERT INTO `<?php echo $table_prefix ?>plugins` (`plugin_id`, `name`, `installed`) VALUES (10, 'i18n', 0);
+
+INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'map url', 'http://maps.google.com?q=$location', 'StringConfigHandler', 0, 3, NULL);
+INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'route url', 'http://maps.google.com?saddr=$from&daddr=$to', 'StringConfigHandler', 0, 3, NULL);
+INSERT INTO `<?php echo $table_prefix ?>config_options` (`category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`) VALUES ('general', 'parking space reservation url', '', 'StringConfigHandler', 0, 3, NULL);
