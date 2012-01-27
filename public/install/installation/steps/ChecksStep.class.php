@@ -43,11 +43,13 @@
       ); // array
       
       $this->check_extensions = array(
+        'session' => true, 
         'mysql' => true, 
         'calendar' => false, 
         'gd' => false, 
         'simplexml' => false,
         'ldap' => false,
+        'sockets' => false, 
       ); // array
 
     } // __construct
