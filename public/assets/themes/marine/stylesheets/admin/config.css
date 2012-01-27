@@ -2,6 +2,8 @@
 #configCategoryOptions label { margin: 0; padding: 0; }
 #configCategoryOptions .configOptionLabel { float: left; width: 230px; }
 #configCategoryOptions .configOptionControl { margin-left: 240px; }
-#configCategoryOptions textarea { width: 300px; }
-#configCategoryOptions input { width: 300px; height: 20px; }
+#configCategoryOptions textarea { width: 24em; }
+#configCategoryOptions input { width: 24em; height: 20px; }
+#configCategoryOptions select{ width: 25em; height: 25px; }
 #configCategoryOptions .yes_no { width: auto; }
+#configCategoryOptions .desc { clear: both; }
