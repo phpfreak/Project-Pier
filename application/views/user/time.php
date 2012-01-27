@@ -1,7 +1,7 @@
 <?php
 
   set_page_title(lang('time manager'));
-  administration_tabbed_navigation(ADMINISTRATION_TAB_TIME);
+  administration_tabbed_navigation('time');
   administration_crumbs(lang('time manager'));
 
   add_page_action(lang('unbilled time'), get_url('administration', 'time', array('status' => '0')));
@@ -16,7 +16,7 @@
 <?php if (isset($users) && is_array($users) && count($users)) { ?>
 <table id="projects">
   <tr>
-    <th></th>
+    <th class="short"></th>
     <th><?php echo lang('name'); ?></th>
     <th><?php echo lang('unbilled'); ?></th>
     <th><?php echo lang('billed'); ?></th>

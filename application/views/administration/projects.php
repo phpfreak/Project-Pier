@@ -14,7 +14,7 @@
 <?php if (isset($projects) && is_array($projects) && count($projects)) { ?>
 <table id="projects">
   <tr>
-    <th></th>
+    <th class="short"></th>
     <th><?php echo lang('name') ?></th>
     <th><?php echo lang('options') ?></th>
   </tr>

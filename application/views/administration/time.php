@@ -22,7 +22,7 @@
 
 <table class="timeLogs blank">
   <tr>
-    <th></th>
+    <th class="short"></th>
     <th><?php echo lang('done date'); ?></th>
     <th><?php echo lang('name'); ?></th>
     <th><?php echo lang('details'); ?></th>

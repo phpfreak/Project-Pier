@@ -131,6 +131,7 @@
       if(!is_array($time_data)) {
         $user = logged_user();
         // phpfreak: accept incoming parameters
+        $initial_name = '';
         $task_id = isset($_GET['task']) ? $_GET['task'] : 0;
         if ($task_id) {
           $task = ProjectTasks::findById($task_id);

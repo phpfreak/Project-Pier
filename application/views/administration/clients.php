@@ -15,7 +15,7 @@
 <table>
   <tr>
     <th><?php echo lang('name') ?></th>
-    <th><?php echo lang('contacts') ?></th>
+    <th class="medium"><?php echo lang('contacts') ?></th>
     <th><?php echo lang('options') ?></th>
   </tr>
 <?php foreach ($clients as $client) { ?>
