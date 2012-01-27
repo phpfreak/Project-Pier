@@ -52,8 +52,8 @@
       if (!isset($language)) $language = 'en_us';
       if (!isset($locale_id)) {
         $language_country = explode('_', $language);
-        $a = $language_country[0];
-        $b = $language_country[1];
+        $a = isset($language_country[0]) ? $language_country[0] : 'en';
+        $b = isset($language_country[1]) ? $language_country[1] : 'us';
         $sql = "select `id` from `".TABLE_PREFIX."i18n_locales` where language_code = '$a' and country_code = '$b'";
         try {
           $result = DB::executeOne($sql);
