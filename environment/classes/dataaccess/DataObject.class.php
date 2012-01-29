@@ -1250,22 +1250,22 @@
     //  NB: this replaces the need for other setters/getters
     // -----------------------------------------------------
     function __call($method, $args) {
-      if( preg_match('/(set|get)(_)?/', $method) ) {
+      if( preg_match('/(set|get)(.*)/', $method, $matches) ) {
         // to get the column name translate every capital 
         // into an underscore followed by lowercase of the capital
-        $column = substr(strtolower(preg_replace('([A-Z])', '_$0', $method)), 4);
+        $column = strtolower(preg_replace('/(?!^[A-Z])([A-Z])/', '_${0}', $matches[2]));
         if (!$this->columnExists($column)) {
-          throw new Exception('Call to undefined method DataObject::'.$name.'()');
+          throw new Exception('Call to undefined method DataObject::'.$method.'() or column '.$column);
         }
-        if(substr($method, 0, 3) == "get") {
+        if($matches[1] == "get") {
           return $this->getColumnValue($column);
         }
-        if(substr($method, 0, 3) == "set" && count($args)) {
+        if($matches[1] == "set" && count($args)) {
           return $this->setColumnValue($column, $args[0]);
         }
       }
       // me no understand!
-      throw new Exception('Call to undefined method DataObject::'.$name.'()');
+      throw new Exception('Call to undefined method DataObject::'.$method.'()');
       return false;
     }
     
