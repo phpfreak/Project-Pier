@@ -10,19 +10,19 @@ Version 0.8.8 SP2 Jan 29, 2012
 Features:
 
 - Added   (reminders) - Plugin for reminding by email (Thanks to ajax007).  
-- Added   (language)  - Dutch language pack (incomplete)
+- Added   (language)  - Dutch language pack (Engelbert)
 - Added   (language)  - Many new and missing language elements
-- Added   (contacts)  - Fields: Food preferences, license plate, Location, Show route, Show map
-- Added   (authent.)  - Authentication plugin (standard, Wordpress, WWW-Authenticate, LDAP)
+- Added   (contacts)  - Fields: Food preferences, license plate, location, Show route, Show map
+- Added   (authent.)  - Authentication plugin (standard, Wordpress, WWW-Authenticate)
 - Added   (wiki)      - Support for subpages
 - Added   (pdf)       - fpdf library added
-- Added   (pdf)       - Tasks report
-- Added   (language)  - pclzip library added
-- Added   (zip)       - Select language anytime, anywhere
+- Added   (tasks)     - PDF report of task list
+- Added   (zip)       - pclzip library added
+- Added   (language)  - Select language anytime, anywhere (left to logout)
 - Added   (files)     - Streaming download from database file storage
 - Changed (i18n)      - Lots of improvements (e.g. load values)
 - Changed (contacts)  - Improvements on navigation
-- Changed (notify)    - Use display name in notification mails
+- Changed (notify)    - Use display name in user notification mails
 - Changed (time)      - Technical improvements
 - Changed (data acc.) - Technical improvements
 - Changed (sessions)  - Move session storage to PP tree (improved security, no dependencies)
@@ -32,6 +32,10 @@ Features:
 - Changed (page act.) - Changed logic for displaying page actions
 - Changed (dashboard) - Option to limit number of lines on dashboard log
 - Changed (textile)   - Render image files as images and auto-resize in textile output
+- Changed (wiki)      - Support templates thru [wiki:9,content] syntax (9 is any page number)
+- Changed (files)     - Folders display collapsed by default
+- Changed (projects)  - Projects display collapsed by default
+- Changed (projects)  - Project icons displayed 25x25 in My Projects
 
 Issues:
 
@@ -51,8 +55,7 @@ Features:
 
 - Added   (language)  - Chinese language pack (incomplete)
 
-Issues:
-
+Not documented.
 
 ---------------------------------------
 Version 0.8.8 Jan 9, 2012
