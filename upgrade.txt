@@ -1,4 +1,4 @@
-           		
+            		
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Upgrading to ProjectPier 0.8.8
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -7,41 +7,45 @@ ProjectPier 0.8.8 is NOT database compatible with previous versions.
 
 Upgrade instructions 
 
-1) Install 0.8.8 in another directory than 0.8.6
-2) Make a copy of your 0.8.6 database
-3) Append 086 to the 0.8.6 root directories mentioned in appendix A
-4) Copy the 0.8.8 root directories mentioned in appendix A to your 0.8.6 root
-5) Run the upgrade script from the browser <086 root>/public/patch/patch.php?id=086-088
-6) Monitor the output of the upgrade script
+ 1) Unzip the ProjectPier v0.8.8 package to your hard drive. Be sure you are able to locate the pp088 folder you just unzipped.
+ 2) Make a backup of your 0.8.6 database before you begin making any changes.
+ 3) Append 086 to the 0.8.6 core folders mentioned in appendix A. This will make sure we can restore if necessary.
+ 4) Copy the files in the 0.8.6 root to a new folder named root086.
+ 5) Upload the 0.8.8 core folders mentioned in appendix A to your the 0.8.6 root on your web server.
+ 6) Upload the files in the 0.8.8 root to the 0.8.6 root on your web server.
+ 7) Run the upgrade script from the browser http://YOUR-PP-WEBSITE.COM/public/patch/patch.php?id=086-088. Replace "YOUR-PP-WEBSITE.COM" with your own domain name. 
+ 8) Monitor the output of the upgrade script
 
-In case the scripts stops with a FAIL message:
+ In case the upgrade script stops with a FAIL message:
  a) remove all the lines including the line that gave a FAIL message from /public/patch/086-088.sql
  b) rerun the script from the browser
 
-In case the browser shows a white page:
+ In case the browser shows a white page:
  a) remove all the lines including the line that gave a white page
  b) rerun the script from the browser
 
-Note: Some commands may take longer to complete than the browser is willing to wait (time out).
-The command is still executed but we need to rerun the script without the command.
+ Note: Some commands may take longer to complete than the browser is willing to wait (time out).
+ The command is still executed but we need to rerun the script without the command.
 
-7) Copy /public086/files to /public/files (overwrite all)
-8) Login. All should work fine now. Force a browser reload to reload all stylesheets.
+ 9) Create a new directory named tmp in the 0.8.6 root.
+10) Copy /public086/files to /public/files (overwrite all)
+11) Login. All should work fine now. Force a browser reload to reload all stylesheets.
 
 Fallback instructions
 
-1) Delete the 0.8.6 directories mentioned in appendix A
-2) Remove 086 from the directories in your 0.8.6 root
-3) Restore your database
+ 1) Delete the directories mentioned in appendix A
+ 2) Remove 086 from the name of the directories mentioned in appendix A
+ 3) Copy the files from root086 to the root of 0.8.6
+ 4) Restore your database
 
 
 Appendix A. Upgrade directories 
 
-  application	
-  environment	 
-  language	 
-  library	 
-  public	 
-  tools	 
+ application	
+ environment	 
+ language	 
+ library	 
+ public	 
+ tools
 
-
+	

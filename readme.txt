@@ -2,7 +2,7 @@
 Version
 ~~~~~~~
 
-This is version 0.8.8.sp1 - Enjoy!
+This is version 0.8.8.sp2 - Enjoy!
 
 ~~~~~~~~~~~~~~~~~~~
 STABLE
@@ -18,14 +18,14 @@ It is absolutely critical for you to report any bugs you find with this software
 If you don't, they can not be fixed. If you find a bug please 
 check the bug tracker to make sure it's not already known.  If you are certain 
 you have discovered a NEW bug, please log it into the bug tracker located
-at http://www.projectpier.org/project/issues/ under version 0.8.6.
+at http://www.projectpier.org/project/issues/ under version 0.8.8.
 
 If you have NOT found any bugs, we need to hear that too!  
 Please let us know what type of system you are using and the extent of your 
 testing.  Please include the OS, Apache, PHP and MySQL versions and/or the name of
 the web hosting provider the testing was performed on.  A new forum has been setup
 specifically to gather and discuss this format, it is located at 
-http://www.projectpier.org/forum/development/086
+http://www.projectpier.org/forum/development/088
 
 ~~~~~~~~~~~~~~~~~~~
 System requirements
