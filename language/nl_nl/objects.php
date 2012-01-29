@@ -1,0 +1,76 @@
+<?php
+
+  return array(
+  
+    // Objects
+    'user' => 'Gebruiker',
+    'users' => 'Gebruikers',
+    'contact' => 'Contactpersoon',
+    'contacts' => 'Contactpersonen',
+    'member' => 'Lid',
+    'members' => 'Leden',
+    'company' => 'Bedrijf',
+    'companies' => 'Bedrijven',
+    'client' => 'Klant',
+    'clients' => 'Klanten',
+    'package' => 'Pakket',
+    'project' => 'Project',
+    'projects' => 'Projecten',
+    'message' => 'Bericht',
+    'messages' => 'Berichten',
+    'comment' => 'Reactie',
+    'comments' => 'Reacties',
+    'status update' => 'Status update',
+    'status updates' => 'Status updates',
+    'milestone' => 'Mijlpaal',
+    'milestones' => 'Mijlpalen',
+    'user account' => 'Account',
+    'task' => 'Taak',
+    'tasks' => 'Taken',
+    'task list' => 'Takenlijst',
+    'task lists' => 'Takenlijsten',
+    'message subscribers' => 'Abonnees',
+    'configuration category' => 'Configuratie categorie',
+    'configuration categories' => 'Configuratie categorieën',
+    'text snippet' => 'Tekst snipper',
+    'text snippets' => 'Tekst snippers',
+    'new company' => 'Nieuw bedrijf',
+    'existing company' => 'Bestaand bedrijf',
+    'memo' => 'Mijn Project Nota\'s',
+    'no folders' => 'Geen folders',
+    
+    // Variations
+    'owner company' => 'Eigenaars bedrijf',
+    'favorite company' => 'Favoriete bedrijf',
+    'favorite companies' => 'Favoriete bedrijven',
+    
+    'open milestone' => 'Open mijlpaal',
+    'open milestones' => 'Open mijlpalen',
+    'completed milestone' => 'Afgeronde mijlpaal',
+    'completed milestones' => 'Afgeronde mijlpalen',
+    'late milestones' => 'Gemiste mijlpalen',
+    'today milestones' => 'Mijlpalen van vandaag',
+    'upcoming milestones' => 'Aankomende mijlpalen',
+    'completed task list' => 'Afgeronde taaklijst',
+    'completed task lists' => 'Afgeronde taaklijsten',
+    'open task list' => 'Open taaklijst',
+    'open task lists' => 'Open taaklijsten',
+    'active project' => 'Actief project',
+    'active projects' => 'Actieve projecten',
+    'finished project' => 'Afgerond project',
+    'finished projects' => 'Afgeronde projecten',
+    'deleted or unknown' => '***Verwijderd Of Onbekend***',
+    
+    'important message'  => 'Belangrijk bericht',
+    'important messages' => 'Belangrijke berichten',
+    
+    'private message' => 'Prive bericht',
+    'private milestone' => 'Prive  mijlpaal',
+    'private time' => 'Prive  tijd',
+    'private task list' => 'Prive  tekenlijsten',
+    'private comment' => 'Prive  reactie',  
+
+    'actions' => 'Acties',
+  ); // array
+
+?>
