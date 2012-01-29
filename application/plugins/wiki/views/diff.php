@@ -1,18 +1,16 @@
 <?php
 
 /**
- * @author Alex Mayhew
- * @copyright 2008
+ * @author Alex Mayhew 2008, Reinier van Loon 2012
+ * @copyright 2008-2012 projectpier.org
  */
-
-  set_page_title('Comparing revision ' . $rev1->getRevision() .' against revision ' . $rev2->getRevision());
+  set_page_title(lang'wiki compare revisions', $rev1->getRevision(), $rev2->getRevision());
   project_tabbed_navigation();
   project_crumbs(array(
-	array(lang('wiki'), get_url('wiki')),
-	array($revision->getName(), $page->getViewUrl()),
-	array(lang('wiki page diff'))
+    array(lang('wiki'), get_url('wiki')),
+    array($revision->getName(), $page->getViewUrl()),
+    array(lang('wiki page diff'))
   ));
-
 	
   $css = <<< CSSSNP
 .ins {
@@ -27,10 +25,7 @@
 CSSSNP;
 	
   add_inline_css_to_page($css);
-  
- 
 ?>
-
 
 <?php echo nl2br($diff); ?>
 

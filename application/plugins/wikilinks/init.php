@@ -25,6 +25,7 @@ function wikilinks_links($content) {
   $content = preg_replace_callback('/\[milestone:([0-9]*)\]/', 'replace_milestone_link_callback', $content);
   $content = preg_replace_callback('/\[file:([0-9]*)\]/', 'replace_file_link_callback', $content);
   $content = preg_replace_callback('/\[user:([0-9]*)\]/', 'replace_user_link_callback', $content);
+  $content = preg_replace_callback('/\[link:([0-9]*)\]/', 'replace_link_link_callback', $content);
   return $content;
 } // wikilinks_links
 
@@ -189,5 +190,32 @@ function replace_user_link_callback($matches) {
     return '<a href="'.externalUrl($object->getCardUrl()).'" title="'.lang('user').'">'.$object->getObjectName().'</a>';
   } // if
 } // replace_user_link_callback
+
+/**
+  * Call back function for user link
+  * 
+  * @param mixed $matches
+  * @return
+  */
+function replace_link_link_callback($matches) {
+  if (count($matches) < 2){
+    return null;
+  } // if
+
+  if (!logged_user()->isMemberOfOwnerCompany()) {
+    $object = ProjectLinks::findOne(array(
+      'conditions' => array('`id` = ? AND `project_id` = ? AND `is_private` = 0 ', $matches[1], active_project()->getId())));
+  } else {
+    $object = ProjectLinks::findOne(array(
+      'conditions' => array('`id` = ? AND `project_id` = ?', $matches[1], active_project()->getId())));
+  } // if
+
+  
+  if (!($object instanceof ProjectLink)) {
+    return '<del>'.lang('invalid reference', $matches[0]).'</del>';
+  } else {
+    return '<a href="'.externalUrl($object->getViewUrl()).'" title="'.lang('link').'">'.$object->getObjectName().'</a>';
+  } // if
+} // replace_link_link_callback
 
 ?>
