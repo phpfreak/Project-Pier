@@ -189,9 +189,11 @@
       Cookie::unsetValue('id'.TOKEN_COOKIE_NAME);
       Cookie::unsetValue(TOKEN_COOKIE_NAME);
       Cookie::unsetValue('remember'.TOKEN_COOKIE_NAME);
-      $_SESSION = array();
-      session_regenerate_id();
+      setcookie(session_name(),'',time()-3600,'/');
+      session_unset();
       session_destroy();
+      session_write_close();
+      session_regenerate_id(true);
     } // logUserOut
     
     // ---------------------------------------------------
