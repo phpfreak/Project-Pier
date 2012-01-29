@@ -3,11 +3,12 @@ div.filesOrder { margin: 5px 5px 0 0; float: right; line-height: 20px; }
 div.filesOrder span { font-weight: bold; }
 /** File info **/
 div.listedFile { clear: left; }
-div.listedFile div.fileIcon { float: left; text-align: center; width: 100px; }
-div.listedFile div.fileInfo { margin-left: 105px; }
-div.listedFile div.fileName { font-size: 120%; font-weight: bold; padding-bottom: 4px; }
+div.listedFile div.fileIcon { float: left; text-align: center; width: 100px; margin-right: 5px }
+div.listedFile div.fileInfo { margin-left: 0px; }
+div.listedFile div.fileName { font-size: 100%; font-weight: normal; padding-bottom: 2px; }
 div.listedFile div.fileDescription p, div.listedFile div.fileDescription ul, div.listedFile div.fileDescription ol { margin: 3px 0; }
 div.listedFile div.fileLastRevision, div.listedFile div.fileDetails, div.listedFile div.fileTags { color: #666666; font-size: 11px; }
+div.listedFile div.fileName span { font-weight: normal; }
 div.listedFile.even { border: 0; }
 div.listedFile.odd { border: 0; background-color: transparent;}
 /** Add / edit file **/
