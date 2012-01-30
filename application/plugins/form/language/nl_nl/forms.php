@@ -10,7 +10,7 @@
     'add form' => 'Formulier toevoegen',
     'edit form' => 'Formulier bewerken',
     'delete form' => 'Formulier verwijderen',
-    'submit project form' => 'Verzend',
+    'submit project form' => 'Formulier invullen',
 
     // source: messages.php
 

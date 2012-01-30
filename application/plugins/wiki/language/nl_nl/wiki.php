@@ -3,7 +3,7 @@
 /**
  * @author Alex Mayhew
  * @translator Engelbert Mercelis
- * @copyright 2008
+ * @copyright 2012
  */
 
 return array(
@@ -54,14 +54,14 @@ return array(
   'wiki default sidebar name'           =>  'Standaard Zijbalk',
   'wiki default sidebar content'        =>  'Dit is een soort van standaard inhoud voor uw zijbalk
 
-Om zich te ontdoen van deze inhoud, maak een nieuwe pagina en geef het als project zijbalk',
+Om zich te ontdoen van deze inhoud, maak een nieuwe pagina en stel als zijbalk in.',
   
   'wiki default page name'              =>  'Standaard Pagina',
   'wiki default page content'           =>  'Welkom bij uw nieuwe wiki!!!',
   
   'wiki page revision dnx'              =>  'Pagina herziening bestaat niet',
   
-  'wiki page revision restored from'    =>  'Herziening %s' is hersteld,
+  'wiki page revision restored from'    =>  'Herziening \'%s\' is hersteld',
   
   'wiki page diff'                      =>  'Herzienings vergelijking',
   
@@ -73,12 +73,14 @@ Om zich te ontdoen van deze inhoud, maak een nieuwe pagina en geef het als proje
   'wiki set as sidebar page'            =>  'Stel pagina in als zijbalk pagina?',
   'wiki publish page'                   =>  'Publiceer pagina op de openbare wiki?',
   'wiki lock page'                      =>  'Vergrendel pagina?',
-  'wiki page created'                   =>  'Pagina gemaakt',
+  'wiki page created'                   =>  'Pagina aangemaakt',
 
   'wiki public wiki'                    =>  'Openbare wiki',
 
   'wiki page locked'                    =>  'Pagina is vergrendeld',
   'wiki page locked by on'              =>  'Pagina vergrendeld door %s op %s',
+  'preview'                             =>  'Voorbeeld'
+  'parent page'                         =>  'Bovenliggende pagina'
   );
 
 ?>

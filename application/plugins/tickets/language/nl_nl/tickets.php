@@ -17,17 +17,17 @@
     'close ticket' => 'Ticket sluiten',  
     'delete ticket' => 'Ticket verwijderen',  
     'add ticket category' => 'Categorie toevoegen',
-    'add default ticket categories' => 'Standaard categorieën toevoegen',
+    'add default ticket categories' => 'Standaard categorie&#235;n toevoegen',
     'edit ticket category' => 'categorie bewerken',
-    'ticket categories' => 'Ticket categorieën',
+    'ticket categories' => 'Ticket categorie&#235;n',
     'update ticket options' => 'Update opties',
 
     // source: administration.php
 
     'config category name tickets' => 'Tickets',  
-    'config category desc tickets' => 'Gebruik deze instellingen om ticket opties in te stellen. Op dit moment alleen standaard categorieën.',
+    'config category desc tickets' => 'Gebruik deze instellingen om ticket opties in te stellen. Op dit moment alleen standaard categorie&#235;n.',
     'config option name tickets_types' => 'Toegestane ticket types',
-    'config option name tickets_default_categories' => 'Standaard ticket categorieën voor een project',
+    'config option name tickets_default_categories' => 'Standaard ticket categorie&#235;n voor een project',
 
     // source: emails.php
 
@@ -38,7 +38,7 @@
     'ticket closed' => 'Ticket "%s" is gesloten in het "%s" project',
     'ticket opened' => 'Ticket "%s" is geopend in het "%s" project',
     'attached files to ticket' => 'Enkele bestanden zijn toegevoegd aan ticket "%s" in het "%s" project',
-    'view new ticket' => 'Bekijk dat ticket',
+    'view new ticket' => 'Bekijk nieuwe ticket',
 
 
     // source: errors.php
@@ -59,7 +59,7 @@
     'no my tickets' => 'Er zijn geen tickets aan u toegewezen',
     'no changes in ticket' => 'Er zijn geen veranderingen in dit ticket',
     'category dnx' => 'Gevraagde categorie bestaat niet',
-    'no categories in project' => 'Er zijn geen categorieën in dit project',
+    'no categories in project' => 'Er zijn geen categorie&#235;n in dit project',
 
     // Success
     'success add ticket' => 'Ticket \'%s\' is succesvol toegevoegd',
@@ -104,7 +104,7 @@
 
     'ticket' => 'Ticket',
     'tickets' => 'Tickets',
-    'private ticket' => 'Prive ticket',
+    'private ticket' => 'Priv&#233; ticket',
 
     // source: project_interface.php
 
@@ -125,8 +125,8 @@
     'minor' => 'Minder belangrijk',
     'trivial' => 'Triviaal',
     'opened' => 'Nieuw',
-    'confirmed' => 'bevestigd',
-    'not reproducable' => 'niet reproduceerbaar',
+    'confirmed' => 'Bevestigd',
+    'not reproducable' => 'Niet reproduceerbaar',
     'test and confirm' => 'Test en bevestig',
     'fixed' => 'Gerepareerd',
     'defect' => 'Defect',
@@ -141,7 +141,7 @@
     'new value' => 'Nieuwe waarde',
     'change date' => 'wijzigingsdatum',
 
-    'private ticket desc' => 'Prive-tickets zijn alleen zichtbaar voor de eigenaarbedrijf leden. De leden van klantbedrijven zullen niet in staat om ze te zien.',
+    'private ticket desc' => 'Priv&#233;-tickets zijn alleen zichtbaar voor de leden van het eigenaarbedrijf. De leden van klantbedrijven zullen niet in staat om ze te zien.',
 
     // source: site_interface.php
     

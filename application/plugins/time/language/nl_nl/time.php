@@ -21,10 +21,10 @@
     'time manager' => 'Tijd Manager',
     'unbilled time' => 'Niet gefactureerde Tijd',
     'billed time' => 'Gefactureerde Tijd',
-    'view by user' => 'Bekijk per gebruiker',
+    'view by user' => 'Bekijk per Gebruiker',
     'view by project' => 'Bekijk per Project',
     'view time by project' => 'Bekijk Tijd per Project',
-    'view time by user' => 'Bekijk Tijd per gebruiker',
+    'view time by user' => 'Bekijk Tijd per Gebruiker',
     'unbilled' => 'Niet gefactureerd',
     'billed' => 'Gefactureerd',
     'mark as billed' => 'Markeer als: Gefactureerd',
@@ -32,7 +32,7 @@
 
     // source: messages.php
 
-    'no time records in project' => 'Er zijn geen Tijd records in dit project',
+    'no time records in project' => 'Er zijn geen Tijd gegevens in dit project',
     'confirm delete time' => 'Weet u zeker dat u deze Tijd wilt verwijderen?',
 
     // Add time form 
@@ -50,7 +50,7 @@
 
     // source: project_interface.php
 
-    'private time desc' => 'Private tijden zijn alleen zichtbaar voor de eigenaarbedrijf leden. De leden van klantbedrijven zullen niet in staat om ze te zien.',
+    'private time desc' => 'Private Tijden zijn alleen zichtbaar voor leden van het eigenaarbedrijf. De leden van klantbedrijven zullen niet in staat zijn om ze te zien.',
 
     // Time
     'report by task' => 'Raporteer per taak',

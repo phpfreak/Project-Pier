@@ -2,6 +2,9 @@
 
   // Return array of langs
   return array(
+    'pdf' => 'Exporteer naar pdf' //new
+    'shown/lc' => 'zoekresultaten gevonden' //new
+	'assigned to' => 'Toegewezen aan'
     'show route' => 'Toon wegbeschrijving',
     'reserve parking space' => 'Reserveer parkeerplaats',
     'display name' => 'Schermnaam',
@@ -50,7 +53,7 @@
     'edit' => 'Bewerken',
     'save' => 'Opslaan',
     'delete' => 'Verwijderen',
-    'copy' => 'Kopiëren',
+    'copy' => 'Kopi&#235;ren',
     'move' => 'Verplaats',
     'update' => 'Bijwerken',
     'upload' => 'Upload',
@@ -67,8 +70,8 @@
     'text' => 'Tekst',
     'additional text' => 'Extra tekst',
     'date' => 'Datum',
-    'due date' => 'Vervaldag ',
-    'no due date' => 'Geen vervaldag ',
+    'due date' => 'Vervaldag',
+    'no due date' => 'Geen vervaldag',
     'start date' => 'Begindatum',
     'end date' => 'Einddatum',
     'weekly schedule' => 'Mijn Weekoverzicht',

@@ -31,7 +31,7 @@
   'project' => 'Project',
   'milestone' => 'Mijlpaal',
   'task' => 'Taak',
-  'all' => 'Alles in één',
+  'all' => 'Alles in &#233;&#233;n',
   'is today' => 'is tegen vandaag!',
   'is late' => 'is %s dagen te laat!',
   'is future' => 'is te laat over %s dagen.',

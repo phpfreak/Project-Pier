@@ -10,12 +10,12 @@
 	
 	'reminder enable' => 'Herinneringen Activeren',
 	'report enable' => 'Wekelijkse Rapporten Activeren',
-	'summarize by' => 'Samenvatten door',
+	'summarize by' => 'Samenvatten per',
 	
 	'per project' => 'Per Project',
 	'summarized' => 'Samengevat',
 	
-	'show tasks in future' => 'Toon Taken <i>X</i> Dagen In De Toekomst',
+	'show tasks in future' => 'Toon Taken <b>X</b> Dagen In De Toekomst',
 	
 	'include whom question' => 'Voor Projecten / Mijlpalen toegewezen aan mij, voeg ook taken toe',
 	'for me' => 'Voor Mezelf',
@@ -39,7 +39,7 @@
 	'project' => 'Project',
 	'milestone' => 'Mijlpaal',
 	'task' => 'Taak',
-	'all' => 'Alles in één',
+	'all' => 'Alles in &#233;&#233;n',
 	
 	'is today' => 'is tegen vandaag!',
 	'is late' => 'is %s dagen te laat!',
