@@ -43,8 +43,8 @@
     'parent project' => 'Bovenliggend project',
     'subprojects' => 'Deelprojecten',
 
-    'projects copy new name' => '%s (kopiëren)',
-    'projects copy source' => 'Het te kopiëren project',
+    'projects copy new name' => '%s (kopi&#235;ren)',
+    'projects copy source' => 'Het te kopi&#235;ren project',
     'projects copy details' => 'Kopieer details',
     'projects copy folders' => 'Kopieer mappen',
     'projects copy tasks' => 'Kopieer taken',
