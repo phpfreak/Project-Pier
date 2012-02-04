@@ -17,6 +17,7 @@
   <tr>
   <th><?php echo lang('#') ?></th>
   <th><?php echo lang('key') ?></th>
+  <th><?php echo lang('mark') ?></th>
   <th><?php echo lang('text') ?></th>
   <th><?php echo lang('english') ?></th>
   <th><?php echo lang('created by') ?></th>
@@ -26,11 +27,32 @@
 <?php foreach ($values as $value) { ?>
 <?php $vid = $value->getId(); ?>
 <?php $counter++; ?>
+<?php $en_us = trim($value->getDescriptionIn('en', 'us'));
+      $desc = trim($value->getDescription());
+      $mark = '';
+      if (strlen($desc)>0) { 
+        if ($desc == $en_us) {
+          $mark = '==';
+        }
+        $desc1 = $desc[0]; 
+        if ($desc1 == '~') {
+          $mark = '~';
+          if (extension_loaded('mbstring')) {
+            $desc = mb_substr($desc, 1);
+          } else {
+            $desc = substr($desc, 1);
+          }
+        }
+      } else {
+        $mark = '=0';
+      }
+?>
   <tr class="item <?php echo $counter % 2 ? 'even' : 'odd' ?>">
   <td class="id"><?php echo $counter ?></td>
   <td class="edit" id="<?php echo $vid.'_name' ?>"><?php echo clean($value->getName()) ?></td>
-  <td class="edit" id="<?php echo $vid.'_description' ?>"><?php echo clean($value->getDescription()) ?></td>
-  <td><?php echo clean($value->getDescriptionIn('en', 'us')) ?></td>
+  <td class="mark"><?php echo $mark ?></td>
+  <td class="edit" id="<?php echo $vid.'_description' ?>"><?php echo clean($desc) ?></td>
+  <td><?php echo $en_us ?></td>
   <td><?php if ($value->getCreatedBy() instanceof User) { ?><a href="<?php echo $value->getCreatedByCardUrl() ?>"><?php echo clean($value->getCreatedByDisplayName()) ?></a> <?php } ?></td>
   <td><?php if ($value->getUpdatedBy() instanceof User) { ?><a href="<?php echo $value->getUpdatedByCardUrl() ?>"><?php echo clean($value->getUpdatedByDisplayName()) ?></a> <?php } ?></td>
   </tr>
