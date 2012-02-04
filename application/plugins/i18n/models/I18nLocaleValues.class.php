@@ -87,7 +87,7 @@
     * @param  boolean  $replace Replace all values
     * @return boolean
     */
-    function copy($from_id, $to_id, $replace = false) {
+    function copy($from_id, $to_id, $replace = false, $prefix = '') {
       if ($replace) {
         $table = $this->getTableName(true);
         $sql = "DELETE FROM $table WHERE `locale_id` = $to_id";
@@ -98,7 +98,7 @@
         $to = new I18nLocaleValue();
         $to->setLocaleId($to_id);
         $to->setName($from->getName());
-        $to->setDescription($from->getDescription());
+        $to->setDescription($prefix . $from->getDescription());
         $to->setCategoryId($from->getCategoryId());
         $to->save();
         $to = null;
@@ -114,14 +114,14 @@
     * @param  boolean  $replace Replace all values
     * @return boolean
     */
-    function import($id, $locale, $replace = false) {
+    function import($id, $locale, $replace = false, $prefix = '') {
       if ($replace) {
         $table = $this->getTableName(true);
         $sql = "DELETE FROM $table WHERE `locale_id` = $id";
         DB::execute($sql);
       }
-      i18n_load(ROOT.'/language', $locale, $id);
-      i18n_load(ROOT.'/application/plugins', $locale, $id);
+      i18n_load(ROOT.'/language', $locale, $id, $prefix);
+      i18n_load(ROOT.'/application/plugins', $locale, $id, $prefix);
     }
 
   } // I18nLocaleValues

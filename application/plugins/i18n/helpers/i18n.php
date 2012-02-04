@@ -61,21 +61,21 @@
     return $answer;
   }
 
-  function i18n_load($path, $locale, $id) {
+  function i18n_load($path, $locale, $id, $prefix) {
     if (is_dir($path)) {
-      i18n_load_dir($path, $locale, $id);
+      i18n_load_dir($path, $locale, $id, $prefix);
     }
   }
 
-  function i18n_load_dir($path, $locale, $id) {
+  function i18n_load_dir($path, $locale, $id, $prefix) {
     if (preg_match('/\/language\/(.*)$/', $path, $matches)) { 
       if (strpos($path, $locale)===false) return;
-      i18n_load_values($path, $locale, $id);
+      i18n_load_values($path, $locale, $id, $prefix);
     } else {
       if ($dh = opendir($path)) {
         while (($file = readdir($dh)) !== false) {
           if($file != '.' && $file != '..') {
-            i18n_load($path.'/'.$file, $locale, $id);
+            i18n_load($path.'/'.$file, $locale, $id, $prefix);
           }
         }
         closedir($dh);
@@ -83,7 +83,7 @@
     }
   }
 
-  function i18n_load_values($path, $locale, $id) {
+  function i18n_load_values($path, $locale, $id, $prefix) {
     $localefile = $locale . '.php';
     $parts = explode('_', $locale);
     $lc = $parts[0];
@@ -110,7 +110,7 @@
           $filepath="$path/$file";
           $items = include $filepath;
           foreach($items as $k => $v) {
-            $sql = "insert into `".DB_PREFIX."i18n_values` (`locale_id`, `category_id`, `name`, `description`) values( '$locale_id', '$category_id', '$k', '".mysql_real_escape_string($v)."');";
+            $sql = "insert into `".DB_PREFIX."i18n_values` (`locale_id`, `category_id`, `name`, `description`) values( '$locale_id', '$category_id', '$k', '".mysql_real_escape_string($prefix.$v)."');";
             mysql_query($sql);
             $e = mysql_error();
             echo "$k : $e : $sql\n";

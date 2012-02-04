@@ -17,6 +17,11 @@
     <?php echo yes_no_widget('load[replace]', 'loadFormReplace', array_var($load_data, 'replace'), lang('yes'), lang('no')) ?>
   </div>
 
+  <div>
+    <?php echo label_tag(lang('value prefix'), 'loadFormPrefix', false) ?>
+    <?php echo text_field('load[prefix]', array_var($load_data, 'name'), array('id' => 'loadFormPrefix', 'class' => 'medium')) ?>
+  </div>
+
   <fieldset>
   <legend><?php echo lang('load from') ?></legend>
   <div>
@@ -32,7 +37,7 @@
   </div>
   </fieldset>
 
-  <p><?php echo lang('maximum execution time', $load_data['max_time']) . $load_data['max_time'] ?></p>
+  <p><?php echo lang('maximum execution time', $load_data['max_time']) . ' ' . $load_data['max_time'] . ' seconds' ?></p>
 
   <?php echo submit_button(lang('load')) ?>
 </form>

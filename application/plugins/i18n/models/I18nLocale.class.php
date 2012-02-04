@@ -104,8 +104,8 @@
     * @param integer $id Id of the locale to copy the values from
     * @return boolean
     */
-    function copyValues($id, $replace) {
-      return I18nLocaleValues::instance()->copy($id, $this->getId(), $replace);
+    function copyValues($id, $replace, $prefix) {
+      return I18nLocaleValues::instance()->copy($id, $this->getId(), $replace, $prefix);
     }
 
     /**
@@ -115,8 +115,8 @@
     * @param integer $locale Locale to use
     * @return boolean
     */
-    function loadValues($locale, $replace) {
-      return I18nLocaleValues::instance()->import($this->getId(), $locale, $replace);
+    function loadValues($locale, $replace, $prefix) {
+      return I18nLocaleValues::instance()->import($this->getId(), $locale, $replace, $prefix);
     }
 
     /**

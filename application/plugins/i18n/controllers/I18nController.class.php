@@ -227,12 +227,13 @@
         try {
           DB::beginWork();
           $replace = (int)$load['replace'];
+          $prefix = array_var($load, 'prefix', '');
           if ($load['what']=='locale') {
-            $locale->copyValues($load['locale'], $replace);
+            $locale->copyValues($load['locale'], $replace, $prefix);
             ApplicationLogs::createLog($locale, 0, ApplicationLogs::ACTION_EDIT);
           }
           if ($load['what']=='file') {
-            $locale->loadValues($load['file'], $replace);
+            $locale->loadValues($load['file'], $replace, $prefix);
             ApplicationLogs::createLog($locale, 0, ApplicationLogs::ACTION_EDIT);
           }
           DB::commit();
