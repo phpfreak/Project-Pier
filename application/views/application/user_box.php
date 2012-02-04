@@ -96,6 +96,7 @@
     <li class="user"><a href="<?php echo logged_user()->getAccountUrl() ?>"><?php echo lang('view') . ' ' . clean($_userbox_user->getDisplayName()) ?></a>
       <ul>
         <li><span><?php echo lang('account') ?>:</span></li>
+        <li onclick="audioPlayer('<?php echo logged_user()->getRadioUrl() ?>');"><a href="javascript:void(null);"><?php echo lang('radio') ?></a></li>
 <?php  if (logged_user()->canUpdateProfile(logged_user())) { ?>
         <li><a href="<?php echo logged_user()->getEditProfileUrl() ?>"><?php echo lang('update profile') ?></a></li>
         <li><a href="<?php echo logged_user()->getEditPasswordUrl() ?>"><?php echo lang('change password') ?></a></li>

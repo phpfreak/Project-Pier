@@ -152,6 +152,10 @@ function stopRKey(evt) {
   var evt = (evt) ? evt : ((event) ? event : null); 
   var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null); 
   if ((evt.keyCode == 13) && (node.type=="text"))  {return false;} 
+}
+
+function audioPlayer(url) { 
+  window.open(url, 'audio_player', 'width=200,height=240,scrollbars=no,toolbar=no,location=no,menubar=no');
 } 
 //]]>
 </script>

@@ -392,6 +392,23 @@
         } // if
       } // if
     } // setProjectPermission
+
+    /***
+    * Set a permission for this user
+    *
+    * @param Project $project
+    * @param string $permission_group Name of the permission group
+    * @param boolean $granted true=granted, false=denied
+    * @return boolean
+    */
+    function setProjectPermissionsByGroup(Project $project, $permission_group, $granted) {
+      trace(__FILE__, "setProjectPermissionsByGroup(project, $permission_name, $granted):begin");
+      $permissions = PermissionManager::getPermissionsByGroup($permission_group);
+      foreach($permissions as $permission_name) {
+        $this->setProjectPermission($project, $permission_name, $granted);
+      }
+    } // setProjectPermission
+    
     
     /**
     * This function will check if this user has all project permissions
@@ -758,6 +775,7 @@
       }	
 
       $ldapconn = ldap_connect('ldap://' . config_option('ldap_host', ''));
+
       if (!$ldapconn) {
         return false;
       }
@@ -994,7 +1012,7 @@
     * @return string
     */
     function getEditUrl() {
-      return get_url('contacts', 'edit_user_account', $this->getContact()->getId());
+      return $this->getContact()->getEditUserAccountUrl();
     } // getEditUrl
     
     /**
@@ -1039,6 +1057,32 @@
     } // getEditPasswordUrl
 
     /**
+    * Return edit user permissions page URL
+    *
+    * @param string $redirect_to
+    * @return string
+    */
+    function getEditPermissionsUrl($redirect_to = null) {
+      $attributes = array('id' => $this->getId());
+      if (trim($redirect_to) <> '') {
+        $attributes['redirect_to'] = str_replace('&amp;', '&', trim($redirect_to));
+      } // if
+      
+      return get_url('account', 'edit_permissions', $attributes);
+    } // getEditPermissionsUrl
+    
+    /**
+    * Return radio URL
+    *
+    * @param string 
+    * @return string
+    */
+    function getRadioUrl() {
+      $attributes = array('id' => $this->getContact()->getId(), 'target' => '_blank');
+      return get_url('account', 'radio', $attributes);
+    } // getRadioUrl
+
+    /**
     * Return update user permissions page URL
     *
     * @param string $redirect_to
@@ -1052,6 +1096,22 @@
       
       return get_url('account', 'update_permissions', $attributes);
     } // getUpdatePermissionsUrl
+    
+    /**
+    * Return edit user URL
+    *
+    * @access public
+    * @param void
+    * @return string
+    */
+    function getEditProjectPermissionsUrl($project) {
+      $attributes = array('id' => $this->getId());
+      if ($project instanceof Project) {
+        $attributes['project_id'] = $project->getId();
+      }
+      
+      return get_url('account', 'update_permissions', $attributes);
+    } // getEditUrl
     
     /**
     * Return recent activities feed URL

@@ -207,6 +207,78 @@
         } // try
       } // if
     } // edit_password
+
+    /**
+    * Show edit permissions page
+    *
+    * @param void
+    * @return null
+    */
+    function edit_permissions() {
+      $user = Users::findById(get_id());
+      if (!($user instanceof User)) {
+        flash_error(lang('user dnx'));
+        $this->redirectToReferer(get_url('dashboard'));
+      } // if
+      
+      if (!$user->canUpdatePermissions(logged_user())) {
+        flash_error(lang('no access permissions'));
+        $this->redirectToReferer(get_url('dashboard'));
+      } // if
+      
+      $company = $user->getCompany();
+      if (!($company instanceof Company)) {
+        flash_error(lang('company dnx'));
+        $this->redirectToReferer(get_url('dashboard'));
+      } // if
+      
+      $projects = $company->getProjects();
+      if (!is_array($projects) || !count($projects)) {
+        flash_error(lang('no projects owned by company'));
+        $this->redirectToReferer($company->getViewUrl());
+      } // if
+      
+      $permissions = PermissionManager::getPermissionGroupsText();
+      
+      $redirect_to = array_var($_GET, 'redirect_to');
+      if ((trim($redirect_to)) == '' || !is_valid_url($redirect_to)) {
+        $redirect_to = $user->getCardUrl();
+      } // if
+      
+      tpl_assign('user', $user);
+      tpl_assign('contact', $user->getContact());
+      tpl_assign('company', $company);
+      tpl_assign('projects', $projects);
+      tpl_assign('permissions', $permissions);
+      tpl_assign('redirect_to', $redirect_to);
+      
+      if (array_var($_POST, 'submitted') == 'submitted') {
+        DB::beginWork();
+        ProjectUsers::clearByUser($user); 
+        foreach ($projects as $project) {
+          $permission_count = 0;
+          $permission_all = array_var($_POST, 'project_permissions_'.$project->getId().'_all') == 'checked' ;
+          foreach ($permissions as $permission_name => $permission_text) {
+            $permission_value = ($permission_all || array_var($_POST, 'project_permission_' . $project->getId() . '_' . $permission_name) == 'checked');
+            if ($permission_value) {
+              $permission_count++;
+            }
+            $user->setProjectPermissionsByGroup($project, $permission_name, $permission_value);
+          } // foreach
+
+          if ($permission_count>0) {
+            $relation = new ProjectUser();
+            $relation->setProjectId($project->getId());
+            $relation->setUserId($user->getId());
+            $relation->save();
+          }
+        } // if
+        DB::commit();
+        
+        flash_success(lang('success user permissions updated'));
+        $this->redirectToUrl($redirect_to);
+      } // if
+    } // edit_permissions
     
     /**
     * Show update permissions page
@@ -404,6 +476,21 @@
       
       $this->redirectToUrl($redirect_to);
     } // delete_avatar
+
+    /**
+    * Radio
+    *
+    * @param void
+    * @return null
+    */
+    function radio() {
+      $this->setLayout('minimal');
+      //$user = Contact::findById(get_id());
+      //if (!($contact instanceof Contact)) {
+      //  flash_error(lang('contact dnx'));
+      //  $this->redirectTo('dashboard');
+      //} // if
+    }
   
   } // AccountController
 
