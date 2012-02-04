@@ -68,7 +68,12 @@
     </div>
   </fieldset>
 <?php } // if ?>
-
+<?php if (logged_user()->isAdministrator()) { ?>
+  <div>
+    <?php echo label_tag(lang('can manage projects'), null, true) ?>
+    <?php echo yes_no_widget('user[can_manage_projects]', 'userFormCanManageProjects', array_var($user_data, 'can_manage_projects'), lang('yes'), lang('no')) ?>
+  </div>
+<?php } // if ?>
 <?php if ($company->isOwner()) { ?>
   <fieldset>
     <legend><?php echo lang('options') ?></legend>
@@ -94,16 +99,11 @@
       <?php echo lang('no ldap functions') ?>
     </div>
 <?php   } // if ?>
-    <div>
-      <?php echo label_tag(lang('can manage projects'), null, true) ?>
-      <?php echo yes_no_widget('user[can_manage_projects]', 'userFormCanManageProjects', array_var($user_data, 'can_manage_projects'), lang('yes'), lang('no')) ?>
-    </div>
   </fieldset>
 <?php } else { ?>
   <input type="hidden" name="user[is_admin]" value="0" />
   <input type="hidden" name="user[auto_assign]" value="0" />
   <input type="hidden" name="user[use_LDAP]" value="0" />
-  <input type="hidden" name="user[can_manage_projects]" value="0" />
 <?php } // if ?>
   
   <div class="formBlock">
@@ -112,54 +112,5 @@
     <br /><span class="desc"><?php echo lang('send new account notification desc') ?></span>
   </div>
   
-<?php if ($user->isNew()) { ?>
-<?php if (isset($projects) && is_array($projects) && count($projects)) { ?>
-  <fieldset>
-    <legend><?php echo lang('permissions') ?></legend>
-
-<?php
-  $quoted_permissions = array();
-  foreach ($permissions as $permission_id => $permission_text) {
-    $quoted_permissions[] = "'$permission_id'";
-  } // foreach
-?>
-    <div id="userPermissions">
-      <div id="userProjects">
-<?php foreach ($projects as $project) { ?>
-        <table class="blank">
-          <tr>
-            <td class="projectName">
-              <?php echo checkbox_field('user[project_permissions_' . $project->getId() . ']', array_var($user_data, 'project_permissions_' . $project->getId()), array('id' => 'projectPermissions' . $project->getId() )) ?> 
-<?php if ($project->isCompleted()) { ?>
-              <label for="projectPermissions<?php echo $project->getId() ?>" class="checkbox"><del class="help" title="<?php echo lang('project completed on by', format_date($project->getCompletedOn()), $project->getCompletedByDisplayName()) ?>"><?php echo clean($project->getName()) ?></del></label>
-<?php } else { ?>
-              <label for="projectPermissions<?php echo $project->getId() ?>" class="checkbox"><?php echo clean($project->getName()) ?></label>
-<?php } // if ?>
-            </td>
-            <td class="permissionsList">
-<?php if (array_var($user_data, 'project_permissions_' . $project->getId())) { ?>
-              <div id="projectPermissionsBlock<?php echo $project->getId() ?>">
-<?php } else { ?>
-              <div id="projectPermissionsBlock<?php echo $project->getId() ?>" style="display: none">
-<?php } // if ?>
-                <div class="projectPermission">
-                  <?php echo checkbox_field('user[project_permissions_' . $project->getId() . '_all]', array_var($user_data, 'project_permissions_' . $project->getId()), array('id' => 'projectPermissions' . $project->getId() . 'All' )) ?> <label for="projectPermissions<?php echo $project->getId() ?>All" class="checkbox"><?php echo lang('all') ?></label>
-                </div>
-<?php foreach ($permissions as $permission_name => $permission_text) { ?>
-                <div class="projectPermission">
-                  <?php echo checkbox_field('user[project_permission_' . $project->getId() . '_' . $permission_name . ']', array_var($user_data, 'project_permission_' . $project->getId() . '_' . $permission_name), array('id' => 'projectPermission' . $project->getId() . $permission_name )) ?> <label for="projectPermission<?php echo $project->getId() . $permission_name ?>" class="checkbox normal"><?php echo clean($permission_text) ?></label>
-                </div>
-<?php } // foreach ?>
-              </div>
-            </td>
-          </tr>
-        </table>
-<?php } // foreach ?>
-      </div>
-    </div>
-  </fieldset>
-<?php } // if ?>
-<?php } // if ?>
-
   <?php echo submit_button($user->isNew() ? lang('add user account') : lang('edit user account')) ?>
 </form>
