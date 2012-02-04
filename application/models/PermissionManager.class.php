@@ -52,10 +52,44 @@ class PermissionManager {
     } // if
     return $instance;
   } // instance
+
+  /*
+  * Get the permission groups for displaying to the user
+  * @return array mapping the permission group string to the locale key for that permission string
+  *
+  */
+  function getPermissionGroupsText() {
+    return array('access' => 'can access all', 'manage' => 'can manage all', 'other' => 'all other');
+  }
+  /*
+  * Get the localized permission text for displaying to the user
+  * @return array mapping the permission string to the locale key for that permission string
+  *
+  */
+  function getPermissionsByGroup($permission_group) {
+    $answer = array();
+    $all = Permissions::getAllPermissions();
+    if ($permission_group == 'other') {
+      $exclude = array_diff_key( self::getPermissionGroupsText(), array('other' => ''));
+      foreach ($all as $id => $source_permission) {
+        if (!array_key_exists( $source_permission[1], $exclude )) {
+          $answer[$id] = join('-', $source_permission);
+        }
+      }
+    } else {
+      foreach ($all as $id => $source_permission) {
+        if ($source_permission[1] == $permission_group) {
+          $answer[$id] = join('-', $source_permission);
+        }
+      }
+    } // foreach
+    return $answer;
+  } //getPermissionsByGroup
+
   
   /*
   * Get the localized permission text for displaying to the user
-  * @return array mapping the permission string to the localized text for that permission string
+  * @return array mapping the permission string to the locale key for that permission string
   *
   */
   function getPermissionsText() {
