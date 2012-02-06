@@ -7,14 +7,15 @@ ProjectPier 0.8.8 is NOT database compatible with previous versions.
 
 Upgrade instructions 
 
- 1) Unzip the ProjectPier v0.8.8 package to your hard drive. Be sure you are able to locate the pp088 folder you just unzipped.
- 2) Make a backup of your 0.8.6 database before you begin making any changes.
- 3) Append 086 to the 0.8.6 core folders mentioned in appendix A. This will make sure we can restore if necessary.
- 4) Copy the files in the 0.8.6 root to a new folder named root086.
- 5) Upload the 0.8.8 core folders mentioned in appendix A to your the 0.8.6 root on your web server.
- 6) Upload the files in the 0.8.8 root to the 0.8.6 root on your web server.
- 7) Run the upgrade script from the browser http://YOUR-PP-WEBSITE.COM/public/patch/patch.php?id=086-088. Replace "YOUR-PP-WEBSITE.COM" with your own domain name. 
- 8) Monitor the output of the upgrade script
+ 1) Enable all plugins (you will want to note down which plugins were not using to disable them later).
+ 2) Unzip the ProjectPier v0.8.8 package to your hard drive. Be sure you are able to locate the pp088 folder you just unzipped.
+ 3) Make a backup of your 0.8.6 database before you begin making any changes.
+ 4) Append 086 to the 0.8.6 core folders mentioned in appendix A. This will make sure we can restore if necessary.
+ 5) Copy the files in the 0.8.6 root to a new folder named root086.
+ 6) Upload the 0.8.8 core folders mentioned in appendix A to your the 0.8.6 root on your web server.
+ 7) Upload the files in the 0.8.8 root to the 0.8.6 root on your web server.
+ 8) Run the upgrade script from the browser http://YOUR-PP-WEBSITE.COM/public/patch/patch.php?id=086-088. Replace "YOUR-PP-WEBSITE.COM" with your own domain name. 
+ 9) Monitor the output of the upgrade script
 
  In case the upgrade script stops with a FAIL message:
  a) remove all the lines including the line that gave a FAIL message from /public/patch/086-088.sql
@@ -27,9 +28,10 @@ Upgrade instructions
  Note: Some commands may take longer to complete than the browser is willing to wait (time out).
  The command is still executed but we need to rerun the script without the command.
 
- 9) Create a new directory named tmp in the 0.8.6 root.
-10) Copy /public086/files to /public/files (overwrite all)
-11) Login. All should work fine now. Force a browser reload to reload all stylesheets.
+10) Create a new directory named tmp in the 0.8.6 root.
+11) Copy /public086/files to /public/files (overwrite all)
+12) Login. All should work fine now. Force a browser reload to reload all stylesheets.
+13) Disable all plugins you are not using.
 
 Fallback instructions
 
