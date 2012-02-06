@@ -343,7 +343,8 @@
   *   year + 10
   * @return null
   */
-  function pick_date_widget($name, $value = null, $year_from = null, $year_to = null) {
+  function pick_date_widget($name, $value = null, $attributes = null, $year_from = null, $year_to = null) {
+    $attributes = array_merge($attributes, array('class' => 'datepicker'));
     $v = $value;
     if ($value instanceof DateTimeValue) {
       $v = $v->format('d.m.Y');
@@ -373,7 +374,7 @@
     //$v = date('m/d/Y');
     //return select_box($name . '_month', $month_options) . select_box($name . '_day', $day_options) . select_box($name . '_year', $year_options);
 */
-    return text_field($name, $v, array('class' => 'datepicker' ) );
+    return text_field($name, $v, $attributes);
   } // pick_date_widget
   
   /**
@@ -384,8 +385,8 @@
   * @param string $value
   * @return string
   */
-  function pick_time_widget($name, $value = null) {
-    return text_field($name, $value);
+  function pick_time_widget($name, $value = null, $attributes = null) {
+    return text_field($name, $value, $attributes);
   } // pick_time_widget
   
   /**
