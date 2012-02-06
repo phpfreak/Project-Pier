@@ -343,37 +343,13 @@
   *   year + 10
   * @return null
   */
-  function pick_date_widget($name, $value = null, $year_from = null, $year_to = null) {
+  function pick_date_widget($name, $value = null, $attributes = null, $year_from = null, $year_to = null) {
+    $attributes = array_merge($attributes, array('class' => 'datepicker'));
     $v = $value;
     if ($value instanceof DateTimeValue) {
-      $v = $v->format('d.m.Y');
       $v = Localization::instance()->formatDate($value, null, null);
     }
-/*
-    $month_options = array();
-    for ($i = 1; $i <= 12; $i++) {
-      $option_attributes = $i == $value->getMonth() ? array('selected' => 'selected') : null;
-      $month_options[] = option_tag(lang("month $i"), $i, $option_attributes);
-    } // for
-    
-    $day_options = array();
-    for ($i = 1; $i <= 31; $i++) {
-      $option_attributes = $i == $value->getDay() ? array('selected' => 'selected') : null;
-      $day_options[] = option_tag($i, $i, $option_attributes);
-    } // for
-    
-    $year_from = (integer) $year_from < 1 ? $value->getYear() - 10 : (integer) $year_from;
-    $year_to = (integer) $year_to < 1 || ((integer) $year_to < $year_from) ? $value->getYear() + 10 : (integer) $year_to;
-    
-    $year_options = array();
-    for ($i = $year_from; $i <= $year_to; $i++) {
-      $option_attributes = $i == $value->getYear() ? array('selected' => 'selected') : null;
-      $year_options[] = option_tag($i, $i, $option_attributes);
-    } // if
-    //$v = date('m/d/Y');
-    //return select_box($name . '_month', $month_options) . select_box($name . '_day', $day_options) . select_box($name . '_year', $year_options);
-*/
-    return text_field($name, $v, array('class' => 'datepicker' ) );
+    return text_field($name, $v, $attributes );
   } // pick_date_widget
   
   /**
@@ -384,8 +360,8 @@
   * @param string $value
   * @return string
   */
-  function pick_time_widget($name, $value = null) {
-    return text_field($name, $value);
+  function pick_time_widget($name, $value = null, $attributes = null) {
+    return text_field($name, $value, $attributes);
   } // pick_time_widget
   
   /**
