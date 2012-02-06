@@ -406,30 +406,7 @@
   function download_contents($content, $type, $name, $size, $force_download = true, $from_filesystem = false) {
     if (connection_status() != 0) return false; // check connection
 
-    if ($force_download) {
-      /** SAVR 10/20/06
-      * Was:
-      * header("Cache-Control: public");
-      */
-      header("Cache-Control: public, must-revalidate");
-      header("Pragma: hack");
-    } else {
-      header("Cache-Control: no-store, no-cache, must-revalidate");
-      header("Cache-Control: post-check=0, pre-check=0", false);
-      header("Pragma: no-cache");
-    } // if
-    header("Expires: " . gmdate("D, d M Y H:i:s", mktime(date("H") + 2, date("i"), date("s"), date("m"), date("d"), date("Y"))) . " GMT");
-    header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
-    header("Content-Type: $type");
-    header("Content-Length: " . $size);
-    // Prepare disposition
-    $disposition = $force_download ? 'attachment' : 'inline';
-    // http://www.ietf.org/rfc/rfc2183.txt
-    $download_name = strtr($name, " ()<>@,;:\\/[]?=*%'\"", '--------------------');
-    $download_name = normalize($download_name);
-    header("Content-Disposition: $disposition; filename=\"$download_name\"");
-    //header("Content-Disposition: $disposition; filename=$download_name");
-    header("Content-Transfer-Encoding: binary");
+    download_header($name, $type, $size, $force_download);
     if ($from_filesystem) {
       if (!is_readable($content)) return false;
       if (!ini_get('safe_mode')) @set_time_limit(0);
@@ -473,6 +450,36 @@
     }
     return((connection_status() == 0) && !connection_aborted());
   } // download_contents
+
+  /**
+  * function download_header($type, $name, $size, $force_download = false)
+  */
+  function download_header($name, $type, $size, $force_download = true) {
+    if ($force_download) {
+      /** SAVR 10/20/06
+      * Was:
+      * header("Cache-Control: public");
+      */
+      header("Cache-Control: public, must-revalidate");
+      header("Pragma: hack");
+    } else {
+      header("Cache-Control: no-store, no-cache, must-revalidate");
+      header("Cache-Control: post-check=0, pre-check=0", false);
+      header("Pragma: no-cache");
+    } // if
+    header("Expires: " . gmdate("D, d M Y H:i:s", mktime(date("H") + 2, date("i"), date("s"), date("m"), date("d"), date("Y"))) . " GMT");
+    header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+    header("Content-Type: $type");
+    header("Content-Length: $size");
+    // Prepare disposition
+    $disposition = $force_download ? 'attachment' : 'inline';
+    // http://www.ietf.org/rfc/rfc2183.txt
+    $download_name = strtr($name, " ()<>@,;:\\/[]?=*%'\"", '--------------------');
+    $download_name = normalize($download_name);
+    header("Content-Disposition: $disposition; filename=\"$download_name\"");
+    //header("Content-Disposition: $disposition; filename=$download_name");
+    header("Content-Transfer-Encoding: binary");
+  }
   
   /**
   * This function is used for sorting list of files. 

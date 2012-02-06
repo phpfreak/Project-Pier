@@ -32,7 +32,7 @@
 
       return self::findAll(array(
         'conditions' => $conditions,
-        'order' => '`language_code` ASC, `country_code` ASC',
+        'order' => '`name` ASC',
       )); // findAll
       trace(__FILE__,'getAllLocales():end');
     } // getAllLocales

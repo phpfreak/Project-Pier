@@ -288,6 +288,28 @@
     } // delete_locale
 
     /**
+    * Load values
+    *
+    * @param  $_REQUEST['id']
+    * @return null
+    */
+    function download_values() {
+      $locale = I18nLocales::findById(get_id());
+      if (!($locale instanceof I18nLocale)) {
+        flash_error(lang('locale dnx'));
+        $this->redirectTo('i18n', 'index');
+      } // if
+      $locale_name = $locale->getLanguageCode() . '_' . $locale->getCountryCode() . date('-Y-m-d-H-i-s');
+      $download_name = "{$locale_name}.php.txt";
+      $download_type = 'text/plain';
+      $download_contents = $locale->getDownloadText('php');
+      $size = strlen($download_contents);
+      download_header($download_name, $download_type, $size, true);
+      print $download_contents; 
+      die();
+    }
+
+    /**
     * Show and process edit locale logo form
     *
     * @param void

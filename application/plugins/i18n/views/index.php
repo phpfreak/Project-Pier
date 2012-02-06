@@ -21,7 +21,7 @@
   <div class="icon"><img src="<?php echo $locale->getLogoURL(); ?>" alt="<?php echo clean($locale->getName()) ?> logo"></div>
 <?php } ?>
   <div class="header"><?php echo $locale->getName() ?></div>
-  <div class="content"><div><?php echo clean($locale->getDescription()) ?></div><?php if ($locale->getCreatedBy() instanceof User) { ?><span><?php echo lang('created by') ?>:</span> <a href="<?php echo $locale->getCreatedBy()->getCardUrl() ?>"><?php echo clean($locale->getCreatedBy()->getDisplayName()) ?></a> <?php } ?><?php // echo render_object_tags($locale); ?>
+  <div class="content" style="display:none"><div><?php echo clean($locale->getDescription()) ?></div><?php if ($locale->getCreatedBy() instanceof User) { ?><span><?php echo lang('created by') ?>:</span> <a href="<?php echo $locale->getCreatedBy()->getCardUrl() ?>"><?php echo clean($locale->getCreatedBy()->getDisplayName()) ?></a> <?php } ?><?php // echo render_object_tags($locale); ?>
 </div>
 <?php
   $options = array();
@@ -36,6 +36,7 @@
   if ($locale->canDelete(logged_user())) {
     $options[] = '<a href="' . $locale->getDeleteUrl() . '">' . lang('delete') . '</a>';
   }
+  $options[] = '<a href="' . $locale->getDownloadUrl() . '">' . lang('download') . '</a>';
 ?>
 <?php if (count($options)) { ?>
   <div class="options"><?php echo implode(' | ', $options) ?></div>

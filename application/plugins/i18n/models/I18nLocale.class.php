@@ -129,6 +129,31 @@
       return I18nLocaleValues::instance()->getLocaleValue($this->getId(), $name);
     } // getEditUrl
 
+    /**
+    * Return locale values as text
+    *
+    * @param string name
+    * @return string
+    */
+    function getDownloadText($output = 'text') {
+      $values = I18nLocaleValues::instance()->getLocaleValues($this->getId());
+      if ($output == 'php') {
+        $s = '';
+        foreach($values as $v) {
+          $t = addslashes($v->getDescription());
+          $s .= "'{$v->getName()}' => '{$t}',\n";
+        }
+        return "<?php\nreturn array(\n$s);\n?>";
+      }
+      $s = '';
+      foreach($values as $v) {
+        $t = addslashes($v->getDescription());
+        $s .= "{$v->getName()}\t{$t}\n";
+      }
+      return $s;
+    } // getEditUrl
+
+
 
     // ---------------------------------------------------
     //  Logo
@@ -275,7 +300,17 @@
     */
     function getDeleteUrl() {
       return get_url('i18n', 'delete_locale', array('id' => $this->getId()));
-    } // getEditUrl
+    } // getDeleteUrl
+
+    /**
+    * Return download locale URL
+    *
+    * @param void
+    * @return string
+    */
+    function getDownloadUrl() {
+      return get_url('i18n', 'download_values', array('id' => $this->getId()));
+    } // getDownloadUrl
     
     /**
     * Return delete locale logo URL
@@ -320,4 +355,4 @@
     
   } // I18nLocale
 
-?>	
+?>
