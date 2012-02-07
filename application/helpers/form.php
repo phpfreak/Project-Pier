@@ -344,12 +344,13 @@
   * @return null
   */
   function pick_date_widget($name, $value = null, $attributes = null, $year_from = null, $year_to = null) {
-    $attributes = array_merge($attributes, array('class' => 'datepicker'));
     $v = $value;
     if ($value instanceof DateTimeValue) {
       $v = Localization::instance()->formatDate($value, null, null);
     }
-    return text_field($name, $v, $attributes );
+    $attr = array('class' => 'datetimepicker');
+    if (is_array($attributes)) $attr += $attributes;
+    return text_field($name, $v, $attr);
   } // pick_date_widget
   
   /**
