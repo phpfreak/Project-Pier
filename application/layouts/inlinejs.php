@@ -12,11 +12,8 @@ $(function() {
 });
 
 $(function() {
-  $('input.datepicker').datepicker({
+  $('input.datetimepicker').datetimepicker({
     dateFormat: '<?php echo lang('input date format') ?>',
-    showOn: 'button',
-    buttonImage: '<?php echo get_image_url('icons/calendar.png'); ?>',
-    buttonImageOnly: true,
     constrainInput: false
   });
 });
