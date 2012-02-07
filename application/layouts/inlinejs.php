@@ -112,11 +112,62 @@ post = function(url, d){
   $.ajax({data: postdata});
 }
 
+function asyncParForEach(array, fn, callback) {
+  var completed = 0;
+  if(array.length === 0) {
+    callback(); // done immediately
+  }
+  var len = array.length;
+  for(var i = 0; i < len; i++) {
+    fn(array[i], function() {
+        completed++;
+        if(completed === array.length) {
+          callback();
+        }
+      });
+  }
+};
+
+var countx = 0;
+function select(obj) {
+        s = $(obj).text();
+        i = s.lastIndexOf("-");
+        if (i>=0) s = s.substring(0,i);
+        if (s.search(new RegExp(filter, "i")) < 0) {
+            $(obj).hide();
+        } else {
+            $(obj).show();
+            countx++;
+        }
+};
+
+function selectend() {
+    $(".filtered:visible").each(function () { $(this).show() });
+    $("#filter-count").text(count + ' <?php echo lang('shown/lc'); ?>' );
+};
+
 $(function(){
   $("#filter").keyup(function () {
+    var filter = $(this).val(), s = "", i = 0;
+    countx = 0;
+    // speed trick: hide all filtered objects first, do manipulations, show them again
+    $(".filtered:visible").each(function () { $(this).hide() });
+    visit = $(".filtered:first li,.filtered:first tr");
+    asyncParForEach(visit, select, selectend);
+  }).keydown(function(event) {
+    if (event.which == 13) {  // disable enter key on search filter to prevent leaving page
+      event.preventDefault();
+    }  
+  })
+});
+
+
+$(function(){
+  $("#filterx").keyup(function () {
     var filter = $(this).val(), count = 0, s = "", i = 0;
     // speed trick: hide all filtered objects first, do manipulations, show them again
-    $(".filtered").each(function () { $(this).hide() });
+    gg = $(".filtered:visible");  
+    gg.each(function () { $(this).hide() });
     $(".filtered:first li,.filtered:first tr").each(function () {
         s = $(this).text();
         i = s.lastIndexOf("-");
@@ -128,7 +179,7 @@ $(function(){
             count++;
         }
     });
-    $(".filtered").each(function () { $(this).show() });
+    gg.each(function () { $(this).show() });
     $("#filter-count").text(count + ' <?php echo lang('shown/lc'); ?>' );
   }).keydown(function(event) {
     if (event.which == 13) {  // disable enter key on search filter to prevent leaving page
