@@ -42,6 +42,7 @@ $(function() { $(".block").click(
 $(function() { $(".block .complete").click(
   function(){
     expand_or_collapse(this,'content','fast','slow');
+    e.stopPropagation();
   });
 });
 
