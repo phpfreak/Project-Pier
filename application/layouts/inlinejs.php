@@ -32,9 +32,9 @@ expand_or_collapse = function(obj,match_class,speedshow,speedhide){
   }
 }
 
-$(function() { $(".block").click(
+$(function() { $(".header").click(
   function(e){
-    expand_or_collapse(this,'content','fast','fast');
+    expand_or_collapse(this.parentNode,'content','fast','fast');
     e.stopPropagation();
   });
 });
