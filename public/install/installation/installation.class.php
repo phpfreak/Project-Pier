@@ -139,8 +139,8 @@
       @mysql_query("SET NAMES ? COLLATE ?",  $database_charset, 'utf8_unicode_ci', $this->database_connection);
       @mysql_query("SET SQL_MODE=''", $this->database_connection);
       @mysql_query("SET STORAGE_ENGINE=INNODB", $this->database_connection);
-      tpl_assign('default_collation', 'collate utf8_unicode_ci');
-      tpl_assign('default_charset', 'DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci');
+      tpl_assign('default_collation', 'COLLATE utf8_unicode_ci');
+      tpl_assign('default_charset', 'CHARACTER SET utf8');
       
       @mysql_query('BEGIN WORK', $this->database_connection);
       
