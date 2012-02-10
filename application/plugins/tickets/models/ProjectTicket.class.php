@@ -403,13 +403,6 @@
       if (!$user->isProjectUser($project)) {
         return false;
       } // if
-      //if (!$this->canManage($user)) {
-      //  return false; // user don't have access to this project or can't manage tickets
-      //} // if
-      //if($this->isPrivate() && !$user->isMemberOfOwnerCompany()) {
-      if(!$user->isMemberOfOwnerCompany()) {
-        return false; // user that is not member of owner company can't access private objects
-      } // if
       return true;
     } // canAdd
     

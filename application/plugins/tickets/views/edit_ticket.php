@@ -5,6 +5,9 @@
   $title = $canEdit ? 'edit ticket' : 'view ticket';
   set_page_title(lang($title));
   project_tabbed_navigation(PROJECT_TAB_TICKETS);
+  if(ProjectTicket::canAdd(logged_user(), active_project())) {
+    add_page_action(lang('delete ticket'), $ticket->getDeleteUrl());  
+  }
   $crumbs = array(array(lang('tickets'), get_url('tickets')));
   if ($ticket->isClosed()) {
     $crumbs[] = array(lang('closed tickets'), ProjectTickets::getIndexUrl(true));
