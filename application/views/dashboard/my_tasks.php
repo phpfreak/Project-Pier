@@ -72,6 +72,7 @@
 <?php $counter++; ?>
         <tr class="<?php echo $counter%2 ? 'even' : 'odd' ?>">
           <td class="taskText">
+            <?php echo do_textile('[' .$assigned_task->getId() . '] ' . $assigned_task->getText()) ?>
 <?php $assigned_to = $assigned_task->getAssignedTo() ?>
 <?php if ($assigned_to instanceof Company) { ?>
             <span class="assignedTo"><?php echo clean($assigned_to->getName()) ?></span>
@@ -83,9 +84,8 @@
 <?php
 $taskDueDate = $assigned_task->getDueDate(); if (!is_null($taskDueDate)) echo ' | '.lang('due date').': <strong>'.format_date($taskDueDate).'</strong>';
 ?>
-            <?php echo do_textile('[' .$assigned_task->getId() . '] ' . $assigned_task->getText()) ?>
 <?php if ($assigned_task->getTaskList() instanceof ProjectTaskList) { ?>
-            (<?php echo lang('in') ?> <a href="<?php echo $assigned_task->getTaskList()->getViewUrl() ?>"><?php echo clean($assigned_task->getTaskList()->getName()) ?></a>)
+            (<?php echo lang('project') ?> <a href="<?php echo $assigned_task->getTaskList()->getViewUrl() ?>"><?php echo clean($assigned_task->getTaskList()->getName()) ?></a>)
           <div class="options">
              <?php if ($assigned_task->canEdit(logged_user())) { ?>
                 <a href="<?php echo $assigned_task->getEditUrl() ?>" class="blank"><?php echo lang('edit task') ?></a>&nbsp;
