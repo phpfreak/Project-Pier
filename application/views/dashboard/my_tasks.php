@@ -34,10 +34,12 @@
     <div class="header"><h2><a href="<?php echo $active_project->getOverviewUrl() ?>"><?php echo clean($active_project->getName()) ?></a></h2></div>
     <div class="content">
 <?php if (is_array($assigned_milestones) && count($assigned_milestones)) { ?>
+<?php $counter = 0; ?>
       <p><a href="<?php echo $active_project->getMilestonesUrl() ?>"><?php echo lang('milestones') ?></a>:</p>
       <table class="blank">
 <?php foreach ($assigned_milestones as $assigned_milestone) { ?>
-        <tr>
+<?php $counter++; ?>
+        <tr class="<?php echo $counter%2 ? 'even' : 'odd' ?>">
           <td class="milestoneText">
 <?php $assigned_to = $assigned_milestone->getAssignedTo() ?>
 <?php if ($assigned_to instanceof Company) { ?>
@@ -63,10 +65,12 @@
 <?php } // if ?>
 
 <?php if (is_array($assigned_tasks) && count($assigned_tasks)) { ?>
+<?php $counter = 0; ?>
       <p><a href="<?php echo $active_project->getTasksUrl() ?>"><?php echo lang('tasks') ?></a>:</p>
       <table class="blank">
 <?php foreach ($assigned_tasks as $assigned_task) { ?>
-        <tr>
+<?php $counter++; ?>
+        <tr class="<?php echo $counter%2 ? 'even' : 'odd' ?>">
           <td class="taskText">
 <?php $assigned_to = $assigned_task->getAssignedTo() ?>
 <?php if ($assigned_to instanceof Company) { ?>

@@ -52,10 +52,12 @@
   <div class="options"><?php echo implode(' | ', $task_list_options) ?></div>
 <?php } // if ?>
 <?php if (is_array($task_list->getOpenTasks())) { ?>
+<?php $task_list_ln = 0; ?>
   <div class="openTasks">
     <table class="blank">
 <?php foreach ($task_list->getOpenTasks() as $task) { ?>
-      <tr class="<?php odd_even_class($task_list_ln); ?>">
+<?php $task_list_ln++; ?>
+      <tr class="<?php echo (($task_list_ln % 2) == 0 ? 'even' : 'odd'); ?>">
 <!-- Task text and options -->
         <td class="taskText">
           <?php echo (do_textile('[' .$task->getId() . '] ' . $task->getText())) ?>
