@@ -1,6 +1,6 @@
 <?php 
   set_page_title($time->isNew() ? lang('add time') : lang('edit time'));
-  project_tabbed_navigation();
+  project_tabbed_navigation('times');
   if($time->isNew()) {
     project_crumbs(lang('add time'));
   } else {

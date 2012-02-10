@@ -1,7 +1,7 @@
 <?php
 
   set_page_title(lang('report by task'));
-  project_tabbed_navigation();
+  project_tabbed_navigation('times');
   project_crumbs(lang('time'));
   if(ProjectTime::canAdd(logged_user(), active_project())) {
     add_page_action(lang('add time'), get_url('time', 'add'));

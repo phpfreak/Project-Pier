@@ -1,7 +1,7 @@
 <?php
 
   set_page_title($time->getName());
-  project_tabbed_navigation();
+  project_tabbed_navigation('times');
   project_crumbs(array(
     array(lang('time'), get_url('time')),
     array($time->getName())
