@@ -32,16 +32,16 @@ expand_or_collapse = function(obj,match_class,speedshow,speedhide){
   }
 }
 
-$(function() { $(".header").click(
+$(function() { $(".block").click(
   function(e){
-    expand_or_collapse(this.parentNode,'content','fast','fast');
+    expand_or_collapse(this,'content','fast','fast');
     e.stopPropagation();
   });
 });
 
-$(function() { $(".block .complete").click(
+$(function() { $(".header .complete").click(
   function(){
-    expand_or_collapse(this,'content','fast','slow');
+    expand_or_collapse(this.parentNode,'content','fast','slow');
     e.stopPropagation();
   });
 });
