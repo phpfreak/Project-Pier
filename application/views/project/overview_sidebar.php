@@ -108,7 +108,7 @@
   <div class="blockContent">
     <ul>
 <?php foreach ($project_users as $project_user) { ?>
-      <li class="<?php echo odd_even_class($users_ln); ?>"><a href="<?php echo $project_user->getCardUrl() ?>"><?php echo clean($project_user->getDisplayName()) ?></a></li>
+      <li class="<?php echo odd_even_class($users_ln); ?>"><a href="<?php echo $project_user->getCardUrl() ?>"><?php echo clean($project_user->getContact()->getDisplayName()) ?></a></li>
 <?php } // foreach ?>
     </ul>
   </div>

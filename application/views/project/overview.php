@@ -17,12 +17,12 @@
 <?php if (trim(active_project()->getDescription()) && active_project()->getShowDescriptionInOverview()) { ?>
 <div id="project">
 <?php $show_icon = (config_option('files_show_icons', '1') == '1'); ?>
-<?php if ($show_icon) { ?>
- <div class="icon"><img src="<?php echo active_project()->getLogoUrl() ?>" alt="<?php echo active_project()->getName() ?>" /></div>
-<?php } // if ?>
  <div class="block hint">
 <?php $this->includeTemplate(get_template_path('view_progressbar', 'project')); ?>
-  <div class="header"><?php echo clean(active_project()->getName()) ?></div>
+  <div class="header"><?php if ($show_icon) { ?>
+ <div class="icon"><img src="<?php echo active_project()->getLogoUrl() ?>" alt="<?php echo active_project()->getName() ?>" /></div>
+<?php } // if ?>
+<?php echo clean(active_project()->getName()) ?></div>
   <div class="content"><?php echo plugin_manager()->apply_filters('project_description', do_textile(active_project()->getDescription())) ?>
   <div class="clear"></div>
   <div id="pageAttachments">
