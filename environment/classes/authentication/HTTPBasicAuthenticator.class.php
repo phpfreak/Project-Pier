@@ -42,8 +42,8 @@
         $_SERVER['PHP_AUTH_PW'] = strip_tags($password);
       }
 
-      if($_SESSION['authenticated'] != 1) { 
-        if($_SESSION['login'] != 1) { 
+      if(isset($_SESSION['authenticated']) && $_SESSION['authenticated'] != 1) { 
+        if(isset($_SESSION['login']) && $_SESSION['login'] != 1) { 
           $_SESSION['login'] = 1;
           $_SESSION['try_count'] = 0;
           $_SESSION['realm'] = time();
@@ -54,6 +54,9 @@
           exit;
         }
       }
+
+      if (!isset($_SESSION['try_count'])) $_SESSION['try_count'] = 0;
+      if (!isset($_SESSION['realm'])) $_SESSION['realm'] = time();
 
       $_SESSION['authenticated'] = 0;
       $_SESSION['try_count']++;
