@@ -184,5 +184,28 @@ $(function() {
      }
   });
 });
+
+function rememberFormInputs(prefix) {
+  $(':input').each(function(index){
+      // event handler to catch onblur events
+      // it sets the cookie values each time you move out of an input field
+      this.onblur = function() {
+        var name = this.name;
+        var value = this.value;
+        $.cookie( prefix + name, value);
+        //alert('setCookie: '+name + ' = '+value);
+      };
+      // this inserts all the remembered cookie values into the input fields
+      var old_value = $.cookie(prefix + this.name);
+      if (old_value && old_value != '') {
+        //alert('old value remembered: '+old_value);
+        this.value = old_value;
+      }
+  });
+}
+
+$(function() {
+  rememberFormInputs('input-'); 
+});
 //]]>
 </script>
