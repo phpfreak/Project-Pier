@@ -148,50 +148,6 @@
     } // setTwister() 
     
     /**
-    * Return value of 'display_name' field
-    *
-    * @access public
-    * @param void
-    * @return string 
-    */
-    function getDisplayName() {
-      return $this->getColumnValue('username');
-    } // getDisplayName()
-    
-    /**
-    * Set value of 'display_name' field
-    *
-    * @access public   
-    * @param string $value
-    * @return boolean
-    */
-    function setDisplayName($value) {
-      return true;  // handled by contact now
-    } // setDisplayName() 
-    
-    /**
-    * Return value of 'title' field
-    *
-    * @access public
-    * @param void
-    * @return string 
-    */
-    function getTitle() {
-      return $this->getColumnValue('title');
-    } // getTitle()
-    
-    /**
-    * Set value of 'title' field
-    *
-    * @access public   
-    * @param string $value
-    * @return boolean
-    */
-    function setTitle($value) {
-      return $this->setColumnValue('title', $value);
-    } // setTitle() 
-    
-    /**
     * Return value of 'created_on' field
     *
     * @access public
