@@ -38,7 +38,7 @@
   }
 
   // administration dropdown
-  add_action('administration_dropdown','times_administration_dropdown');
+  add_action('administration_company_dropdown','times_administration_dropdown');
   function times_administration_dropdown() {
     echo '<li class="header"><a href="'.get_url('administration', 'time').'">'.lang('time').'</a></li>';
   }

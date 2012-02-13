@@ -73,12 +73,19 @@
     <?php if(logged_user()->isAdministrator()) { ?>
     <li><a href="<?php echo get_url('administration') ?>"><?php echo lang('administration') ?></a> 
       <ul>
+        <li><span><?php echo lang('company') ?></span></li>
         <li class="header"><a href="<?php echo get_url('administration', 'company') ?>"><?php echo lang('company') ?></a></li>
         <li><a href="<?php echo get_url('company', 'edit') ?>"><?php echo lang('edit company') ?></a></li>
         <li><a href="<?php echo owner_company()->getAddContactUrl() ?>"><?php echo lang('add contact') ?></a></li>
         <li class="header"><a href="<?php echo get_url('administration', 'clients') ?>"><?php echo lang('clients') ?></a></li>
         <li><a href="<?php echo get_url('company', 'add_client') ?>"><?php echo lang('add client') ?></a></li>
         <li class="header"><a href="<?php echo get_url('administration', 'projects') ?>"><?php echo lang('projects') ?></a></li>
+<?php
+ // PLUGIN HOOK
+  plugin_manager()->do_action('administration_company_dropdown');
+  // PLUGIN HOOK
+?>
+        <li><span><?php echo lang('installation') ?></span></li>
         <li class="header"><a href="<?php echo get_url('administration', 'configuration') ?>"><?php echo lang('configuration') ?></a></li>
         <li class="header"><a href="<?php echo get_url('administration', 'plugins') ?>"><?php echo lang('plugins') ?></a></li>
         <li class="header"><a href="<?php echo get_url('administration', 'tools') ?>"><?php echo lang('administration tools') ?></a></li>
@@ -128,6 +135,7 @@ if ($handle = opendir(ROOT . '/language')) {
   }
   closedir($handle);
 }
+asort($languages);
 foreach( $languages as $locale => $desc ) {
   echo '<li><a href="' . get_url('dashboard', 'index', array('language' => $locale) ) . '" >' . $desc . '</a></li>';
 }
