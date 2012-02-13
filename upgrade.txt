@@ -7,7 +7,7 @@ ProjectPier 0.8.8 is NOT database compatible with previous versions.
 
 Upgrade instructions 
 
- 1) Enable all plugins (you will want to note down which plugins were not using to disable them later).
+ 1) Enable all plugins (you will want to note down which plugins you were not using to disable them later).
  2) Unzip the ProjectPier v0.8.8 package to your hard drive. Be sure you are able to locate the pp088 folder you just unzipped.
  3) Make a backup of your 0.8.6 database before you begin making any changes.
  4) Append 086 to the 0.8.6 core folders mentioned in appendix A. This will make sure we can restore if necessary.
