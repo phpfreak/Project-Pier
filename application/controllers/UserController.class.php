@@ -124,6 +124,20 @@
       die;
     } 
 
+    /*
+     * save note about project
+     */
+    function saveprojectnoteview(){
+      if (isset($_POST['data']) && $_POST['data'] != ''){
+        $action = logged_user()->setProjectNoteView(active_project(), $_POST['data']);
+        $message = lang('saveprojectnoteview ok');
+        if (!$action) $message = lang('error during saveprojectnoteview');
+        die(make_json_for_ajax_return($action,$message));
+      }
+      die;
+    } 
+
+
   } // UserController
 
 ?>

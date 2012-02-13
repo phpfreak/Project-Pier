@@ -246,6 +246,33 @@
       return false;
     } // getProjectNote
     
+
+    /**
+    * Set the project specific note for this user
+    *
+    * @param Project $project
+    * @param string $data
+    * @return boolean
+    */
+    function setProjectNoteView(Project $project, $data) {
+      if (is_null($project)) {
+        return false;
+      }
+      if (!$this->isProjectUser($project)) {
+        return false;
+      }
+      $project_user = ProjectUsers::findById(array(
+        'project_id' => $project->getId(), 
+        'user_id' => $this->getId())
+      ); // findById
+      if ($project_user instanceof ProjectUser) {
+        $project_user->setNoteView($data);
+        return $project_user->save();
+      } // if
+      return false;
+    } // setProjectNote
+
+
     
     /**
     * Check if this of specific company website. If must be member of that company and is_admin flag set to true
@@ -682,7 +709,7 @@
     * @return string
     */
     function getDisplayName() {
-      $display = parent::getDisplayName();
+      $display = $this->getContact()->getDisplayName();
       return trim($display) == '' ? $this->getUsername() : $display;
     } // getDisplayName
     

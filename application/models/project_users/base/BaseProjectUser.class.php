@@ -76,7 +76,19 @@
     function setNote($value) {
       return $this->setColumnValue('note', $value);
     } // setNote() 
-        
+
+    /**
+    * Set value of 'noteview' field
+    *
+    * @access public   
+    * @param string $value
+    * @return boolean
+    */
+    function setNoteView($value) {
+      //return $this->setColumnValue('noteview', $value);
+    } // setNoteView() 
+
+
     /**
     * Return value of 'created_on' field
     *
