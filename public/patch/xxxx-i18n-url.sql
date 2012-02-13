@@ -1,0 +1,1 @@
+ALTER TABLE `<?php echo $table_prefix ?>i18n_locales` ADD `translation_url` varchar( 255 ) <?php echo $default_charset ?> <?php echo $default_collation ?> default '' AFTER editor_id;

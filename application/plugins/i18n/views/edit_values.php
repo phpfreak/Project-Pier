@@ -12,6 +12,10 @@
 ?>
 <?php if (isset($values) && is_array($values) && count($values)) { ?>
 <form action=""><?php echo lang('search') ?>: <input type="text" id="filter"> <span id="filter-count"></span></form><br>
+<?php $trx_url = trim($locale->getTranslationUrl()); ?>
+<?php if ($trx_url) { ?>
+<iframe src="<?php echo $trx_url ?>" style="border: 1px solid black; width: 100%; height: 12em;"></iframe>
+<?php } ?>
 <p><?php echo lang('click to edit') ?></p>
 <table id="i18n_values" class="filtered">
   <tr>

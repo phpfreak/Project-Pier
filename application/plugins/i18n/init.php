@@ -54,6 +54,7 @@
         `country_code` varchar(50) $cs $co not null default '',
         `logo_file` varchar( 50 ) $cs $co default '',
         `editor_id` int(10) unsigned default NULL,
+        `translation_url` varchar( 255 ) $cs $co default '',
         `created_on` datetime not null default '0000-00-00 00:00:00',
         `created_by_id` int(10) unsigned default NULL,
         `updated_on` datetime not null default '0000-00-00 00:00:00',

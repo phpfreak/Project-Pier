@@ -20,6 +20,7 @@
       'country_code' => DATA_TYPE_STRING,
       'logo_file' => DATA_TYPE_STRING,
       'editor_id' => DATA_TYPE_INTEGER,
+      'translation_url' => DATA_TYPE_STRING,
       'created_on' => DATA_TYPE_DATETIME,
       'created_by_id' => DATA_TYPE_INTEGER,
       'updated_on' => DATA_TYPE_DATETIME,

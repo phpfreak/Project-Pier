@@ -36,6 +36,11 @@
   </div>
 
   <div>
+    <?php echo label_tag(lang('translation url'), 'localeFormTranslationUrl', true) ?>
+    <?php echo text_field('locale[translation_url]', array_var($locale_data, 'translation_url'), array('id' => 'localeFormTranslationUrl', 'class' => 'long')) ?>
+  </div>
+
+  <div>
     <?php echo label_tag(lang('editor'), 'localeFormEditor', true) ?>
     <?php echo select_user('locale[editor_id]', array_var($locale_data, 'editor_id'), array('id' => 'localeFormEditorId')) ?>
   </div>

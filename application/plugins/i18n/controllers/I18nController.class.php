@@ -96,12 +96,13 @@
         $tag_names = '';
         //$tag_names = plugin_active('tags') ? $locale->getTagNames() : '';
         $locale_data = array(
-          'name'          => $locale->getName(),
-          'description'   => $locale->getDescription(),
-          'language_code' => $locale->getLanguageCode(),
-          'country_code'  => $locale->getCountryCode(),
-          'editor_id'     => $locale->getEditorId(),
-          'tags'          => is_array($tag_names) ? implode(', ', $tag_names) : '',
+          'name'            => $locale->getName(),
+          'description'     => $locale->getDescription(),
+          'language_code'   => $locale->getLanguageCode(),
+          'country_code'    => $locale->getCountryCode(),
+          'editor_id'       => $locale->getEditorId(),
+          'translation_url' => $locale->getTranslationUrl(),
+          'tags'            => is_array($tag_names) ? implode(', ', $tag_names) : '',
         ); // array
       } // if
 
