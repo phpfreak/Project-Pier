@@ -373,8 +373,8 @@ only IE mac will see this*/
 }
 
 #crumbsBlock  {
- font-size: 13px;
- line-height: 28px;
+ font-size: 0.9em;
+ line-height: 2em;
  margin: 0 auto;
  padding: 0 10px;
  text-align: left;
@@ -398,9 +398,7 @@ only IE mac will see this*/
 #crumbs ul li  {
  color: #FFFFFF;
  display: inline;
- font-size: 13px;
  font-weight: bold;
- line-height: 22px;
  border-right: 1px solid #8DBBCE;
  padding: 0 5px;
 }
@@ -781,23 +779,18 @@ div .block { margin-left: 0px; }
 #links { padding: 0; }
 #links .odd { background-color: transparent; }
 
-#oldmemo{position:fixed;bottom:0px;right:0px;background-color:#FAF9E4;height:150px;width:150px;font-weight: bold;font-size:14px;border:1px solid black;padding:2px;z-index: 9998;filter:alpha(opacity=80);-moz-opacity:0.8;opacity: 0.8;-moz-border-radius:5px;border-radius: 5px;}
-#oldmemo .header{text-align:center;background-color:#FAF9E4; color: black}
-#oldmemo textarea{width:140px;height:110px;margin:0px;background:transparent;border:none;color:black}
-#memo .content { margin-left: 0px; }
-
 
 #memo {
   position:fixed;
-  bottom:-230px;
-  right:10px;
+  right:0px;
+  bottom:0px;
   background-color:#FAF9E4;
-  height:250px;
-  width:250px; 
+  height:auto;
+  width:auto; 
   font-weight: bold;
-  font-size:14px;
+  font-size:0.9em;
   border:1px solid black;
-  padding:2px;
+  padding:0px 4px;
   z-index: 9998;
   filter:alpha(opacity=90);
   -moz-opacity:0.9;
@@ -808,15 +801,7 @@ div .block { margin-left: 0px; }
   -moz-transition: 0.2s;
   transition: 0.2s;
 }
-#memo:hover { bottom:0; }
-#memo .header{ 
-  line-height:18px; 
-  text-align:center;
-  background-color:#FAF9E4;
-  color: black; 
-  background:url(../../images/icons/edit.gif) top right no-repeat; 
-  margin-right:2px; 
-  margin-top:2px;
+#memo .content { margin: 0px; }
+#memotext {
+  resize:none;margin:0px;background:transparent;border:none;color:black
 }
-#memo:hover .header { background-image:none; }
-#memo textarea{width:240px;height:210px;margin:0px;background:transparent;border:none;color:black}

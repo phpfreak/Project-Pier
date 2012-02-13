@@ -27,14 +27,14 @@ expand_or_collapse = function(obj,match_class,speedshow,speedhide){
       } else {
         $(children[i]).hide(speedhide);
       }
-      //break;
+      break;
     }	
   }
 }
 
-$(function() { $(".block").click(
+$(function() { $(".header").click(
   function(e){
-    expand_or_collapse(this,'content','fast','fast');
+    expand_or_collapse(this.parentNode,'content','fast','fast');
     e.stopPropagation();
   });
 });
@@ -171,6 +171,18 @@ function stopRKey(evt) {
 
 function audioPlayer(url) { 
   window.open(url, 'audio_player', 'width=200,height=240,scrollbars=no,toolbar=no,location=no,menubar=no');
-} 
+}
+
+$(function() {
+  $( "#memo>.content" ).resizable({ 
+     handles: 'se',
+     alsoResize: '#memotext',
+     stop: function(event, ui) { 
+       $( "#memo>.header" ).width(ui.size.width);
+       viewdata = '' + ui.size.width + ',' + ui.size.height;
+       post('<?php echo externalUrl(get_url('user','saveprojectnoteview', null, null, true, '&')); ?>', viewdata );
+     }
+  });
+});
 //]]>
 </script>
