@@ -185,7 +185,7 @@ $(function() {
   });
 });
 
-function rememberFormInputs(prefix) {
+function autosaveFormInputs(prefix) {
   $(':input').each(function(index){
       // event handler to catch onblur events
       // it sets the cookie values each time you move out of an input field
@@ -195,18 +195,23 @@ function rememberFormInputs(prefix) {
         $.cookie( prefix + name, value);
         //alert('setCookie: '+name + ' = '+value);
       };
+  });
+}
+
+function recoverFormInputs(prefix) {
+  $(':input').each(function(index){
       // this inserts all the remembered cookie values into the input fields
+      if (!prefix) prefix = 'input-';
       var old_value = $.cookie(prefix + this.name);
       if (old_value && old_value != '') {
         //alert('old value remembered: '+old_value);
         this.value = old_value;
-      }
+      };
   });
 }
 
 $(function() {
-  rememberFormInputs('input-'); 
+  autosaveFormInputs('input-'); 
 });
-
 //]]>
 </script>
