@@ -5,8 +5,9 @@
   project_crumbs(lang('time'));
   if(ProjectTime::canAdd(logged_user(), active_project())) {
     add_page_action(lang('add time'), get_url('time', 'add'));
-    add_page_action(lang('report by task'), get_url('time', 'bytask'));
   } // if
+  add_page_action(lang('report by task'), get_url('time', 'bytask'));
+  add_page_action(lang('order by date'), get_url('time', 'index'));
 
   add_stylesheet_to_page('project/time.css');
 ?>

@@ -41,7 +41,7 @@
       list($times, $pagination) = ProjectTimes::paginate(
         array(
           'conditions' => $conditions,
-          'order' => '`created_on` DESC'
+          'order' => '`done_date` DESC'
         ),
         config_option('messages_per_page', 10), 
         $page
@@ -73,7 +73,7 @@
     	list($times, $pagination) = ProjectTimes::paginate(
       	array(
       	  'conditions' => $conditions,
-      	  'order' => '`created_on` DESC'
+      	  'order' => '`done_date` DESC'
       	),
       	config_option('messages_per_page', 10), 
       	$page
@@ -332,6 +332,98 @@
       
       $this->redirectTo('time');
     } // delete
+
+    /**
+    * Download task list as attachment
+    *
+    * @access public
+    * @param void
+    * @return null
+    */
+    function download() {
+      $project = active_project();
+      //$times = $project->getTimes();
+      $times = ProjectTimes::findAll(array(
+        'conditions' => array('`project_id` = ?', $project->getId()),
+        'order' => '`done_date` DESC'
+      ));
+      if (!is_array($times)) {
+        flash_error(lang('time dnx'));
+        $this->redirectTo('time');
+      } // if
+      $this->canGoOn();
+      $filtered = array();
+      foreach($times as $time) {
+        if ($time->canView(logged_user())) {
+          $filtered[] = $time;
+        }
+      } // if
+      $times = null;
+      
+      $output = array_var($_GET, 'output', 'csv');
+      $project_name = active_project()->getName();
+      $task_count = 0;
+      if ($output == 'pdf' ) {
+        Env::useLibrary('fpdf');
+        $download_name = "{$project_name}-times.pdf";
+        $download_type = 'application/pdf';
+        $pdf = new FPDF();
+        $pdf->AddPage();
+        $pdf->SetTitle($project_name);
+        $pdf->SetFont('Arial','B',16);
+        $task_lists = active_project()->getOpenTaskLists();
+        $pdf->Cell(0,10, lang('project') . ': ' . active_project()->getObjectName(), 'C');
+        $pdf->Ln();
+          $w = array( 0 => 6, 140, 140 );
+          $pdf->SetFont('Arial','I',14);
+          foreach($filtered as $time) {
+            $line++;
+            $time_id = ''.$time->getId();
+            $time_done = format_date($time->getDoneDate(), null, 0);
+            if ($time->getIsClosed()) {
+              $time_status = lang('completed');
+              $time_completion_info = format_date($task->getUpdatedOn());
+            } else {
+              $time_status = lang('open');
+              $time_completion_info = '                ';
+            }
+            if ($time->getAssignedTo()) {
+              $time_assignee = $time->getAssignedTo()->getObjectName();
+            } else {
+              $time_assignee = lang('not assigned');
+            }
+            $pdf->Cell($w[0],6, $line);
+            $pdf->Cell($w[1],6, $time_id . " / " . $time_status . " / " . $time_completion_info . " / " . $time_assignee . " / " . $time_done , "TLRB");
+            $pdf->Ln();
+            $pdf->Cell($w[0],6,'');
+            $pdf->MultiCell($w[2],6,$time->getDescription());
+            $pdf->Ln();
+          }
+        $pdf->Output($download_name, 'D');
+      } else {
+        $download_name = "{$project_name}-times.txt";
+        $download_type = 'text/csv';
+        $s = "Project name\tId\tDate\tDescription\tHours\tBillable\n";
+        foreach($filtered as $time) {
+          $s .= $project_name;
+          $s .= "\t";
+          $s .= $time->getId();
+          $s .= "\t";
+          $s .= format_date($time->getDoneDate(), null, 0);
+          $s .= "\t";
+          $s .= $time->getDescription();
+          $s .= "\t";
+          $s .= $time->getHours();
+          $s .= "\t";
+          $s .= $time->getIsBillable();
+          $s .= "\n";
+        }
+        $download_contents = $s;
+        download_headers( $download_name, $download_type, strlen($download_contents), true);
+        echo $download_contents;
+      }
+      die();
+    }
 
     /**
     * Set the status for marked time items
