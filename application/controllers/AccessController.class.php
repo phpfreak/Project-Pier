@@ -72,32 +72,19 @@
       tpl_assign('login_data', $login_data);
       
       if (is_array(array_var($_POST, 'login'))) {
-        $username = array_var($login_data, 'username');
-        $password = array_var($login_data, 'password');
-        $remember = array_var($login_data, 'remember') == 'checked';
-        
-        if (trim($username == '')) {
-          tpl_assign('error', new Error(lang('username value missing')));
-          $this->render();
-        } // if
-        
-        if (trim($password) == '') {
-          tpl_assign('error', new Error(lang('password value missing')));
-          $this->render();
-        } // if
-        
-        $user = Users::getByUsername($username, owner_company());
-        if (!($user instanceof User)) {
-          tpl_assign('error', new Error(lang('invalid login data')));
-          $this->render();
-        } // if
-        
-        if (!$user->isValidPassword($password)) {
-          tpl_assign('error', new Error(lang('invalid login data')));
-          $this->render();
-        } // if
-        
         try {
+          $auth = new BuiltinAuthenticator();
+          //$auth = new DatabaseAuthenticator();
+          //$auth = new HTTPBasicAuthenticator();
+          $user = $auth->authenticate($login_data);
+        } catch (Exception $e) {
+          tpl_assign('error', new Error(lang($e->getMessage())));
+          $this->render();
+        }
+
+        try {
+          $username = array_var($login_data, 'username');
+          $remember = array_var($login_data, 'remember') == 'checked';
           trace(__FILE__,"login() - logUserIn($username, $remember)");
           CompanyWebsite::instance()->logUserIn($user, $remember);
           if (isset($_POST['loginLanguage'])) $_SESSION['language'] = $_POST['loginLanguage'];
