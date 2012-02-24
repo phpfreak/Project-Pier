@@ -14,7 +14,9 @@
     * @return array
     */
     function getAll() {
-      return self::findAll();
+      return self::findAll(array(
+        'order' => '`username` ASC'
+      ));
     } // getAll
     
     /**

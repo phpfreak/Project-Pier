@@ -58,6 +58,7 @@
       }
       closedir($handle);
     }
+    asort($answer);
     return $answer;
   }
 
