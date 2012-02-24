@@ -406,7 +406,7 @@
   function download_contents($content, $type, $name, $size, $force_download = true, $from_filesystem = false) {
     if (connection_status() != 0) return false; // check connection
 
-    download_header($name, $type, $size, $force_download);
+    download_headers($name, $type, $size, $force_download);
     if ($from_filesystem) {
       if (!is_readable($content)) return false;
       if (!ini_get('safe_mode')) @set_time_limit(0);
@@ -452,9 +452,9 @@
   } // download_contents
 
   /**
-  * function download_header($type, $name, $size, $force_download = false)
+  * function download_headers($type, $name, $size, $force_download = false)
   */
-  function download_header($name, $type, $size, $force_download = true) {
+  function download_headers($name, $type, $size, $force_download = true) {
     if ($force_download) {
       /** SAVR 10/20/06
       * Was:
