@@ -23,6 +23,7 @@ $(document).ready(function() {
   });
 });
 </script>
+<?php echo open_html_tag('a', array( 'href' => 'javascript:void(0)', 'onclick' => 'javascript:recoverFormInputs();')) . lang('recover last input') . close_html_tag('a');  ?>
 <?php if ($message->isNew()) { ?>
 <form action="<?php echo get_url('message', 'add') ?>" method="post" enctype="multipart/form-data">
 <?php } else { ?>

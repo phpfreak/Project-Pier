@@ -280,6 +280,7 @@ Class WikiController extends ApplicationController {
     tpl_assign('data', $data);
     tpl_assign('page', $page);
     tpl_assign('revision', $revision);
+    tpl_assign('tags', '');
     $this->setTemplate('edit');
     $this->setSidebar(get_template_path('textile_help_sidebar'));
     

@@ -11,11 +11,10 @@
   add_stylesheet_to_page('project/tickets.css');
 ?>
 <h2><?php echo lang('ticket #', $ticket->getId()); ?></h2>
-
+<?php echo open_html_tag('a', array( 'href' => 'javascript:void(0)', 'onclick' => 'javascript:recoverFormInputs();')) . lang('recover last input') . close_html_tag('a');  ?>
 <form action="<?php echo get_url('tickets', 'add_ticket') ?>" method="post" enctype="multipart/form-data">
 
 <?php tpl_display(get_template_path('form_errors')) ?>
-
 
   <div>
     <?php echo label_tag(lang('summary'), 'ticketFormSummary', true) ?>

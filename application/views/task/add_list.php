@@ -9,6 +9,7 @@
   add_page_action(lang('add task list'), get_url('task', 'add_list'));
 
 ?>
+<?php echo open_html_tag('a', array( 'href' => 'javascript:void(0)', 'onclick' => 'javascript:recoverFormInputs();')) . lang('recover last input') . close_html_tag('a');  ?>
 <?php if ($task_list->isNew()) { ?>
 <form action="<?php echo get_url('task', 'add_list') ?>" method="post">
 <?php } else { ?>

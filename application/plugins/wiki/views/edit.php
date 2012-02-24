@@ -18,7 +18,7 @@ trace(__FILE__,'begin');
   project_crumbs($project_crumbs);
  
 ?>
-
+<?php echo open_html_tag('a', array( 'href' => 'javascript:void(0)', 'onclick' => 'javascript:recoverFormInputs();')) . lang('recover last input') . close_html_tag('a');  ?>
 <?php if($page->isNew()): ?>
 <form action="<?php echo $page->getAddUrl() ?>" method="POST">
 <?php else: ?>
