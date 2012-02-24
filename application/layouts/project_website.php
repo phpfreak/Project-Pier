@@ -19,6 +19,7 @@
 <?php add_javascript_to_page('pp.js') ?>
 <?php add_javascript_to_page('jquery.min.js') ?>
 <?php add_javascript_to_page('jquery-ui.min.js') ?>
+<?php add_javascript_to_page('jquery.cookie.js') ?>
 <?php add_javascript_to_page('jquery.colorbox-min.js') ?>
 <?php add_javascript_to_page('jquery.jeditable.mini.js') ?>
 <?php add_javascript_to_page('jquery.imgareaselect.dev.js') ?>
