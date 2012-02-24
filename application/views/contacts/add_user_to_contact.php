@@ -40,7 +40,13 @@
     <?php echo label_tag(lang('email address'), 'userFormEmail', true) ?>
     <?php echo text_field('user[email]', array_var($user_data, 'email'), array('class' => 'long', 'id' => 'userFormEmail')) ?>
   </div>
-  
+
+  <div>
+    <?php echo label_tag(lang('user locale'), 'userFormLocale', true) ?>
+    <?php echo text_field('user[locale]', array_var($user_data, 'locale'), array('class' => 'medium', 'id' => 'userFormLocale')) ?>
+    <?php echo lang('user locale desc') ?>
+  </div>
+    
   <div>
     <?php echo label_tag(lang('timezone'), 'userFormTimezone', true)?>
     <?php echo select_timezone_widget('user[timezone]', array_var($user_data, 'timezone'), array('id' => 'userFormTimezone', 'class' => 'long combobox')) ?>

@@ -539,6 +539,7 @@
           'username'     => $user->getUsername(),
           'email'        => $user->getEmail(),
           'timezone'     => $user->getTimezone(),
+          'locale'       => $user->getLocale(),
           'is_admin'     => $user->isAdministrator(),
           'auto_assign'  => $user->getAutoAssign(),
           'use_LDAP'     => $user->getUseLDAP(),

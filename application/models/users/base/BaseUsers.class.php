@@ -21,6 +21,7 @@
       'token' => DATA_TYPE_STRING, 
       'salt' => DATA_TYPE_STRING, 
       'twister' => DATA_TYPE_STRING, 
+      'locale' => DATA_TYPE_STRING, 
       'created_on' => DATA_TYPE_DATETIME, 
       'created_by_id' => DATA_TYPE_INTEGER, 
       'updated_on' => DATA_TYPE_DATETIME, 

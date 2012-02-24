@@ -1,0 +1,1 @@
+ALTER TABLE `<?php echo $table_prefix ?>users` ADD `locale` varchar( 50 ) <?php echo $default_charset ?> <?php echo $default_collation ?> default 'en_us' AFTER twister;

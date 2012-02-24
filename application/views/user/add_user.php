@@ -46,6 +46,12 @@
     <?php echo label_tag(lang('email address'), 'userFormEmail', true) ?>
     <?php echo text_field('user[email]', array_var($user_data, 'email'), array('class' => 'long', 'id' => 'userFormEmail')) ?>
   </div>
+
+  <div>
+    <?php echo label_tag(lang('user locale'), 'userFormLocale', true) ?>
+    <?php echo text_field('user[locale]', array_var($user_data, 'locale'), array('class' => 'medium', 'id' => 'userFormLocale')) ?>
+    <?php echo lang('user locale desc') ?>
+  </div>
   
   <div>
     <?php echo label_tag(lang('timezone'), 'userFormTimezone', true)?>
@@ -87,10 +93,18 @@
       <?php echo yes_no_widget('user[auto_assign]', 'userFormAutoAssign', array_var($user_data, 'auto_assign'), lang('yes'), lang('no')) ?>
     </div>
 
+<?php   if (!extension_loaded('ldap')) { ?>
     <div>
       <?php echo label_tag(lang('use LDAP'), null, true) ?>
       <?php echo yes_no_widget('user[use_LDAP]', 'userFormUseLDAP', array_var($user_data, 'use_LDAP'), lang('yes'), lang('no')) ?>
     </div>
+<?php   } else { ?>
+    <input type="hidden" name="user[use_LDAP]" value="0" />
+    <div>
+      <?php echo label_tag(lang('use LDAP'), null, false) ?>
+      <?php echo lang('no ldap functions') ?>
+    </div>
+<?php   } // if ?>
   </div>
 <?php } else { ?>
   <input type="hidden" name="user[is_admin]" value="0" />
