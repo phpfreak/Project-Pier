@@ -6,7 +6,7 @@
 <?php if ($checklist_item->getChecked()) { ?>
   <li class="success">OK: <?php echo clean($checklist_item->getMessage()) ?></li>
 <?php } else { ?>
-  <li class="error">Error: <?php echo clean($checklist_item->getMessage()) ?></li>
+  <li class="error"><?php echo clean($checklist_item->getMessage()) ?></li>
 <?php } // if ?>
 <?php } // foreach ?>
 </ul>
