@@ -634,9 +634,24 @@
           // notify user
           if (array_var($task_data, 'send_notification') == 'checked') {
             try {
-              if (Notifier::notifyNeeded($task->getAssignedTo(), $old_owner)) {
-                Notifier::taskAssigned($task);
-              }
+              $notify_people = array();
+              $project_companies = array();
+            
+              if($task->getAssignedTo() == null)
+                $project_companies = active_project()->getCompanies();
+              if($task->getAssignedTo() instanceof Company)
+                $project_companies = array($task->getAssignedTo());
+              if($task->getAssignedTo() instanceof User)
+                $notify_people = array($task->getAssignedTo());
+            
+              foreach($project_companies as $project_company) {
+                $company_users = $project_company->getUsersOnProject(active_project());
+                  if(is_array($company_users))
+                    foreach($company_users as $company_user)
+                      $notify_people[] = $company_user;
+                } // if
+            
+              Notifier::newTask($task, $notify_people);
             } catch(Exception $e) {
               Logger::log("Error: Notification failed, " . $e->getMessage(), Logger::ERROR);
             } // try
