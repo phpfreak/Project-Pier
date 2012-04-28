@@ -30,7 +30,7 @@
     echo '3. is' . ( is_readable($f) ? '' : ' NOT' ) . " readable\n";
     echo '4. is' . ( is_writable($f) ? '' : ' NOT' ) . " writable\n";
     echo '5. has permissions ' . substr(sprintf('%o', fileperms($f)), -4) . "\n";
-    echo '6. owner id ' . fileowner($d) . " (0 on Windows, blank if not permitted)\n";
+    echo '6. owner id ' . fileowner($f) . " (0 on Windows, blank if not permitted)\n";
     if (function_exists('posix_geteuid')) {
       $details = posix_getpwuid( posix_geteuid() );
       echo '6. owner name ' . $details['name'] . " \n";
