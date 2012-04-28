@@ -301,7 +301,7 @@
       $dir = isset($_GET['dir']) ? $_GET['dir'] : 'up';
 
       $lines = array();
-      $handle = fopen("cache/log.php", "r");
+      $handle = @fopen("cache/log.php", "r");
       //$handle = fopen("AdministrationController.class.php", "r");
       if ($handle) {
         if ($pos<0) {
