@@ -16,7 +16,7 @@
       $details = posix_getgrgid( $details['gid'] );
       echo '6. group name ' . $details['name'] . " \n";
     }
-    echo '7. group id ' . filegroup($f) . " (0 on Windows, blank if not permitted)\n";
+    echo '7. group id ' . filegroup($d) . " (0 on Windows, blank if not permitted)\n";
     if (function_exists('posix_getegid')) {
       $details = posix_getgrgid( posix_getegid() );
       echo '7. group name ' . $details['name'] . " \n";
