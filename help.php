@@ -4,6 +4,10 @@
   function check_directory($d) {
     echo "\nDirectory $d\n";
     echo '1.' . ( file_exists($d) ? ' exists' : ' does NOT exist' ) . " \n";
+    if (!file_exists($d)) {
+      echo 'Remaining checks skipped' . " \n";
+      return;
+    }
     echo '2. is' . ( is_dir($d) ? '' : ' NOT' ) . " a directory\n";
     echo '3. is' . ( is_readable($d) ? '' : ' NOT' ) . " readable\n";
     echo '4. is' . ( is_writable($d) ? '' : ' NOT' ) . " writable\n";
@@ -26,6 +30,10 @@
   function check_file($f) {
     echo "\nFile $f\n";
     echo '1.' . ( file_exists($f) ? ' exists' : ' does NOT exist' ) . " \n";
+    if (!file_exists($f)) {
+      echo 'Remaining checks skipped' . " \n";
+      return;
+    }
     echo '2. is' . ( is_file($f) ? '' : ' NOT' ) . " a file\n";
     echo '3. is' . ( is_readable($f) ? '' : ' NOT' ) . " readable\n";
     echo '4. is' . ( is_writable($f) ? '' : ' NOT' ) . " writable\n";
