@@ -64,7 +64,11 @@
   */
   function __production_error_handler($code, $message, $file, $line) {
     // Skip non-static method called statically type of error...
-    if ($code == 2048) {
+    // 2048 = E_SRICT, but we don't use the constant as it may not be defined in the
+    // current version of PHP.
+    // We also skip errors that have been suppressed using @ (which sets
+    // error_reporting() to zero).
+    if ($code == 2048 || error_reporting() == 0) {
       return;
     } // if
     
