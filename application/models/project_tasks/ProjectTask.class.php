@@ -287,6 +287,25 @@
       $this->setCompletedById(logged_user()->getId());
       $this->save();
       
+      $notify_people = array();
+      $project_companies = array();
+            
+      if($this->getAssignedTo() == null)
+        $project_companies = active_project()->getCompanies();
+      if($this->getAssignedTo() instanceof Company)
+        $project_companies = array($this->getAssignedTo());
+      if($this->getAssignedTo() instanceof User)
+        $notify_people = array($this->getAssignedTo());
+            
+      foreach($project_companies as $project_company) {
+        $company_users = $project_company->getUsersOnProject(active_project());
+          if(is_array($company_users))
+            foreach($company_users as $company_user)
+              $notify_people[] = $company_user;
+      } // foreach
+            
+      Notifier::completeTask($this, $notify_people);
+      
       $task_list = $this->getTaskList();
       if (($task_list instanceof ProjectTaskList) && $task_list->isOpen()) {
         $open_tasks = $task_list->getOpenTasks();

@@ -118,6 +118,33 @@
         tpl_fetch(get_template_path('new_task', 'notifier'))
       ); // send
     } // newTask
+     
+    /**
+    * Send closed task notification to the list of users ($people)
+    *
+    * @param ProjectTask $task closed task
+    * @param array $people
+    * @return boolean
+    * @throws NotifierConnectionError
+    */
+    static function completeTask(ProjectTask $task, $people) {
+      if(!is_array($people) || !count($people)) {
+        return; // nothing here...
+      } // if
+      
+      tpl_assign('task', $task);
+
+      $recipients = array();
+      foreach($people as $user) {
+        $recipients[] = self::prepareEmailAddress($user->getEmail(), $user->getDisplayName());
+      } // foreach
+      return self::sendEmail(
+        $recipients,
+        self::prepareEmailAddress($task->getCreatedBy()->getEmail(), $task->getCreatedByDisplayName()),
+        $task->getProject()->getName() . ' - ' . lang('complete task') . ' - ' . $task->getObjectName(),
+        tpl_fetch(get_template_path('complete_task', 'notifier'))
+      ); // send
+    } // newTask
   
     /**
     * Send new message notification to the list of users ($people)
