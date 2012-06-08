@@ -68,6 +68,10 @@
         $pdf = new FPDF();
         $pdf->AddPage();
         $pdf->SetTitle($task_list_name);
+        $pdf->SetCompression(true);
+        $pdf->SetCreator('ProjectPier');
+        $pdf->SetDisplayMode(fullpage, single);
+        $pdf->SetSubject(active_project()->getObjectName());
         $pdf->SetFont('Arial','B',16);
         $task_lists = active_project()->getOpenTaskLists();
         $pdf->Cell(0,10, lang('project') . ': ' . active_project()->getObjectName(), 'C');
@@ -85,16 +89,19 @@
           //  $this->Cell($w[$i],7,$header[$i],1,0,'C');
           //$this->Ln();
           $pdf->SetFont('Arial','I',14);
+          //$pdf->SetTextColor(255, 0, 0);
           foreach($tasks as $task) {
             $line++;
             if ($task->isCompleted()) {
               $task_status = lang('completed');
-              $task_completion_info = format_date($task->getCompletedOn());
+              $pdf->SetTextColor(100, 200, 100);
+              $task_completion_info = lang('completed task');
             } else {
               $task_status = lang('open');
-              $task_completion_info = '                ';
+              $pdf->SetTextColor(255, 0, 0);
+              $task_completion_info = lang('due date') . ' = ' . lang('not assigned');
               if ($task->getDueDate()) {
-                $task_completion_info = format_date($task->getDueDate());
+                $task_completion_info = lang('due date') . ' = ' . format_date($task->getDueDate());
               }
             }
             if ($task->getAssignedTo()) {
@@ -103,10 +110,23 @@
               $task_assignee = lang('not assigned');
             }
             $pdf->Cell($w[0],6,$line);
-            $pdf->Cell($w[1],6,$task_status . " / " . $task_completion_info . " / " . $task_assignee , "TLRB");
+            
+            $pdf->Cell($w[2],6,$task_status, "TLRB");
             $pdf->Ln();
             $pdf->Cell($w[0],6,'');
-            $pdf->MultiCell($w[2],6,$task->getText());
+            
+            $pdf->SetTextColor(0, 0, 0);
+            $pdf->Cell($w[2],6,$task_completion_info, "TLRB");
+            $pdf->Ln();
+            $pdf->Cell($w[0],6,'');
+            
+            $pdf->SetTextColor(0, 0, 0);
+            $pdf->Cell($w[2],6,$task_assignee, "TLRB");
+            $pdf->Ln();
+            $pdf->Cell($w[0],6,'');
+            
+            $pdf->SetTextColor(0, 0, 0);
+            $pdf->MultiCell($w[2],6,$task->getText(), "LRB");
             $pdf->Ln();
           }
         }
