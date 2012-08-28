@@ -10,7 +10,7 @@
 ** For config.php:  define('SHOW_MESSAGE_BODY', false);
 */
 if ((!defined('SHOW_MESSAGE_BODY')) or (SHOW_MESSAGE_BODY == true)) {
-  echo "\n----------------\n";
+  echo "\n\n----------------\n";
   echo $new_task->getText();
   echo "\n----------------\n\n";
 }
@@ -20,9 +20,12 @@ if ((!defined('SHOW_MESSAGE_BODY')) or (SHOW_MESSAGE_BODY == true)) {
 
 - <?php echo str_replace('&amp;', '&', externalUrl($new_task->getViewUrl())) ?> 
 
-<?php echo lang('company') ?>: <?php echo owner_company()->getName() ?> 
-<?php echo lang('project') ?>: <?php echo $new_task->getProject()->getName() ?> 
-<?php echo lang('author') ?>: <?php echo $new_task->getCreatedByDisplayName() ?> 
+<?php echo lang('company') ?>: <?php echo owner_company()->getName() ?>
+
+<?php echo lang('project') ?>: <?php echo $new_task->getProject()->getName() ?>
+
+<?php echo lang('author') ?>: <?php echo $new_task->getCreatedByDisplayName() ?>
+
 
 --
 <?php echo externalUrl(ROOT_URL) ?>

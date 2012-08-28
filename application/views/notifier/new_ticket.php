@@ -27,10 +27,11 @@ if ((!defined('SHOW_TICKET_BODY')) or (SHOW_TICKET_BODY == true)) {
 ?>
 
 <?php echo lang('view new ticket').":\n" ?>
-- <?php echo str_replace('&amp;', '&', externalUrl($ticket->getViewUrl()))."\n" ?> 
-<?php echo lang('company') ?>: <?php echo owner_company()->getName()."\n" ?> 
-<?php echo lang('project') ?>: <?php echo $ticket->getProject()->getName()."\n" ?> 
-<?php echo lang('author') ?>: <?php echo $ticket->getCreatedByDisplayName()."\n" ?> 
+- <?php echo str_replace('&amp;', '&', externalUrl($ticket->getViewUrl()))."\n" ?>
+
+<?php echo lang('company') ?>: <?php echo owner_company()->getName()."\n" ?>
+<?php echo lang('project') ?>: <?php echo $ticket->getProject()->getName()."\n" ?>
+<?php echo lang('author') ?>: <?php echo $ticket->getCreatedByDisplayName()."\n" ?>
 
 --
 <?php echo externalUrl(ROOT_URL) ?>
