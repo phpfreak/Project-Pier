@@ -10,7 +10,7 @@
 ** For config.php:  define('SHOW_MESSAGE_BODY', false);
 */
 if ((!defined('SHOW_TICKET_BODY')) or (SHOW_TICKET_BODY == true)) {
-  echo "\n----------------\n";
+  echo "\n\n----------------\n";
   foreach($attached_files as $attached_file) {
     echo lang('file').': '.$attached_file->getFilename()."\n";
   }
@@ -20,13 +20,15 @@ if ((!defined('SHOW_TICKET_BODY')) or (SHOW_TICKET_BODY == true)) {
 
 <?php echo lang('view new ticket') ?>:
 
-- <?php echo str_replace('&amp;', '&', externalUrl($ticket->getViewUrl())) ?> 
+- <?php echo str_replace('&amp;', '&', externalUrl($ticket->getViewUrl())) ?>
 
-<?php echo lang('company') ?>: <?php echo owner_company()->getName() ?> 
-<?php echo lang('project') ?>: <?php echo $ticket->getProject()->getName() ?> 
-<?php echo lang('author') ?>: <?php echo $ticket->getCreatedByDisplayName() ?> 
+
+<?php echo lang('company') ?>: <?php echo owner_company()->getName() ?>
+
+<?php echo lang('project') ?>: <?php echo $ticket->getProject()->getName() ?>
+
+<?php echo lang('author') ?>: <?php echo $ticket->getCreatedByDisplayName() ?>
+
 
 --
 <?php echo ''.lang('login').': '.externalUrl(ROOT_URL) ?>
---
-<?php echo externalUrl(ROOT_URL) ?>
