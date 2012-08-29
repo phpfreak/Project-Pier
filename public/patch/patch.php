@@ -17,7 +17,7 @@ $sql = str_replace('{$tp}', DB_PREFIX, $sql);
 $sql = str_replace('<?php echo $table_prefix ?>', DB_PREFIX, $sql);
 $sql = str_replace('<?php echo $default_collation ?>', $co, $sql);
 $sql = str_replace('<?php echo $default_charset ?>', $cs, $sql);
-executeMultipleQueries($sql, &$total_queries, &$executed_queries, $link);
+executeMultipleQueries($sql, $total_queries, $executed_queries, $link);
 echo 'Summary' . "<br>\n";
 echo 'Total queries in SQL: ' . $total_queries . " <br>\n";
 echo 'Total executed queries: ' . $executed_queries  . " <br>\n";
