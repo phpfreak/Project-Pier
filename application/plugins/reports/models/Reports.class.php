@@ -294,7 +294,8 @@ class Reports  {
 	    $icon .= "<icon BUILTIN=\"button_ok\"/>\n";
 	    $tasklistComplete = true;
 	  }
-	  $this->epure('tl:'.$task_list_name);
+	  $kt_tl_var = 'tl:' . $task_list_name;
+	  $this->epure($kt_tl_var);
           if (strlen($task_list_name) > 40) $task_list_name = substr($task_list_name,0,40) . "...";
           $position = $positions[$actualpos];
           $url = externalUrl(get_url('task','view_list',array('id' => $task_list->getId())));
