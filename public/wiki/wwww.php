@@ -122,11 +122,12 @@ if (isset($_REQUEST['page'])) {
 ?>
 <div id="wrapper">
  <!-- header -->
- <div id="headerWrapper">
-  <div id="header">
-   <h1><a href="/pp088/index.php?c=dashboard&a=index&active_project=19&1300729303">ProjectPier</a></h1>
-  </div>
- </div>
+      <div id="headerWrapper">
+        <div id="header">
+          <h1><a href="<?php echo get_url('dashboard', 'index') ?>"><?php echo $site_name ?></a></h1>
+        </div>
+      </div>
+      <!-- /header -->
  <div id="tabsWrapper">
   <div id="tabs">
   </div>
