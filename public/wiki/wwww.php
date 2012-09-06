@@ -156,9 +156,13 @@ if (isset($_REQUEST['page'])) {
         <!--footer -->
         <div id="footer">
           <div id="copy">
-            &copy; 2011 by <a href="http://www.2share.com">2Share</a>. All rights reserved.          </div>
-
-          <div id="productSignature">Powered by <a href="http://www.projectpier.org/">ProjectPier 0.8.7</a><span id="request_duration"> in 0.335 seconds</span> <span id="current_datetime">2011-03-21T09:41:43-08:00 [12]</span></div>
+<?php if (is_valid_url($owner_company_homepage = owner_company()->getHomepage())) { ?>
+            <?php echo lang('footer copy with homepage', date('Y'), $owner_company_homepage, clean(owner_company()->getName())) ?>
+<?php } else { ?>
+            <?php echo lang('footer copy without homepage', date('Y'), clean(owner_company()->getName())) ?>
+<?php } // if ?>
+          </div>
+          <div id="productSignature"><?php echo product_signature() ?><span id="request_duration"><?php printf(' in %.3f seconds', (microtime(true) - $GLOBALS['request_start_time']) ); ?></span> <span id="current_datetime"><?php echo date('c/I[W]'); ?></span></div>
         </div>
         <!--footer -->
       </div>
