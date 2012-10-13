@@ -81,6 +81,12 @@
     'massmailer message required' => 'Le corps du message est obligatoire',
     'massmailer select recipients' => 'Sélectionnez les utilisateurs qui recevront ce message électronique',
     
+
+		'name value required' => 'Le nom est obligatoire',
+		'existing contact required' => 'Vous devez sélectionner un contact existant',
+		'contact already has user' => 'Ce contact a déjà un compte utilisateur lié à lui.',
+		'invalid password' => 'Mot de passe incorrect. Vérifiez votre mot de passe et essayez à nouveau',
+
   ); // array
 
 ?>

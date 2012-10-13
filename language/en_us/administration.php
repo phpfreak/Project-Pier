@@ -129,7 +129,7 @@
     'config option name authdb server' => 'Database server',
     'config option desc authdb server' => 'The ip address or DNS name of the database server for authentication. Port number can be included.',
     'config option name authdb username' => 'Database user name',
-    'config option desc authdb username' => 'The user name to access the database',
+    'config option desc authdb username' => 'The password to access the database',
     'config option name authdb password' => 'Database user name',
     'config option desc authdb password' => 'The password corresponding to the user',
     'config option name authdb database' => 'Database name',

@@ -114,6 +114,35 @@
     'order by milestone' => 'Trier par Jalon',
     'group by project' => 'Grouper par Projet',
     
+
+		'edit project to select task list' => 'Editer les détails du projet pour sélectionner une liste de tâches',
+		'edit project to select task' => 'Editer les détails du projet pour sélectionner une tâche',
+		'parent project' => 'Projet parent',
+		'subprojects' => 'Sous-projets',
+		'can manage times' => 'Peut administrer le calendrier',
+		'can access messages' => 'Peut accéder aux messages',
+		'can access tasks' => 'Peut accéder aux tâches',
+		'can access files' => 'Peut accéder aux fichiers',
+		'can access forms' => 'Peut accéder aux formulaires',
+		'can access contacts' => 'Peut accéder aux contacts',
+		'can access wiki' => 'Peut accéder au wiki',
+		'can access reports' => 'Peut accéder aux rapports',
+		'can manage contacts' => 'Peut administrer les contacts',
+		'can manage wiki' => 'Peut administrer le wiki',
+		'can access search' => 'Peut accéder à la recherche',
+		'can access tags' => 'Peut accéder aux tags',
+		'can access comments' => 'Peut accéder aux commentaires',
+		'project to move to' => 'Projet à déplacer %s vers',
+		'edit project to select milestone' => 'Editer les détails du projet pour sélectionner un jalon',
+		'users involved in project' => 'Utilkisateurs impliqués',
+		'edit project to select message' => 'Editer les détails du projet pour sélectionner un message',
+		'attach existing contact' => 'Attacher un contact existant (du carnet d\'adtresses)',
+		'new contact' => 'Nouveau contact',
+		'select contact' => 'Selectionner contact',
+		'edit project to select contact' => 'Editer les détails du projet pour sélectionner un contact',
+		'created on' => 'Créé',
+
+
   ); // array
 
 ?>
