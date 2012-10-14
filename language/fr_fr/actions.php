@@ -106,6 +106,28 @@
     'nothing to download' => "Pas de données disponibles dans '%s' à télécharger",
     'download task lists' => 'Télécharger toutes les tâches',
     
+    // Internationalization
+    'select language' => 'Choisissez la langue',
+
+		'edit logo' => 'Modifier le logo',
+		'delete logo' => 'Supprimer le logo',
+		'add user account' => 'Ajouter un utilisateur',
+		'add contact' => 'Ajouter un contact',
+		'edit contact' => 'Modifier contact',
+		'delete contact' => 'Supprimer contact',
+		'edit user account' => 'Modifier le compte utilisateur',
+		'delete user account' => 'Supprimer le compte utilisateur',
+		'toggle favorite' => 'Modifier favori',
+		'done adding contacts' => 'Fin de l\'ajout de contacts',
+		'list view' => 'Liste',
+		'detail view' => 'Détails',
+		'add text snippet' => 'Ajouter une bribe de texte',
+		'add text snippets' => 'Ajouter des bribes de texte',
+		'move message' => 'Déplacer le message',
+		'add status update' => 'Mise à jour du statut',
+		'pdf' => 'PDF',
+		'view assigned tasks' => 'Voir la tache assignée',
+		'view milestone' => 'Voir le jalon',
   ); // array
 
 ?>

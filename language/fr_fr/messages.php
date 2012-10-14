@@ -244,6 +244,52 @@
     'log edit projectforms' => '\'%s\' modifié',
     'log delete projectforms' => '\'%s\' supprimé',
   
+		'no status updates associated with object' => 'Aucune mise à jour de statut postée pour cet objet',
+		'no contacts in company' => 'Il n\' y a pas de contact pour cette société',
+		'contact dnx' => 'Le contact selectionné n\'existe pas',
+		'no image functions' => 'Pas de fonctions images (installez la librairie GD)',
+		'no ldap functions' => 'Pas de fonctions LDAP (installez l\'extension ldap)',
+		'success edit logo' => 'Le logo a été mis à jour',
+		'success delete logo' => 'Le logo a été supprimé',
+		'success move message' => 'Le message \'%s\' a été déplacé du projet \'%s\' vers le projet \'%s\'',
+		'success add contact' => 'Le contact %s a été ajouté avec succès',
+		'success edit contact' => 'Le contact %s a été modifé avec succès',
+		'success delete contact' => 'Contact %s a été supprimé avec succès',
+		'error complete project' => 'Impossible de rentre ce projet complété',
+		'error open project' => 'Impossible de réouvrir le projet sélectionné',
+		'error edit logo' => 'Impossible de modifier le logo %s',
+		'error delete logo' => 'Impossible de supprimer le logo %s',
+		'error delete contact' => 'Impossible de supprimer le contact selectionné',
+		'error move message' => 'Impossible de déplacer le message sélectionné %s',
+		'error move task list' => 'Impossible de déplacer la liste de tâches sélectionnée',
+		'confirm delete logo' => 'Etes-vous certain de vouloir supprimer ce logo?',
+		'confirm delete contact' => 'Etes-vous certain de vouloir supprimer ce contact?',
+
+		'log add projects' => 'Projet \'%s\' ajouté',
+		'log edit projects' => 'Projet \'%s\' modifié',
+		'log open projects' => 'Projet \'%s\' ouvert',
+		'log close projects' => 'Projet \'%s\' fermé',
+		'log delete projects' => 'Projet \'%s\' supprimé',
+
+		'log add users' => 'Utilisateur \'%s\' ajouté',
+		'log edit users' => 'Utilisateur \'%s\' modifié',
+		'log delete users' => 'Utilisateur \'%s\' supprimé',
+
+		'log add companies' => 'Société \'%s\' ajoutée',
+		'log edit companies' => 'Société \'%s\' modifiée',
+		'log delete companies' => 'Société \'%s\' supprimée',
+
+		'log add contacts' => 'Contact \'%s\' ajouté',
+		'log edit contacts' => 'Contact \'%s\' modifié',
+		'log delete contacts' => 'Contact \'%s\' supprimé',
+
+		'log add i18nlocales' => 'Locale \'%s\' ajoutée',
+		'log edit i18nlocales' => 'Locale \'%s\' modifiée',
+		'log delete i18nlocales' => 'Locale \'%s\' supprimée',
+
+		'log add i18localevalues' => 'Valeur locale \'%s\' ajoutée',
+		'log edit i18nlocalevalues' => 'Valeur locale \'%s\' modifiée',
+		'log delete i18nlocalevalues' => 'Valeur locale \'%s\' supprimée',
   ); // array
 
 ?>

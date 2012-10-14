@@ -126,6 +126,12 @@
     'footer copy with homepage' => '&copy; %s <a href="%s">%s</a>. Tous droits réservés.',
     'footer copy without homepage' => '&copy; %s %s. Tous droits réservés',
     'footer powered' => 'Propulsé par <a href="%s">%s</a>',
+
+
+		'my files' => 'Mes fichiers',
+		'test mail recipient' => 'Destinataire de test',
+		'application log events my projects' => 'Evènements de mes projets',
+
     
   ); // array
 

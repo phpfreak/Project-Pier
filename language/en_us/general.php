@@ -256,6 +256,7 @@
     'minutes' => 'minutes',
     'seconds' => 'seconds',
 
+    'radio' => 'radio',
   ); // array
 
 ?>

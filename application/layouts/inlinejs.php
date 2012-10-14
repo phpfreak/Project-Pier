@@ -13,7 +13,7 @@ $(function() {
 
 $(function() {
   $('input.datetimepicker').datetimepicker({
-    dateFormat: '<?php echo lang('input date format') ?>',
+    dateFormat: '<?php echo str_replace("'","\'",lang('input date format')) ?>',
     constrainInput: false
   });
 });
@@ -147,7 +147,7 @@ $(function(){
         }
     });
     gg.each(function () { $(this).show() });
-    $("#filter-count").text(count + ' <?php echo lang('shown/lc'); ?>' );
+    $("#filter-count").text(count + ' <?php echo str_replace("'","\'",lang('shown/lc')); ?>' );
   }).keydown(function(event) {
     if (event.which == 13) {  // disable enter key on search filter to prevent leaving page
       event.preventDefault();
@@ -157,8 +157,8 @@ $(function(){
 
 $(function(){
   $("#i18n_values .edit").editable('<?php echo get_url('i18n', 'edit_value', null, null, false, '&'); ?>', { 
-    indicator : '<?php echo lang('saving'); ?>',
-    tooltip   : '<?php echo lang('click to edit'); ?>',
+    indicator : '<?php echo str_replace("'","\'",lang('saving')); ?>',
+    tooltip   : '<?php echo str_replace("'","\'",lang('click to edit')); ?>',
     style     : 'inherit' 
   });
 });
