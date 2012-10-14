@@ -55,6 +55,24 @@
     'private time' => 'Temps passé privé',
     'private task list' => 'Liste de tâches privée',
     'private comment' => 'Commentaire privé',
+
+
+		'contact' => 'Contact',
+		'contacts' => 'Contacts',
+		'status update' => 'Mise à jour du statut',
+		'status updates' => 'Mises à jour du statut',
+		'user account' => 'Compte',
+		'text snippet' => 'Bribe de texte',
+		'text snippets' => 'Bribes de texte',
+		'new company' => 'Nouvelle société',
+		'existing company' => 'Société existante',
+		'memo' => 'Mes notes de projet',
+		'no folders' => 'Pas de dossier',
+		'favorite company' => 'Société favorite',
+		'favorite companies' => 'Société favorites',
+		'deleted or unknown' => '***Supprimé ou inconnu***',
+		'actions' => 'Actions',
+
   ); // array
 
 ?>

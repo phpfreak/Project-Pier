@@ -30,6 +30,12 @@
 
     'task assigned' => 'La tâche "%s" vous a été assignée',
     
+		'your account updated' => 'Votre compte a été mis à jour',
+		'password unchanged' => 'Votre mot de passe reste inchangé.',
+		'new file posted' => 'Nouveau fichier "%s" ajouté dans le projet "%s"',
+		'view new file' => 'Voir nouveau fichier',
+		'user updated your account' => '%s a modifié votre compte',
+
   ); // array
 
 ?>

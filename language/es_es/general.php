@@ -37,6 +37,7 @@
     'additional text' => 'Texto adicional',
     'due date' => 'Fecha de vencimiento',
     'done date' => 'Fecha',
+    'weekly schedule' => 'Mi Semana',
     'assign to' => 'Asignar a',
     'not assigned' => 'Sin asignar',
     'late' => 'Atrasado',

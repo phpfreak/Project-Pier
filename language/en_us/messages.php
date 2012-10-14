@@ -266,9 +266,9 @@
     'log delete projectforms' => 'Form \'%s\' deleted',
   
     'log add projects' => 'Project \'%s\' added',
-    'log edit projects' => 'Project \'%s\' added',
+    'log edit projects' => 'Project \'%s\' updated',
     'log open projects' => 'Project \'%s\' opened',
-    'log close projects' => 'Project \'%s\' opened',
+    'log close projects' => 'Project \'%s\' closed',
     'log delete projects' => 'Project \'%s\' deleted',
 
     'log add users' => 'User \'%s\' added',
