@@ -10,6 +10,13 @@
   * @http://www.projectpier.org/
   */
   class Template {
+
+    /**
+     * Class instance
+     *
+     * @var Object
+     */
+    private static $_instance;
     
     /**
     * Array of template variables
@@ -87,12 +94,11 @@
     * @param void
     * @return Template
     */
-    function instance() {
-      static $instance;
-      if (!instance_of($instance, 'Template')) {
-        $instance = new Template();
-      } // if
-      return $instance;
+    static function instance() {
+      if(!isset(self::$_instance)) {
+        self::$_instance = new self;
+      }
+      return self::$_instance;
     } // instance
   
   } // Template
