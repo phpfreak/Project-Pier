@@ -125,6 +125,11 @@
   </div>
   
   <div>
+    <?php echo label_tag(lang('timezone'), 'contactFormTimezone', true)?>
+    <?php echo select_timezone_widget('contact[timezone]', array_var($contact_data, 'timezone'), array('id' => 'contactFormTimezone', 'class' => 'long')) ?>
+  </div>
+  
+  <div>
     <fieldset>
       <legend><?php echo lang('avatar') ?></legend>
 <?php if ($contact->hasAvatar()) { ?>
