@@ -1,0 +1,85 @@
+/** Tickets display **/
+
+#tickets .critical, #tickets_legend .critical {
+  background-color: #ffbaba;
+}
+
+#tickets .major, #tickets_legend .major {
+  background-color: #fcffb1;
+}
+
+#tickets .minor, #tickets_legend .minor {
+  background-color: #d6e7ff;
+}
+
+#tickets .trivial, #tickets_legend .trivial {
+  background-color: #ffffff;
+}
+
+#tickets .tickets_header {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+#tickets_legend {
+  width: 120px;
+}
+
+#tickets_legend .legend {
+  border: 1px solid #000000;
+  padding: 2px;
+  margin-bottom: 2px;
+}
+
+#tickets_legend ul {
+  list-style: none;
+}
+
+#tickets_legend li .legend {
+  list-style: none;
+}
+/** Ticket display */
+#ticket {
+ background: url(../../images/layout/bg_success.png) repeat-x top center;
+ background-color: #FAF9E4;
+ border: 1px solid #F2EEB7;
+ margin-top: 1em;
+ padding: .5em 1em;
+ position: relative;
+ border-radius: 5px;
+}
+
+#ticket table.properties {
+ width: 100%;
+ border: none !important;
+}
+
+#ticket table.properties th {
+ background: none !important;
+ text-transform: none !important;
+ border-bottom: none !important;
+}
+
+#ticket table.properties th, #ticket table.properties td {
+ border: none !important;
+ font-size: inherit !important;
+ color: #666;
+ text-shadow: 0 1px 0 #FFF;
+}
+
+label[for=ticketFormSummary] {
+ font-weight: bold;
+ font-size: 14px;
+ padding: 2px 5px 4px;
+}
+
+h3.status span.button {
+ background: #D94552;
+ color: white;
+ padding: 3px;
+ float: right;
+}
+
+h3.status span.button a {
+ color: white;
+}

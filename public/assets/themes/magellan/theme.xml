@@ -1,0 +1,10 @@
+﻿<?xml version="1.1" encoding="UTF-8"?>
+<versions format="2.0b1">
+  <version number="2.0b1">
+    <details_url>http://www.projectpier.org/node/2908</details_url>
+    <signature>Magellan 2.0b1</signature>
+    <release_notes><![CDATA[Bugfix Release]]></release_notes>
+    <release_date>2012-02-21 00:00:00</release_date>
+    <change_log>http://www.projectpier.org/node/2908</change_log>
+  </version>
+</versions>
