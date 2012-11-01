@@ -14,6 +14,7 @@
 <?php } // if ?>
 <h2><?php echo lang('file');  ?>: <?php echo $file->getObjectName(true); ?></h2>
 <form action="<?php echo $file->getAddRevisionUrl() ?>" method="post" enctype="multipart/form-data">
+  <?php tpl_display(get_template_path('form_errors')) ?>
   <div id="fileRevisionComment">
     <?php echo label_tag(lang('revision comment'), 'fileRevisionComment') ?>
     <?php echo textarea_field('revision[comment]', array_var($revision_data, 'comment'), array('class' => 'short', 'id' => 'fileRevisionComment')) ?>
