@@ -456,9 +456,20 @@
             } // if
           } // if
           $user->setPassword($password);
-          
+         
+		  $granted = 0;
+          if (logged_user()->isAdministrator()) {
+            $user->setIsAdmin( array_var($user_data, 'is_admin') );
+            $user->setAutoAssign( array_var($user_data, 'auto_assign') );
+            $granted = (trim(array_var($user_data, 'can_manage_projects')) == '1') ? 1 : 0;
+          } else {
+            $user->setIsAdmin( 0 );
+            $user->setAutoAssign( 0 );
+          }
+
           DB::beginWork();
           $user->save();
+          $user->setPermission(PermissionManager::CAN_MANAGE_PROJECTS, $granted);		  
           $contact->setUserId($user->getId());
           $contact->save();
           ApplicationLogs::createLog($user, null, ApplicationLogs::ACTION_ADD);
