@@ -607,7 +607,11 @@
     * @return null
     */
     function getReserveParkingSpaceUrl() {
-      return config_option('parking space reservation url', '').'?license_plate='.$this->getLicensePlate();
+      $url = trim(config_option('parking space reservation url', ''));
+      if ($url != '') {
+        $url .= '?license_plate=' . $this->getLicensePlate();
+      }
+      return $url;
     } // getReserveParkingSpaceUrl
 
     /**
