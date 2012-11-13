@@ -9,9 +9,12 @@
   } // if
   
   $log_data = file_exists('db2fs.log') ? file_get_contents('db2fs.log') : "Converted files from database to file system: ";
-  
-  $file_attributes = require_once 'attributes.php';
-  
+
+  $file_attributes = @require_once 'attributes.php';
+  if (!is_array($file_attributes)) {
+    $file_attributes = array();
+  }
+
   $link = @mysql_connect(DB_HOST, DB_USER, DB_PASS);
   $file_repo_table = DB_PREFIX . 'file_repo';
   $file_repo_attributes_table = DB_PREFIX . 'file_repo_attributes';
