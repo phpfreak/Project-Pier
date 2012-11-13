@@ -68,6 +68,10 @@
         $pdf = new FPDF();
         $pdf->AddPage();
         $pdf->SetTitle($task_list_name);
+        $pdf->SetCompression(true);
+        $pdf->SetCreator('ProjectPier');
+        $pdf->SetDisplayMode(fullpage, single);
+        $pdf->SetSubject(active_project()->getObjectName());
         $pdf->SetFont('Arial','B',16);
         $task_lists = active_project()->getOpenTaskLists();
         $pdf->Cell(0,10, lang('project') . ': ' . active_project()->getObjectName(), 'C');
@@ -89,12 +93,14 @@
             $line++;
             if ($task->isCompleted()) {
               $task_status = lang('completed');
-              $task_completion_info = format_date($task->getCompletedOn());
+              $pdf->SetTextColor(100, 200, 100);
+              $task_completion_info = lang('completed task') . ' : ' . format_date($task->getCompletedOn());
             } else {
               $task_status = lang('open');
-              $task_completion_info = '                ';
+              $pdf->SetTextColor(255, 0, 0);
+              $task_completion_info = lang('due date') . ' : ' . lang('not assigned');
               if ($task->getDueDate()) {
-                $task_completion_info = format_date($task->getDueDate());
+                $task_completion_info = lang('due date') . ' : ' . format_date($task->getDueDate());
               }
             }
             if ($task->getAssignedTo()) {
@@ -103,10 +109,19 @@
               $task_assignee = lang('not assigned');
             }
             $pdf->Cell($w[0],6,$line);
-            $pdf->Cell($w[1],6,$task_status . " / " . $task_completion_info . " / " . $task_assignee , "TLRB");
+            $pdf->Cell($w[2],6,$task_status, "TLRB");
             $pdf->Ln();
             $pdf->Cell($w[0],6,'');
-            $pdf->MultiCell($w[2],6,$task->getText());
+            $pdf->SetTextColor(0, 0, 0);
+            $pdf->Cell($w[2],6,$task_completion_info, "TLRB");
+            $pdf->Ln();
+            $pdf->Cell($w[0],6,'');
+            $pdf->SetTextColor(0, 0, 0);
+            $pdf->Cell($w[2],6,$task_assignee, "TLRB");
+            $pdf->Ln();
+            $pdf->Cell($w[0],6,'');
+            $pdf->SetTextColor(0, 0, 0);
+            $pdf->MultiCell($w[2],6,$task->getText(), "TLRB");
             $pdf->Ln();
           }
         }
@@ -243,9 +258,24 @@
             // notify user
             if (array_var($task_data, 'send_notification') == 'checked') {
               try {
-                if (Notifier::notifyNeeded($task->getAssignedTo(), null)) {
-                  Notifier::taskAssigned($task);
-                }
+                $notify_people = array();
+                $project_companies = array();
+            
+                if($task->getAssignedTo() == null)
+                  $project_companies = active_project()->getCompanies();
+                if($task->getAssignedTo() instanceof Company)
+                  $project_companies = array($task->getAssignedTo());
+                if($task->getAssignedTo() instanceof User)
+                  $notify_people = array($task->getAssignedTo());
+            
+                foreach($project_companies as $project_company) {
+                  $company_users = $project_company->getUsersOnProject(active_project());
+                    if(is_array($company_users))
+                      foreach($company_users as $company_user)
+                        $notify_people[] = $company_user;
+                } // if
+            
+                Notifier::newTask($task, $notify_people);
               } catch(Exception $e) {
                 Logger::log("Error: Notification failed, " . $e->getMessage(), Logger::ERROR);
               } // try
@@ -634,9 +664,24 @@
           // notify user
           if (array_var($task_data, 'send_notification') == 'checked') {
             try {
-              if (Notifier::notifyNeeded($task->getAssignedTo(), $old_owner)) {
-                Notifier::taskAssigned($task);
-              }
+              $notify_people = array();
+              $project_companies = array();
+            
+              if($task->getAssignedTo() == null)
+                $project_companies = active_project()->getCompanies();
+              if($task->getAssignedTo() instanceof Company)
+                $project_companies = array($task->getAssignedTo());
+              if($task->getAssignedTo() instanceof User)
+                $notify_people = array($task->getAssignedTo());
+            
+              foreach($project_companies as $project_company) {
+                $company_users = $project_company->getUsersOnProject(active_project());
+                  if(is_array($company_users))
+                    foreach($company_users as $company_user)
+                      $notify_people[] = $company_user;
+                } // if
+            
+              Notifier::newTask($task, $notify_people);
             } catch(Exception $e) {
               Logger::log("Error: Notification failed, " . $e->getMessage(), Logger::ERROR);
             } // try

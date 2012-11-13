@@ -2,9 +2,9 @@
 
   // Return array of langs
   return array(
-    'pdf' => 'Exporteer naar pdf' //new
-    'shown/lc' => 'zoekresultaten gevonden' //new
-	'assigned to' => 'Toegewezen aan'
+    'pdf' => 'Exporteer naar pdf', //new
+    'shown/lc' => 'zoekresultaten gevonden', //new
+    'assigned to' => 'Toegewezen aan',
     'show route' => 'Toon wegbeschrijving',
     'reserve parking space' => 'Reserveer parkeerplaats',
     'display name' => 'Schermnaam',
