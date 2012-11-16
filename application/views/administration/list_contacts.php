@@ -26,7 +26,10 @@ $user = $contact->getUserAccount();
 <?php
   $options = array();
   if (logged_user()->isMemberOfOwnerCompany()) {
-    $options[] = '<a href="' . $contact->getReserveParkingSpaceUrl() . '">' . lang('reserve parking space') . '</a>';
+    $parkingurl = trim($contact->getReserveParkingSpaceUrl());
+    if ($parkingurl != '') {
+      $options[] = '<a href="' . $parkingurl . '">' . lang('reserve parking space') . '</a>';
+    }
     $options[] = '<a href="' . $contact->getShowMapUrl() . '">' . lang('show map') . '</a>';
     $options[] = '<a href="' . logged_user()->getContact()->getShowRouteUrl($contact) . '">' . lang('show route') . '</a>';
   }
