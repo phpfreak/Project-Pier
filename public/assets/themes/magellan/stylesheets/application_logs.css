@@ -1,0 +1,208 @@
+/*[fmt]2A10-1A0B-3*/
+table.applicationLogs  {
+ font-size: 13px;
+}
+
+table.applicationLogs th  {
+ background: #D8D8D8;
+ background-image: url(../images/logtypes/bg_th.gif);
+ background-repeat: repeat-x;
+ padding: 2px 4px;
+}
+
+/*IE7 TABLE ROW BG FIX*/
+table.applicationLogs tr.logToday, table.applicationLogs tr.logToday td.logDetails, table.applicationLogs tr.logToday td.logProject, table.applicationLogs tr.logToday td.logTakenOnBy  {
+ background: #EDF5D6 url('../images/logtypes/today.gif') repeat-x top right;
+ border: 1px solid #D7E5B2;
+}
+
+table.applicationLogs tr.logToday td.logTypeIcon  {
+ background: #EDF5D6 url('../images/logtypes/today.gif') repeat-x top right;
+ border: 1px solid #D7E5B2;
+}
+
+table.applicationLogs tr.logYesterday, table.applicationLogs tr.logYesterday td.logDetails, table.applicationLogs tr.logYesterday td.logProject, table.applicationLogs tr.logYesterday td.logTakenOnBy  {
+ background: #EBF2F6 url('../images/logtypes/yesterday.gif') repeat-x top right;
+ border: 1px solid #D0E3EB;
+}
+
+table.applicationLogs tr.logYesterday td.logTypeIcon  {
+ border-top: 1px solid #C9EAA9;
+}
+
+table.applicationLogs tr.logOlder td.logDetails, table.applicationLogs tr.logOlder td.logProject, table.applicationLogs tr.logOlder td.logTakenOnBy  {
+ border: 1px solid #E0E0E0;
+}
+
+
+table.applicationLogs tr.logOlder td.logTypeIcon  {
+ background: #F5F5F5 url('../images/logtypes/old.gif') repeat-x top right;
+ border: 1px solid #E0E0E0;
+}
+
+/*END FIX*/
+table.applicationLogs td  {
+ font-size: 12px;
+ padding: 2px 4px;
+ border-left: 1px solid #E5E5E5;
+ border-top: 1px solid #E5E5E5;
+}
+
+table.applicationLogs td.logTypeIcon  {
+ padding: 2px 6px;
+ text-align: right;
+ width: 50px;
+}
+
+table.applicationLogs .logProject, table.applicationLogs .logTakenOnBy  {
+/** text-align: right; **/
+}
+
+table.applicationLogs .logProject  {
+ width: 220px;
+}
+
+table.applicationLogs .logTakenOnBy  {
+/** width: 360px; **/
+}
+
+div.logProjectHeader  {
+ padding: 5px 0px 2px 0px;
+ font-weight: bold;
+ font-size: 14px;
+}
+
+table.applicationLogs td.logBy  {
+ border-left: 1px solid #E5E5E5;
+ border-top: 1px solid #E5E5E5;
+}
+
+table.applicationLogs td.logDetails  {
+ width: 370px;
+}
+table.applicationLogs .task td.logTypeIcon  {
+ background: #FDE3AA !important;
+ background-image: url(../images/logtypes/bg_tasks.gif) !important;
+ background-repeat: repeat-x !important;
+ background-position: top;
+}
+
+table.applicationLogs .wiki td.logTypeIcon  {
+ background: #F6C5DD !important;
+ background-image: url(../images/logtypes/bg_wiki.gif) !important;
+ background-repeat: repeat-x !important;
+ background-position: top;
+}
+
+table.applicationLogs .comment td.logTypeIcon  {
+ background: #B6FFE6 !important;
+ background-image: url(../images/logtypes/bg_comments.gif) !important;
+ background-repeat: repeat-x !important;
+ background-position: top;
+}
+
+table.applicationLogs .task_list td.logTypeIcon  {
+ background: #FEDBDB !important;
+ background-image: url(../images/logtypes/bg_tasklists.gif) !important;
+ background-repeat: repeat-x !important;
+ background-position: top;
+}
+
+table.applicationLogs .milestone td.logTypeIcon  {
+ background: #EFC299 !important;
+ background-image: url(../images/logtypes/bg_milestones.gif) !important;
+ background-repeat: repeat-x !important;
+ background-position: top;
+}
+
+table.applicationLogs .message td.logTypeIcon  {
+ background: #EEEE99 !important;
+ background-image: url(../images/logtypes/bg_messages.gif) !important;
+ background-repeat: repeat-x !important;
+ background-position: top;
+
+}
+
+table.applicationLogs .time td.logTypeIcon  {
+ background: #DBF6A2 !important;
+ background-image: url(../images/logtypes/bg_times.gif) !important;
+ background-repeat: repeat-x !important;
+ background-position: top;
+}
+
+table.applicationLogs .file td.logTypeIcon  {
+ background: #CDEEFE !important;
+ background-image: url(../images/logtypes/bg_files.gif) !important;
+ background-repeat: repeat-x !important;
+ background-position: top;
+}
+
+table.applicationLogs .link td.logTypeIcon  {
+ background: #E3E3FE !important;
+ background-image: url(../images/logtypes/bg_links.gif) !important;
+ background-repeat: repeat-x !important;
+ background-position: top;
+}
+
+table.applicationLogs .ticket td.logTypeIcon  {
+ background: #F3DBFE !important;
+ background-image: url(../images/logtypes/bg_tickets.gif) !important;
+ background-repeat: repeat-x !important;
+ background-position: top;
+}
+
+table.applicationLogs .folder td.logTypeIcon  {
+ background: #A2C3E8 !important;
+ background-image: url(../images/logtypes/bg_folders.gif) !important;
+ background-repeat: repeat-x !important;
+ background-position: top;
+}
+
+table.applicationLogs .company td.logTypeIcon  {
+ background: #B6DC95 !important;
+ background-image: url(../images/logtypes/bg_companies.gif) !important;
+ background-repeat: repeat-x !important;
+ background-position: top;
+}
+
+table.applicationLogs .contact td.logTypeIcon  {
+ background: #B9FFDB !important;
+ background-image: url(../images/logtypes/bg_contacts.gif) !important;
+ background-repeat: repeat-x !important;
+ background-position: top;
+}
+
+table.applicationLogs .file_revision td.logTypeIcon  {
+ background: #CDEEFE !important;
+ background-image: url(../images/logtypes/bg_file_revisions.gif) !important;
+ background-repeat: repeat-x !important;
+ background-position: top;
+}
+
+table.applicationLogs .user td.logTypeIcon  {
+ background: #E5E5E5 !important;
+ background-image: url(../images/logtypes/bg_file_revisions.gif) !important;
+ background-repeat: repeat-x !important;
+ background-position: top;
+}
+
+table.applicationLogs .project td.logTypeIcon  {
+ background: #ECB5B6 !important;
+ background-image: url(../images/logtypes/bg_projects.gif) !important;
+ background-repeat: repeat-x !important;
+ background-position: top;
+}
+
+table.applicationLogs .category td.logTypeIcon  {
+ background: #FED6F1 !important;
+ background-image: url(../images/logtypes/bg_category.gif) !important;
+ background-repeat: repeat-x !important;
+ background-position: top;
+}
+
+table.applicationLogs .form td.logTypeIcon  {
+ background: #E1E1E1 !important;
+ background-image: url(../images/logtypes/bg_forms.gif) !important;
+ background-repeat: repeat-x !important;
+ background-position: top;
+}

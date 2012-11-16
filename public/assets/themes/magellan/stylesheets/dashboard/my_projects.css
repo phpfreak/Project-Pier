@@ -1,0 +1,6 @@
+#myProjects div.content p { font-weight: bold; }
+td.milestoneCheckbox, td.taskCheckbox  { padding-top: 4px; width: 20px;}
+td.milestoneText { padding-left: 5px; }
+td.milestoneText span { font-size: 90%; }
+td.taskText { padding-left: 5px; }
+div.block div.projectLogo { float: left; margin-right: 5px; }
