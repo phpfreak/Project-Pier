@@ -1056,8 +1056,13 @@
     * @return null
     */
     function repair() {
+      $attributesFile = ROOT . '/upload/attributes.php';
+      if (is_file($attributesFile)) {
+        $attributes = include $attributesFile;
+      } else {
+        $attributes = array();
+      }
 
-      $attributes = include ROOT . '/upload/attributes.php';
       foreach ($attributes as $k => $v) {
 
         $files = ProjectFiles::findAll(array(
