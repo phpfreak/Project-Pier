@@ -97,6 +97,8 @@
     'config option desc mail_transport' => 'You can use the default PHP settings for sending emails or specify an SMTP server',
     'config option name mail_from' => 'Mail From: address',
     'config option name mail_use_reply_to' => 'Use Reply-To: for From',
+    'config option name mail_expose_user_emails' => 'Expose user e-mails',
+    'config option desc mail_expose_user_emails' => 'Enable to expose user e-mails in the from/reply-to field, or disable to always use the Mail From address.',
     'config option name smtp_server' => 'SMTP server',
     'config option name smtp_port' => 'SMTP port',
     'config option name smtp_authenticate' => 'Use SMTP authentication',

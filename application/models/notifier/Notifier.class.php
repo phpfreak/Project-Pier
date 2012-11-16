@@ -584,23 +584,28 @@
         throw new NotifierConnectionError();
       } // if
 
+      /** 
+      * If the 'expose user e-mail' flag is cleared, then replace the user's
+      * email with the site e-mail.
+      */
+      if (config_option('mail_expose_user_emails', 0)==0) {
+        $from = self::getSiteEmailAddress();
+      }
      
       /** 
       * Set name address in ReplyTo, some MTA think we're usurpators
       * (which is quite true actually...)
+      * We only do this if we aren't already set to use the site e-mail for
+      * all communications.
       */
-      if (config_option('mail_use_reply_to', 0)==1) {
+      elseif (config_option('mail_use_reply_to', 0)==1) {
         $i = strpos($from, ' <');
-        $name = '?';
+        $name = '';
         if ($i!==false) {
           $name = substr($from, 0, $i);
         }
         $mailer->setReplyTo($from);
-        $mail_from = trim(config_option('mail_from'));
-        if ($mail_from=='') {
-          $mail_from = 'projectpier@'.$_SERVER['SERVER_NAME'];
-        }
-        $from = "$name <$mail_from>";
+        $from = self::getSiteEmailAddress($name);
       }
 
       // from must be address known on server when authentication is selected
@@ -615,6 +620,40 @@
       return $result;
     } // sendEmail
     
+    /**
+    * This function will return the e-mail address that should be used as the 'from'
+    * address, if we are using the site address, rather than a user's own address.
+    * $display_name is the name that will be displayed.  If blank or omitted then
+    * the project name will be used.
+    *
+    * @param void
+    * @return string
+    */
+    static function getSiteEmailAddress($display_name = '') {
+        static $site_email;
+        static $default_name;
+
+        if (!isset($site_email)) {
+            $site_email = trim(config_option('mail_from'));
+            if ($site_email=='') {
+              $site_email = 'projectpier@'.$_SERVER['SERVER_NAME'];
+            }
+        }
+
+        $display_name = trim($display_name);
+        if ($display_name == '') {
+            if (!isset($default_name)) {
+                $default_name = config_option('site_name', '');
+                if ($default_name == '') {
+                    $default_name = "ProjectPier";
+                }
+            }
+            $display_name = $default_name;
+        }
+        
+        return self::prepareEmailAddress($site_email, $display_name);
+    }
+
     /**
     * This function will return SMTP connection. It will try to load options from 
     * config and if it fails it will use settings from php.ini
