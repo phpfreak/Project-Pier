@@ -190,6 +190,7 @@
           'company_id' => $contact->getCompanyId(),
           'title' => $contact->getTitle(),
           'email' => $contact->getEmail(),
+          'timezone' => $contact->getTimezone(),
           'office_number' => $contact->getOfficeNumber(),
           'fax_number' => $contact->getFaxNumber(),
           'mobile_number' => $contact->getMobileNumber(),
