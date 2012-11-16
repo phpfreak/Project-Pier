@@ -1,0 +1,164 @@
+/*[fmt]2A10-1A0B-3*/
+.calendar th  {
+ width: 14%;
+ text-align: center;
+}
+
+.calendar th.weekend  {
+ background-color: #75BAD6;
+}
+
+.calendar td  {
+ padding: 0;
+ background-color: #EEE;
+ xline-height: 110%;
+ height: 150px;
+}
+
+/** Begin crazy calendar hack **/
+/** Hide last row if only 6 cells **/
+.calendar tr:last-child td:last-child:nth-child(6) {
+ display: none;
+}
+.calendar tr:last-child td:nth-last-child(2):nth-child(5) {
+ display: none;
+}
+.calendar tr:last-child td:nth-last-child(3):nth-child(4) {
+ display: none;
+}
+.calendar tr:last-child td:nth-last-child(4):nth-child(3) {
+ display: none;
+}
+.calendar tr:last-child td:nth-last-child(5):nth-child(2) {
+ display: none;
+}
+.calendar tr:last-child td:nth-last-child(6):nth-child(1) {
+ display: none;
+}
+
+/** Hide last row if only 5 cells **/
+.calendar tr:last-child td:last-child:nth-child(5) {
+ display: none;
+}
+.calendar tr:last-child td:nth-last-child(2):nth-child(4) {
+ display: none;
+}
+.calendar tr:last-child td:nth-last-child(3):nth-child(3) {
+ display: none;
+}
+.calendar tr:last-child td:nth-last-child(4):nth-child(2) {
+ display: none;
+}
+.calendar tr:last-child td:nth-last-child(5):nth-child(1) {
+ display: none;
+}
+
+/** Hide last row if only 4 cells **/
+.calendar tr:last-child td:last-child:nth-child(4) {
+ display: none;
+}
+.calendar tr:last-child td:nth-last-child(2):nth-child(3) {
+ display: none;
+}
+.calendar tr:last-child td:nth-last-child(3):nth-child(2) {
+ display: none;
+}
+.calendar tr:last-child td:nth-last-child(4):nth-child(1) {
+ display: none;
+}
+
+/** Hide last row if only 3 cells **/
+.calendar tr:last-child td:last-child:nth-child(3) {
+ display: none;
+}
+.calendar tr:last-child td:nth-last-child(2):nth-child(2) {
+ display: none;
+}
+.calendar tr:last-child td:nth-last-child(3):nth-child(1) {
+ display: none;
+}
+
+/** Hide last row if only 2 cells **/
+.calendar tr:last-child td:last-child:nth-child(2) {
+ display: none;
+}
+.calendar tr:last-child td:nth-last-child(2):nth-child(1) {
+ display: none;
+}
+
+/** Hide last row if only 1 cell **/
+.calendar tr:last-child td:last-child:first-child {
+ display: none;
+}
+
+/** End crazy calendar hack **/
+
+.calendar tr:last-child td:empty {
+ visibility: hidden;
+}
+.calendar .date  {
+ margin-bottom: 1px;
+ xpadding-right: 2px;
+ text-align: right;
+ xfont-weight: bold;
+ padding: 1px;
+ xfont-weight: bold;
+}
+
+.calendar td.weekend .date  {
+ background-color: #C2CDDB;
+}
+
+.calendar td.weekday .date  {
+ background-color: #D5DCE3;
+}
+
+
+.calendar .month-nav  {
+ font-weight: bold;
+}
+
+.calendar .month-nav .prev-month  {
+ float: left;
+}
+
+.calendar .month-nav .next-month  {
+ float: right;
+}
+
+.calendar .month-nav .next-month:after {
+ content: "\2192";
+ padding-left: 5px;
+}
+
+.calendar .month-nav .prev-month:before {
+ content: "\2190 ";
+ padding-right: 5px;
+}
+
+.calendar .milestone a  {
+ font-weight: bold;
+ color: #000;
+}
+
+.calendar .task_list a  {
+ font-style: oblique;
+ color: rgb(155, 177, 90);
+ font-weight: bold;
+}
+
+.calendar .task a  {
+ xcolor: rgb(128, 0, 64);
+}
+
+.weekday {
+ min-height: 150px;
+}
+
+.weekend {
+ min-height: 150px;
+}
+
+.calendar .today {
+ background-color: #F7F7C7;
+}

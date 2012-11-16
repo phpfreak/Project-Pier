@@ -1,0 +1,108 @@
+/*[fmt]2A10-1A0B-3*/
+div.taskList  {
+ font-size: 110%;
+}
+
+div.taskList .dueDate {
+ padding: 5px;
+ font-weight: bold;
+}
+
+div.taskList .tags {
+ padding: 5px;
+}
+
+div.taskList .desc  {
+ padding: 5px;
+ padding-bottom: 0;
+ color: #666;
+ font-style: normal !important;
+ line-height: 150%;
+ font-size: 1em;
+}
+
+div.taskList .openTasks, .taskList .completedTasks  {
+ margin: 10px;
+}
+
+div.taskList td.taskCheckbox  {
+ padding-top: 4px;
+ width: 20px;
+}
+
+div.taskList .addTask  {
+ background: url(../../images/layout/bg_block.png) repeat-x top left;
+ background-color: #E9F1F5;
+ border: 1px solid #BBD7E2;
+ padding: 5px;
+}
+
+div.taskList .options  {
+ padding-left: 8px;
+ font-size: 12px;
+ text-decoration: none !important;
+}
+
+div.taskList .completedTasks  {
+ color: #666666;
+ font-size: 12px;
+}
+
+div.taskList .completedTasks td  {
+ padding: 10px;
+}
+
+div.taskList .completedTasks td p  {
+ text-decoration: line-through;
+}
+
+div.taskList span.taskCompletedOnBy  {
+ color: #333333;
+ font-style: italic;
+}
+
+div.taskList .taskListTags  {
+ font-size: 12px;
+ margin: 10px;
+}
+
+div.taskList .taskListTags span  {
+ font-weight: bold;
+}
+
+div.taskList .taskText .options  {
+ padding: 0px;
+}
+
+div.taskList .options a  {
+ color: #4887A0;
+}
+
+div.taskList .options a[href*="index.php?c=task&a=add_task"] {
+ font-weight: bold;
+}
+
+.openTasks .blank tr:nth-child(odd) {
+ background-color: #E9EAEC;
+ border-bottom: 1px solid #D9D9D9;
+}
+
+.openTasks .blank tr:nth-child(even) {
+ background-color: #F9F9F9;
+ border-bottom: 1px solid #D9D9D9;
+}
+
+.openTasks .blank tr:first-child {
+ border-top: 1px solid #D9D9D9;
+}
+
+
+.openTasks .blank tr td {
+ padding: 10px;
+}
+
+
+.taskText .options a:last-child {
+ font-weight: bold;
+}
+
