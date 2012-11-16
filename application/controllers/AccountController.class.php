@@ -76,7 +76,6 @@
           'fax_number'    => $user->getFaxNumber(),
           'mobile_number' => $user->getMobileNumber(),
           'home_number'   => $user->getHomeNumber(),
-          'timezone'      => $user->getTimezone(),
           'is_admin'      => $user->getIsAdmin(),
           'auto_assign'   => $user->getAutoAssign(),
           'use_LDAP'      => $user->getUseLDAP(),
