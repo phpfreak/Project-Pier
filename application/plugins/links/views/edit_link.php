@@ -32,10 +32,12 @@
     <?php echo textarea_field('project_link[description]', array_var($project_link_data, 'description'), array('id' => 'linkFormDescription', 'class' => 'long')) ?>
   </div>
 
+  <?php if (plugin_active('files')) { ?>
   <div>
     <?php echo label_tag(lang('folder'), 'linkFormFolder', true) ?>
     <?php echo select_project_folder('project_link[folder_id]', active_project(), array_var($project_link_data, 'folder_id'), array('id' => 'linkFormFolder')) ?>
   </div>
+  <?php } ?>
 
 <?php if (plugin_active('tags')) { ?>  
   <fieldset>
