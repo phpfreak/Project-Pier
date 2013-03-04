@@ -51,6 +51,7 @@
     'update message options' => 'Actualizar opciones',
     'subscribe to message' => 'Suscribirse',
     'unsubscribe from message' => 'Darse de bajas',
+    'recover last input' => 'recuperar última entrada',
     
     // Comments
     'add comment' => 'Agregar comentario',
@@ -99,6 +100,7 @@
 
     // Notifications
     'send notification' => 'Enviar notificación',
+    'attach files' => 'Adjuntar archivos',
 
     // Download
     'task download header' => "Proyecto\tLista de tareas\tEstado\tDescripción\tId\tEstado\tInfo\tAsignado a\tTarea\r\n",
@@ -106,6 +108,57 @@
     'nothing to download' => "No hay información disponible en '%s' para descarga",
     'download task lists' => 'Eliminar todas las tareas',
     
+    // Contacts
+    'contacts' => 'Contactos',
+    'add contact' => 'Agregar contacto',
+
+    // Tickets
+    'my tickets' => 'Mis tickets',
+    'no my tickets' => 'No existen tickets',
+    'most recent' => 'Más recientes',
+    'ticket categories' => 'Categoria de tickets',
+    'add ticket categori' => 'Agregar categori',
+    'add default  ticket categories' => 'Establecer por defecto',
+    'filter' => 'Filtros',
+    'category' => 'Categoria',
+    'assigned to' => 'Asignado a',
+    'reported by' => 'Reportado por',
+    'opened' => 'Abierto',
+    'confirmed' => 'Confirmado',
+    'no reproducable' => 'No reproducible',
+    'test and confirm' => 'Verificado y confirmado',
+    'fiex' => 'Solucionado',
+    'closed' => 'Cerrado',
+    'critical' => 'Crítico',
+    'major' => 'Mayor',
+    'minor' => 'Menor',
+    'trivial' => 'Trivial',
+    'defect' => 'Defecto',
+    'enhancement' => 'Mejora',
+    'feature request' => 'Solicitud de mejora',
+    'no tickets in project' => 'No existen tickets en el proyecto',
+
+    // Time
+
+    'time' => 'Tiempo',
+    'add time' => 'Agregar tiempo',
+    'no time records in project' => 'No existen tiempos en el proyecto',
+    'billable time' => 'Tiempo facturable',
+
+    // Files
+    'files' => 'archivos',
+    'no files on the page' => 'No existen archivos',
+    'add file' => 'Agregar archivo',
+    'folder' => 'Carpeta',
+    'add folder' => 'Agregar carpeta',
+    'all files' => 'Todos los archivos',
+    'private  file' => 'Archivo privado',
+    'private file desc' => 'Establecer el archivo como privado',
+    'important file' => 'Archivo importante',
+    'important files desc' => 'Establecer el archivo como importante',
+    'upload file sec' => 'Seleccionar un archivo',
+    'parent folder' => 'Carpeta padre',
+
   ); // array
 
 ?>
