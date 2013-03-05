@@ -147,7 +147,7 @@
     'no time records in project' => 'No existen tiempos en el proyecto',
     'billable time' => 'Tiempo facturable',
     'report by task' => 'Reporte por tarea',
-    'report by date' => 'Reporte por fecha',
+    'order by date' => 'Reporte por fecha',
     'pdf' => 'pdf',
     'private time desc' => 'Tiempos privados son visibles sólo para miembros de la compañía. Los miembros de las empresas clientes no serán capaces de verlos.',
 
