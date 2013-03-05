@@ -148,7 +148,7 @@
     'ticket #' => 'Ticket #',
     'summary' => 'Resumen',
     'private ticket' => 'Ticket privado',
-    'private ticket desc' => 'Los tickets privados son visibles sólo para miembros de la compañía. Los miembros de las empresas clientes no serán capaces de    verlos.'
+    'private ticket desc' => 'Los tickets privados son visibles sólo para miembros de la compañía. Los miembros de las empresas clientes no serán capaces de    verlos.',
     'email notification ticket desc' => 'Notificar a las personas seleccionadas acerca de este ticket por medio de correo',
 
     // Time
