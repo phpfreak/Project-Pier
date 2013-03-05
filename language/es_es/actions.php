@@ -87,13 +87,16 @@
     'update people' => 'Actualizar',
     'remove user from project' => 'Eliminar del proyecto',
     'remove company from project' => 'Eliminar del proyecto',
+    'edit user account' => 'Editar cuenta de usuario',
+    'delete user account' => 'Eliminar cuenta de usuario',
+    'users involved in project' => 'Usuarios involucrados',
     
     // Password
     'update profile' => 'Actualizar perfil',
     'change password' => 'Cambiar contraseña',
     'update avatar' => 'Actualizar avatar',
     'delete current avatar' => 'Eliminar avatar existente',
-    
+
     // Permissions
     'update permissions' => 'Actualizar permisos',
     'edit permissions' => 'Editar permisos',
@@ -111,6 +114,9 @@
     // Contacts
     'contacts' => 'Contactos',
     'add contact' => 'Agregar contacto',
+    'edit contact' => 'Título de contacto',
+    'show route' => 'Ver ruta',
+    
 
     // Tickets
     'my tickets' => 'Mis tickets',
@@ -126,9 +132,9 @@
     'reported by' => 'Reportado por',
     'opened' => 'Abierto',
     'confirmed' => 'Confirmado',
-    'no reproducable' => 'No reproducible',
+    'not reproducable' => 'No reproducible',
     'test and confirm' => 'Verificado y confirmado',
-    'fiex' => 'Solucionado',
+    'fixed' => 'Solucionado',
     'closed' => 'Cerrado',
     'critical' => 'Crítico',
     'major' => 'Mayor',
@@ -139,6 +145,11 @@
     'feature request' => 'Solicitud de mejora',
     'no tickets in project' => 'No existen tickets en el proyecto',
     'tickets' => 'Tickets',
+    'ticket #' => 'Ticket #',
+    'summary' => 'Resumen',
+    'private ticket' => 'Ticket privado',
+    'private ticket desc' => 'Los tickets privados son visibles sólo para miembros de la compañía. Los miembros de las empresas clientes no serán capaces de    verlos.'
+    'email notification ticket desc' => 'Notificar a las personas seleccionadas acerca de este ticket por medio de correo',
 
     // Time
 
