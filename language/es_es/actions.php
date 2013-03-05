@@ -114,12 +114,13 @@
 
     // Tickets
     'my tickets' => 'Mis tickets',
+    'add ticket' => 'Agregar ticket',
     'no my tickets' => 'No existen tickets',
     'most recent' => 'Más recientes',
     'ticket categories' => 'Categoria de tickets',
-    'add ticket categori' => 'Agregar categori',
+    'add ticket category' => 'Agregar categoria',
     'add default  ticket categories' => 'Establecer por defecto',
-    'filter' => 'Filtros',
+    'filters' => 'Filtros',
     'category' => 'Categoria',
     'assigned to' => 'Asignado a',
     'reported by' => 'Reportado por',
@@ -145,6 +146,10 @@
     'add time' => 'Agregar tiempo',
     'no time records in project' => 'No existen tiempos en el proyecto',
     'billable time' => 'Tiempo facturable',
+    'report by task' => 'Reporte por tarea',
+    'report by date' => 'Reporte por fecha',
+    'pdf' => 'pdf',
+    'private time desc' => 'Tiempos privados son visibles sólo para miembros de la compañía. Los miembros de las empresas clientes no serán capaces de verlos.'
 
     // Files
     'files' => 'archivos',
@@ -177,6 +182,12 @@
     'log delte companies' => 'Eliminó empresa',
     'lod delete contacts' => 'Eliminó contacto',
     'log delete projects' => 'Eliminó proyecto',
+
+
+    // Menu
+    'edit logo' => 'Editar logo',
+    'memo' => 'Recordatorio',
+    'radio' => 'Radio',
   ); // array
 
 ?>
