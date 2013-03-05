@@ -81,6 +81,8 @@
     'send new account notification' => '¿Enviar correo de notificación?',
     'send new account notification desc' => 'Si seleccionas "Si" el usuario recibirá un correo con un mensaje de bienvenida y datos de inicio de sesión',
     
+    'Installation' => 'Instalación',
+    'Select language' => 'Selecciona idioma',
     // Tools
     'administration tools' => 'Herramientas',
     

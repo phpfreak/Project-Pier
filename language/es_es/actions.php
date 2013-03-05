@@ -10,9 +10,9 @@
     'hide welcome info' => 'Esconder esta información permanentemente',
     
     // Companies
-    'add company' => 'Agregar compañía',
-    'edit company' => 'Actualizar información de compañía',
-    'delete company' => 'Eliminar compañía',
+    'add company' => 'Agregar empresa',
+    'edit company' => 'Actualizar información de empresa',
+    'delete company' => 'Eliminar empresa',
     'edit company logo' => 'Actualizar logo',
     'delete company logo' => 'Eliminar logo',
     'show map' => 'Mostrar mapa',
@@ -137,6 +137,7 @@
     'enhancement' => 'Mejora',
     'feature request' => 'Solicitud de mejora',
     'no tickets in project' => 'No existen tickets en el proyecto',
+    'tickets' => 'Tickets',
 
     // Time
 
@@ -159,6 +160,23 @@
     'upload file sec' => 'Seleccionar un archivo',
     'parent folder' => 'Carpeta padre',
 
+
+    // Application
+    'application log events my projects' => 'Bitácora de eventos',
+    'log add users' => 'Agregó usuario',
+    'log add companies' => 'Agregó empresa',
+    'log add contacts' => 'Agregó contacto',
+    'log add projects' => 'Agregó projecto',
+
+    'log edit users' => 'Editó usuario',
+    'log edit companies' => 'Editó empresa',
+    'lod edit contacts' => 'Editó contacto',
+    'log edit projects' => 'Editó proyecto',
+
+    'log delete users' => 'Eliminó usuario',
+    'log delte companies' => 'Eliminó empresa',
+    'lod delete contacts' => 'Eliminó contacto',
+    'log delete projects' => 'Eliminó proyecto',
   ); // array
 
 ?>
