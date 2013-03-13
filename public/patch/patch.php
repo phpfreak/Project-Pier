@@ -52,7 +52,7 @@ mysql_close($link);
           } else {
             echo " FAIL<br>\n";
             echo mysql_error(). "<br>\n";
-            return false;
+           // return false;
           } // if
         } // if
       } // if
