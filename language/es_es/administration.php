@@ -72,6 +72,8 @@
     'config option desc upgrade_check_enabled' => 'Si seleccionas \'Si\' el sistema verificará una vez al día si existen actualizaciones para descarga de ProjectPier',
     'config option name logout_redirect_page' => 'Página de redirección al cerrar sesión',
     'config option desc logout_redirect_page' => 'Establecer una página para redireccionar a los usuarios después de que han cerrado la sesión. Cambialo a default para utilizar la opción predeterminada',
+    'config category name tickets' => 'Tickets',
+    'config option name tickets_default_categories' => 'Categorias iniciales de un proyecto:',
     
     // Mailing
     'config option name exchange_compatible' => 'Modo de compatibilidad con Microsoft Exchange',
