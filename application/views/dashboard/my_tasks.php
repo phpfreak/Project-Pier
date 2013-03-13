@@ -87,6 +87,9 @@ $taskDueDate = $assigned_task->getDueDate(); if (!is_null($taskDueDate)) echo ' 
 <?php if ($assigned_task->getTaskList() instanceof ProjectTaskList) { ?>
             (<?php echo lang('project') ?> <a href="<?php echo $assigned_task->getTaskList()->getViewUrl() ?>"><?php echo clean($assigned_task->getTaskList()->getName()) ?></a>)
           <div class="options">
+             <?php if ($assigned_task->canView(logged_user())) { ?>
+                <a href="<?php echo $assigned_task->getViewUrl() ?>" class="blank"><?php echo lang('view task') ?></a>&nbsp;
+             <?php } // if ?>
              <?php if ($assigned_task->canEdit(logged_user())) { ?>
                 <a href="<?php echo $assigned_task->getEditUrl() ?>" class="blank"><?php echo lang('edit task') ?></a>&nbsp;
              <?php } // if ?>
