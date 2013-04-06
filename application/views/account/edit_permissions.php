@@ -37,7 +37,7 @@
 <div id="userPermissions">
   <form action="<?php echo $user->getEditPermissionsUrl($redirect_to) ?>" method="post">
     <div id="userProjects">
-      <table class="blank">
+      <table class="table table-striped">
 <!-- header -->
         <tr>
           <td class="projectName"><?php echo lang('project') ?></td>

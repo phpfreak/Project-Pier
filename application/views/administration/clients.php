@@ -12,7 +12,7 @@
 
 ?>
 <?php if (isset($clients) && is_array($clients) && count($clients)) { ?>
-<table>
+<table id="ppclients" class="table table-striped">
   <tr>
     <th><?php echo lang('name') ?></th>
     <th class="medium"><?php echo lang('contacts') ?></th>

@@ -44,7 +44,7 @@ if (is_array($permissions)) {
 <?php } // if ?>
       </div>
       <div class="projectCompanyUsers content" id="project_company_users_<?php echo $company->getId() ?>">
-        <table class="blank">
+        <table class="table table-striped">
 <?php if ($users = $company->getUsers()) { ?>
 <?php foreach ($users as $user) { ?>
           <tr class="user">

@@ -13,7 +13,7 @@
 ?>
 <div id="reorderTasks">
   <form action="<?php echo $task_list->getReorderTasksUrl($back_to_list) ?>" method="post">
-    <table class="blank">
+    <table class="table table-striped">
       <tr>
         <th><?php echo lang('order') ?></th>
         <th><?php echo lang('task') ?></th>

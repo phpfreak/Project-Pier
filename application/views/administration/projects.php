@@ -12,7 +12,7 @@
 
 ?>
 <?php if (isset($projects) && is_array($projects) && count($projects)) { ?>
-<table id="projects">
+<table id="projects" class="table table-striped">
   <tr>
     <th class="short"></th>
     <th><?php echo lang('name') ?></th>

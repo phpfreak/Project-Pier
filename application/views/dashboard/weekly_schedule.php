@@ -34,7 +34,7 @@
 <?php if ($late_milestones && count($late_milestones)) { ?>
   <div id="lateMilestones">
     <h2><?php echo lang('late milestones'); ?></h2>
-    <table id="shortMilestones">
+    <table id="shortMilestones" class="table table-striped">
       <tr class="milestone short header"><th class="milestoneCompleted"></th><th class="milestoneDueDate"><?php echo lang('due date'); ?></th><th class="milestoneTitle"><?php echo lang('title'); ?></th><th class="milestoneDaysLeft"></th><th class="milestoneCommentsCount"><img src="<?php echo get_image_url("icons/comments.png"); ?>" title="Comments" alt="Comments"/></th></tr>
   <?php 
     foreach ($late_milestones as $milestone) {
@@ -57,7 +57,7 @@
 <?php if (isset($upcoming_milestones) && is_array($upcoming_milestones) && count($upcoming_milestones)) { ?>
   <div id="milestones">
     <h2><?php echo lang('upcoming milestones') ?></h2>
-    <table id="shortMilestones">
+    <table id="shortMilestones" class="table table-striped">
       <tr class="milestone short header"><th class="milestoneCompleted"></th><th class="milestoneDueDate"><?php echo lang('due date'); ?></th><th class="milestoneTitle"><?php echo lang('title'); ?></th><th class="milestoneDaysLeft"></th><th class="milestoneCommentsCount"><img src="<?php echo get_image_url("icons/comments.png"); ?>" title="Comments" alt="Comments"/></th></tr>
   <?php
     foreach ($upcoming_milestones as $milestone) {
@@ -125,7 +125,7 @@
 <?php if ($late_milestones && count($late_milestones)) { ?>
   <div id="lateMilestones">
     <h2><?php echo lang('late milestones'); ?></h2>
-    <table id="shortMilestones">
+    <table id="shortMilestones" class="table table-striped">
       <tr class="milestone short header"><th class="milestoneCompleted"></th><th class="milestoneDueDate"><?php echo lang('due date'); ?></th><th class="milestoneTitle"><?php echo lang('title'); ?></th><th class="milestoneDaysLeft"></th><th class="milestoneCommentsCount"><img src="<?php echo get_image_url("icons/comments.png"); ?>" title="Comments" alt="Comments"/></th></tr>
   <?php 
     foreach ($late_milestones as $milestone) {
@@ -154,7 +154,7 @@ if (is_array($upcoming_tickets) && count($upcoming_tickets)) {
 } // if
 $weekendDays = array(6,7);
 ?>
-    <table>
+    <table class="table table-striped">
       <tr>
 <?php
 for ($i = 1; $i <= 7; $i++) {

@@ -20,7 +20,7 @@
 
 <form action="<?php echo get_url('time', 'setstatus', array('status' => $status, 'redirect_to' => $redirect_to)) ?>" method="post">
 
-<table class="timeLogs blank">
+<table class="timeLogs table table-striped">
   <tr>
     <th class="short"></th>
     <th><?php echo lang('done date'); ?></th>

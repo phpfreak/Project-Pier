@@ -54,7 +54,7 @@
 <?php if (is_array($task_list->getOpenTasks())) { ?>
 <?php $task_list_ln = 0; ?>
   <div class="openTasks">
-    <table class="blank">
+    <table class="table table-striped">
 <?php foreach ($task_list->getOpenTasks() as $task) { ?>
 <?php $task_list_ln++; ?>
       <tr class="<?php echo (($task_list_ln % 2) == 0 ? 'even' : 'odd'); ?>">
@@ -118,7 +118,7 @@
 <?php   } else { ?>
 <?php     echo lang('recently completed tasks') ?>:
 <?php   } // if ?>
-    <table class="blank expand-block-completed">
+    <table class="table table-striped expand-block-completed">
 <?php $counter = 0; ?>
 <?php foreach ($task_list->getCompletedTasks() as $task) { ?>
 <?php $counter++; ?>

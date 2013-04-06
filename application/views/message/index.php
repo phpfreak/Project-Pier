@@ -22,7 +22,7 @@
 <div id="messages">
 <div id="messagesPaginationTop"><?php echo advanced_pagination($messages_pagination, get_url('message', 'index', array('page' => '#PAGE#'))) ?></div>
 <?php if ($view_type == 'list') { ?>
-<table id="short_messages">
+<table id="short_messages" class="table table-striped">
 <tr class="message short header"><th></th><th><?php echo lang('date') ?></th><th><?php echo lang('title') ?></th><th><?php echo lang('author'); ?></th><th class="center"><img src="<?php echo get_image_url("icons/comments.png"); ?>" title="<?php echo lang('comments'); ?>" alt="<?php echo lang('comments'); ?>"/></th><th class="center"><img src="<?php echo get_image_url("icons/attach.png"); ?>" title="<?php echo lang('attachments'); ?>" alt="<?php echo lang('attachments'); ?>"/></th></tr>
 <?php $odd_or_even = "even"; ?>
 <?php foreach ($messages as $message) { ?>

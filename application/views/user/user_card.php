@@ -20,7 +20,7 @@
       <div><span><?php echo lang('homepage') ?>:</span> <a href="<?php echo $user->getHomepage() ?>" target=_BLANK><?php echo $user->getHomepage() ?></a></div>
 <?php } ?>
 <?php if (is_array($im_values = $user->getImValues()) && count($im_values)) { ?>
-      <table class="imAddresses">
+      <table class="imAddresses table table-striped">
 <?php foreach ($im_values as $im_value) { ?>
 <?php if ($im_type = $im_value->getImType()) { ?>
         <tr>
