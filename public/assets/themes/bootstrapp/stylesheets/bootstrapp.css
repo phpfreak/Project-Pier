@@ -1067,7 +1067,7 @@ table {
 }
 .table-striped tbody > tr:nth-child(odd) > td,
 .table-striped tbody > tr:nth-child(odd) > th {
-  background-color: #f9f9f9;
+  background-color: #f3f3f3;
 }
 .table-hover tbody tr:hover > td,
 .table-hover tbody tr:hover > th {
@@ -5671,6 +5671,12 @@ button.close {
   }
 }
 @media (min-width: 1200px) {
+  #outerContentWrapper {
+    margin-right:12px;
+  }
+  #pageContent, #pageHeader, #crumbsWrapper {
+    border-left:1px solid #000;
+  }
   .row {
     margin-left: 0;
     *zoom: 1;

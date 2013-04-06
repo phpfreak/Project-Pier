@@ -53,7 +53,7 @@
         </div>
       </div><!-- /tabs wrapper -->
       
-      <div id="crumbsWrapper" class="row-fluid">  <!-- crumbs wrapper -->
+      <div id="crumbsWrapper" class="row">  <!-- crumbs wrapper -->
         <div id="crumbsBlock">
           <div id="crumbs">
 <?php if (is_array(bread_crumbs())) { ?>
@@ -78,7 +78,7 @@
 <?php if (!is_null(flash_get('error'))) { ?>
           <div id="error"><?php echo clean(flash_get('error')) ?></div>
 <?php } ?>
-          <div id="pageHeader" class="row-fluid"><span id="pageTitle"><?php echo get_page_title() ?> - dashboard</span>
+          <div id="pageHeader" class="row"><span id="pageTitle"><?php echo get_page_title() ?> - dashboard</span>
                 <?php if (is_array(page_actions())) { ?>
                 <div id="actionwrap" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Dropdown trigger</a>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
