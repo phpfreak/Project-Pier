@@ -41,9 +41,7 @@
       <!-- content wrapper -->
       <div class="span10">
       <div id="outerContentWrapper">
-
-         <div id="tabsWrapper" class="row-fluid"> <!-- tabs wrapper -->
-        <div id="tabs">
+<div class="navbar"> <div class="navbar-inner"> <!-- tabs wrapper -->
 <?php if (is_array(tabbed_navigation_items())) { ?>
           <ul>
 <?php foreach (tabbed_navigation_items() as $tabbed_navigation_item) { ?>

@@ -40,9 +40,7 @@
       <div class="span2"><div id="userboxWrapper"><?php echo render_user_box(logged_user()) ?></div></div>
       <!-- content wrapper -->
       <div class="span10"><div id="outerContentWrapper"></div>
-
-        <div id="tabsWrapper" class="row-fluid"> <!-- tabs wrapper -->
-        <div id="tabs">
+<div class="navbar"> <div class="navbar-inner"> <!-- tabs wrapper -->
 <?php if (is_array(tabbed_navigation_items())) { ?>
           <ul>
 <?php foreach (tabbed_navigation_items() as $tabbed_navigation_item) { ?>

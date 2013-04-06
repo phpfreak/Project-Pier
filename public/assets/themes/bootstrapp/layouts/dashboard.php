@@ -43,16 +43,15 @@
       <div class="span10">
       <div id="outerContentWrapper">
  
-        <div id="tabsWrapper" class="row-fluid"> <!-- tabs wrapper -->
-        <div id="tabs">
+          <div class="navbar"> <div class="navbar-inner"> <!-- tabs wrapper -->
 <?php if (is_array(tabbed_navigation_items())) { ?>
-          <ul>
+          <ul class="nav">
 <?php foreach (tabbed_navigation_items() as $tabbed_navigation_item) { ?>
             <li id="tabbed_navigation_item_<?php echo $tabbed_navigation_item->getID() ?>" <?php if ($tabbed_navigation_item->getSelected()) { ?> class="active" <?php } ?>><a href="<?php echo $tabbed_navigation_item->getUrl() ?>"><?php echo clean($tabbed_navigation_item->getTitle()) ?></a></li>
 <?php } // foreach ?>
           </ul>
 <?php } // if ?>
-        </div>
+              </div>
       </div> <!-- /tabs wrapper -->
       
       <div id="crumbsWrapper" class="row"> <!-- crumbs wrapper -->
