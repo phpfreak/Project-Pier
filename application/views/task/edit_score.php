@@ -76,7 +76,7 @@
 				<div style="clear: both;">&nbsp;</div>
 				
 				<span id="radar_recap_score">
-					<table class="tablenote table table-striped">
+					<table class="tablenote">
 						<tr>
 							<th class="attributes">Criterion \ Part</td>
 							<th>a</td>
@@ -171,7 +171,7 @@
  
 					<br/>
  
-					<table class="tablenote table table-striped">
+					<table class="tablenote">
 					  <tr class="overalltotal">
 						<td width="250"><strong>Overall Total</strong></td>
 						<td class="overalltotal">546.2</td>

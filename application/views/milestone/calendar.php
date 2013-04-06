@@ -65,7 +65,7 @@
     $firstDayOfMonth = 7;  // Monday = 1, ... Saturday = 6, Sunday = 7
   }
 ?>
-  <table class="table table-striped">
+  <table width="100%">
     <tr valign="top">
 <?php
   for ($dow = 1; $dow < 8; $dow++) {

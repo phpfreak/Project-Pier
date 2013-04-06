@@ -47,7 +47,7 @@
         
 <?php if (is_array($users = $company->getUsersOnProject(active_project())) && count($users)) { ?>
       <div class="projectCompanyUsers">
-        <table class="table table-striped">
+        <table>
           <tr>
             <th colspan="2"><?php echo lang('company users involved in project', clean($company->getName()), clean(active_project()->getName())) ?>:</th>
           </tr>

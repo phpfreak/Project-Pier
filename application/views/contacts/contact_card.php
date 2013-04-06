@@ -24,7 +24,7 @@
       <div><?php if ($contact->getEmail()) { ?><span><?php echo lang('email address'); ?>:</span> <a href="mailto:<?php echo clean($contact->getEmail()); ?>"><?php echo clean($contact->getEmail()); ?></a><?php } ?></div>
       
 <?php if (is_array($im_values = $contact->getImValues()) && count($im_values)) { ?>
-      <table class="imAddresses table table-striped">
+      <table class="imAddresses">
 <?php foreach ($im_values as $im_value) { ?>
 <?php if ($im_type = $im_value->getImType()) { ?>
         <tr>

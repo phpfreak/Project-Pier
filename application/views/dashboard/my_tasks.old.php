@@ -35,7 +35,7 @@
     <div class="content">
 <?php if (is_array($assigned_milestones) && count($assigned_milestones)) { ?>
       <p><a href="<?php echo $active_project->getMilestonesUrl() ?>"><?php echo lang('milestones') ?></a>:</p>
-      <table class="table table-striped">
+      <table class="blank">
 <?php foreach ($assigned_milestones as $assigned_milestone) { ?>
         <tr>
           <td class="milestoneCheckbox"><?php echo checkbox_link($assigned_milestone->getCompleteUrl(), false) ?></td>
@@ -64,7 +64,7 @@
 
 <?php if (is_array($assigned_tasks) && count($assigned_tasks)) { ?>
       <p><a href="<?php echo $active_project->getTasksUrl() ?>"><?php echo lang('tasks') ?></a>:</p>
-      <table class="table table-striped">
+      <table class="blank">
 <?php foreach ($assigned_tasks as $assigned_task) { ?>
         <tr>
           <td class="taskCheckbox"><?php echo checkbox_link($assigned_task->getCompleteUrl(), false, lang('mark task as completed')) ?></td>

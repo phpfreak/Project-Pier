@@ -36,7 +36,7 @@
 <?php if (is_array($assigned_milestones) && count($assigned_milestones)) { ?>
 <?php $counter = 0; ?>
       <p><a href="<?php echo $active_project->getMilestonesUrl() ?>"><?php echo lang('milestones') ?></a>:</p>
-      <table class="table table-striped">
+      <table class="blank">
 <?php foreach ($assigned_milestones as $assigned_milestone) { ?>
 <?php $counter++; ?>
         <tr class="<?php echo $counter%2 ? 'even' : 'odd' ?>">
@@ -67,7 +67,7 @@
 <?php if (is_array($assigned_tasks) && count($assigned_tasks)) { ?>
 <?php $counter = 0; ?>
       <p><a href="<?php echo $active_project->getTasksUrl() ?>"><?php echo lang('tasks') ?></a>:</p>
-      <table class="table table-striped">
+      <table class="blank">
 <?php foreach ($assigned_tasks as $assigned_task) { ?>
 <?php $counter++; ?>
         <tr class="<?php echo $counter%2 ? 'even' : 'odd' ?>">

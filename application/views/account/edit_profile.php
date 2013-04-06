@@ -129,7 +129,7 @@
 <?php if (is_array($im_types) && count($im_types)) { ?>
   <fieldset>
     <legend><?php echo lang('instant messengers') ?></legend>
-    <table id="ppmessengers" class="table table-striped">
+    <table class="blank">
       <tr>
         <th colspan="2"><?php echo lang('im service') ?></th>
         <th><?php echo lang('value') ?></th>

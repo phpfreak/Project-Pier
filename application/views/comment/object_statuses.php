@@ -6,7 +6,7 @@
 <?php $comments = $__comments_object->getComments() ?>
 <?php if (is_array($comments) && count($comments)) { ?>
 <?php $counter = 0; ?>
-<table id="objectStatuses" class="table table-striped">
+<table id="objectStatuses">
 <tr class="comment short header"><th class="statusPrivate"></th><th class="statusDate">Date</th><th class="statusContent">Update</th><th class="statusAuthor">Author</th></tr>
 <?php // foreach ($comments as $comment) { ?>
 <?php for ($i = count($comments); $i > 0; $i--) {

@@ -14,7 +14,7 @@
 <h2><?php echo lang('view time by user'); ?></h2>
 
 <?php if (isset($users) && is_array($users) && count($users)) { ?>
-<table id="projects" class="table table-striped">
+<table id="projects">
   <tr>
     <th class="short"></th>
     <th><?php echo lang('name'); ?></th>

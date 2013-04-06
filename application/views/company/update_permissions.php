@@ -16,7 +16,7 @@
     <div class="content"><?php echo lang('update company permissions hint') ?></div>
   </div>
   <form action="<?php echo $company->getUpdatePermissionsUrl() ?>" method="post">
-    <table class="table table-striped">
+    <table class="blank">
 <?php foreach ($projects as $project) { ?>
       <tr>
         <td><?php echo checkbox_field('project_' . $project->getId(), $company->isProjectCompany($project), array('id' => 'projectPermissionsCheckbox' . $project->getId(), 'disabled' => !logged_user()->isProjectUser($project))) ?></td>

@@ -72,7 +72,7 @@
   
 <?php if ($task_list->isNew()) { ?>
   <h2><?php echo lang('tasks') ?></h2>
-  <table class="table table-striped">
+  <table class="blank">
     <tr>
       <th>&nbsp;</th>
       <th>&nbsp;</th>
