@@ -42,7 +42,8 @@ body {
 	border-top:1px solid #fff;
 }
 #crumbsWrapper {
-	background:url(../images/bg_crumbs.png);
+	/*background:url(../images/bg_crumbs.png);*/
+        background: #E6E6E6;
 }
 #crumbs li {
 	list-style: none;
