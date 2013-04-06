@@ -5,7 +5,7 @@
 <?php if (isset($application_logs_entries) && is_array($application_logs_entries) && count($application_logs_entries)) { ?>
 <div class="block">
 <div class="header"><?php echo lang('application log events my projects'); ?></div>
-<div class="content"><table class="applicationLogs blank">
+<div class="content"><table class="applicationLogs blank table table-striped">
   <tr>
     <th><?php echo lang('application log date column name') ?></th>
     <th><?php echo lang('application log by column name') ?></th>
