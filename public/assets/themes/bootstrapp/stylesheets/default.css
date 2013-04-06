@@ -1,0 +1,87 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {font-family: georgia, 'times-new-roman', times, sans-serif;}
+
+body {
+	background:url(../images/bg.png);
+}	
+#content {background:url(../images/bg_content.png); margin-right:20px; padding:15px;}
+#innerContentWrapper {
+	background: url(../images/bg_body.png);
+        border-bottom: 2px solid #141414;
+}
+#content {
+	text-shadow: 0 1px #fff;
+	min-height:300px;
+	border:1px solid #ddd;
+}
+#pageContent {
+	padding:12px 12px 25px 12px;
+	border-top:1px solid #e2e2e2;
+}
+#pageContent h2{
+	font-size:20px;
+}
+#pageTitle {
+	font-size: 20px !important; 
+	text-shadow: 0 1px #fff;
+	margin:0 !important;
+        float:left;
+        font-family: georgia, 'times-new-roman', times, sans-serif;
+        color:#666;
+        line-height:30px;
+}
+#actionwrap {float:left; line-height: 30px; padding: 0 10px;}
+#pageHeader {
+	background: url(../images/bg_header.png);
+	padding:0 0 0 12px;
+	border-top:1px solid #fff;
+}
+#crumbsWrapper {
+	background:url(../images/bg_crumbs.png);
+}
+#crumbs li {
+	list-style: none;
+	margin:0 10px 0 0;
+	color:#222;
+	float:left;
+	padding:5px 0;
+}
+#crumbs li a {
+	text-decoration: none;
+	color:#333;
+}
+#success {
+	padding: 10px 12px;
+	background: #A8CDD6;
+	color: #3E85B4;}
+
+#error {
+padding: 10px 12px;
+background: #D8AFAF;
+color: #8B6868;
+border-bottom: 1px solid #DAA1A1;
+border-top: 1px solid #E4B9B9;}
+
+#tabs ul li {float:left; list-style: none; padding: 5px; margin-right: 10px;}
+#sidebar h2 {line-height:22px; margin:10px 0 0 0;}
+
+#userbox {margin-top: 30px;}
+#userbox li {list-style: none;}
+#userbox ul {margin:0;}
+#userbox ul li {background:url(../images/bg_button.png); border-bottom:1px solid #000; border-top:1px solid #323232;}
+#userbox ul li:hover {background:url(../images/bg_button_hover.png); border-bottom: 1px solid #3A7FAA; border-top: 1px solid #5789A8;}
+#userbox ul ul {display:none;}
+
+#account_more_menu li a {display:block; line-height: 35px; padding-left:20px; color:#ccc; text-shadow: 0 1px #17304B;}
+#account_more_menu li a:hover {text-decoration:none;}
+
+#project .icon img {float:left; margin-right:10px; border:1px solid #ccc; background:#fff;}
+.progressBar {float: right;}
+
+#footer {padding:20px 0; color: #999; text-shadow: 0 1px 1px #111;}
+
+tr {text-align:left;}
