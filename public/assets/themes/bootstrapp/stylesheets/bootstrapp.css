@@ -211,7 +211,7 @@ body {
   color: #666;
 }
 a {
-  color: #0088cc;
+  color: #1095B6;
   text-decoration: none;
 }
 a:hover,
@@ -950,6 +950,8 @@ table {
 .table {
   width: 100%;
   margin-bottom: 20px;
+  margin-top:10px;
+  border-bottom: 1px solid #ddd;
 }
 .table th,
 .table td {
@@ -5664,7 +5666,7 @@ button.close {
   #outerContentWrapper {
     margin-right:12px;
   }
-  #pageContent, #pageHeader, #crumbsWrapper, .navbar{
+  #pageContent, #pageHeader, #crumbsWrapper, .navbar, #success, #error{
     border-left:1px solid #000;
   }
   .row {

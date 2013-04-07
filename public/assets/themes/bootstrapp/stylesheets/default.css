@@ -25,6 +25,13 @@ body {
 #pageContent h2{
 	font-size:20px;
         margin:10px 0 0 0;
+        line-height: 20px;
+}
+.header {
+    	font-size:16px;
+        line-height:14px;
+        margin:5px 0 5px 0;
+        font-family: georgia, 'times-new-roman', times, sans-serif;
 }
 #pageTitle {
 	font-size: 20px !important; 
@@ -70,10 +77,10 @@ body {
         padding:2px 4px;
 }
 #success {
-	padding: 10px 12px;
-	background: #A8CDD6;
-	color: #3E85B4;}
-
+padding: 10px 14px;
+background: #B0DF95;
+color: #5C8B41;
+}
 #error {
 padding: 10px 12px;
 background: #D8AFAF;
@@ -100,3 +107,9 @@ border-top: 1px solid #E4B9B9;}
 #footer {padding:20px 0; color: #999; text-shadow: 0 1px 1px #111;}
 
 tr {text-align:left;}
+
+#project.row {
+padding: 5px 10px 10px 14px;
+border-top: 1px solid #ddd;
+background: #FCFCFC;
+border-bottom: 1px solid #ddd;}
