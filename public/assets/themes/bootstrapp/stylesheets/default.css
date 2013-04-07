@@ -29,8 +29,8 @@ body {
 }
 .header {
     	font-size:16px;
-        line-height:14px;
-        margin:5px 0 5px 0;
+        line-height:20px;
+        margin:3px 0 3px 0;
         font-family: georgia, 'times-new-roman', times, sans-serif;
 }
 #pageTitle {

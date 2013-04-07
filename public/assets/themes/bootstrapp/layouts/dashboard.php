@@ -81,7 +81,7 @@
 <?php } ?>
           <div id="pageHeader" class="row"><span id="pageTitle"><?php echo get_page_title() ?> - dashboard</span>
                 <?php if (is_array(page_actions())) { ?>
-                <div id="actionwrap" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Dropdown trigger</a>
+                <div id="actionwrap" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-chevron-down"></i></a>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                       <?php foreach (page_actions() as $page_action) { ?>
                       <li><a href="<?php echo $page_action->getURL() ?>"><?php echo clean($page_action->getTitle()) ?> - dashboard</a></li>
