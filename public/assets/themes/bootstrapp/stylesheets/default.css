@@ -48,16 +48,26 @@ body {
 }
 #crumbs li {
 	list-style: none;
-	margin:0 10px 0 0;
 	color:#fff;
         text-shadow: 0 1px #6FA9C0;
 	float:left;
-	padding:5px 0;
+	padding:6px 2px 5px 2px;
+}
+#crumbs li span{
+        background: #6FA9C0;
+        border-radius:3px;
+        padding:2px 4px;
 }
 #crumbs li a {
 	text-decoration: none;
 	color:#fff;
         text-shadow: 0 1px #6FA9C0;
+        padding:2px 4px;
+}
+#crumbs li a:hover {
+        background: #6FA9C0;
+        border-radius:3px;
+        padding:2px 4px;
 }
 #success {
 	padding: 10px 12px;
