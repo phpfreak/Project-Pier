@@ -106,10 +106,26 @@ border-top: 1px solid #E4B9B9;}
 
 #footer {padding:20px 0; color: #999; text-shadow: 0 1px 1px #111;}
 
-tr {text-align:left;}
-
 #project.row {
 padding: 5px 10px 10px 14px;
 border-top: 1px solid #ddd;
 background: #FCFCFC;
 border-bottom: 1px solid #ddd;}
+
+/* -----Table formatting ---- */
+tr {text-align:left;}
+tr.milestone td.logTypeIcon {
+    background: #F1D3D3 !important;
+    border: 1px solid #EBBABA;
+    color: #B66868;
+}
+tr.task_list td.logTypeIcon {
+    background: #F7F1B2 !important;
+    border: 1px solid #E9D779;
+    color: #D89300;
+}
+tr.project td.logTypeIcon {
+    background: #CAE9FF !important;
+    border: 1px solid #9BD3E9;
+    color: #0B90C4;
+}
