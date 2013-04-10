@@ -1,0 +1,47 @@
+div.projectLog {
+  line-height: 150%;
+}
+
+div.projectLog table {
+  width: 530px;
+}
+
+div.projectLog a {
+  font-weight: normal;
+}
+
+div.projectLog tr {
+  border-bottom: 1px dotted #ccc;
+}
+
+div.projectLog tr td {
+  padding: 5px;
+}
+
+.logType {
+	display: block;
+	color: #fff;
+	text-align: right;
+	padding: 2px 4px;
+	width: 60px;
+}
+
+.logType.comments { background: #d01000; }
+.logType.companies { background: #374656; }
+.logType.contacts { background: #ffa100; }
+.logType.projects { background: #06B4AE; }
+.logType.projectfiles { background: #818994; }
+.logType.projectfolders { background: #edeab4; color: #474536; }
+.logType.projectforms { background: #0689f8; }
+.logType.projectlinks { background: #0a9c32; }
+.logType.projectmessages { background: #2f4e7f; }
+.logType.projectmilestones { background: #7829b4; }
+.logType.projecttasklists { background: #329e33; }
+.logType.projecttasks { background: #cb7a20; }
+.logType.projecttickets { background: #ff205a; }
+.logType.projecttimes { background: #0054f6; }
+.logType.wiki { background: #ff5f3c; }
+.logType.users { background: #9759db; }
+
+
+/* projectcategories, projectlinks */
