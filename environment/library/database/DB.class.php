@@ -1,7 +1,7 @@
 <?php
 
   /**
-  * This function holds open database connections and provides interface to them. It is also used
+  * This class holds open database connections and provides interface to them. It is also used
   * for SQL logging
   *
   * @version 1.0

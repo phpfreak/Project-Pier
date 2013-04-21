@@ -262,7 +262,7 @@
     * @return string
     */
     function escapeField($field) {
-      return '`' . trim($field) . '`';
+      return '`' . str_replace('`', '``', trim($field)) . '`';
     } // escapeField
     
     /**
@@ -291,7 +291,7 @@
       } // if
       
       if (is_object($unescaped) && ($unescaped instanceof DateTimeValue)) {
-        return "'" . mysql_real_escape_string($unescaped->toMySQL()) . "'";
+		return "TIMESTAMP '" . mysql_real_escape_string($unescaped->toMySQL()) . "'";
       } // if
       
       return "'" . mysql_real_escape_string($unescaped, $this->link) . "'";
