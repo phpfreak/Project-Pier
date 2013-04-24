@@ -100,7 +100,7 @@ if (is_array($contacts)) {
   </div>
 <?php } // foreach ?>
 <?php } else { ?>
-  <table id="contactsTable">
+  <table id="contactsTable" class="table table-striped">
     <tr>
       <th><?php echo lang('name'); ?></th>
       <th><?php echo lang('email address'); ?></th>

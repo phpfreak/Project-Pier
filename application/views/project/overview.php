@@ -15,7 +15,7 @@
  </div>
 <?php } // if ?>
 <?php if (trim(active_project()->getDescription()) && active_project()->getShowDescriptionInOverview()) { ?>
-<div id="project">
+<div id="project" class="row">
 <?php $show_icon = (config_option('files_show_icons', '1') == '1'); ?>
  <div class="block hint">
 <?php $this->includeTemplate(get_template_path('view_progressbar', 'project')); ?>

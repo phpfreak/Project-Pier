@@ -22,8 +22,8 @@
   </div>
   <div id="milestones">
 <?php   if ($view_type == 'list') { ?>
-    <table id="shortMilestones">
-      <tr class="milestone short header"><th class="milestoneCompleted"></th><th class="milestoneDueDate"><?php echo lang('due date'); ?></th><th class="milestoneTitle"><?php echo lang('title'); ?></th><th class="milestoneDaysLeft"><?php echo lang('days') ?></th><th class="milestoneCommentsCount"><img src="<?php echo get_image_url("icons/comments.png"); ?>" title="Comments" alt="Comments"/></th></tr>
+    <table id="shortMilestones" class="table table-striped">
+      <tr class="milestone short"><th class="milestoneCompleted"></th><th class="milestoneDueDate"><?php echo lang('due date'); ?></th><th class="milestoneTitle"><?php echo lang('title'); ?></th><th class="milestoneDaysLeft"><?php echo lang('days') ?></th><th class="milestoneCommentsCount"><img src="<?php echo get_image_url("icons/comments.png"); ?>" title="Comments" alt="Comments"/></th></tr>
 <?php
   foreach ($all_visible_milestones as $milestone) {
     $display = true;
