@@ -1,0 +1,112 @@
+div.taskList {
+  font-size: 110%;
+  position: relative;
+  background: #f8f8f8;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 20px; 
+}
+
+div.taskList .desc {
+  padding: 0px;
+  padding-left: 4px;
+  padding-bottom: 0;
+}
+
+div.taskList .openTasks, .taskList .completedTasks {
+  margin: 10px;
+}
+
+div.taskList td.taskCheckbox {
+  padding-top: 4px;
+}
+.taskList .header {
+	border: none;
+  height: 19px;
+}
+div.taskList span.assignedTo {
+  font-weight: bolder;
+}
+.taskList .block {
+	border: none;
+	background: none;
+  padding: 0;
+  margin: 0;
+}
+div.taskList .addTask {
+  padding: 10px;
+  margin-left: 12px;
+  font-size: 13px;
+  color: #6a6a6a;
+  border-bottom: 1px solid #c6c6c6;
+  background: #eaeaea;
+}
+div.taskList .header a.task-list-title {
+	font-size: 18px;
+	padding-bottom: 2px;
+	display: block;
+  float: left;
+}
+div.taskList .header .task-list-util { float: right; position: relative; opacity: 0; }
+div.taskList:hover .header .task-list-util { opacity: 1; }
+
+div.taskList .header .task-list-util a { font-size: 13px; font-weight: normal; padding: 5px; margin-left: 5px; line-height: 16px; display: block; float: left; }
+div.taskList .header .task-list-util a:hover { background: #FFD700; }
+
+div.taskList .addTask a {
+	color: #d31b00;
+	border: none;
+	text-decoration: underline;
+}#eaeaea
+div.taskList .addTask a:hover {
+	color: #fff;
+	border: none;
+	background:#d31b00; 
+}
+div.taskList .options {
+  padding: 5px;
+  width: 100%;
+ 	background: #eaeaea;
+ 	border-bottom: 1px solid #a1a1a1;
+  top: 0px;
+  right: 0px;
+}
+
+div.taskList .completedTasks {
+  color: #666;
+  font-size: 90%;
+}
+.completedTasks .taskText  {
+	text-decoration:line-through;
+	position: relative;
+}
+div.taskList .completedTasks td {
+  padding: 0 2px; 
+  line-height: 16px;
+}
+div.taskList span.taskCompletedOnBy {
+  font-style: italic;
+  color: #333;
+  float: left;
+}
+
+div.taskList .taskListTags {
+  margin: 10px;
+  display: none;
+  font-size: 90%;
+}
+
+div.taskList .taskListTags span {
+  font-weight: bolder;
+}
+
+div.add-to-task-list { display: none; }
+
+#content .taskList table td.taskText .wrapper { position: relative; padding: 15px 20px 20px; border-bottom: 1px dotted #bbb; }
+#content .taskList table td.taskText .wrapper:hover { background: #fff; }
+#content .taskList table tr:first-child td.taskText .wrapper { border-top: 1px dotted #bbb; }
+#content .taskList table td.taskText .options { display: inline; width: auto; white-space: nowrap; margin-top: 0; padding: 0 0 0 10px; border: 0 none; background: none; opacity: 0; }
+#content .taskList table td.taskText .options a { padding: 5px 5px 2px; margin-left: 5px; border: 0 none; }
+#content .taskList table td.taskText .options a:hover { background: #FFD700; }
+#content .taskList table td.taskText .wrapper:hover .options { opacity: 1; }
+#content .taskList table td { padding: 0; }

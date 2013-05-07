@@ -1,6 +1,6 @@
 <?php
   trace(__FILE__,'begin');
-  /**
+  /** Test edit
   * PluginManager loader
   *
   * This file contains logic that has been borrowed from my favourite
@@ -9,7 +9,7 @@
   *  to suit the ProjectPier application.
   * @author Mark Brennand
   * @link http://www.activeingredient.com.au
-  *
+  * 
   * The plugin architecture supports both actions and filters. The difference
   * between these is a matter of input; all actions on the same hook receive
   * the same input regardless of order, filters received modified input from

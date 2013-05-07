@@ -1,0 +1,748 @@
+body {
+  text-align: left;
+  font-family: "lucida grande", arial, helvetica, sans-serif;
+}
+
+#wrapper {
+  text-align: center;
+  width: 100%;
+}
+
+#squidLogo {
+	float: left;
+	margin: -10px 0 0 0;
+}
+
+#squidLogo[id] {
+	float: left;
+	margin: 0;
+}
+
+#header {
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 10px;
+  text-align: left;
+}
+
+#header h1 {
+  float: left;
+  margin-top: 25px;
+  margin-left: 40px;
+  border: 0;
+}
+
+#header h1 a {
+  border: 0;
+  font-weight: bold;
+  font-size: 20px;
+  color: white;
+}
+
+#header h1 a:hover {
+  border: 0;
+  color: #fff;
+  background: transparent;
+  text-decoration: underline;
+}
+
+#systemNoticesWrapper {
+  background: red;
+  color: white;
+  text-align: center;
+}
+
+#systemNotices {
+  margin: 0 auto;
+  padding: 10px 0;
+  width: 760px;
+  text-align: left;
+}
+
+#systemNotices ul {
+  margin: 0;
+  padding: 0 0 0 15px;
+}
+
+#systemNotices a, #systemNotices a:hover {
+  border: 0;
+  color: white;
+  text-decoration: underline;
+}
+
+#userboxWrapper {
+  float: right;
+  margin-right: 30px;
+  color: #e68216;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 200;
+  font-size: 10px; 
+}
+
+#userbox {
+  padding: 5px 8px;
+  border: 0px solid #ccc;
+  background: #000 url('../../images/layout/bg_userBox.gif') repeat-x;
+}
+
+#userbox a {
+	color: #e68216;
+	text-decoration: none;
+	border: none !important;
+	
+	
+}
+
+#userbox a:hover {
+	color: #fff;
+	background: none;
+}
+
+#userbox ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#userbox ul li {
+  display: inline;
+  margin-right: 10px;
+  border: none !important;
+  background: none !important;
+
+
+}
+#userbox li img {
+	padding: 0 3px;
+	
+	}
+#userbox ul li a {
+	color: #F19F49;
+	text-decoration: none;
+	
+}
+
+#userbox ul li a:hover {
+	color: #F19F49;
+	background: none;
+	border-bottom: 1px dotted #F19F49;
+}
+
+#userbox .PopupMenuWidgetDiv {
+  position: absolute;
+ background: #000 url('../../images/layout/bg_userBox.gif') repeat-x;
+   padding: 10px 10px 15px 10px;
+  width: 140px;
+  border: none;
+  color: #686868;
+}
+
+#userbox .PopupMenuWidgetDiv p {
+  margin: 0;
+  font-weight: bolder;
+}
+
+#userbox .PopupMenuWidgetDiv ul {
+  margin-left: 12px;
+  padding-left: 5px;
+}
+
+#userbox .PopupMenuWidgetDiv ul li {
+  display: list-item;
+  font-weight: normal;
+  list-style: square;
+}
+
+
+/*-------------------- general userbox links---------------------*/
+#account_more_menu  {
+ float: right;
+ list-style: none;
+ margin: 5px 0;
+ padding: 0;
+}
+
+#account_more_menu li  {
+ xbackground: #D8D8D8 url(../../images/layout/bg_dropdown.png) repeat-x;
+ background: #000;
+ border: 1px solid #C1C1C1;
+ float: left;
+ list-style: none;
+ margin: 0;
+ margin-left: 2px;
+ padding: 0 !important;
+ font-size: bolder;
+}
+#page_actionsWrapper {
+    margin-left: 3%;
+    margin-right: 3%;
+    width: 92%
+   }
+#account_more_menu li a  {
+background: url('../../images/layout/nav_arrow.png') no-repeat 100% 25px !important;
+ background-position: top right;
+ background-repeat: no-repeat;
+ border: none;
+ xcolor: #444444;
+ color: red;
+ display: block;
+ padding: 20px 26px 10px 6px;
+}
+
+
+#account_more_menu li ul a {background: #000 !important; }
+
+/*-------------------- submenus---------------------*/
+#account_more_menu ul  {
+ background: #000;
+ clear: left;
+ 
+ font-weight: normal;
+/*height: auto;*/
+ left: -999em;
+/*using left instead of display to hide menus because display: none isn't read by screen readers*/
+ line-height: 120%;
+ list-style: none;
+ margin: 0 0 0 0;
+ padding: 10px !important;
+ position: absolute;
+ width: 17em;
+ z-index: 1000 !important;
+}
+
+#account_more_menu ul li  {
+ background-image: none !important;
+ border: none;
+ float: none;
+ font-size: 12px;
+ list-style: none;
+ list-style-image: none !important;
+ margin: 0;
+ padding: 0;
+}
+
+* html #account_more_menu ul li, * html #account_more_menu ul li a  {
+ height: 1%;
+}
+
+#account_more_menu h6  {
+ background-color: #F5F5F5;
+ border-bottom: 1px solid #8DBBCE;
+ color: #333333;
+ font-size: 12px;
+ font-weight: bold;
+ margin: 0;
+ padding: 3px 10px !important;
+}
+
+/*-------------------- second level links ---------------------*/
+#account_more_menu ul li span  {
+ color: #85C285;
+ margin: 0;
+ line-height: 22px;
+ padding: 0 !important;
+ xpadding: 3px 10px !important;
+}
+
+#account_more_menu ul li a  {
+ background-image: none !important;
+ border: none;
+ border-bottom: 1px solid #D8D8D8;
+ font-size: 12px;
+ font-weight: normal;
+ height: auto;
+ line-height: 1.2em;
+ margin: 0;
+ padding: 3px 10px !important;
+}
+
+#account_more_menu ul li a:hover  {
+ background-color: #171717 !important;
+ color: #0079AF;
+ text-decoration: none;
+}
+
+#account_more_menu li:hover ul ul, #account_more_menu li:hover ul ul ul, #account_more_menu li.sfhover ul ul, #account_more_menu li.sfhover ul ul ul  {
+ left: -999em;
+}
+
+#account_more_menu li:hover ul, #account_more_menu li li:hover ul, #account_more_menu li li li:hover ul, #account_more_menu li.sfhover ul, #account_more_menu li li.sfhover ul, #account_more_menu li li li.sfhover ul  {
+ left: auto;
+/*lists nested under hovered list items*/
+}
+
+/*-------------------- 1st level  hover---------------------*/
+#account_more_menu li:hover a, #account_more_menu li.sfhover a  {
+ xbackground-color: #F8F8F8;
+ background-color: #000;
+ xcolor: #0079AF;
+ color: #FFF;
+}
+
+/*-------------------- second level on hover---------------------*/
+#account_more_menu li li:hover a, #account_more_menu li li.sfhover a  {
+ background-color: transparent;
+ color: #0079AF;
+}
+
+#account_more_menu li:hover li a:hover, #account_more_menu li.sfhover li a:hover  {
+ background-color: #EEF6FF;
+ color: #0079AF;
+}
+
+/*-------------------- ie mac fixes ---------------------
+only IE mac will see this*/
+* html>body #account_more_menu li a  {
+}
+
+* html>body #account_more_menu li  {
+ text-align: center;
+ white-space: nowrap;
+ width: 60px;
+}
+
+* html>body #account_more_menu li li  {
+ text-align: left;
+ white-space: nowrap;
+ width: 125px;
+}
+
+* html>body #account_more_menu li li:hover ul, #account_more_menu li li.sfhover ul  {
+ left: 110px;
+}
+
+
+/** Tabs **/
+
+#tabsWrapper {
+  width: 100%;
+  text-align: left;
+}
+
+#tabs {
+  float: left;
+  padding-left: 2%;
+}
+
+#tabs ul {
+  margin: 0;
+  padding: 0 10px;
+  list-style: none;
+}
+
+#tabs ul li {
+  margin: 0 1px;
+  float: left;
+  background: black;
+}
+
+#tabs ul li a {
+  border: 0;
+  display: block;
+  padding: 6px 10px 6px 10px;
+  background: black;
+  text-align: center;
+  color: #6aa94e;
+  font-size: 13px;
+  font-weight: bolder;
+  line-height: 18px;
+  text-decoration: none;
+  font-weight: normal;
+  text-transform: lowercase; 
+}
+
+#tabs ul li a:hover {
+  font-weight: normal;
+  border: 0;
+  color: #fff;
+  text-decoration: none;
+}
+
+#tabs ul li.active {
+  background: url('../../images/layout/tab_active_right.gif') no-repeat top right;
+}
+
+#tabs ul li.active a {
+  /* padding: 0.1em 0.6em; */
+  padding: 4px 10px 0 10px;
+  background: url('../../images/layout/tab_active_left.gif') no-repeat top left;
+  color: white;
+  font-weight: bolder;
+}
+
+#tabs ul li.active a:hover {
+  color: white;
+  text-decoration: none;
+  font-weight: bolder;
+}
+
+/** Crumbs **/
+
+#crumbsWrapper {
+  float: left;
+  margin: 22px 0 0 27px;
+}
+
+#crumbsBlock {
+  margin: 0 auto;
+  margin-top: 0px;
+  padding: 0 10px;
+  width: 100%px;
+  line-height: 20px;
+  text-align: left;
+}
+    
+#crumbs {
+  float: left;
+}
+
+#crumbs ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#crumbs ul li {
+  display: inline;
+  line-height: 22px;
+  color: #545454;
+  font-size: 12px;
+}
+
+#crumbs ul li span {
+  font-weight: bolder;
+}
+
+#crumbs ul li a {
+  margin: 0 3px;
+  border: 0;
+  color: #545454;
+  text-decoration: none;
+}
+
+#crumbs ul li a:hover {
+  text-decoration: underline;
+  background: transparent;
+}
+
+#searchBox {
+  padding: 1px 0;
+  position: absolute;
+  top: 65px;
+  right: 25px;
+  text-align: right;
+}
+
+#searchBox input {
+  border: 1px solid #6aa94e;
+  font-size: 10px;
+  padding: 1px 1px 1px 4px;
+  width: 100px;
+  background: #99cc66;
+  color: #3c622c;
+}
+
+#searchBox input:focus {
+  background: #f4f19f;
+}
+
+#searchBox button {
+  margin: 0 0 0 3px;
+  border: 1px solid #3c622c;
+  padding: 0;
+  font-size: 10px;
+  color: #ccc;
+  background: #3c622c;
+  height: 16px;
+}
+
+/** Content **/
+
+#outerContentWrapper {
+  clear: both;
+  background: #7ccc5c url('../../images/layout/bg_page.png') repeat-x;
+  padding-top: 10px;
+}
+
+#innerContentWrapper {
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  text-align: left;
+}
+
+#pageTitle {
+  font-size: 16px;
+  padding: 10px 25px 10px 25px;
+  margin: 0;
+  width: 72%;
+  float: left;
+  color: #fff;
+  font-family: arial;
+  font-weight: bold;
+  background: #323232
+}
+
+#pageContent {
+	
+}
+#content {
+  float: left;
+  border-left: 1px solid #d3d3d3;
+  border-right: 1px solid #d3d3d3;
+  border-bottom: 1px solid #d3d3d3;
+  padding: 25px;
+  -moz-box-shadow: 0px 0px 8px #b9b9b9;
+  width: 72%;
+  background: #fff;
+}
+
+/** Sidebar **/
+
+#sidebar {
+  font-size: 12px;
+  width: 19%;
+  padding-left: 20px;
+  margin: -47px 0px 0px 0px;
+  float: left;
+}
+
+#sidebar h2 {
+  margin: 10px 0 2px 0;
+  font-size: 12px;
+  
+}
+
+#sidebar .blockContent {
+  margin-bottom: 10px;
+  padding: 0 5px;
+  line-height: 170%;
+}
+
+#sidebar ul {
+	list-style-image: disc;
+	margin-left: 5px;
+	}
+
+#sidebar .listWithDetails li {
+  padding-bottom: 5px;
+}
+
+/** Page actions **/
+
+#page_actions {
+ margin-bottom: 10px;
+ overflow: hidden;
+ clear: both;
+}
+
+#page_actions ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#page_actions ul li {
+  padding-right: 3px;
+  display: block;
+  float: left;
+  margin-right: 15px;
+  overflow: hidden;
+  padding: 2px 12px 2px 12px;
+  background: red;
+  -moz-border-radius: 15px;
+  background: url('../../images/layout/button_bg.png') repeat-x;
+  border: 2px solid #dedede;
+  text-decoration: none;
+}
+
+#page_actions ul li a {
+  color: #2b2b2b;
+  float: left;
+  font-size: 13px;
+  padding-left: 18px;
+  font-weight: bold;
+  text-shadow: 1px 1px #fff;
+  padding-top: 2px;
+  padding-bottom: 3px;
+  border: none;
+  background: url('../../images/layout/plus_icon.png') 0px 3px no-repeat;
+  display: block;
+  text-decoration: none;
+}
+
+#page_actions ul li a:hover {
+  color: black;
+}
+
+/** Footer **/
+
+#footer {
+  clear: both;
+  padding-left: 3%;
+  text-align: left;
+  padding-bottom: 40px;
+  color: #484848;
+  line-height: 130%;
+  font-size: 11px;
+}
+	
+#copy {
+  float: left;
+  color: #484848;
+}
+
+#productSignature {
+  text-align: right;
+  display: none;
+}
+
+#listOfRssFeeds {
+  list-style: none;
+  margin-top: 12px;
+  padding: 0 0 0 4px;
+}
+
+#listOfRssFeeds li {
+  padding-left: 16px;
+  background: url('../../images/icons/feed.gif') no-repeat;
+  line-height: 12px;
+  margin: 2px 0;
+}
+
+/** Helper classes **/
+
+.clear {
+  clear: both;
+  height: 1px;
+  overflow: hidden;
+}
+
+#error, #success {
+  margin: 10px 0;
+  padding: 10px ;
+  font-size: 120%; 0
+  border: 1px solid ;
+  clear: both;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+}
+
+#error {
+  background: #ea4141;
+  border-color: red;
+}
+
+#success {
+  background-color:#7fd381;
+  border-bottom:1px solid #7CAF7E;
+  color: #3C622C;
+
+}
+
+/** User card **/
+
+div.card {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+* html div.card {
+  padding-top: 5px;
+}
+
+div.card div.cardIcon {
+  float: left;
+  width: 50px;
+}
+
+div.card div.cardData {
+  margin-left: 60px;
+}
+
+div.card div.cardData h2 {
+  margin-top: 0;
+}
+.cardData h2 {
+	margin-left: 10px;
+	margin-bottom: 8px;
+}
+div.card div.cardBlock {
+  margin-bottom: 25px;
+  padding-left: 10px;
+}
+#content .card {
+	padding: 20px;
+}
+#content #projects td {
+	padding: 10px;
+}
+#content .taskList table td {
+	padding: 4px 0px 4px 0px;
+}
+#content .taskList .taskCheckbox {
+	padding-right: 4px;
+}
+#content table td {
+	padding: 10px;
+}
+div.card div.cardBlock span {
+  font-size: 90%;
+  font-weight: bolder;
+  color: #333;
+}
+
+div.card table {
+  margin-top: 10px;
+}
+
+div.card table, div.card table tr, div.card table td {
+  border: 0;
+}
+
+div.card table tr, div.card table td {
+  padding: 2px;
+}
+
+/** / user card **/
+
+/** Advanced pagination **/
+
+div.advancedPagination {
+  margin: 10px;
+  text-align: right;
+}
+
+div.advancedPagination span {
+  line-height: 20px;
+  font-size: 12px;
+  color: #666;
+  
+}
+
+div.advancedPagination select {
+  padding: 0;
+}
+
+/** /Advanced pagination **/
+
+/** Private **/
+
+div.private {
+  float: left;
+  height: 12px;
+  width: 50px;
+  overflow: hidden;
+  background: url('../../images/icons/private.gif') no-repeat;
+  position: relative;
+  top: 4px;
+  left: 5px;
+}
+
+div.private span {
+  display: none;
+}
