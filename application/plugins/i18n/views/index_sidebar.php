@@ -28,7 +28,7 @@
 </style>
 <div class="sidebarBlock">
   <h2><?php echo lang('categories') ?></h2>
-  <div class="blockContent" id="sxidebarFolderList">
+  <div class="blockContent" id="xsidebarFolderList">
     <ul class="listWithDetails">
 <?php if (true && $current_category instanceof Category) { ?>
       <li><a href="<?php echo ProjectFiles::getIndexUrl($order, $page) ?>"><?php echo lang('all files') ?></a></li>

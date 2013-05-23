@@ -1,6 +1,6 @@
 <div class="sidebarBlock">
   <h2><?php echo lang('folders') ?></h2>
-  <div class="blockContent" id="sxidebarFolderList">
+  <div class="blockContent" id="xsidebarFolderList">
     <ul>
 <?php if ($current_folder instanceof ProjectFolder) { ?>
 <?php $current_folder_id = $current_folder->getId(); ?>
