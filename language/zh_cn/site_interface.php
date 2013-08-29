@@ -64,6 +64,14 @@
     'user card of' => '%s 的用户信息卡',
     'company card of' => '%s 的公司信息卡',
     
+    'weekly schedule' => '每周时间表',
+    'contacts' => '联系人',
+    'add contact' => '添加联系人',
+    'files' => '文件',
+    'add file' => '添加文件',
+    'add folder' => '添加文件类',
+    'reports' => '报告',
+    
     // Upgrade
     'upgrade is not available' => '当前没有新的版本可下载',
     'check for upgrade now' => '现在检查',
