@@ -95,7 +95,7 @@
     'tickets' => 'Ticket',
     'trivial' => 'Banale',
     'update ticket options' => 'Aggiorna opzioni',
-    'updated on by' => '%s | %s | %s',
+    'updated on by' => '%s | <a href="%s">%s</a> | %s',
     'view new ticket' => 'Vedi questo ticket',
     'view ticket' => 'Vedi ticket',
 
