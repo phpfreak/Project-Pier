@@ -98,7 +98,7 @@
       <td><?php echo select_milestone("ticket[milestone_id]", $ticket->getProject(), array_var($ticket_data, 'milestone_id'), array('id' => 'ticketFormMilestone')) ?></td>
 <?php } else { ?>
 <?php if($ticket->getMilestoneId()) { ?>
-      <td><?php echo lang($ticket->getMilestoneId()->getObjectName()); ?></td>
+      <td><?php echo clean($ticket->getMilestone()->getObjectName()); ?></td>
 <?php } else { ?>
       <td></td>
 <?php } // if?>
