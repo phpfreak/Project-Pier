@@ -235,6 +235,16 @@
     function getEditUrl() {
       return get_url('links', 'edit_link', array('id' => $this->getId(), 'active_project' => $this->getProjectId()));
     } // getEditUrl
+    
+    /**
+    * Return delete link logo URL
+    *
+    * @param void
+    * @return string
+    */
+    function getDeleteLogoUrl() {
+	   return get_url('links', 'delete_logo', array('id' => $this->getId(), 'active_project' => $this->getProjectId()));
+    } // getDeleteLogoUrl
 
     /**
     * Return edit link logo URL
