@@ -1,6 +1,6 @@
 <?php
 
-  /**
+  /** 
   * Error messages
   *
   * @version 1.0
@@ -11,13 +11,19 @@
   return array(
   
     // General
-    'invalid email address' => 'El formato de la dirección de correo es inválido',
-    'id missing' => 'El valor de ID requerido no se encuentra',
+    'invalid email address' => 'El formato de la dirección de correo no es válido',
+    'id missing' => 'No se encuentra el valor de ID requerido',
    
     // Company validation errors
-    'company name required' => 'El nombre de compañía / organización es requerido',
-    'company homepage invalid' => 'El valor de Página de inicio no es un URL válido (http://www.example.com)',
+    'company name required' => 'El nombre de la compañía/organización es requerido',
+    'company homepage invalid' => 'El valor de la página de inicio no es una URL válida (http://www.example.com)',
+
+    // Contact validation errors
+    'name value required' => 'Name is required',
+    'existing contact required' => 'You need to select an existing contact',
     
+    // Add user to contact form
+    'contact already has user' => 'Este contacto ya tiene una cuenta de usuario adjunta.',    
     // User validation errors
     'username value required' => 'El usuario es requerido',
     'username must be unique' => 'Lo sentimos pero el nombre de usuario ingresado ya existe',
@@ -32,28 +38,29 @@
     
     // Avatar
     'invalid upload type' => 'Tipo de archivo inválido. Solo se permiten archivos %s',
-    'invalid upload dimensions' => 'Dimensión de imágen inválida. La dimensión máxima permitida es de %sx%s pixeles',
+    'invalid upload dimensions' => 'Dimensión de imágen no válida. La dimensión máxima permitida es de %sx%s píxeles',
     'invalid upload size' => 'Tamaño de archivo excedido. El tamaño máximo permitido es de %s',
-    'invalid upload failed to move' => 'Ocurrio un fallo al mover el archivo subido',
+    'invalid upload failed to move' => 'Ocurrió un fallo al mover el archivo subido',
     
     // Registration form
-    'terms of services not accepted' => 'Para poder crear una cuenta debes leer y aceptar los términos y condiciones de servicio',
+    'terms of services not accepted' => 'Para poder crear a una cuenta debe leer y aceptar los términos y condiciones del servicio',
     
     // Init company website
-    'failed to load company website' => 'Error al cargar sitio web. No se encontró la compañía propietaria',
-    'failed to load project' => 'Error al cargar proyecto acitovo',
+    'failed to load company website' => 'Error al cargar el sitio web. No se encontró la empresa propietaria',
+    'failed to load project' => 'Error al cargar el proyecto activo',
     
     // Login form
-    'username value missing' => 'Ingresa tu nombre de usuario',
-    'password value missing' => 'Ingresa tu contraseña',
-    'invalid login data' => 'Error al iniciar sesión. Por favor verifica los datos e intenta nuevamente',
+    'username value missing' => 'Introduzca su nombre de usuario',
+    'password value missing' => 'Introduzca su contraseña',
+    'invalid login data' => 'Error al iniciar sesión. Por favor, verifique los datos e inténtelo de nuevo',
+    'invalid password' => 'Contraseña incorrecta. Por favor, verifique su clave e inténtelo de nuevo',
     
     // Add project form
-    'project name required' => 'El nombre del proecto es requerio',
+    'project name required' => 'Se requiere un nombre para el proyecto',
     'project name unique' => 'El nombre del proyecto debe ser único',
     
     // Add message form
-    'message title required' => 'El título es requerido',
+    'message title required' => 'Un título es requerido',
     'message title unique' => 'El título debe ser único para este proyecto',
     'message text required' => 'El valor de texto es requerido',
     
@@ -61,25 +68,25 @@
     'comment text required' => 'El texto del comentario es requerido',
     
     // Add milestone form
-    'milestone name required' => 'El nombre del milestone es requerido',
-    'milestone due date required' => 'La fecha de vencimiento del milestone es requerida',
+    'milestone name required' => 'Se requiere un nombre para el hito',
+    'milestone due date required' => 'Se requiere una fecha de vencimiento del hito',
 
     // Add task list
-    'task list name required' => 'El nombre de la lista de tareas es requerido',
+    'task list name required' => 'Se requiere un nombre para la lista de tareas',
     'task list name unique' => 'El nombre de la lista de tareas debe ser único para este proyecto',
     
     // Add task
     'task text required' => 'El texto de la tarea es requerido',
 
     // Test mail settings
-    'test mail recipient required' => 'La dirección del destinatario es requerida',
-    'test mail recipient invalid format' => 'El formato de dirección de destinatario es inválido',
-    'test mail message required' => 'El mensaje del correo es requerido',
+    'test mail recipient required' => 'Se requiere una dirección de destinatario',
+    'test mail recipient invalid format' => 'El formato de dirección de destinatario no es válido',
+    'test mail message required' => 'Se requiere un mensaje para el correo',
     
     // Mass mailer
     'massmailer subject required' => 'El asunto del mensaje es requerido',
     'massmailer message required' => 'El cuerpo del mensaje es requerido',
-    'massmailer select recipients' => 'Por favor selecciona los usuarios que recibirán este correo',
+    'massmailer select recipients' => 'Por favor, selecciona los usuarios que recibirán este correo',
     
   ); // array
 
