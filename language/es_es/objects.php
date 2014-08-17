@@ -5,6 +5,8 @@
     // Objects
     'user' => 'Usuario',
     'users' => 'Usuarios',
+    'contact' => 'Contacto',
+    'contacts' => 'Contactos',
     'member' => 'Miembro',
     'members' => 'Miembros',
     'company' => 'Compañía',
@@ -18,8 +20,11 @@
     'messages' => 'Mensajes',
     'comment' => 'Comentario',
     'comments' => 'Comentarios',
-    'milestone' => 'Milestone',
-    'milestones' => 'Milestones',
+    'status update' => 'Estado de actualización',
+    'status updates' => 'Estado de actualizaciones',
+    'milestone' => 'Hito',
+    'milestones' => 'Hitos',
+    'user account' => 'Cuenta de usuario',
     'task' => 'Tarea',
     'tasks' => 'Tareas',
     'task list' => 'Lista de tareas',
@@ -27,9 +32,17 @@
     'message subscribers' => 'Suscriptores',
     'configuration category' => 'Categoría de configuración',
     'configuration categories' => 'Categorías de configuracion',
+    'text snippet' => 'Fragmento de texto',
+    'text snippets' => 'Fragmentos de texto',
+    'new company' => 'Nueva empresa',
+    'existing company' => 'Empresa existente',
+    'memo' => 'Mis notas del proyecto',
+    'no folders' => 'Sin carpetas',
     
     // Variations
-    'owner company' => 'Compañía propietaria',
+    'owner company' => 'Empresa propietaria',
+    'favorite company' => 'Empresa favorita',
+    'favorite companies' => 'Empresas favoritas',
     
     'open milestone' => 'Milestone abierto',
     'open milestones' => 'Milestones abiertos',
@@ -46,15 +59,18 @@
     'active projects' => 'Proyectos activos',
     'finished project' => 'Proyecto terminado',
     'finished projects' => 'Proyectos terminados',
+    'deleted or unknown' => '***Eliminado o desconocido***',
     
     'important message'  => 'Mensaje importante',
     'important messages' => 'Mensajes importantes',
     
     'private message' => 'Mensaje privado',
-    'private milestone' => 'Milestone privado',
+    'private milestone' => 'Hito privado',
     'private time' => 'Tiempo privado',
     'private task list' => 'Listas de tareas privadas',
-    'private comment' => 'Comentario privado',  
+    'private comment' => 'Comentario privado',   
+
+    'actions' => 'Acciones',
   ); // array
 
 ?>
