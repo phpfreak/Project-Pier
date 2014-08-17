@@ -43,7 +43,7 @@
     'invalid upload failed to move' => 'Ocurrió un fallo al mover el archivo subido',
     
     // Registration form
-    'terms of services not accepted' => 'Para poder crear a una cuenta debe leer y aceptar los términos y condiciones del servicio',
+    'terms of services not accepted' => 'Para poder crear una cuenta debe leer y aceptar los términos y condiciones del servicio',
     
     // Init company website
     'failed to load company website' => 'Error al cargar el sitio web. No se encontró la empresa propietaria',
