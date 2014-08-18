@@ -79,9 +79,9 @@
     'success edit logo' => 'El logotipo ha sido actualizado',
     'success delete logo' => 'El logotipo ha sido eliminado',
     
-    'success add milestone' => 'El milestone \'%s\' ha sido creado satisfactoriamente',
-    'success edit milestone' => 'El milestone \'%s\' ha sido actualizado satisfactoriamente',
-    'success deleted milestone' => 'El milestone \'%s\' ha sido eliminado satisfactoriamente',
+    'success add milestone' => 'El hito \'%s\' ha sido creado satisfactoriamente',
+    'success edit milestone' => 'El hito \'%s\' ha sido actualizado satisfactoriamente',
+    'success deleted milestone' => 'El hito \'%s\' ha sido eliminado satisfactoriamente',
 
     'success add time' => 'Tiempo \'%s\' ha sido creado satisfactoriamente',
     'success edit time' => 'Tiempo \'%s\' ha sido actualizado satisfactoriamente',
@@ -135,8 +135,8 @@
     
     'success hide welcome info' => 'El marco de información de bienvenida se escondió satisfactoriamente',
     
-    'success complete milestone' => 'El milestone \'%s\' ha sido completado',
-    'success open milestone' => 'El milestone \'%s\' ha sido reabierto',
+    'success complete milestone' => 'El hito \'%s\' ha sido completado',
+    'success open milestone' => 'El hito \'%s\' ha sido reabierto',
     
     'success subscribe to message' => 'Has sido suscrito a este mensaje satisfactoriamente',
     'success unsubscribe to message' => 'Has sido dado de baja de este mensaje satisfactoriamente',
@@ -160,7 +160,7 @@
     'error delete message' => 'Error al eliminar los mensajes seleccionados',
     'error update message options' => 'Error al actualizar opciones de mensaje',
     'error delete comment' => 'Error al eliminar comentarios seleccionados',
-    'error delete milestone' => 'Error al eliminar el milestone seleccionado',
+    'error delete milestone' => 'Error al eliminar el hito seleccionado',
     'error delete time' => 'Error al eliminar el tiempo seleccionado',
     'error complete task' => 'Error al completar la tarea seleccionada',
     'error open task' => 'Error al reabrir la tarea seleccionada',
@@ -180,8 +180,8 @@
     'error edit avatar' => 'Error al editar avatar',
     'error delete avatar' => 'Error al eliminar avatar',
     'error hide welcome info' => 'Error al esconder información de bienvenida',
-    'error complete milestone' => 'Error al completar el milestone seleccionado',
-    'error open milestone' => 'Error al reabrir el milestone seleccionado',
+    'error complete milestone' => 'Error al completar el hito seleccionado',
+    'error open milestone' => 'Error al reabrir el hito seleccionado',
     'error edit company logo' => 'Error al actualizar el logo de la compañía',
     'error delete company logo' => 'Error al eliminar logo de la compañía',
     'error subscribe to message' => 'Error al suscribirse al mensaje seleccionado',
@@ -203,12 +203,12 @@
     
     // Confirmation
     'confirm delete message' => '¿Está seguro que deseas eliminar este mensaje?',
-    'confirm delete milestone' => '¿Está seguro que deseas eliminar este milestone?',
+    'confirm delete milestone' => '¿Está seguro que deseas eliminar este hito?',
     'confirm delete task list' => '¿Está seguro que deseas eliminar esta lista de tareas y todas sus tareas?',
     'confirm delete task' => '¿Está seguro que deseas eliminar esta tarea?',
     'confirm delete comment' => '¿Está seguro que deseas eliminar este comentario?',
     'confirm delete category' => '¿Está seguro que deseas eliminar esta categoría?',
-    'confirm delete project' => '¿Está seguro que deseas eliminar este proyecto y toda la información relacionada (mensajes, tareas, milestones, archivos...)?',
+    'confirm delete project' => '¿Está seguro que deseas eliminar este proyecto y toda la información relacionada (mensajes, tareas, hitos, archivos...)?',
     'confirm delete project logo' => '¿Está seguro que deseas eliminar este logo?',
     'confirm delete logo' => '¿Está seguro que desea eliminar este logotipo?',
     'confirm complete project' => '¿Está seguro que deseas etiquetar este proyecto como terminado? Todas las acciones dentro del proyecto serán bloqueadas',
