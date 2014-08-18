@@ -16,7 +16,7 @@
     'online users' => 'Usuarios en línea',
     'online users desc' => 'Usuarios activos los últimos 15 minutos:',
     
-    'dashboard' => 'Resúmen',
+    'dashboard' => 'Resumen',
     'administration' => 'Administración',
     'my account' => 'Mi cuenta',
     'my settings' => 'Mis preferencias',
