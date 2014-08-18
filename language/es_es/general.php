@@ -101,7 +101,7 @@
     'all' => 'Todo(s)',
     'or' => 'O',
     'by' => 'Por',
-    'on' => 'Sobre'
+    'on' => 'Sobre',
     'in' => 'En',
     'true' => 'Verdadero',
     'false' => 'Falso',
