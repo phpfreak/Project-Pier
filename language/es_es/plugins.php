@@ -3,7 +3,7 @@
   return array(
   
     'plugin' => 'Complemento',
-    'plugins' => 'Complenetos',
+    'plugins' => 'Complementos',
     'list of plugins' => 'Lista de complementos disponibles',
     'update plugins' => 'Cambiar',
     
