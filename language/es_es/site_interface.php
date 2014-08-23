@@ -61,7 +61,7 @@
     'day left' => 'queda %s día',
     
     'user card of' => 'Tarjeta de usuario de %s',
-    'company card of' => 'Tarjeta de compañía %s',
+    'company card of' => 'Tarjeta de empresa %s',
     
     // Upgrade
     'upgrade is not available' => 'No existen nuevas versiones de ProjectPier disponibles para descargar',
@@ -96,7 +96,7 @@
     // Dashboard
     'welcome to new account' => 'Bienvenido a su cuenta recien creada',
     'welcome to new account info' => '%s, bienvenido a su nueva cuenta. De ahora en adelante estará disponible en %s (puede marcar como favorito este enlace). Puede comenzar en breve siguiendo estos sencillos pasos:',
-    'add welcome task text' => 'Hola %s, vbieveniedo a su nueva cuenta. Por favor actualice su erfil dentro de los 7 días siguientes desde aquí %s.',
+    'add welcome task text' => 'Hola %s, bienvenido a su nueva cuenta. Por favor actualice su perfil dentro de los 7 días siguientes desde aquí %s.',
     'add welcome task' => 'Añadir una tarea al proyecto Welcome',
     'add welcome task desc' => 'Una tarea fue agregada a la lista de tareas del proyecto Welcome con un texto de introducción e instrucciones para actualizar su perfil.',
     
