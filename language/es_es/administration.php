@@ -109,7 +109,7 @@
     'config option name per_project_activity_logs' => 'Registro de actividad por proyecto',
     'config option name categories_per_page' => 'Número de categorías por página',
 
-    'config option name character_set' => 'Fijar la codificaciób de caracteres a utilizar',
+    'config option name character_set' => 'Fijar la codificación de caracteres a utilizar',
     'config option name collation' => 'Ordenamiento de caracteres',
 
     'config option name session_lifetime' => 'Duración de la sesión',
@@ -137,10 +137,10 @@
     'config option name authdb database' => 'Nombre de la base de datos',
     'config option desc authdb database' => 'Nombre de la base de datos en el servidor ',
     'config option name authdb sql' => 'Seleccionar SQL',
-    'config option desc authdb sql' => 'La SQL para recuperar una única fila de la tabla que contiene los datos del usuario. Al menos 1 de campo deberá ser devuelto con la dirección de correo electrónico. $username/$password es el marcador de posición para el nombre de usuario/contraseña al inicio de sesión.',
+    'config option desc authdb sql' => 'La SQL para recuperar una única fila de la tabla que contiene los datos del usuario. Al menos un campo deberá ser devuelto con la dirección de correo electrónico. $username/$password es el marcador de posición para el nombre de usuario/contraseña al inicio de sesión.',
 
-    'config option name parking space reservation url' => 'Parking space url',
-    'config option desc parking space reservation url' => 'Enter the complete url to start the parking space reservation web application',
+    'config option name parking space reservation url' => 'URL de la plaza de aparcamiento',
+    'config option desc parking space reservation url' => 'Introduzca la url completa para iniciar la aplicación web de reservas de plaza de aparcamiento',
 
     'config option name map url' => 'URL de la plaza de aparcamiento',
     'config option desc map url' => 'La URL para visualizar un mapa que muestra la ubicación de un contacto o empresa. $location es el marcador de posición para los detalles de la ubicación.',
