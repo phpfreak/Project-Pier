@@ -5,3 +5,5 @@
 <?php echo "\n"?>
 <?php echo lang('Username') ?>: <?php echo $new_account->getUsername() ?>
 <?php echo lang(' Password') ?>: <?php echo $raw_password ?>
+<?php echo "\n"?>
+<?php echo externalUrl(ROOT_URL) ?>
