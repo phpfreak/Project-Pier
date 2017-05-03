@@ -295,8 +295,8 @@
         $this->redirectTo('links', 'index');
       } // if
       
-      $link = links::findById(get_id());
-      if (!($link instanceof link)) {
+      $link = ProjectLinks::findById(get_id());
+      if (!($link instanceof ProjectLink)) {
         flash_error(lang('link dnx'));
         $this->redirectToReferer(get_url('links', 'index'));
       } // if
